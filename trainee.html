@@ -1,6 +1,16 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>منصة التكوين المستمر</title><style>
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>منصة التكوين</title>
+
+<style>
 
 /* =========================
    الإعدادات العامة
@@ -12,60 +22,66 @@
 
 body {
     margin: 0;
-    font-family: "Tahoma", "Arial", sans-serif;
+    font-family: Tahoma, Arial, sans-serif;
     background: #f5f7fb;
     color: #263238;
-    line-height: 1.8;
 }
 
+
 /* =========================
-   الرأس
+   الشريط العلوي
 ========================= */
 
 header {
     background: linear-gradient(135deg, #0d47a1, #1976d2, #42a5f5);
     color: white;
-    padding: 45px 20px;
+    padding: 35px 20px;
     text-align: center;
     box-shadow: 0 5px 20px rgba(0,0,0,0.12);
 }
 
+.logo {
+    font-size: 55px;
+    margin-bottom: 8px;
+}
+
 header h1 {
     margin: 0;
-    font-size: 34px;
-    font-weight: bold;
+    font-size: 32px;
 }
 
 header p {
-    margin: 8px 0 0;
+    margin-top: 10px;
     font-size: 17px;
     opacity: 0.95;
 }
+
 
 /* =========================
    الحاوية
 ========================= */
 
 .container {
-    width: 92%;
     max-width: 1100px;
-    margin: 35px auto;
+    margin: 30px auto;
+    padding: 0 18px;
 }
 
+
 /* =========================
-   رسالة الصفحة
+   رسالة التحميل
 ========================= */
 
 #message {
     background: white;
-    padding: 18px 22px;
-    border-radius: 14px;
-    margin-bottom: 25px;
+    border-radius: 18px;
+    padding: 20px;
     text-align: center;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.06);
     font-weight: bold;
-    color: #1565c0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
 }
+
 
 /* =========================
    بطاقة الدورة
@@ -73,90 +89,48 @@ header p {
 
 .course {
     background: white;
-    padding: 28px;
+    padding: 25px;
     margin-bottom: 25px;
-    border-radius: 18px;
-    border: 1px solid #e5eaf0;
-    box-shadow: 0 6px 20px rgba(31, 45, 61, 0.08);
-    transition: 0.25s ease;
+    border-radius: 20px;
+    border: 1px solid #e6eaf0;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+    transition: 0.25s;
 }
 
 .course:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 28px rgba(31, 45, 61, 0.12);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
 }
 
 .course h2 {
+    color: #1565c0;
     margin-top: 0;
-    color: #0d47a1;
-    font-size: 24px;
-    border-bottom: 2px solid #e3f2fd;
-    padding-bottom: 12px;
+    font-size: 23px;
 }
 
-/* =========================
-   وصف الدورة
-========================= */
-
-.course > p {
+.course-description {
     color: #607d8b;
-    font-size: 16px;
+    line-height: 1.8;
 }
 
+
 /* =========================
-   شريط التقدم
+   شارة التسجيل
 ========================= */
 
-#progress-text {
+.enrolled {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 10px 16px;
+    border-radius: 30px;
+    margin-top: 12px;
     font-weight: bold;
 }
 
-.progress {
-    background: #e8edf3;
-    height: 16px;
-    border-radius: 20px;
-    overflow: hidden;
-    margin: 12px 0 18px;
-}
-
-.progress-bar {
-    background: linear-gradient(90deg, #00a86b, #43c59e);
-    height: 100%;
-    width: 0%;
-    border-radius: 20px;
-    transition: width 0.5s ease;
-}
 
 /* =========================
-   الدرس
-========================= */
-
-.lesson {
-    background: #f8fafc;
-    border: 1px solid #e4e9ef;
-    padding: 20px;
-    margin-top: 15px;
-    border-radius: 14px;
-    transition: 0.2s;
-}
-
-.lesson:hover {
-    background: #f1f7fc;
-}
-
-.lesson h3 {
-    margin-top: 0;
-    color: #1565c0;
-    font-size: 19px;
-}
-
-.lesson p {
-    color: #455a64;
-    white-space: pre-line;
-}
-
-/* =========================
-   الأزرار
+   أزرار
 ========================= */
 
 button,
@@ -164,194 +138,359 @@ a {
     font-family: inherit;
 }
 
+.enroll-button,
 .pdf-button,
 .complete-button,
-.certificate-button,
-.enroll-button {
+.certificate-button {
+
     display: inline-block;
+
     color: white;
-    padding: 11px 18px;
-    border-radius: 9px;
-    text-decoration: none;
-    margin-top: 10px;
+
     border: none;
+
+    padding: 11px 18px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    margin-top: 12px;
+
     cursor: pointer;
+
     font-size: 15px;
-    font-weight: bold;
-    transition: 0.2s ease;
+
+    transition: 0.2s;
+}
+
+.enroll-button:hover,
+.pdf-button:hover,
+.complete-button:hover,
+.certificate-button:hover {
+
+    transform: translateY(-2px);
+
+    opacity: 0.92;
+}
+
+.enroll-button {
+    background: linear-gradient(135deg,#2e7d32,#43a047);
 }
 
 .pdf-button {
-    background: #1565c0;
-}
-
-.pdf-button:hover {
-    background: #0d47a1;
-    transform: translateY(-1px);
+    background: linear-gradient(135deg,#1565c0,#1e88e5);
 }
 
 .complete-button {
-    background: #00897b;
+    background: linear-gradient(135deg,#00897b,#26a69a);
     margin-right: 8px;
 }
 
-.complete-button:hover {
-    background: #00695c;
-}
-
 .certificate-button {
-    background: #7b1fa2;
+    background: linear-gradient(135deg,#6a1b9a,#8e24aa);
 }
 
-.certificate-button:hover {
-    background: #6a1b9a;
-}
-
-.enroll-button {
-    background: #2e7d32;
-}
-
-.enroll-button:hover {
-    background: #1b5e20;
-    transform: translateY(-1px);
-}
 
 /* =========================
-   حالة الإكمال
+   الدرس
+========================= */
+
+.lesson {
+
+    background: #f8fafc;
+
+    padding: 20px;
+
+    margin-top: 16px;
+
+    border-radius: 15px;
+
+    border-right: 5px solid #1976d2;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+}
+
+.lesson h3 {
+
+    margin-top: 0;
+
+    color: #263238;
+
+    font-size: 19px;
+}
+
+.lesson p {
+
+    line-height: 1.9;
+
+    color: #546e7a;
+
+    white-space: pre-line;
+}
+
+
+/* =========================
+   زر الدرس المكتمل
 ========================= */
 
 .completed {
+
     background: #78909c !important;
-    cursor: default;
+
+    cursor: default !important;
+
+    opacity: 0.85;
 }
 
-.enrolled {
-    display: inline-block;
-    background: #e8f5e9;
-    color: #2e7d32;
-    padding: 10px 16px;
-    border-radius: 9px;
-    margin-top: 10px;
-    font-weight: bold;
-    border: 1px solid #c8e6c9;
-}
 
 /* =========================
-   انتهاء الدورة
+   التقدم
+========================= */
+
+.progress-area {
+
+    margin-top: 22px;
+
+    background: #f8fafc;
+
+    padding: 17px;
+
+    border-radius: 15px;
+}
+
+.progress-text {
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+
+    color: #37474f;
+}
+
+.progress {
+
+    background: #e0e0e0;
+
+    border-radius: 20px;
+
+    height: 16px;
+
+    overflow: hidden;
+}
+
+.progress-bar {
+
+    background: linear-gradient(
+        90deg,
+        #2e7d32,
+        #66bb6a
+    );
+
+    height: 100%;
+
+    width: 0%;
+
+    border-radius: 20px;
+
+    transition: width 0.5s ease;
+}
+
+
+/* =========================
+   اكتملت الدورة
 ========================= */
 
 .finished {
+
     background: linear-gradient(
         135deg,
         #fff8e1,
         #fff3cd
     );
+
     color: #795548;
-    padding: 15px;
-    border-radius: 12px;
-    margin-top: 15px;
+
+    padding: 16px;
+
+    border-radius: 14px;
+
+    margin-top: 18px;
+
     font-weight: bold;
-    border: 1px solid #ffe082;
+
+    border-right: 5px solid #ffb300;
 }
 
+
 /* =========================
-   قسم الشهادات
+   عنوان الشهادات
 ========================= */
 
-#certificateArea {
-    margin-top: 35px;
-}
+.certificates-title {
 
-#certificateArea .course:first-child {
     background: linear-gradient(
         135deg,
-        #fff,
-        #faf5ff
+        #6a1b9a,
+        #8e24aa
     );
-    border-right: 5px solid #7b1fa2;
+
+    color: white;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    margin-top: 35px;
+
+    margin-bottom: 20px;
+
+    box-shadow: 0 8px 25px rgba(106,27,154,0.2);
 }
 
-#certificateArea .course h2 {
-    color: #7b1fa2;
+.certificates-title h2 {
+    margin: 0 0 8px 0;
 }
+
 
 /* =========================
-   الشهادة
+   بطاقة الشهادة
+========================= */
+
+.certificate-card {
+
+    background: white;
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    margin-bottom: 18px;
+
+    border: 1px solid #eee;
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+.certificate-card h3 {
+
+    color: #6a1b9a;
+
+    margin-top: 0;
+}
+
+
+/* =========================
+   فاصل
+========================= */
+
+.section-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 30px 0 15px;
+
+    font-size: 22px;
+
+    color: #263238;
+}
+
+
+/* =========================
+   قالب الشهادة
 ========================= */
 
 #certificateTemplate {
+
     position: absolute;
+
     left: -10000px;
+
     top: 0;
 
     width: 1123px;
+
     height: 794px;
 
     background: white;
-    padding: 45px;
+
+    padding: 50px;
 
     box-sizing: border-box;
+
     text-align: center;
 
     font-family: Arial, sans-serif;
+
     direction: rtl;
 }
 
 .certificate-border {
+
     width: 100%;
+
     height: 100%;
 
-    border: 10px double #1565c0;
+    border: 8px double #1565c0;
+
     box-sizing: border-box;
 
     padding: 45px;
-
-    position: relative;
-}
-
-.certificate-border::before {
-    content: "";
-    position: absolute;
-    inset: 15px;
-    border: 1px solid #90caf9;
-    pointer-events: none;
 }
 
 .certificate-title {
+
     font-size: 42px;
+
     font-weight: bold;
+
     color: #1565c0;
-    margin: 25px 0;
+
+    margin: 20px 0;
 }
 
 .certificate-subtitle {
+
     font-size: 24px;
+
     margin: 15px 0;
 }
 
 .certificate-name {
+
     font-size: 38px;
+
     font-weight: bold;
-    color: #0d47a1;
+
     margin: 25px 0;
 }
 
 .certificate-course {
+
     font-size: 28px;
+
     font-weight: bold;
+
     color: #333;
+
     margin: 20px 0;
 }
 
 .certificate-number {
+
     font-size: 18px;
+
     margin-top: 25px;
-    color: #546e7a;
 }
 
 #qrCode {
     margin-top: 15px;
 }
+
 
 /* =========================
    الهاتف
@@ -360,25 +499,25 @@ a {
 @media (max-width: 700px) {
 
     header {
-        padding: 30px 15px;
+        padding: 25px 15px;
     }
 
     header h1 {
-        font-size: 26px;
+        font-size: 25px;
     }
 
-    header p {
-        font-size: 14px;
+    .logo {
+        font-size: 42px;
     }
 
     .container {
-        width: 94%;
-        margin: 20px auto;
+        margin-top: 20px;
+        padding: 0 12px;
     }
 
     .course {
-        padding: 20px;
-        border-radius: 15px;
+        padding: 18px;
+        border-radius: 16px;
     }
 
     .course h2 {
@@ -389,102 +528,158 @@ a {
         padding: 16px;
     }
 
+    .enroll-button,
     .pdf-button,
     .complete-button,
-    .certificate-button,
-    .enroll-button {
+    .certificate-button {
         width: 100%;
         text-align: center;
         margin-right: 0;
-        margin-bottom: 7px;
     }
 
 }
 
+
 /* =========================
-   حركة تحميل بسيطة
+   شريط سفلي
 ========================= */
 
-.loading {
+footer {
+
     text-align: center;
+
     padding: 25px;
+
+    margin-top: 40px;
+
+    color: #78909c;
+
+    font-size: 14px;
 }
 
-</style></head><body><header><h1>🎓 منصة التكوين المستمر</h1>
+</style>
 
-<p>الدورات التكوينية والدروس والشهادات</p>
+</head>
 
-</header><div class="container"><div id="message">
-    جاري تحميل الدورات...
+
+<body>
+
+
+<header>
+
+<div class="logo">🎓</div>
+
+<h1>منصة التكوين المستمر</h1>
+
+<p>
+التكوين • التعلم • تطوير المهارات
+</p>
+
+</header>
+
+
+<div class="container">
+
+<div id="message">
+⏳ جاري تحميل الدورات...
 </div>
 
 <div id="coursesList"></div>
 
 <div id="certificateArea"></div>
 
-</div><!-- Supabase --><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><!-- PDF --><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script><!-- HTML to Canvas --><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script><!-- QR Code --><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><!-- =========================
-     قالب الشهادة
-========================= --><div id="certificateTemplate"><div class="certificate-border">
+</div>
 
-    <div style="font-size:22px;font-weight:bold;">
-        الجمهورية الجزائرية الديمقراطية الشعبية
-    </div>
 
-    <div style="font-size:20px;margin-top:10px;">
-        وزارة الصحة
-    </div>
+<footer>
 
-    <div style="font-size:19px;margin-top:8px;">
-        المؤسسة العمومية الاستشفائية بأولف
-    </div>
+منصة التكوين المستمر © 2026
 
-    <div class="certificate-title">
-        شهادة إتمام تكوين
-    </div>
+</footer>
 
-    <div class="certificate-subtitle">
-        تشهد المؤسسة بأن المتربص:
-    </div>
 
-    <div id="certificateTraineeName"
-         class="certificate-name">
-    </div>
+<!-- Supabase -->
 
-    <div class="certificate-subtitle">
-        قد أتم بنجاح التكوين في:
-    </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <div id="certificateCourseName"
-         class="certificate-course">
-    </div>
+<script src="supabase-config.js"></script>
 
-    <div id="certificateDate"
-         style="font-size:20px;margin-top:20px;">
-    </div>
 
-    <div id="certificateNumber"
-         class="certificate-number">
-    </div>
+<!-- PDF -->
 
-    <div id="qrCode"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+
+<!-- قالب الشهادة -->
+
+<div id="certificateTemplate">
+
+<div class="certificate-border">
+
+<div style="font-size:22px;font-weight:bold;">
+الجمهورية الجزائرية الديمقراطية الشعبية
+</div>
+
+<div style="font-size:20px;margin-top:10px;">
+وزارة الصحة
+</div>
+
+<div style="font-size:19px;margin-top:8px;">
+المؤسسة العمومية الاستشفائية بأولف
+</div>
+
+<div class="certificate-title">
+شهادة إتمام تكوين
+</div>
+
+<div class="certificate-subtitle">
+تشهد المؤسسة بأن المتربص:
+</div>
+
+<div id="certificateTraineeName"
+     class="certificate-name">
+</div>
+
+<div class="certificate-subtitle">
+قد أتم بنجاح التكوين في:
+</div>
+
+<div id="certificateCourseName"
+     class="certificate-course">
+</div>
+
+<div id="certificateDate"
+     style="font-size:20px;margin-top:20px;">
+</div>
+
+<div id="certificateNumber"
+     class="certificate-number">
+</div>
+
+<div id="qrCode"></div>
 
 </div>
 
-</div><script>
+</div>
+
+
+<script>
 
 let currentUser = null;
 
 
 /* =========================
-   المستخدم الحالي
+   المستخدم
 ========================= */
 
 async function getCurrentUser() {
 
-    const {
-        data,
-        error
-    } = await supabaseClient.auth.getUser();
+    const { data, error } =
+        await supabaseClient.auth.getUser();
 
     if (error || !data.user) {
 
@@ -498,15 +693,13 @@ async function getCurrentUser() {
 
 
 /* =========================
-   التحقق من التسجيل
+   التسجيل
 ========================= */
 
 async function isEnrolled(courseId) {
 
-    const {
-        data,
-        error
-    } = await supabaseClient
+    const { data, error } =
+        await supabaseClient
         .from("enrollments")
         .select("id")
         .eq("trainee_id", currentUser.id)
@@ -525,20 +718,17 @@ async function isEnrolled(courseId) {
 
 
 /* =========================
-   تحميل تقدم المتربص
+   التقدم
 ========================= */
 
 async function getProgress(lessonIds) {
 
     if (!lessonIds.length) {
-
         return [];
     }
 
-    const {
-        data,
-        error
-    } = await supabaseClient
+    const { data, error } =
+        await supabaseClient
         .from("lesson_progress")
         .select("lesson_id")
         .eq("trainee_id", currentUser.id)
@@ -546,10 +736,7 @@ async function getProgress(lessonIds) {
 
     if (error) {
 
-        console.error(
-            "خطأ تحميل التقدم:",
-            error
-        );
+        console.error(error);
 
         return [];
     }
@@ -559,7 +746,7 @@ async function getProgress(lessonIds) {
 
 
 /* =========================
-   إكمال درس
+   إكمال الدرس
 ========================= */
 
 async function completeLesson(
@@ -568,22 +755,14 @@ async function completeLesson(
     courseId
 ) {
 
-    if (!currentUser) {
-
-        alert("يجب تسجيل الدخول أولًا");
-
-        return;
-    }
-
     button.disabled = true;
 
     button.textContent =
-        "جاري الحفظ...";
+        "⏳ جاري الحفظ...";
 
 
-    const {
-        error
-    } = await supabaseClient
+    const { error } =
+        await supabaseClient
         .from("lesson_progress")
         .insert({
 
@@ -598,16 +777,18 @@ async function completeLesson(
 
     if (error) {
 
-        console.error(error);
-
         if (error.code === "23505") {
 
             button.textContent =
                 "✅ تم إكمال الدرس";
 
-            button.classList.add("completed");
+            button.classList.add(
+                "completed"
+            );
 
         } else {
+
+            console.error(error);
 
             alert(
                 "حدث خطأ أثناء حفظ التقدم"
@@ -626,31 +807,34 @@ async function completeLesson(
     button.textContent =
         "✅ تم إكمال الدرس";
 
-    button.classList.add("completed");
+    button.classList.add(
+        "completed"
+    );
 
 
-    await updateCourseProgress(courseId);
+    await updateCourseProgress(
+        courseId
+    );
 
 }
 
 
 /* =========================
-   حساب تقدم الدورة
+   حساب التقدم
 ========================= */
 
-async function updateCourseProgress(courseId) {
+async function updateCourseProgress(
+    courseId
+) {
 
-    const {
-        data: lessons,
-        error
-    } = await supabaseClient
+    const { data: lessons, error } =
+        await supabaseClient
         .from("lessons")
         .select("id")
         .eq("course_id", courseId);
 
 
     if (error || !lessons) {
-
         return;
     }
 
@@ -662,7 +846,9 @@ async function updateCourseProgress(courseId) {
 
 
     const progress =
-        await getProgress(lessonIds);
+        await getProgress(
+            lessonIds
+        );
 
 
     const total =
@@ -674,41 +860,41 @@ async function updateCourseProgress(courseId) {
 
     const percentage =
         total === 0
-            ? 0
-            : Math.round(
-                (completed / total) * 100
-            );
+        ? 0
+        : Math.round(
+            (completed / total) * 100
+        );
 
 
-    const progressBar =
+    const bar =
         document.getElementById(
             "progress-" + courseId
         );
 
 
-    const progressText =
+    const text =
         document.getElementById(
             "progress-text-" + courseId
         );
 
 
-    if (progressBar) {
+    if (bar) {
 
-        progressBar.style.width =
+        bar.style.width =
             percentage + "%";
     }
 
 
-    if (progressText) {
+    if (text) {
 
-        progressText.textContent =
+        text.textContent =
             "📊 التقدم: " +
             completed +
             " من " +
             total +
-            " دروس (" +
+            " دروس — " +
             percentage +
-            "%)";
+            "%";
     }
 
 
@@ -729,8 +915,7 @@ async function updateCourseProgress(courseId) {
                 "block";
 
             finished.textContent =
-                "🏆 أكملت جميع دروس هذه الدورة بنجاح!";
-
+                "🏆 ممتاز! لقد أكملت جميع دروس هذه الدورة بنجاح.";
         }
 
     }
@@ -739,27 +924,15 @@ async function updateCourseProgress(courseId) {
 
 
 /* =========================
-   التسجيل في الدورة
+   التسجيل في دورة
 ========================= */
 
-async function enrollInCourse(courseId) {
+async function enrollInCourse(
+    courseId
+) {
 
-    if (!currentUser) {
-
-        alert(
-            "يجب تسجيل الدخول أولًا"
-        );
-
-        window.location.href =
-            "login.html";
-
-        return;
-    }
-
-
-    const {
-        error
-    } = await supabaseClient
+    const { error } =
+        await supabaseClient
         .from("enrollments")
         .insert({
 
@@ -774,9 +947,6 @@ async function enrollInCourse(courseId) {
 
     if (error) {
 
-        console.error(error);
-
-
         if (error.code === "23505") {
 
             alert(
@@ -785,8 +955,10 @@ async function enrollInCourse(courseId) {
 
         } else {
 
+            console.error(error);
+
             alert(
-                "حدث خطأ أثناء التسجيل في الدورة"
+                "حدث خطأ أثناء التسجيل"
             );
 
         }
@@ -796,11 +968,11 @@ async function enrollInCourse(courseId) {
 
 
     alert(
-        "تم التسجيل في الدورة بنجاح ✅"
+        "تم التسجيل في الدورة بنجاح 🎉"
     );
 
 
-    loadCourses();
+    await loadCourses();
 
 }
 
@@ -814,18 +986,13 @@ async function loadLessons(
     container
 ) {
 
-    const {
-        data: lessons,
-        error
-    } = await supabaseClient
+    const { data: lessons, error } =
+        await supabaseClient
         .from("lessons")
         .select(
-            "id, title, content, pdf_url"
+            "id,title,content,pdf_url"
         )
-        .eq(
-            "course_id",
-            courseId
-        )
+        .eq("course_id", courseId)
         .order(
             "title",
             {
@@ -838,20 +1005,17 @@ async function loadLessons(
 
         console.error(error);
 
-        container.textContent =
-            "تعذر تحميل الدروس";
+        container.innerHTML =
+            "❌ تعذر تحميل الدروس";
 
         return;
     }
 
 
-    if (
-        !lessons ||
-        lessons.length === 0
-    ) {
+    if (!lessons || !lessons.length) {
 
-        container.textContent =
-            "لا توجد دروس لهذه الدورة حاليًا";
+        container.innerHTML =
+            "📭 لا توجد دروس لهذه الدورة حاليًا.";
 
         return;
     }
@@ -881,71 +1045,74 @@ async function loadLessons(
     lessons.forEach(
         function(lesson) {
 
-            const lessonBox =
-                document.createElement("div");
+            const box =
+                document.createElement(
+                    "div"
+                );
 
-
-            lessonBox.className =
+            box.className =
                 "lesson";
 
 
-            const lessonTitle =
-                document.createElement("h3");
+            const title =
+                document.createElement(
+                    "h3"
+                );
+
+            title.textContent =
+                "📖 " +
+                lesson.title;
 
 
-            lessonTitle.textContent =
-                "📖 " + lesson.title;
+            box.appendChild(title);
 
 
-            lessonBox.appendChild(
-                lessonTitle
-            );
+            if (lesson.content) {
 
+                const content =
+                    document.createElement(
+                        "p"
+                    );
 
-            const lessonContent =
-                document.createElement("p");
+                content.textContent =
+                    lesson.content;
 
+                box.appendChild(content);
 
-            lessonContent.textContent =
-                lesson.content || "";
-
-
-            lessonBox.appendChild(
-                lessonContent
-            );
+            }
 
 
             if (lesson.pdf_url) {
 
-                const pdfLink =
-                    document.createElement("a");
+                const link =
+                    document.createElement(
+                        "a"
+                    );
 
-
-                pdfLink.href =
+                link.href =
                     lesson.pdf_url;
 
-                pdfLink.target =
+                link.target =
                     "_blank";
 
-                pdfLink.rel =
+                link.rel =
                     "noopener noreferrer";
 
-                pdfLink.className =
+                link.className =
                     "pdf-button";
 
-                pdfLink.textContent =
+                link.textContent =
                     "📄 فتح ملف PDF";
 
-
-                lessonBox.appendChild(
-                    pdfLink
-                );
+                box.appendChild(link);
 
             }
 
 
             const completeButton =
-                document.createElement("button");
+                document.createElement(
+                    "button"
+                );
 
 
             completeButton.className =
@@ -973,7 +1140,6 @@ async function loadLessons(
                 completeButton.textContent =
                     "☑️ تم إكمال الدرس";
 
-
                 completeButton.onclick =
                     function() {
 
@@ -988,14 +1154,12 @@ async function loadLessons(
             }
 
 
-            lessonBox.appendChild(
+            box.appendChild(
                 completeButton
             );
 
 
-            container.appendChild(
-                lessonBox
-            );
+            container.appendChild(box);
 
         }
     );
@@ -1009,7 +1173,7 @@ async function loadLessons(
 
 
 /* =========================
-   إنشاء شهادة PDF
+   الشهادة
 ========================= */
 
 async function generateCertificatePDF(
@@ -1018,79 +1182,42 @@ async function generateCertificatePDF(
 
     try {
 
-        const courseResult =
+        const { data: course } =
             await supabaseClient
-                .from("courses")
-                .select(
-                    "name, course_date"
-                )
-                .eq(
-                    "id",
-                    certificate.course_id
-                )
-                .maybeSingle();
+            .from("courses")
+            .select("name,course_date")
+            .eq("id", certificate.course_id)
+            .maybeSingle();
 
 
-        const traineeResult =
+        const { data: trainee } =
             await supabaseClient
-                .from("trainees")
-                .select(
-                    "full_name"
-                )
-                .eq(
-                    "id",
-                    certificate.trainee_id
-                )
-                .maybeSingle();
+            .from("trainees")
+            .select("full_name")
+            .eq("id", certificate.trainee_id)
+            .maybeSingle();
 
 
-        if (courseResult.error) {
-
-            throw courseResult.error;
-
-        }
-
-
-        if (traineeResult.error) {
-
-            throw traineeResult.error;
-
-        }
-
-
-        const course =
-            courseResult.data;
-
-        const trainee =
-            traineeResult.data;
-
-
-        if (
-            !course ||
-            !trainee
-        ) {
+        if (!course || !trainee) {
 
             alert(
-                "تعذر العثور على بيانات المتربص أو الدورة."
+                "تعذر العثور على بيانات الشهادة."
             );
 
             return;
-
         }
 
 
         document.getElementById(
             "certificateTraineeName"
         ).textContent =
-            trainee.full_name ||
-            "المتربص";
+            trainee.full_name || "المتربص";
 
 
         document.getElementById(
             "certificateCourseName"
         ).textContent =
-            course.name ||
-            "الدورة التكوينية";
+            course.name || "الدورة التكوينية";
 
 
         document.getElementById(
@@ -1107,13 +1234,13 @@ async function generateCertificatePDF(
             certificate.certificate_number;
 
 
-        const qrContainer =
+        const qr =
             document.getElementById(
                 "qrCode"
             );
 
 
-        qrContainer.innerHTML = "";
+        qr.innerHTML = "";
 
 
         const verificationText =
@@ -1125,7 +1252,7 @@ async function generateCertificatePDF(
 
 
         new QRCode(
-            qrContainer,
+            qr,
             {
                 text:
                     verificationText,
@@ -1148,53 +1275,48 @@ async function generateCertificatePDF(
         );
 
 
-        const certificateElement =
-            document.getElementById(
-                "certificateTemplate"
-            );
-
-
         const canvas =
             await html2canvas(
-                certificateElement,
+                document.getElementById(
+                    "certificateTemplate"
+                ),
                 {
                     scale: 2,
-                    backgroundColor: "#ffffff",
+
+                    backgroundColor:
+                        "#ffffff",
+
                     useCORS: true
                 }
             );
 
 
-        const imageData =
+        const image =
             canvas.toDataURL(
                 "image/jpeg",
                 0.95
             );
 
 
-        const {
-            jsPDF
-        } =
+        const { jsPDF } =
             window.jspdf;
 
 
         const pdf =
-            new jsPDF(
-                {
-                    orientation:
-                        "landscape",
+            new jsPDF({
+                orientation:
+                    "landscape",
 
-                    unit:
-                        "mm",
+                unit:
+                    "mm",
 
-                    format:
-                        "a4"
-                }
-            );
+                format:
+                    "a4"
+            });
 
 
         pdf.addImage(
-            imageData,
+            image,
             "JPEG",
             0,
             0,
@@ -1203,122 +1325,24 @@ async function generateCertificatePDF(
         );
 
 
-        const pdfBlob =
-            pdf.output("blob");
-
-
-        const fileName =
+        pdf.save(
             certificate.certificate_number +
-            ".pdf";
-
-
-        const filePath =
-            currentUser.id +
-            "/" +
-            fileName;
-
-
-        const {
-            error: uploadError
-        } =
-            await supabaseClient
-                .storage
-                .from("certificates")
-                .upload(
-                    filePath,
-                    pdfBlob,
-                    {
-                        contentType:
-                            "application/pdf",
-
-                        upsert:
-                            true
-                    }
-                );
-
-
-        if (uploadError) {
-
-            console.error(
-                "خطأ رفع PDF:",
-                uploadError
-            );
-
-            alert(
-                "تم إنشاء PDF لكن حدث خطأ أثناء رفعه."
-            );
-
-            return;
-
-        }
-
-
-        const {
-            data: publicData
-        } =
-            supabaseClient
-                .storage
-                .from("certificates")
-                .getPublicUrl(
-                    filePath
-                );
-
-
-        const pdfUrl =
-            publicData.publicUrl;
-
-
-        const {
-            error: updateError
-        } =
-            await supabaseClient
-                .from("certificates")
-                .update({
-                    pdf_url:
-                        pdfUrl
-                })
-                .eq(
-                    "id",
-                    certificate.id
-                );
-
-
-        if (updateError) {
-
-            console.error(
-                updateError
-            );
-
-            alert(
-                "تم رفع PDF، لكن تعذر حفظ الرابط."
-            );
-
-            return;
-
-        }
-
-
-        pdf.save(fileName);
+            ".pdf"
+        );
 
 
         alert(
             "تم إنشاء الشهادة وتحميلها بنجاح ✅"
         );
 
-
-        await loadMyCertificates();
-
     }
 
     catch (error) {
 
-        console.error(
-            "خطأ إنشاء الشهادة:",
-            error
-        );
+        console.error(error);
 
         alert(
-            "حدث خطأ أثناء إنشاء الشهادة PDF."
+            "حدث خطأ أثناء إنشاء الشهادة."
         );
 
     }
@@ -1338,44 +1362,27 @@ async function loadMyCertificates() {
         );
 
 
-    if (!area || !currentUser) {
-
-        return;
-    }
-
-
-    const {
-        data,
-        error
-    } =
+    const { data, error } =
         await supabaseClient
-            .from("certificates")
-            .select(`
-                id,
-                course_id,
-                certificate_number,
-                issue_date,
-                pdf_url,
-                trainee_id
-            `)
-            .eq(
-                "trainee_id",
-                currentUser.id
-            )
-            .order(
-                "issue_date",
-                {
-                    ascending: false
-                }
-            );
+        .from("certificates")
+        .select(
+            "id,course_id,certificate_number,issue_date,pdf_url,trainee_id"
+        )
+        .eq(
+            "trainee_id",
+            currentUser.id
+        )
+        .order(
+            "issue_date",
+            {
+                ascending: false
+            }
+        );
 
 
     if (error) {
 
-        console.error(
-            "خطأ تحميل الشهادات:",
-            error
-        );
+        console.error(error);
 
         return;
     }
@@ -1384,32 +1391,25 @@ async function loadMyCertificates() {
     area.innerHTML = "";
 
 
-    if (
-        !data ||
-        data.length === 0
-    ) {
-
+    if (!data || !data.length) {
         return;
     }
 
 
-    const titleBox =
-        document.createElement("div");
+    const title =
+        document.createElement(
+            "div"
+        );
 
+    title.className =
+        "certificates-title";
 
-    titleBox.className =
-        "course";
-
-
-    titleBox.innerHTML = `
+    title.innerHTML = `
         <h2>🏆 شهاداتي</h2>
-        <p>الشهادات التي حصلت عليها</p>
+        <p>هنا تجد الشهادات التي حصلت عليها.</p>
     `;
 
-
-    area.appendChild(
-        titleBox
-    );
+    area.appendChild(title);
 
 
     for (
@@ -1417,72 +1417,61 @@ async function loadMyCertificates() {
     ) {
 
         const box =
-            document.createElement("div");
-
+            document.createElement(
+                "div"
+            );
 
         box.className =
-            "course";
+            "certificate-card";
 
 
         let courseName =
             "الدورة التكوينية";
 
 
-        const {
-            data: course,
-            error: courseError
-        } =
+        const { data: course } =
             await supabaseClient
-                .from("courses")
-                .select("name")
-                .eq(
-                    "id",
-                    certificate.course_id
-                )
-                .maybeSingle();
+            .from("courses")
+            .select("name")
+            .eq(
+                "id",
+                certificate.course_id
+            )
+            .maybeSingle();
 
 
-        if (
-            !courseError &&
-            course
-        ) {
-
+        if (course) {
             courseName =
                 course.name;
         }
 
 
         box.innerHTML = `
-
-            <h2>
-                🏆 شهادة إتمام الدورة
-            </h2>
+            <h3>🏆 شهادة إتمام التكوين</h3>
 
             <p>
-                <strong>الدورة:</strong>
+                <strong>📚 الدورة:</strong>
                 ${courseName}
             </p>
 
             <p>
-                <strong>رقم الشهادة:</strong>
+                <strong>🔢 رقم الشهادة:</strong>
                 ${certificate.certificate_number}
             </p>
 
             <p>
-                <strong>تاريخ الإصدار:</strong>
+                <strong>📅 تاريخ الإصدار:</strong>
                 ${certificate.issue_date}
             </p>
-
         `;
 
 
-        if (
-            certificate.pdf_url
-        ) {
+        if (certificate.pdf_url) {
 
             const link =
-                document.createElement("a");
-
+                document.createElement(
+                    "a"
+                );
 
             link.href =
                 certificate.pdf_url;
@@ -1499,26 +1488,20 @@ async function loadMyCertificates() {
             link.textContent =
                 "📄 عرض الشهادة";
 
+            box.appendChild(link);
 
-            box.appendChild(
-                link
-            );
-
-        }
-
-        else {
+        } else {
 
             const button =
-                document.createElement("button");
-
+                document.createElement(
+                    "button"
+                );
 
             button.className =
                 "certificate-button";
 
-
             button.textContent =
-                "🎓 إنشاء وتحميل الشهادة PDF";
-
+                "🎓 إنشاء وتحميل الشهادة";
 
             button.onclick =
                 function() {
@@ -1529,17 +1512,12 @@ async function loadMyCertificates() {
 
                 };
 
-
-            box.appendChild(
-                button
-            );
+            box.appendChild(button);
 
         }
 
 
-        area.appendChild(
-            box
-        );
+        area.appendChild(box);
 
     }
 
@@ -1558,7 +1536,7 @@ async function loadCourses() {
         );
 
 
-    const coursesList =
+    const list =
         document.getElementById(
             "coursesList"
         );
@@ -1568,7 +1546,7 @@ async function loadCourses() {
         "⏳ جاري تحميل الدورات...";
 
 
-    coursesList.innerHTML = "";
+    list.innerHTML = "";
 
 
     currentUser =
@@ -1578,27 +1556,24 @@ async function loadCourses() {
     if (!currentUser) {
 
         message.textContent =
-            "🔐 يجب تسجيل الدخول أولًا";
+            "🔐 يجب تسجيل الدخول أولًا.";
 
         return;
     }
 
 
-    const {
-        data: courses,
-        error
-    } =
+    const { data: courses, error } =
         await supabaseClient
-            .from("courses")
-            .select(
-                "id, name, description"
-            )
-            .order(
-                "name",
-                {
-                    ascending: true
-                }
-            );
+        .from("courses")
+        .select(
+            "id,name,description"
+        )
+        .order(
+            "name",
+            {
+                ascending: true
+            }
+        );
 
 
     if (error) {
@@ -1606,19 +1581,16 @@ async function loadCourses() {
         console.error(error);
 
         message.textContent =
-            "❌ حدث خطأ أثناء تحميل الدورات";
+            "❌ حدث خطأ أثناء تحميل الدورات.";
 
         return;
     }
 
 
-    if (
-        !courses ||
-        courses.length === 0
-    ) {
+    if (!courses || !courses.length) {
 
         message.textContent =
-            "📚 لا توجد دورات حاليًا";
+            "📭 لا توجد دورات حاليًا.";
 
         return;
     }
@@ -1632,36 +1604,40 @@ async function loadCourses() {
         const course of courses
     ) {
 
-        const courseBox =
-            document.createElement("div");
+        const box =
+            document.createElement(
+                "div"
+            );
 
-
-        courseBox.className =
+        box.className =
             "course";
 
 
         const title =
-            document.createElement("h2");
-
+            document.createElement(
+                "h2"
+            );
 
         title.textContent =
-            "📚 " + course.name;
+            "📚 " +
+            course.name;
 
-
-        courseBox.appendChild(
-            title
-        );
+        box.appendChild(title);
 
 
         const description =
-            document.createElement("p");
+            document.createElement(
+                "p"
+            );
 
+        description.className =
+            "course-description";
 
         description.textContent =
-            course.description || "";
+            course.description ||
+            "لا يوجد وصف للدورة.";
 
-
-        courseBox.appendChild(
+        box.appendChild(
             description
         );
 
@@ -1674,39 +1650,35 @@ async function loadCourses() {
 
         if (enrolled) {
 
-            const enrolledText =
-                document.createElement("div");
+            const badge =
+                document.createElement(
+                    "div"
+                );
 
-
-            enrolledText.className =
+            badge.className =
                 "enrolled";
 
-
-            enrolledText.textContent =
+            badge.textContent =
                 "✅ أنت مسجل في هذه الدورة";
 
-
-            courseBox.appendChild(
-                enrolledText
+            box.appendChild(
+                badge
             );
 
-        }
+        } else {
 
-        else {
+            const button =
+                document.createElement(
+                    "button"
+                );
 
-            const enrollButton =
-                document.createElement("button");
-
-
-            enrollButton.className =
+            button.className =
                 "enroll-button";
 
-
-            enrollButton.textContent =
+            button.textContent =
                 "📝 التسجيل في الدورة";
 
-
-            enrollButton.onclick =
+            button.onclick =
                 function() {
 
                     enrollInCourse(
@@ -1715,101 +1687,132 @@ async function loadCourses() {
 
                 };
 
-
-            courseBox.appendChild(
-                enrollButton
+            box.appendChild(
+                button
             );
 
         }
 
 
-        const progressText =
-            document.createElement("div");
+        /* التقدم */
 
+        const progressArea =
+            document.createElement(
+                "div"
+            );
+
+        progressArea.className =
+            "progress-area";
+
+
+        const progressText =
+            document.createElement(
+                "div"
+            );
+
+        progressText.className =
+            "progress-text";
 
         progressText.id =
             "progress-text-" +
             course.id;
 
-
         progressText.textContent =
-            "📊 التقدم: جاري الحساب...";
+            "📊 جاري حساب التقدم...";
 
 
-        courseBox.appendChild(
+        progressArea.appendChild(
             progressText
         );
 
 
         const progress =
-            document.createElement("div");
-
+            document.createElement(
+                "div"
+            );
 
         progress.className =
             "progress";
 
 
-        const progressBar =
-            document.createElement("div");
+        const bar =
+            document.createElement(
+                "div"
+            );
 
-
-        progressBar.className =
+        bar.className =
             "progress-bar";
 
-
-        progressBar.id =
+        bar.id =
             "progress-" +
             course.id;
 
 
-        progress.appendChild(
-            progressBar
-        );
+        progress.appendChild(bar);
 
-
-        courseBox.appendChild(
+        progressArea.appendChild(
             progress
         );
 
+        box.appendChild(
+            progressArea
+        );
+
+
+        /* اكتمال الدورة */
 
         const finished =
-            document.createElement("div");
-
+            document.createElement(
+                "div"
+            );
 
         finished.id =
             "finished-" +
             course.id;
 
-
         finished.className =
             "finished";
-
 
         finished.style.display =
             "none";
 
-
-        courseBox.appendChild(
+        box.appendChild(
             finished
         );
 
 
-        const lessonsBox =
-            document.createElement("div");
+        /* عنوان الدروس */
 
+        const lessonTitle =
+            document.createElement(
+                "div"
+            );
+
+        lessonTitle.className =
+            "section-title";
+
+        lessonTitle.textContent =
+            "📖 دروس الدورة";
+
+        box.appendChild(
+            lessonTitle
+        );
+
+
+        const lessonsBox =
+            document.createElement(
+                "div"
+            );
 
         lessonsBox.textContent =
             "⏳ جاري تحميل الدروس...";
 
-
-        courseBox.appendChild(
+        box.appendChild(
             lessonsBox
         );
 
 
-        coursesList.appendChild(
-            courseBox
-        );
+        list.appendChild(box);
 
 
         await loadLessons(
@@ -1826,9 +1829,13 @@ async function loadCourses() {
 
 
 /* =========================
-   تشغيل الصفحة
+   تشغيل
 ========================= */
 
 loadCourses();
 
-</script></body></html>
+</script>
+
+</body>
+
+</html>
