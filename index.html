@@ -2,12 +2,20 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>منصة التكوين المتواصل</title>
 
+
     <style>
+
+        /* =========================================
+           الإعدادات العامة
+        ========================================= */
 
         * {
             box-sizing: border-box;
@@ -15,129 +23,205 @@
             padding: 0;
         }
 
-        body {
-            font-family: "Tahoma", "Arial", sans-serif;
-            background: #f4f8fb;
-            color: #1e293b;
-            min-height: 100vh;
+
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* ==============================
+
+        body {
+
+            font-family:
+                "Segoe UI",
+                Tahoma,
+                Arial,
+                sans-serif;
+
+            background: #f4f8fb;
+
+            color: #1e293b;
+
+            min-height: 100vh;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =========================================
            الشريط العلوي
-        ============================== */
+        ========================================= */
 
         .navbar {
-            height: 75px;
-            background: #ffffff;
+
+            height: 78px;
+
+            background: rgba(255,255,255,0.97);
+
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
+
             padding: 0 7%;
 
-            box-shadow: 0 3px 18px rgba(0, 0, 0, 0.08);
+            box-shadow:
+                0 3px 20px rgba(0,0,0,0.07);
 
             position: relative;
+
             z-index: 10;
+
         }
+
 
         .logo-area {
+
             display: flex;
+
             align-items: center;
-            gap: 12px;
+
+            gap: 13px;
+
         }
+
 
         .logo {
-            width: 48px;
-            height: 48px;
+
+            width: 50px;
+
+            height: 50px;
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
 
-            background: linear-gradient(135deg, #00695c, #0288d1);
+            background:
+                linear-gradient(
+                    135deg,
+                    #00695c,
+                    #0288d1
+                );
 
             color: white;
-            font-size: 25px;
 
-            border-radius: 14px;
+            font-size: 26px;
 
-            box-shadow: 0 5px 15px rgba(0, 105, 92, 0.25);
+            border-radius: 15px;
+
+            box-shadow:
+                0 6px 18px
+                rgba(0,105,92,0.25);
+
         }
+
 
         .brand-text {
+
             color: #075985;
-            font-size: 18px;
-            font-weight: bold;
+
+            font-size: 19px;
+
+            font-weight: 700;
+
         }
 
+
         .nav-status {
+
             background: #e8f5e9;
+
             color: #2e7d32;
 
-            padding: 8px 16px;
+            padding: 8px 17px;
 
             border-radius: 30px;
 
             font-size: 13px;
-            font-weight: bold;
+
+            font-weight: 600;
+
         }
 
-        /* ==============================
+
+        /* =========================================
            القسم الرئيسي
-        ============================== */
+        ========================================= */
 
         .hero {
-            min-height: 530px;
+
+            min-height: 555px;
 
             background:
                 linear-gradient(
                     135deg,
                     #063b5c 0%,
-                    #075985 45%,
+                    #075985 48%,
                     #00796b 100%
                 );
 
             position: relative;
+
             overflow: hidden;
 
             display: flex;
+
             align-items: center;
+
         }
+
 
         .hero::before {
+
             content: "";
 
             position: absolute;
 
-            width: 430px;
-            height: 430px;
+            width: 450px;
+
+            height: 450px;
 
             border-radius: 50%;
 
-            background: rgba(255,255,255,0.06);
+            background:
+                rgba(255,255,255,0.055);
 
-            top: -190px;
+            top: -200px;
+
             left: -100px;
+
         }
+
 
         .hero::after {
+
             content: "";
 
             position: absolute;
 
-            width: 350px;
-            height: 350px;
+            width: 380px;
+
+            height: 380px;
 
             border-radius: 50%;
 
-            background: rgba(255,255,255,0.05);
+            background:
+                rgba(255,255,255,0.05);
 
-            bottom: -190px;
-            right: -80px;
+            bottom: -200px;
+
+            right: -100px;
+
         }
 
+
         .hero-container {
+
             width: 1100px;
+
             max-width: 90%;
 
             margin: auto;
@@ -148,76 +232,106 @@
 
             justify-content: space-between;
 
-            gap: 50px;
+            gap: 60px;
 
             position: relative;
+
             z-index: 2;
+
         }
+
 
         .hero-text {
+
             max-width: 680px;
+
             color: white;
+
         }
 
+
         .welcome {
+
             display: inline-block;
 
-            background: rgba(255,255,255,0.13);
+            background:
+                rgba(255,255,255,0.13);
 
-            border: 1px solid rgba(255,255,255,0.2);
+            border:
+                1px solid
+                rgba(255,255,255,0.22);
 
-            padding: 8px 17px;
+            padding: 8px 18px;
 
             border-radius: 30px;
 
             font-size: 14px;
 
-            margin-bottom: 20px;
+            margin-bottom: 22px;
+
         }
 
-        .hero-title {
-            font-size: 43px;
 
-            line-height: 1.4;
+        .hero-title {
+
+            font-size: 45px;
+
+            line-height: 1.35;
 
             margin-bottom: 12px;
 
             font-weight: 800;
+
+            letter-spacing: -0.7px;
+
         }
+
 
         .hero-subtitle {
+
             font-size: 22px;
 
-            color: #cceff5;
+            color: #d5f2f7;
 
             margin-bottom: 22px;
+
+            font-weight: 500;
+
         }
+
 
         .hero-description {
+
             font-size: 17px;
 
-            line-height: 2;
+            line-height: 2.05;
 
-            color: #e7f7fa;
+            color: #e8f8fa;
 
             max-width: 650px;
+
         }
 
-        /* ==============================
-           زر الدخول
-        ============================== */
+
+        /* =========================================
+           زر تسجيل الدخول
+        ========================================= */
 
         .buttons {
-            margin-top: 30px;
+
+            margin-top: 32px;
 
             display: flex;
 
             gap: 14px;
 
             flex-wrap: wrap;
+
         }
 
+
         .login-button {
+
             display: inline-flex;
 
             align-items: center;
@@ -226,7 +340,7 @@
 
             gap: 10px;
 
-            padding: 15px 32px;
+            padding: 16px 34px;
 
             background: white;
 
@@ -234,36 +348,52 @@
 
             text-decoration: none;
 
-            border-radius: 12px;
+            border-radius: 13px;
 
             font-size: 17px;
 
-            font-weight: bold;
+            font-weight: 700;
 
-            transition: 0.3s;
+            transition: all 0.3s ease;
 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+            box-shadow:
+                0 9px 28px
+                rgba(0,0,0,0.18);
+
         }
+
 
         .login-button:hover {
+
             transform: translateY(-4px);
 
-            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+            box-shadow:
+                0 14px 32px
+                rgba(0,0,0,0.25);
+
         }
 
-        /* ==============================
+
+        /* =========================================
            الشعار الكبير
-        ============================== */
+        ========================================= */
 
         .hero-logo {
-            width: 230px;
-            height: 230px;
+
+            width: 245px;
+
+            height: 245px;
+
+            min-width: 245px;
 
             border-radius: 50%;
 
-            background: rgba(255,255,255,0.12);
+            background:
+                rgba(255,255,255,0.11);
 
-            border: 1px solid rgba(255,255,255,0.2);
+            border:
+                1px solid
+                rgba(255,255,255,0.20);
 
             display: flex;
 
@@ -271,84 +401,118 @@
 
             justify-content: center;
 
-            font-size: 115px;
+            font-size: 120px;
 
             box-shadow:
-                0 20px 50px rgba(0,0,0,0.18);
+                0 25px 55px
+                rgba(0,0,0,0.18);
 
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(9px);
+
         }
 
-        /* ==============================
-           الخدمات
-        ============================== */
+
+        /* =========================================
+           قسم الخدمات
+        ========================================= */
 
         .services {
+
             max-width: 1100px;
 
-            margin: 65px auto;
+            margin: 70px auto;
 
             padding: 0 20px;
+
         }
+
 
         .section-header {
+
             text-align: center;
 
-            margin-bottom: 35px;
+            margin-bottom: 38px;
+
         }
 
+
         .section-header h2 {
+
             color: #075985;
 
             font-size: 30px;
 
-            margin-bottom: 10px;
+            margin-bottom: 9px;
+
+            font-weight: 750;
+
         }
 
+
         .section-header p {
+
             color: #64748b;
 
             font-size: 15px;
+
         }
 
+
         .cards {
+
             display: grid;
 
             grid-template-columns:
                 repeat(4, 1fr);
 
             gap: 20px;
+
         }
 
+
         .card {
+
             background: white;
 
-            border-radius: 20px;
+            border-radius: 21px;
 
-            padding: 30px 22px;
+            padding: 31px 22px;
 
             text-align: center;
 
-            border: 1px solid #e5edf3;
+            border:
+                1px solid #e4edf3;
 
             box-shadow:
-                0 7px 25px rgba(0,0,0,0.06);
+                0 8px 26px
+                rgba(0,0,0,0.055);
 
-            transition: 0.3s;
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+
         }
+
 
         .card:hover {
-            transform: translateY(-8px);
+
+            transform:
+                translateY(-8px);
 
             box-shadow:
-                0 15px 35px rgba(0,0,0,0.11);
+                0 17px 38px
+                rgba(0,0,0,0.11);
+
         }
 
-        .card-icon {
-            width: 65px;
-            height: 65px;
 
-            margin: 0 auto 18px;
+        .card-icon {
+
+            width: 68px;
+
+            height: 68px;
+
+            margin: 0 auto 19px;
 
             display: flex;
 
@@ -358,45 +522,60 @@
 
             background: #e8f5f3;
 
-            border-radius: 18px;
+            border-radius: 19px;
 
-            font-size: 32px;
+            font-size: 33px;
+
         }
 
+
         .card h3 {
+
             color: #075985;
 
             font-size: 19px;
 
             margin-bottom: 12px;
+
+            font-weight: 700;
+
         }
 
+
         .card p {
+
             color: #64748b;
 
             font-size: 14px;
 
-            line-height: 1.8;
+            line-height: 1.9;
+
         }
 
-        /* ==============================
-           قسم التكوين
-        ============================== */
+
+        /* =========================================
+           قسم عن المنصة
+        ========================================= */
 
         .info-section {
+
             max-width: 1100px;
 
-            margin: 0 auto 60px;
+            margin:
+                0 auto 65px;
 
             padding: 0 20px;
+
         }
 
+
         .info-box {
+
             background: white;
 
-            border-radius: 22px;
+            border-radius: 23px;
 
-            padding: 35px;
+            padding: 38px;
 
             display: flex;
 
@@ -404,21 +583,27 @@
 
             gap: 30px;
 
-            border: 1px solid #e5edf3;
+            border:
+                1px solid #e4edf3;
 
             box-shadow:
-                0 7px 25px rgba(0,0,0,0.05);
+                0 8px 28px
+                rgba(0,0,0,0.055);
+
         }
 
-        .info-icon {
-            min-width: 70px;
 
-            width: 70px;
-            height: 70px;
+        .info-icon {
+
+            min-width: 75px;
+
+            width: 75px;
+
+            height: 75px;
 
             background: #e0f2fe;
 
-            border-radius: 18px;
+            border-radius: 19px;
 
             display: flex;
 
@@ -426,127 +611,438 @@
 
             justify-content: center;
 
-            font-size: 35px;
+            font-size: 36px;
+
         }
 
+
         .info-box h2 {
+
             color: #075985;
 
             margin-bottom: 10px;
 
             font-size: 23px;
+
+            font-weight: 700;
+
         }
+
 
         .info-box p {
+
             color: #64748b;
 
-            line-height: 1.9;
+            line-height: 1.95;
 
             font-size: 15px;
+
         }
 
-        /* ==============================
+
+        /* =========================================
+           رسالة صاحب المشروع
+        ========================================= */
+
+        .project-section {
+
+            max-width: 1100px;
+
+            margin:
+                0 auto 70px;
+
+            padding: 0 20px;
+
+        }
+
+
+        .project-card {
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #075985,
+                    #00695c
+                );
+
+            color: white;
+
+            border-radius: 24px;
+
+            padding: 38px;
+
+            text-align: center;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,0.13);
+
+        }
+
+
+        .project-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+
+            height: 180px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.06);
+
+            left: -60px;
+
+            top: -80px;
+
+        }
+
+
+        .project-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 150px;
+
+            height: 150px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            right: -50px;
+
+            bottom: -70px;
+
+        }
+
+
+        .project-content {
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+
+        .project-symbol {
+
+            font-size: 38px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .project-card h2 {
+
+            font-size: 24px;
+
+            margin-bottom: 14px;
+
+        }
+
+
+        .project-card p {
+
+            max-width: 750px;
+
+            margin: auto;
+
+            color: #e4f7fa;
+
+            font-size: 15px;
+
+            line-height: 2;
+
+        }
+
+
+        .developer-name {
+
+            margin-top: 20px;
+
+            display: inline-block;
+
+            padding: 9px 22px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.25);
+
+            background:
+                rgba(255,255,255,0.10);
+
+            border-radius: 30px;
+
+            font-size: 14px;
+
+        }
+
+
+        .developer-name strong {
+
+            color: white;
+
+        }
+
+
+        /* =========================================
            التذييل
-        ============================== */
+        ========================================= */
 
         footer {
+
             background: #052f46;
 
             color: #cbd5e1;
 
             text-align: center;
 
-            padding: 30px 15px;
+            padding: 34px 15px;
 
             line-height: 1.9;
+
         }
+
 
         footer strong {
+
             color: white;
 
-            font-size: 17px;
+            font-size: 18px;
+
+            font-weight: 700;
+
         }
+
 
         footer small {
+
             display: block;
 
-            margin-top: 5px;
+            margin-top: 4px;
+
+            font-size: 13px;
+
         }
 
-        /* ==============================
+
+        .footer-message {
+
+            max-width: 650px;
+
+            margin: 17px auto;
+
+            padding:
+                14px 20px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            color: #d9edf2;
+
+            font-size: 14px;
+
+            line-height: 1.9;
+
+        }
+
+
+        .developer {
+
+            margin: 14px 0;
+
+            color: #94a3b8;
+
+            font-size: 13px;
+
+        }
+
+
+        .developer span {
+
+            color: white;
+
+            font-weight: bold;
+
+            margin-right: 5px;
+
+        }
+
+
+        /* =========================================
            الهاتف
-        ============================== */
+        ========================================= */
 
         @media (max-width: 900px) {
 
             .cards {
-                grid-template-columns: repeat(2, 1fr);
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
             }
 
+
             .hero-container {
+
                 text-align: center;
 
                 justify-content: center;
+
             }
+
 
             .hero-logo {
+
                 display: none;
+
             }
+
 
             .hero-text {
+
                 max-width: 800px;
+
             }
 
+
             .buttons {
+
                 justify-content: center;
+
             }
+
         }
+
 
         @media (max-width: 600px) {
 
             .navbar {
+
+                height: 70px;
+
                 padding: 0 20px;
+
             }
+
 
             .brand-text {
+
                 font-size: 15px;
+
             }
+
 
             .nav-status {
+
                 display: none;
+
             }
+
 
             .hero {
-                min-height: 560px;
+
+                min-height: 570px;
+
             }
+
 
             .hero-title {
+
                 font-size: 31px;
+
+                letter-spacing: 0;
+
             }
+
 
             .hero-subtitle {
+
                 font-size: 18px;
+
             }
+
 
             .hero-description {
+
                 font-size: 15px;
+
+                line-height: 2;
+
             }
 
-            .cards {
-                grid-template-columns: 1fr;
+
+            .buttons {
+
+                flex-direction: column;
+
             }
+
 
             .login-button {
+
                 width: 100%;
+
             }
 
+
+            .cards {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .section-header h2 {
+
+                font-size: 25px;
+
+            }
+
+
             .info-box {
+
                 flex-direction: column;
 
                 text-align: center;
 
-                padding: 28px 20px;
+                padding: 30px 20px;
+
             }
+
+
+            .project-card {
+
+                padding: 30px 20px;
+
+            }
+
+
+            .project-card h2 {
+
+                font-size: 21px;
+
+            }
+
         }
 
     </style>
@@ -554,12 +1050,13 @@
 </head>
 
 
+
 <body>
 
 
-<!-- ==============================
+<!-- =========================================
      الشريط العلوي
-============================== -->
+========================================= -->
 
 <nav class="navbar">
 
@@ -575,6 +1072,7 @@
 
     </div>
 
+
     <div class="nav-status">
         ● المنصة الإلكترونية
     </div>
@@ -583,35 +1081,41 @@
 
 
 
-<!-- ==============================
+<!-- =========================================
      الواجهة الرئيسية
-============================== -->
+========================================= -->
 
 <section class="hero">
 
     <div class="hero-container">
 
+
         <div class="hero-text">
 
             <span class="welcome">
-                👋 مرحبًا بكم
+                👋 مرحبًا بكم في منصتنا
             </span>
+
 
             <h1 class="hero-title">
                 منصة التكوين المتواصل
             </h1>
 
+
             <div class="hero-subtitle">
                 المؤسسة العمومية الاستشفائية
             </div>
 
+
             <p class="hero-description">
 
-                منصة رقمية متخصصة في إدارة ومتابعة
-                برامج التكوين المتواصل، الدورات التكوينية،
-                الدروس والمواد التعليمية والشهادات.
+                منصة رقمية حديثة تهدف إلى تنظيم
+                وإدارة ومتابعة برامج التكوين المتواصل،
+                وتوفير الدورات والدروس والمواد التعليمية
+                والشهادات ضمن بيئة إلكترونية سهلة ومنظمة.
 
             </p>
+
 
             <div class="buttons">
 
@@ -628,9 +1132,11 @@
         </div>
 
 
+
         <div class="hero-logo">
             🎓
         </div>
+
 
     </div>
 
@@ -638,11 +1144,12 @@
 
 
 
-<!-- ==============================
+<!-- =========================================
      الخدمات
-============================== -->
+========================================= -->
 
 <section class="services">
+
 
     <div class="section-header">
 
@@ -655,6 +1162,7 @@
         </p>
 
     </div>
+
 
 
     <div class="cards">
@@ -672,10 +1180,11 @@
 
             <p>
                 متابعة الدورات وبرامج التكوين
-                المتواصل بسهولة وتنظيم.
+                المتواصل بطريقة سهلة ومنظمة.
             </p>
 
         </div>
+
 
 
         <div class="card">
@@ -685,15 +1194,16 @@
             </div>
 
             <h3>
-                الدروس
+                الدروس والمواد
             </h3>
 
             <p>
                 الوصول إلى الدروس والوثائق
-                والمواد التعليمية.
+                والمواد التعليمية في أي وقت.
             </p>
 
         </div>
+
 
 
         <div class="card">
@@ -714,6 +1224,7 @@
         </div>
 
 
+
         <div class="card">
 
             <div class="card-icon">
@@ -726,7 +1237,7 @@
 
             <p>
                 متابعة تقدم المتربصين
-                والبرامج التكوينية.
+                والبرامج التكوينية بشكل منظم.
             </p>
 
         </div>
@@ -738,17 +1249,20 @@
 
 
 
-<!-- ==============================
-     معلومات المنصة
-============================== -->
+<!-- =========================================
+     عن المنصة
+========================================= -->
 
 <section class="info-section">
 
+
     <div class="info-box">
+
 
         <div class="info-icon">
             💻
         </div>
+
 
         <div>
 
@@ -757,11 +1271,69 @@
             </h2>
 
             <p>
-                تهدف المنصة إلى تسهيل عملية التكوين
-                ومتابعة المتربصين، وتوفير الدروس
-                والموارد التعليمية والشهادات ضمن
-                بيئة رقمية منظمة وسهلة الاستخدام.
+
+                تهدف هذه المنصة إلى تسهيل عملية
+                التكوين المتواصل، وتحسين متابعة
+                المتربصين، وتنظيم الدروس والموارد
+                التعليمية والشهادات ضمن فضاء رقمي
+                حديث وسهل الاستخدام.
+
             </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     لمسة صاحب المشروع
+========================================= -->
+
+<section class="project-section">
+
+
+    <div class="project-card">
+
+
+        <div class="project-content">
+
+
+            <div class="project-symbol">
+                ✨
+            </div>
+
+
+            <h2>
+                من فكرة إلى منصة رقمية
+            </h2>
+
+
+            <p>
+
+                هذه المنصة ثمرة جهد متواصل وفكرة
+                تهدف إلى تطوير أساليب التكوين،
+                وتسهيل الوصول إلى المعرفة،
+                والمساهمة في بناء بيئة رقمية
+                تخدم الموظفين والمتربصين
+                وتدعم التطوير المهني.
+
+            </p>
+
+
+            <div class="developer-name">
+
+                💡
+                صاحب فكرة وتطوير المنصة:
+                <strong>
+                    منير بن صغير
+                </strong>
+
+            </div>
+
 
         </div>
 
@@ -771,23 +1343,47 @@
 
 
 
-<!-- ==============================
+<!-- =========================================
      التذييل
-============================== -->
+========================================= -->
 
 <footer>
+
 
     <strong>
         منصة التكوين المتواصل
     </strong>
 
+
     <small>
         المؤسسة العمومية الاستشفائية
     </small>
 
+
+    <div class="footer-message">
+
+        هذا العمل ثمرة جهد متواصل لتطوير
+        بيئة رقمية حديثة تخدم التكوين
+        والتطوير المهني.
+
+    </div>
+
+
+    <div class="developer">
+
+        تصميم وتطوير المنصة
+
+        <span>
+            منير بن صغير
+        </span>
+
+    </div>
+
+
     <small>
         © 2026 جميع الحقوق محفوظة
     </small>
+
 
 </footer>
 
