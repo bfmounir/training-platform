@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>الدورات التكوينية</title>
 
     <style>
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -15,7 +20,7 @@
         header {
             background: #1565c0;
             color: white;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
         }
 
@@ -25,170 +30,718 @@
             padding: 20px;
         }
 
-        .box {
+        .top-box {
             background: white;
-            padding: 25px;
+            padding: 20px;
             border-radius: 12px;
             margin-bottom: 20px;
         }
 
-        input, textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0 15px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 7px;
+        .course {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        button {
+        .course h2 {
+            color: #1565c0;
+            margin-top: 0;
+        }
+
+        .info {
+            padding: 8px 0;
+        }
+
+        .button {
+            display: inline-block;
             background: #1565c0;
             color: white;
             border: none;
-            padding: 12px 20px;
+            padding: 11px 18px;
             border-radius: 7px;
             cursor: pointer;
+            text-decoration: none;
+            margin-top: 10px;
+            font-size: 15px;
         }
 
-        .course {
-            border: 1px solid #ddd;
+        .button:hover {
+            opacity: 0.9;
+        }
+
+        .register {
+            background: #2e7d32;
+        }
+
+        .login {
+            background: #ef6c00;
+        }
+
+        .registered {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 11px 18px;
+            border-radius: 7px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
             padding: 15px;
-            margin-top: 15px;
             border-radius: 8px;
         }
 
-        .delete {
-            background: #777;
-            margin-right: 10px;
+        .empty {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
         }
+
     </style>
+
 </head>
+
 
 <body>
 
+
 <header>
+
     <h1>📚 الدورات التكوينية</h1>
-    <p>إدارة الدورات التكوينية</p>
+
+    <p>
+        اختر الدورة المناسبة وسجل فيها
+    </p>
+
 </header>
+
 
 <div class="container">
 
-    <div class="box">
 
-        <h2>➕ إضافة دورة جديدة</h2>
+    <div class="top-box">
 
-        <label>اسم الدورة</label>
-        <input type="text" id="courseName" placeholder="مثال: الإسعافات الأولية">
+        <h2>
+            🎓 مرحبًا بك في الدورات التكوينية
+        </h2>
 
-        <label>وصف الدورة</label>
-        <textarea id="courseDescription" rows="4"
-            placeholder="اكتب وصفًا مختصرًا للدورة"></textarea>
-
-        <label>تاريخ الدورة</label>
-        <input type="date" id="courseDate">
-
-        <button onclick="addCourse()">
-            إضافة الدورة
-        </button>
+        <p id="userInfo">
+            جاري التحقق من تسجيل الدخول...
+        </p>
 
     </div>
 
-    <div class="box">
 
-        <h2>📋 الدورات المسجلة</h2>
+    <div id="coursesList">
 
-        <div id="coursesList">
-            لا توجد دورات حاليًا.
+        <div class="loading">
+            ⏳ جاري تحميل الدورات...
         </div>
 
     </div>
 
+
 </div>
 
+
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="supabase-config.js"></script>
+
 
 <script>
 
-async function addCourse() {
 
-    const name = document.getElementById("courseName").value;
-    const description = document.getElementById("courseDescription").value;
-    const date = document.getElementById("courseDate").value;
+/* =====================================================
+   المستخدم الحالي
+===================================================== */
 
-    if (name === "" || description === "" || date === "") {
-        alert("يرجى ملء جميع المعلومات");
-        return;
-    }
+let currentUser = null;
 
-    const { error } = await supabaseClient
-        .from("courses")
-        .insert({
-            name: name,
-            description: description,
-            course_date: date
-        });
+
+
+/* =====================================================
+   الحصول على المستخدم
+===================================================== */
+
+async function getCurrentUser() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.getUser();
+
 
     if (error) {
-        alert("حدث خطأ أثناء حفظ الدورة");
-        console.error(error);
+
+        console.error(
+            "خطأ المستخدم:",
+            error
+        );
+
+        return null;
+    }
+
+
+    return data.user || null;
+}
+
+
+
+/* =====================================================
+   التحقق من التسجيل
+===================================================== */
+
+async function checkEnrollment(
+    courseId
+) {
+
+    if (!currentUser) {
+
+        return false;
+    }
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("enrollments")
+        .select("id")
+        .eq(
+            "trainee_id",
+            currentUser.id
+        )
+        .eq(
+            "course_id",
+            courseId
+        )
+        .maybeSingle();
+
+
+    if (error) {
+
+        console.error(
+            "خطأ التحقق من التسجيل:",
+            error
+        );
+
+        return false;
+    }
+
+
+    return !!data;
+}
+
+
+
+/* =====================================================
+   عدد الدروس
+===================================================== */
+
+async function getLessonCount(
+    courseId
+) {
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("lessons")
+        .select(
+            "id"
+        )
+        .eq(
+            "course_id",
+            courseId
+        );
+
+
+    if (error) {
+
+        console.error(
+            "خطأ عدد الدروس:",
+            error
+        );
+
+        return 0;
+    }
+
+
+    return data
+        ? data.length
+        : 0;
+}
+
+
+
+/* =====================================================
+   التسجيل في الدورة
+===================================================== */
+
+async function enrollInCourse(
+    courseId,
+    button
+) {
+
+    if (!currentUser) {
+
+        alert(
+            "يجب تسجيل الدخول أولًا."
+        );
+
+        window.location.href =
+            "login.html";
+
         return;
     }
 
-    alert("تم حفظ الدورة بنجاح ✅");
 
-    document.getElementById("courseName").value = "";
-    document.getElementById("courseDescription").value = "";
-    document.getElementById("courseDate").value = "";
+    button.disabled = true;
+
+    button.textContent =
+        "جاري التسجيل...";
+
+
+    const {
+        data: trainee,
+        error: traineeError
+    } = await supabaseClient
+        .from("trainees")
+        .select(
+            "full_name, email"
+        )
+        .eq(
+            "id",
+            currentUser.id
+        )
+        .maybeSingle();
+
+
+    if (traineeError) {
+
+        console.error(
+            traineeError
+        );
+
+        alert(
+            "تعذر الحصول على بيانات المتربص."
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+            "📝 التسجيل في الدورة";
+
+        return;
+    }
+
+
+    const {
+        error
+    } = await supabaseClient
+        .from("enrollments")
+        .insert({
+
+            course_id:
+                courseId,
+
+            trainee_id:
+                currentUser.id,
+
+            full_name:
+                trainee?.full_name ||
+                "",
+
+            email:
+                trainee?.email ||
+                currentUser.email ||
+                ""
+
+        });
+
+
+    if (error) {
+
+        console.error(
+            "خطأ التسجيل:",
+            error
+        );
+
+
+        if (
+            error.code === "23505"
+        ) {
+
+            alert(
+                "أنت مسجل بالفعل في هذه الدورة."
+            );
+
+        } else {
+
+            alert(
+                "حدث خطأ أثناء التسجيل."
+            );
+
+        }
+
+
+        button.disabled = false;
+
+        button.textContent =
+            "📝 التسجيل في الدورة";
+
+        return;
+    }
+
+
+    alert(
+        "تم التسجيل في الدورة بنجاح ✅"
+    );
+
 
     loadCourses();
+
 }
 
+
+
+/* =====================================================
+   تحميل الدورات
+===================================================== */
 
 async function loadCourses() {
 
-    const list = document.getElementById("coursesList");
+    const list =
+        document.getElementById(
+            "coursesList"
+        );
 
-    const { data, error } = await supabaseClient
+
+    list.innerHTML = `
+
+        <div class="loading">
+            ⏳ جاري تحميل الدورات...
+        </div>
+
+    `;
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient
         .from("courses")
-        .select("*")
-        .order("created_at", { ascending: false });
+        .select(`
+            id,
+            name,
+            description,
+            course_date,
+            target_audience,
+            trainer_id
+        `)
+        .order(
+            "created_at",
+            {
+                ascending: false
+            }
+        );
+
 
     if (error) {
-        list.innerHTML = "حدث خطأ في تحميل الدورات";
-        console.error(error);
+
+        console.error(
+            "خطأ تحميل الدورات:",
+            error
+        );
+
+
+        list.innerHTML = `
+
+            <div class="error">
+
+                ❌ حدث خطأ أثناء تحميل الدورات.
+
+            </div>
+
+        `;
+
         return;
     }
 
-    if (data.length === 0) {
-        list.innerHTML = "لا توجد دورات حاليًا.";
+
+    if (
+        !data ||
+        data.length === 0
+    ) {
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                📚 لا توجد دورات متاحة حاليًا.
+
+            </div>
+
+        `;
+
         return;
     }
+
 
     list.innerHTML = "";
 
-    data.forEach(function(course) {
 
-        list.innerHTML += `
-            <div class="course">
+    for (
+        const course of data
+    ) {
 
-                <h3>📚 ${course.name}</h3>
 
-                <p>${course.description || ""}</p>
+        const enrolled =
+            await checkEnrollment(
+                course.id
+            );
 
-                <p>
-                    📅 تاريخ الدورة:
-                    ${course.course_date || ""}
-                </p>
+
+        const lessonCount =
+            await getLessonCount(
+                course.id
+            );
+
+
+        const courseBox =
+            document.createElement(
+                "div"
+            );
+
+
+        courseBox.className =
+            "course";
+
+
+        courseBox.innerHTML = `
+
+            <h2>
+                📚 ${course.name}
+            </h2>
+
+            <div class="info">
+
+                <strong>
+                    📝 وصف الدورة:
+                </strong>
+
+                <br>
+
+                ${course.description || "لا يوجد وصف."}
 
             </div>
+
+            <div class="info">
+
+                <strong>
+                    📅 تاريخ الدورة:
+                </strong>
+
+                ${course.course_date || "غير محدد"}
+
+            </div>
+
+            <div class="info">
+
+                <strong>
+                    👥 الفئة المستهدفة:
+                </strong>
+
+                ${course.target_audience || "جميع العمال والمتربصين"}
+
+            </div>
+
+            <div class="info">
+
+                <strong>
+                    📖 عدد الدروس:
+                </strong>
+
+                ${lessonCount}
+
+            </div>
+
         `;
-    });
+
+
+        if (enrolled) {
+
+
+            const registered =
+                document.createElement(
+                    "div"
+                );
+
+
+            registered.className =
+                "registered";
+
+
+            registered.textContent =
+                "✅ أنت مسجل في هذه الدورة";
+
+
+            courseBox.appendChild(
+                registered
+            );
+
+
+            const lessonsButton =
+                document.createElement(
+                    "a"
+                );
+
+
+            lessonsButton.className =
+                "button";
+
+
+            lessonsButton.href =
+                "trainee.html";
+
+
+            lessonsButton.textContent =
+                "📖 الدخول إلى الدورة";
+
+
+            courseBox.appendChild(
+                lessonsButton
+            );
+
+
+        } else {
+
+
+            if (currentUser) {
+
+
+                const registerButton =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                registerButton.className =
+                    "button register";
+
+
+                registerButton.textContent =
+                    "📝 التسجيل في الدورة";
+
+
+                registerButton.onclick =
+                    function() {
+
+                        enrollInCourse(
+                            course.id,
+                            registerButton
+                        );
+
+                    };
+
+
+                courseBox.appendChild(
+                    registerButton
+                );
+
+
+            } else {
+
+
+                const loginButton =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                loginButton.className =
+                    "button login";
+
+
+                loginButton.href =
+                    "login.html";
+
+
+                loginButton.textContent =
+                    "🔐 تسجيل الدخول للتسجيل";
+
+
+                courseBox.appendChild(
+                    loginButton
+                );
+
+            }
+
+        }
+
+
+        list.appendChild(
+            courseBox
+        );
+
+    }
+
 }
 
-loadCourses();
+
+
+/* =====================================================
+   تشغيل الصفحة
+===================================================== */
+
+async function startPage() {
+
+    currentUser =
+        await getCurrentUser();
+
+
+    const userInfo =
+        document.getElementById(
+            "userInfo"
+        );
+
+
+    if (currentUser) {
+
+        userInfo.textContent =
+            "👤 أنت مسجل الدخول ويمكنك التسجيل في الدورات.";
+
+    } else {
+
+        userInfo.textContent =
+            "🔐 سجل الدخول أولًا حتى تتمكن من التسجيل في الدورات.";
+
+    }
+
+
+    await loadCourses();
+
+}
+
+
+startPage();
 
 </script>
 
+
 </body>
+
 </html>
