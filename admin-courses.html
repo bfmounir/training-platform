@@ -8,9 +8,13 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>إدارة الدورات - المسؤول</title>
+<title>إدارة الدورات | منصة التكوين</title>
 
 <style>
+
+/* =========================
+   الأساس
+========================= */
 
 * {
     box-sizing: border-box;
@@ -18,136 +22,512 @@
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    background:
+        linear-gradient(135deg, #eef4ff 0%, #f8fbff 45%, #eefaf7 100%);
+    color: #1e293b;
+    min-height: 100vh;
 }
 
-header {
-    background: #1565c0;
+
+/* =========================
+   الشريط العلوي
+========================= */
+
+.header {
+    background:
+        linear-gradient(135deg, #0f3d91, #1769d1);
     color: white;
-    padding: 25px;
-    text-align: center;
+    padding: 28px 20px;
+    box-shadow: 0 8px 25px rgba(15, 61, 145, 0.18);
 }
+
+.header-content {
+    max-width: 1150px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    width: 58px;
+    height: 58px;
+    border-radius: 17px;
+    background: rgba(255,255,255,0.16);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 25px;
+}
+
+.header p {
+    margin: 6px 0 0;
+    opacity: .85;
+    font-size: 14px;
+}
+
+
+/* =========================
+   الحاوية
+========================= */
 
 .container {
-    max-width: 1100px;
+    max-width: 1150px;
     margin: 30px auto;
-    padding: 20px;
+    padding: 0 20px 40px;
 }
+
+
+/* =========================
+   التحقق
+========================= */
+
+.loading-screen {
+    background: white;
+    border-radius: 22px;
+    padding: 55px 25px;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(30, 64, 175, 0.08);
+    color: #475569;
+    font-size: 16px;
+}
+
+
+/* =========================
+   الإحصائيات
+========================= */
+
+.stats {
+    display: grid;
+    grid-template-columns:
+        repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: rgba(255,255,255,.92);
+    border: 1px solid rgba(226,232,240,.9);
+    border-radius: 20px;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 8px 25px rgba(15, 23, 42, .06);
+    transition: .25s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(15, 23, 42, .10);
+}
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    background: #eaf2ff;
+}
+
+.stat-number {
+    font-size: 25px;
+    font-weight: 800;
+    color: #0f3d91;
+}
+
+.stat-title {
+    color: #64748b;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+
+/* =========================
+   الصناديق
+========================= */
 
 .box {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
+    background: rgba(255,255,255,.95);
+    border-radius: 22px;
+    padding: 27px;
     margin-bottom: 25px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid rgba(226,232,240,.9);
+    box-shadow: 0 10px 35px rgba(15,23,42,.07);
 }
 
-h2 {
-    color: #1565c0;
+.box-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 23px;
+}
+
+.box-title-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    background: #eaf2ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+}
+
+.box h2 {
+    margin: 0;
+    font-size: 21px;
+    color: #0f3d91;
+}
+
+.box-subtitle {
+    color: #64748b;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+
+/* =========================
+   النموذج
+========================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.form-group {
+    margin-bottom: 3px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
 }
 
 label {
     display: block;
-    margin-top: 15px;
-    margin-bottom: 6px;
-    font-weight: bold;
+    margin-bottom: 8px;
+    color: #334155;
+    font-weight: 700;
+    font-size: 14px;
 }
 
 input,
-textarea,
-select {
+textarea {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border: 1px solid #d8e0ea;
+    background: #f8fafc;
+    padding: 14px 15px;
+    border-radius: 13px;
     font-size: 15px;
+    font-family: inherit;
+    color: #1e293b;
+    outline: none;
+    transition: .2s ease;
+}
+
+input:focus,
+textarea:focus {
+    background: white;
+    border-color: #1769d1;
+    box-shadow: 0 0 0 4px rgba(23,105,209,.10);
 }
 
 textarea {
-    min-height: 100px;
+    min-height: 115px;
     resize: vertical;
+}
+
+
+/* =========================
+   الأزرار
+========================= */
+
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
 }
 
 button {
     border: none;
-    border-radius: 7px;
-    padding: 11px 18px;
     cursor: pointer;
-    font-size: 15px;
-    margin: 5px;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 700;
+    transition: .2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
 }
 
 .primary {
-    background: #1565c0;
+    background: linear-gradient(135deg, #1769d1, #0f4fa8);
+    color: white;
+    box-shadow: 0 6px 15px rgba(23,105,209,.20);
+}
+
+.secondary {
+    background: #64748b;
     color: white;
 }
 
 .success {
-    background: #2e7d32;
+    background: #0f9f6e;
     color: white;
 }
 
 .warning {
-    background: #ef6c00;
+    background: #f59e0b;
     color: white;
 }
 
 .danger {
-    background: #c62828;
+    background: #dc3545;
     color: white;
 }
 
-.secondary {
-    background: #555;
-    color: white;
+
+/* =========================
+   الرسائل
+========================= */
+
+.message {
+    display: none;
+    padding: 14px 16px;
+    border-radius: 12px;
+    margin-top: 18px;
+    font-size: 14px;
+    font-weight: 600;
 }
+
+.message.ok {
+    background: #ecfdf5;
+    color: #087f5b;
+    border: 1px solid #bbf7d0;
+}
+
+.message.error {
+    background: #fff1f2;
+    color: #be123c;
+    border: 1px solid #fecdd3;
+}
+
+
+/* =========================
+   شريط الدورات
+========================= */
+
+.courses-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.course-count {
+    background: #eaf2ff;
+    color: #0f4fa8;
+    padding: 7px 13px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   بطاقات الدورات
+========================= */
 
 .course {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 18px;
+    position: relative;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 19px;
+    padding: 22px;
+    margin-bottom: 16px;
+    transition: .25s ease;
+    overflow: hidden;
+}
+
+.course::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        #1769d1,
+        #0f9f6e
+    );
+}
+
+.course:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(15,23,42,.08);
 }
 
 .course h3 {
-    color: #1565c0;
-    margin-top: 0;
+    margin: 0 0 17px;
+    color: #0f3d91;
+    font-size: 19px;
 }
 
 .info {
-    margin: 8px 0;
+    display: flex;
+    gap: 7px;
+    margin: 9px 0;
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.7;
 }
 
-.message {
-    padding: 12px;
-    border-radius: 8px;
-    margin-top: 15px;
-    display: none;
-}
-
-.error {
-    background: #ffebee;
-    color: #c62828;
-}
-
-.ok {
-    background: #e8f5e9;
-    color: #2e7d32;
-}
-
-.loading {
-    text-align: center;
-    padding: 25px;
+.info strong {
+    color: #334155;
+    min-width: 75px;
 }
 
 .actions {
-    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-top: 1px solid #eef2f7;
+    padding-top: 16px;
+    margin-top: 17px;
 }
 
+.actions button {
+    padding: 10px 15px;
+    font-size: 13px;
+}
+
+
+/* =========================
+   لا توجد دورات
+========================= */
+
+.empty {
+    text-align: center;
+    padding: 50px 20px;
+    color: #64748b;
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.empty-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 5px;
+}
+
+
+/* =========================
+   العودة
+========================= */
+
+.back-button {
+    width: 100%;
+    margin-top: 5px;
+    padding: 14px;
+}
+
+
+/* =========================
+   إخفاء
+========================= */
+
 .hidden {
-    display: none;
+    display: none !important;
+}
+
+
+/* =========================
+   استجابة الهاتف
+========================= */
+
+@media (max-width: 800px) {
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo-area {
+        justify-content: center;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .box {
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    .container {
+        margin-top: 20px;
+        padding: 0 13px 30px;
+    }
+
+    .courses-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .actions button {
+        flex: 1 1 auto;
+    }
+
+    .info {
+        display: block;
+    }
+
+    .info strong {
+        display: inline;
+    }
+
 }
 
 </style>
@@ -158,15 +538,35 @@ button {
 <body>
 
 
-<header>
+<!-- =========================
+     الرأس
+========================= -->
 
-<h1>
-📚 إدارة الدورات التكوينية
-</h1>
+<header class="header">
 
-<p>
-لوحة تحكم المسؤول
-</p>
+    <div class="header-content">
+
+        <div class="logo-area">
+
+            <div class="logo">
+                📚
+            </div>
+
+            <div>
+
+                <h1>
+                    إدارة الدورات التكوينية
+                </h1>
+
+                <p>
+                    لوحة تحكم المسؤول في منصة التكوين المستمر
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </header>
 
@@ -179,9 +579,9 @@ button {
 ========================= -->
 
 <div id="loadingBox"
-     class="box loading">
+     class="loading-screen">
 
-⏳ جاري التحقق من صلاحيات المسؤول...
+    ⏳ جاري التحقق من صلاحيات المسؤول...
 
 </div>
 
@@ -191,131 +591,276 @@ button {
 
 
 <!-- =========================
-     نموذج إضافة / تعديل
+     الإحصائيات
 ========================= -->
 
-<div class="box">
+<div class="stats">
 
-<h2 id="formTitle">
-➕ إضافة دورة تكوينية
-</h2>
+    <div class="stat-card">
 
+        <div class="stat-icon">
+            📚
+        </div>
 
-<input
-    type="hidden"
-    id="courseId"
->
+        <div>
 
+            <div class="stat-number"
+                 id="totalCourses">
+                0
+            </div>
 
-<label>
-اسم الدورة
-</label>
+            <div class="stat-title">
+                إجمالي الدورات
+            </div>
 
-<input
-    type="text"
-    id="courseName"
-    placeholder="مثال: الإسعافات الأولية"
->
+        </div>
 
-
-<label>
-وصف الدورة
-</label>
-
-<textarea
-    id="courseDescription"
-    placeholder="اكتب وصف الدورة..."
-></textarea>
+    </div>
 
 
-<label>
-تاريخ الدورة
-</label>
+    <div class="stat-card">
 
-<input
-    type="date"
-    id="courseDate"
->
+        <div class="stat-icon">
+            👨‍🏫
+        </div>
 
+        <div>
 
-<label>
-الفئة المستهدفة
-</label>
+            <div class="stat-number">
+                🎓
+            </div>
 
-<input
-    type="text"
-    id="targetAudience"
-    placeholder="مثال: جميع العمال"
->
+            <div class="stat-title">
+                التكوين المستمر
+            </div>
 
+        </div>
 
-<button
-    class="primary"
-    onclick="saveCourse()"
->
-
-💾 حفظ الدورة
-
-</button>
+    </div>
 
 
-<button
-    id="cancelButton"
-    class="secondary hidden"
-    onclick="cancelEdit()"
->
+    <div class="stat-card">
 
-إلغاء التعديل
+        <div class="stat-icon">
+            ⚙️
+        </div>
 
-</button>
+        <div>
 
+            <div class="stat-number">
+                إدارة
+            </div>
 
-<div
-    id="formMessage"
-    class="message"
-></div>
+            <div class="stat-title">
+                إضافة وتعديل الدورات
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
 
 <!-- =========================
-     الدورات
+     نموذج الإضافة
 ========================= -->
 
 <div class="box">
 
-<h2>
-📚 الدورات الموجودة
-</h2>
+    <div class="box-title">
 
-<div id="coursesList">
+        <div class="box-title-icon">
+            ➕
+        </div>
 
-<div class="loading">
-⏳ جاري تحميل الدورات...
+        <div>
+
+            <h2 id="formTitle">
+                إضافة دورة تكوينية
+            </h2>
+
+            <div class="box-subtitle">
+                أدخل معلومات الدورة ثم اضغط على حفظ
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <input
+        type="hidden"
+        id="courseId"
+    >
+
+
+    <div class="form-grid">
+
+
+        <div class="form-group full">
+
+            <label>
+                📚 اسم الدورة
+            </label>
+
+            <input
+                type="text"
+                id="courseName"
+                placeholder="مثال: الإسعافات الأولية"
+            >
+
+        </div>
+
+
+        <div class="form-group full">
+
+            <label>
+                📝 وصف الدورة
+            </label>
+
+            <textarea
+                id="courseDescription"
+                placeholder="اكتب وصفًا مختصرًا للدورة وأهدافها..."
+            ></textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                📅 تاريخ الدورة
+            </label>
+
+            <input
+                type="date"
+                id="courseDate"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                👥 الفئة المستهدفة
+            </label>
+
+            <input
+                type="text"
+                id="targetAudience"
+                placeholder="مثال: جميع العمال"
+            >
+
+        </div>
+
+
+    </div>
+
+
+    <div class="button-row">
+
+        <button
+            class="primary"
+            onclick="saveCourse()"
+        >
+            💾 حفظ الدورة
+        </button>
+
+
+        <button
+            id="cancelButton"
+            class="secondary hidden"
+            onclick="cancelEdit()"
+        >
+            إلغاء التعديل
+        </button>
+
+    </div>
+
+
+    <div
+        id="formMessage"
+        class="message"
+    ></div>
+
 </div>
 
-</div>
+
+<!-- =========================
+     قائمة الدورات
+========================= -->
+
+<div class="box">
+
+    <div class="courses-header">
+
+        <div class="box-title"
+             style="margin:0">
+
+            <div class="box-title-icon">
+                📚
+            </div>
+
+            <div>
+
+                <h2>
+                    الدورات الموجودة
+                </h2>
+
+                <div class="box-subtitle">
+                    إدارة جميع الدورات التكوينية
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="course-count"
+            id="courseCount"
+        >
+            0 دورة
+        </div>
+
+    </div>
+
+
+    <div id="coursesList">
+
+        <div class="loading-screen">
+            ⏳ جاري تحميل الدورات...
+        </div>
+
+    </div>
 
 </div>
 
+
+<!-- =========================
+     العودة
+========================= -->
 
 <button
-    class="secondary"
+    class="secondary back-button"
     onclick="goBack()"
 >
 
-⬅️ العودة إلى لوحة المسؤول
+    ⬅️ العودة إلى لوحة المسؤول
 
 </button>
 
 
 </div>
 
-
 </div>
 
 
-<!-- Supabase -->
+<!-- =========================
+     Supabase
+========================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -329,26 +874,27 @@ let currentUser = null;
 
 
 /* =====================================================
-   رسالة
+   الرسائل
 ===================================================== */
 
-function showMessage(
-    text,
-    type = "ok"
-) {
+function showMessage(text, type = "ok") {
 
     const box =
-        document.getElementById(
-            "formMessage"
-        );
+        document.getElementById("formMessage");
 
     box.textContent = text;
 
     box.className =
         "message " + type;
 
-    box.style.display =
-        "block";
+    box.style.display = "block";
+
+
+    setTimeout(function() {
+
+        box.style.display = "none";
+
+    }, 5000);
 
 }
 
@@ -365,6 +911,7 @@ async function getCurrentUser() {
     } =
     await supabaseClient.auth.getUser();
 
+
     if (
         error ||
         !data ||
@@ -374,6 +921,7 @@ async function getCurrentUser() {
         return null;
 
     }
+
 
     return data.user;
 
@@ -387,14 +935,10 @@ async function getCurrentUser() {
 async function checkAdmin() {
 
     const loading =
-        document.getElementById(
-            "loadingBox"
-        );
+        document.getElementById("loadingBox");
 
     const content =
-        document.getElementById(
-            "adminContent"
-        );
+        document.getElementById("adminContent");
 
 
     currentUser =
@@ -404,17 +948,16 @@ async function checkAdmin() {
     if (!currentUser) {
 
         loading.textContent =
-            "يجب تسجيل الدخول أولًا.";
+            "⚠️ يجب تسجيل الدخول أولًا.";
 
-        setTimeout(
-            function() {
 
-                window.location.href =
-                    "login.html";
+        setTimeout(function() {
 
-            },
-            1000
-        );
+            window.location.href =
+                "login.html";
+
+        }, 1000);
+
 
         return;
 
@@ -444,15 +987,14 @@ async function checkAdmin() {
         loading.textContent =
             "⛔ هذه الصفحة مخصصة للمسؤول فقط.";
 
-        setTimeout(
-            function() {
 
-                window.location.href =
-                    "trainee.html";
+        setTimeout(function() {
 
-            },
-            1200
-        );
+            window.location.href =
+                "trainee.html";
+
+        }, 1200);
+
 
         return;
 
@@ -461,6 +1003,7 @@ async function checkAdmin() {
 
     loading.style.display =
         "none";
+
 
     content.classList.remove(
         "hidden"
@@ -479,13 +1022,11 @@ async function checkAdmin() {
 async function loadCourses() {
 
     const list =
-        document.getElementById(
-            "coursesList"
-        );
+        document.getElementById("coursesList");
 
 
     list.innerHTML =
-        '<div class="loading">⏳ جاري تحميل الدورات...</div>';
+        '<div class="loading-screen">⏳ جاري تحميل الدورات...</div>';
 
 
     const {
@@ -509,6 +1050,7 @@ async function loadCourses() {
 
         console.error(error);
 
+
         list.innerHTML =
             '<div class="message error" style="display:block;">❌ تعذر تحميل الدورات.</div>';
 
@@ -517,13 +1059,46 @@ async function loadCourses() {
     }
 
 
+    const count =
+        data ? data.length : 0;
+
+
+    document.getElementById(
+        "totalCourses"
+    ).textContent =
+        count;
+
+
+    document.getElementById(
+        "courseCount"
+    ).textContent =
+        count + " دورة";
+
+
     if (
         !data ||
         data.length === 0
     ) {
 
-        list.innerHTML =
-            '<div class="loading">📚 لا توجد دورات حاليًا.</div>';
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📚
+                </div>
+
+                <div class="empty-title">
+                    لا توجد دورات حاليًا
+                </div>
+
+                <div>
+                    يمكنك إضافة أول دورة من النموذج أعلاه.
+                </div>
+
+            </div>
+
+        `;
 
         return;
 
@@ -533,80 +1108,83 @@ async function loadCourses() {
     list.innerHTML = "";
 
 
-    data.forEach(
-        function(course) {
+    data.forEach(function(course) {
 
-            const box =
-                document.createElement(
-                    "div"
-                );
+        const box =
+            document.createElement("div");
 
 
-            box.className =
-                "course";
+        box.className =
+            "course";
 
 
-            box.innerHTML = `
+        box.innerHTML = `
 
-                <h3>
-                    📚 ${escapeHtml(course.name)}
-                </h3>
+            <h3>
+                📚 ${escapeHtml(course.name)}
+            </h3>
 
-                <div class="info">
-                    <strong>📝 الوصف:</strong>
-                    ${escapeHtml(course.description || "لا يوجد وصف")}
-                </div>
+            <div class="info">
+                <strong>📝 الوصف:</strong>
+                ${escapeHtml(
+                    course.description ||
+                    "لا يوجد وصف"
+                )}
+            </div>
 
-                <div class="info">
-                    <strong>📅 التاريخ:</strong>
-                    ${escapeHtml(course.course_date || "غير محدد")}
-                </div>
+            <div class="info">
+                <strong>📅 التاريخ:</strong>
+                ${escapeHtml(
+                    course.course_date ||
+                    "غير محدد"
+                )}
+            </div>
 
-                <div class="info">
-                    <strong>👥 الفئة:</strong>
-                    ${escapeHtml(course.target_audience || "جميع العمال")}
-                </div>
+            <div class="info">
+                <strong>👥 الفئة:</strong>
+                ${escapeHtml(
+                    course.target_audience ||
+                    "جميع العمال"
+                )}
+            </div>
 
-                <div class="actions">
+            <div class="actions">
 
-                    <button
-                        class="warning"
-                        onclick='editCourse(${JSON.stringify(course)})'
-                    >
-                        ✏️ تعديل
-                    </button>
+                <button
+                    class="warning"
+                    onclick='editCourse(${JSON.stringify(course)})'
+                >
+                    ✏️ تعديل
+                </button>
 
-                    <button
-                        class="danger"
-                        onclick="deleteCourse('${course.id}')"
-                    >
-                        🗑️ حذف
-                    </button>
+                <button
+                    class="danger"
+                    onclick="deleteCourse('${course.id}')"
+                >
+                    🗑️ حذف
+                </button>
 
-                    <button
-                        class="success"
-                        onclick="openLessons('${course.id}')"
-                    >
-                        📖 إدارة الدروس
-                    </button>
+                <button
+                    class="success"
+                    onclick="openLessons('${course.id}')"
+                >
+                    📖 إدارة الدروس
+                </button>
 
-                </div>
+            </div>
 
-            `;
+        `;
 
 
-            list.appendChild(
-                box
-            );
+        list.appendChild(box);
 
-        }
-    );
+    });
 
 }
 
 
 /* =====================================================
-   إضافة / تعديل دورة
+   حفظ الدورة
 ===================================================== */
 
 async function saveCourse() {
@@ -648,6 +1226,10 @@ async function saveCourse() {
             "error"
         );
 
+        document.getElementById(
+            "courseName"
+        ).focus();
+
         return;
 
     }
@@ -655,11 +1237,9 @@ async function saveCourse() {
 
     const courseData = {
 
-        name:
-            name,
+        name: name,
 
-        description:
-            description,
+        description: description,
 
         course_date:
             courseDate || null,
@@ -678,13 +1258,8 @@ async function saveCourse() {
         result =
             await supabaseClient
                 .from("courses")
-                .update(
-                    courseData
-                )
-                .eq(
-                    "id",
-                    id
-                );
+                .update(courseData)
+                .eq("id", id);
 
     }
 
@@ -693,9 +1268,7 @@ async function saveCourse() {
         result =
             await supabaseClient
                 .from("courses")
-                .insert(
-                    courseData
-                );
+                .insert(courseData);
 
     }
 
@@ -735,7 +1308,7 @@ async function saveCourse() {
 
 
 /* =====================================================
-   تعديل
+   تعديل الدورة
 ===================================================== */
 
 function editCourse(course) {
@@ -783,12 +1356,13 @@ function editCourse(course) {
     );
 
 
-    window.scrollTo(
-        {
-            top: 0,
-            behavior: "smooth"
-        }
-    );
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
 
 }
 
@@ -838,7 +1412,7 @@ function clearForm() {
     document.getElementById(
         "formTitle"
     ).textContent =
-        "➕ إضافة دورة تكوينية";
+        "إضافة دورة تكوينية";
 
 
     document.getElementById(
@@ -851,12 +1425,10 @@ function clearForm() {
 
 
 /* =====================================================
-   حذف دورة
+   حذف الدورة
 ===================================================== */
 
-async function deleteCourse(
-    courseId
-) {
+async function deleteCourse(courseId) {
 
     const confirmed =
         confirm(
@@ -885,9 +1457,7 @@ async function deleteCourse(
 
     if (error) {
 
-        console.error(
-            error
-        );
+        console.error(error);
 
 
         alert(
@@ -914,15 +1484,11 @@ async function deleteCourse(
    إدارة الدروس
 ===================================================== */
 
-function openLessons(
-    courseId
-) {
+function openLessons(courseId) {
 
     window.location.href =
         "admin-lessons.html?course_id=" +
-        encodeURIComponent(
-            courseId
-        );
+        encodeURIComponent(courseId);
 
 }
 
@@ -940,34 +1506,22 @@ function goBack() {
 
 
 /* =====================================================
-   حماية عرض النص
+   حماية النص
 ===================================================== */
 
-function escapeHtml(
-    value
-) {
+function escapeHtml(value) {
 
     return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
 
 }
 
@@ -978,9 +1532,7 @@ function escapeHtml(
 
 checkAdmin();
 
-
 </script>
-
 
 </body>
 
