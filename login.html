@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>تسجيل الدخول - منصة التكوين</title>
+    <title>تسجيل الدخول - منصة التكوين المتواصل</title>
 
     <style>
 
@@ -26,8 +26,12 @@
 
         .login-box {
             background: white;
+
             width: 350px;
+            max-width: calc(100% - 40px);
+
             padding: 30px;
+
             border-radius: 15px;
 
             box-shadow:
@@ -44,6 +48,7 @@
         h1 {
             color: #1565c0;
             font-size: 24px;
+            margin-bottom: 10px;
         }
 
         p {
@@ -54,12 +59,15 @@
         select {
 
             width: 100%;
+
             padding: 12px;
+
             margin: 10px 0;
 
             box-sizing: border-box;
 
             border: 1px solid #ccc;
+
             border-radius: 8px;
 
             font-size: 15px;
@@ -68,16 +76,21 @@
         button {
 
             width: 100%;
+
             padding: 13px;
+
             margin-top: 15px;
 
             border: none;
+
             border-radius: 8px;
 
             background: #1565c0;
+
             color: white;
 
             font-size: 16px;
+
             cursor: pointer;
         }
 
@@ -100,13 +113,28 @@
             font-size: 14px;
         }
 
+        .back {
+
+            display: block;
+
+            margin-top: 20px;
+
+            color: #666;
+
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
         #message {
 
-            margin-top: 15px;
+            margin-top: 18px;
 
             font-weight: bold;
 
-            line-height: 1.6;
+            line-height: 1.7;
+
+            word-break: break-word;
         }
 
     </style>
@@ -119,18 +147,23 @@
 
 <div class="login-box">
 
+
     <div class="logo">
         📚
     </div>
+
 
     <h1>
         منصة التكوين المتواصل
     </h1>
 
+
     <p>
         تسجيل الدخول
     </p>
 
+
+    <!-- نوع المستخدم -->
 
     <select id="userType">
 
@@ -142,35 +175,48 @@
             المسؤول
         </option>
 
-        <option value="worker">
-            العامل
-        </option>
-
         <option value="trainee">
             المتربص
+        </option>
+
+        <option value="worker">
+            العامل
         </option>
 
     </select>
 
 
+    <!-- البريد -->
+
     <input
         type="email"
         id="username"
         placeholder="البريد الإلكتروني"
+        autocomplete="email"
     >
 
+
+    <!-- كلمة المرور -->
 
     <input
         type="password"
         id="password"
         placeholder="كلمة المرور"
+        autocomplete="current-password"
     >
 
 
-    <button onclick="login()">
-        تسجيل الدخول
+    <!-- الدخول -->
+
+    <button
+        type="button"
+        onclick="login()"
+    >
+        🔐 تسجيل الدخول
     </button>
 
+
+    <!-- استعادة كلمة المرور -->
 
     <span
         class="forgot"
@@ -182,8 +228,19 @@
 
     <p id="message"></p>
 
+
+    <a
+        href="index.html"
+        class="back"
+    >
+        ← العودة إلى الصفحة الرئيسية
+    </a>
+
+
 </div>
 
+
+<!-- Supabase -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -193,9 +250,9 @@
 <script>
 
 
-/* =========================
+/* =====================================================
    تسجيل الدخول
-========================= */
+===================================================== */
 
 async function login() {
 
@@ -223,6 +280,8 @@ async function login() {
         );
 
 
+    /* التحقق من البيانات */
+
     if (
         userType === "" ||
         email === "" ||
@@ -246,80 +305,39 @@ async function login() {
         "#1565c0";
 
 
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.auth
-            .signInWithPassword({
-
-                email: email,
-
-                password: password
-
-            });
+    try {
 
 
-    if (error) {
-
-        console.error(error);
-
-        message.textContent =
-            "فشل تسجيل الدخول: " +
-            error.message;
-
-        message.style.color =
-            "red";
-
-        return;
-    }
-
-
-    const user =
-        data.user;
-
-
-    if (!user) {
-
-        message.textContent =
-            "تعذر الحصول على بيانات المستخدم.";
-
-        message.style.color =
-            "red";
-
-        return;
-    }
-
-
-    /* =========================
-       المسؤول
-    ========================= */
-
-    if (userType === "admin") {
+        /* تسجيل الدخول */
 
         const {
-            data: roleData,
-            error: roleError
+            data,
+            error
         } =
-            await supabaseClient
-                .from("user_roles")
-                .select("role")
-                .eq(
-                    "user_id",
-                    user.id
-                )
-                .maybeSingle();
-
-
-        if (roleError) {
-
-            console.error(roleError);
-
             await supabaseClient.auth
-                .signOut();
+                .signInWithPassword({
+
+                    email:
+                        email,
+
+                    password:
+                        password
+
+                });
+
+
+        /* خطأ تسجيل الدخول */
+
+        if (error) {
+
+            console.error(
+                "خطأ تسجيل الدخول:",
+                error
+            );
 
             message.textContent =
-                "تعذر التحقق من صلاحيات المسؤول.";
+                "فشل تسجيل الدخول: " +
+                error.message;
 
             message.style.color =
                 "red";
@@ -328,82 +346,190 @@ async function login() {
         }
 
 
+        const user =
+            data.user;
+
+
+        if (!user) {
+
+            message.textContent =
+                "تعذر الحصول على بيانات الحساب.";
+
+            message.style.color =
+                "red";
+
+            return;
+        }
+
+
+        /* =================================================
+           المسؤول
+        ================================================= */
+
         if (
-            !roleData ||
-            roleData.role !== "admin"
+            userType === "admin"
+        ) {
+
+
+            const {
+                data: roleData,
+                error: roleError
+            } =
+                await supabaseClient
+                    .from("user_roles")
+                    .select("role")
+                    .eq(
+                        "user_id",
+                        user.id
+                    )
+                    .maybeSingle();
+
+
+            if (roleError) {
+
+                console.error(
+                    "خطأ الصلاحيات:",
+                    roleError
+                );
+
+
+                await supabaseClient.auth
+                    .signOut();
+
+
+                message.textContent =
+                    "تعذر التحقق من صلاحيات المسؤول: " +
+                    roleError.message;
+
+                message.style.color =
+                    "red";
+
+                return;
+            }
+
+
+            /* التحقق من admin */
+
+            if (
+                !roleData ||
+                roleData.role !== "admin"
+            ) {
+
+                await supabaseClient.auth
+                    .signOut();
+
+
+                message.textContent =
+                    "هذا الحساب ليس لديه صلاحية المسؤول.";
+
+                message.style.color =
+                    "red";
+
+                return;
+            }
+
+
+            /* دخول المسؤول */
+
+            message.textContent =
+                "تم التحقق من حساب المسؤول ✅";
+
+            message.style.color =
+                "green";
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "admin.html";
+
+                },
+                500
+            );
+
+
+            return;
+        }
+
+
+        /* =================================================
+           المتربص
+        ================================================= */
+
+        if (
+            userType === "trainee"
+        ) {
+
+            message.textContent =
+                "تم تسجيل الدخول بنجاح ✅";
+
+            message.style.color =
+                "green";
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "trainee.html";
+
+                },
+                500
+            );
+
+
+            return;
+        }
+
+
+        /* =================================================
+           العامل
+        ================================================= */
+
+        if (
+            userType === "worker"
         ) {
 
             await supabaseClient.auth
                 .signOut();
 
+
             message.textContent =
-                "هذا الحساب ليس حساب مسؤول.";
+                "واجهة العامل سيتم تفعيلها لاحقًا.";
 
             message.style.color =
-                "red";
+                "#1565c0";
 
             return;
         }
 
 
-        message.textContent =
-            "تم التحقق من حساب المسؤول...";
-
-        message.style.color =
-            "green";
-
-
-        window.location.href =
-            "admin.html";
-
-        return;
     }
 
+    catch (error) {
 
-    /* =========================
-       المتربص
-    ========================= */
+        console.error(
+            "خطأ غير متوقع:",
+            error
+        );
 
-    if (userType === "trainee") {
 
         message.textContent =
-            "تم تسجيل الدخول بنجاح...";
+            "حدث خطأ غير متوقع: " +
+            error.message;
 
         message.style.color =
-            "green";
+            "red";
 
-
-        window.location.href =
-            "trainee.html";
-
-        return;
-    }
-
-
-    /* =========================
-       العامل
-    ========================= */
-
-    if (userType === "worker") {
-
-        await supabaseClient.auth
-            .signOut();
-
-        message.textContent =
-            "واجهة العامل سيتم تفعيلها لاحقًا.";
-
-        message.style.color =
-            "#1565c0";
-
-        return;
     }
 
 }
 
 
-/* =========================
-   نسيت كلمة المرور
-========================= */
+/* =====================================================
+   إعادة تعيين كلمة المرور
+===================================================== */
 
 async function resetPassword() {
 
@@ -419,10 +545,14 @@ async function resetPassword() {
         );
 
 
-    if (email === "") {
+    /* يجب إدخال البريد فقط */
+
+    if (
+        email === ""
+    ) {
 
         message.textContent =
-            "أدخل البريد الإلكتروني أولًا.";
+            "أدخل البريد الإلكتروني أولًا، ثم اضغط «نسيت كلمة المرور؟».";
 
         message.style.color =
             "red";
@@ -438,44 +568,90 @@ async function resetPassword() {
         "#1565c0";
 
 
-    const redirectUrl =
-        window.location.origin +
-        window.location.pathname;
+    try {
 
 
-    const {
-        error
-    } =
-        await supabaseClient.auth
-            .resetPasswordForEmail(
-                email,
-                {
-                    redirectTo:
-                        redirectUrl
-                }
+        /*
+           رابط العودة بعد إعادة التعيين.
+
+           نستخدم صفحة login.html نفسها
+           حتى يستطيع المستخدم اختيار كلمة مرور جديدة.
+        */
+
+        const redirectUrl =
+            window.location.origin +
+            window.location.pathname;
+
+
+        const {
+            error
+        } =
+            await supabaseClient.auth
+                .resetPasswordForEmail(
+
+                    email,
+
+                    {
+                        redirectTo:
+                            redirectUrl
+                    }
+
+                );
+
+
+        /* في حالة الخطأ */
+
+        if (error) {
+
+            console.error(
+                "خطأ إعادة تعيين كلمة المرور:",
+                error
             );
 
 
-    if (error) {
+            /*
+               نعرض رسالة Supabase الحقيقية
+               حتى نعرف سبب المشكلة.
+            */
 
-        console.error(error);
+            message.textContent =
+                "تعذر إرسال رابط إعادة التعيين: " +
+                error.message;
+
+            message.style.color =
+                "red";
+
+            return;
+        }
+
+
+        /* نجاح الإرسال */
 
         message.textContent =
-            "تعذر إرسال رابط إعادة التعيين: " +
+            "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني. تحقق من البريد الوارد والبريد غير المرغوب فيه.";
+
+        message.style.color =
+            "green";
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "خطأ غير متوقع:",
+            error
+        );
+
+
+        message.textContent =
+            "حدث خطأ أثناء إعادة التعيين: " +
             error.message;
 
         message.style.color =
             "red";
 
-        return;
     }
-
-
-    message.textContent =
-        "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني. تحقق من البريد الوارد.";
-
-    message.style.color =
-        "green";
 
 }
 
