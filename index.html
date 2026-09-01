@@ -8,7 +8,9 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>منصة التكوين المتواصل</title>
+<title>
+منصة التكوين المتواصل | المؤسسة العمومية الإستشفائية بأولف
+</title>
 
 <style>
 
@@ -41,7 +43,9 @@ body {
         );
 
     color: #172b3a;
+
     min-height: 100vh;
+
     line-height: 1.7;
 }
 
@@ -51,37 +55,49 @@ body {
 ===================================================== */
 
 .navbar {
-    height: 82px;
 
-    background: rgba(255,255,255,0.94);
+    min-height: 88px;
+
+    background:
+        rgba(255,255,255,0.97);
 
     backdrop-filter: blur(15px);
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
-    padding: 0 6%;
+    padding: 10px 6%;
 
     border-bottom:
-        1px solid rgba(7,89,133,0.08);
+        1px solid rgba(7,89,133,0.10);
 
     box-shadow:
         0 5px 25px rgba(15,55,75,0.08);
 
     position: relative;
+
     z-index: 20;
 }
 
+
 .logo-area {
+
     display: flex;
+
     align-items: center;
-    gap: 13px;
+
+    gap: 14px;
 }
 
+
 .small-logo {
-    width: 54px;
-    height: 54px;
+
+    width: 58px;
+
+    height: 58px;
 
     object-fit: contain;
 
@@ -97,31 +113,53 @@ body {
     box-shadow:
         0 6px 18px rgba(0,90,110,0.14);
 
-    transition: 0.3s ease;
+    transition: .3s;
 }
+
 
 .small-logo:hover {
-    transform: rotate(3deg) scale(1.05);
+
+    transform:
+        scale(1.05);
 }
 
+
 .brand-text {
+
     color: #075985;
 
     font-size: 19px;
+
     font-weight: 800;
 
-    line-height: 1.3;
+    line-height: 1.35;
 }
 
-.brand-subtitle {
-    color: #718096;
 
-    font-size: 11px;
+.brand-institution {
+
+    color: #163b52;
+
+    font-size: 13px;
+
+    font-weight: 700;
 
     margin-top: 2px;
 }
 
+
+.brand-office {
+
+    color: #718096;
+
+    font-size: 11px;
+
+    margin-top: 1px;
+}
+
+
 .nav-status {
+
     background:
         linear-gradient(
             135deg,
@@ -136,6 +174,7 @@ body {
     border-radius: 30px;
 
     font-size: 13px;
+
     font-weight: 700;
 
     border:
@@ -151,15 +190,19 @@ body {
 ===================================================== */
 
 .hero {
-    min-height: 610px;
+
+    min-height: 650px;
 
     position: relative;
+
     overflow: hidden;
 
     display: flex;
+
     align-items: center;
 
     background:
+
         radial-gradient(
             circle at 15% 20%,
             rgba(255,255,255,0.13),
@@ -181,14 +224,14 @@ body {
 }
 
 
-/* زخارف الخلفية */
-
 .hero::before {
+
     content: "";
 
     position: absolute;
 
     width: 520px;
+
     height: 520px;
 
     border-radius: 50%;
@@ -197,6 +240,7 @@ body {
         1px solid rgba(255,255,255,0.08);
 
     top: -270px;
+
     left: -130px;
 
     box-shadow:
@@ -204,12 +248,15 @@ body {
         0 0 0 160px rgba(255,255,255,0.015);
 }
 
+
 .hero::after {
+
     content: "";
 
     position: absolute;
 
     width: 430px;
+
     height: 430px;
 
     border-radius: 50%;
@@ -218,61 +265,49 @@ body {
         1px solid rgba(255,255,255,0.07);
 
     bottom: -240px;
+
     right: -120px;
 }
 
 
-/* خطوط زخرفية */
-
-.hero-container::before {
-    content: "";
-
-    position: absolute;
-
-    width: 180px;
-    height: 180px;
-
-    border:
-        1px solid rgba(255,255,255,0.08);
-
-    border-radius: 35px;
-
-    transform: rotate(25deg);
-
-    top: -100px;
-    right: 35%;
-
-    pointer-events: none;
-}
-
 .hero-container {
+
     width: 1160px;
+
     max-width: 90%;
 
     margin: auto;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     gap: 55px;
 
     position: relative;
+
     z-index: 3;
 }
 
 
 /* =====================================================
-   نص الواجهة
+   النص
 ===================================================== */
 
 .hero-text {
-    max-width: 650px;
+
+    max-width: 680px;
+
     color: white;
 }
 
+
 .welcome {
+
     display: inline-flex;
+
     align-items: center;
 
     background:
@@ -281,20 +316,20 @@ body {
     border:
         1px solid rgba(255,255,255,0.20);
 
-    padding: 9px 19px;
+    padding:
+        9px 19px;
 
     border-radius: 30px;
 
     font-size: 14px;
 
-    margin-bottom: 22px;
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
 }
 
+
 .hero-title {
-    font-size: 48px;
+
+    font-size: 46px;
 
     line-height: 1.35;
 
@@ -308,24 +343,65 @@ body {
         0 4px 18px rgba(0,0,0,0.12);
 }
 
-.hero-subtitle {
-    font-size: 21px;
 
-    color: #c9f3f1;
+.hero-institution {
 
-    margin-bottom: 22px;
+    font-size: 23px;
 
-    font-weight: 600;
+    color: #d7f7f5;
+
+    font-weight: 700;
+
+    margin-bottom: 3px;
 }
 
+
+.hero-state {
+
+    font-size: 18px;
+
+    color: #b8e9e6;
+
+    font-weight: 600;
+
+    margin-bottom: 20px;
+}
+
+
+.hero-office {
+
+    display: inline-block;
+
+    background:
+        rgba(255,255,255,0.10);
+
+    border:
+        1px solid rgba(255,255,255,0.18);
+
+    padding:
+        8px 17px;
+
+    border-radius: 20px;
+
+    color: #e4f8f7;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-bottom: 20px;
+}
+
+
 .hero-description {
-    font-size: 17px;
+
+    font-size: 16px;
 
     line-height: 2.05;
 
     color: #eaf9fa;
 
-    max-width: 620px;
+    max-width: 630px;
 }
 
 
@@ -334,23 +410,29 @@ body {
 ===================================================== */
 
 .buttons {
-    margin-top: 32px;
+
+    margin-top: 30px;
 
     display: flex;
+
     gap: 14px;
 
     flex-wrap: wrap;
 }
 
+
 .login-button {
+
     display: inline-flex;
 
     align-items: center;
+
     justify-content: center;
 
     gap: 10px;
 
-    padding: 16px 34px;
+    padding:
+        16px 34px;
 
     background:
         linear-gradient(
@@ -366,17 +448,18 @@ body {
     border-radius: 15px;
 
     font-size: 17px;
+
     font-weight: 800;
 
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
+    transition: .3s;
 
     box-shadow:
         0 12px 30px rgba(0,0,0,0.18);
 }
 
+
 .login-button:hover {
+
     transform:
         translateY(-5px);
 
@@ -390,7 +473,9 @@ body {
 ===================================================== */
 
 .hero-logo-wrapper {
+
     width: 350px;
+
     height: 350px;
 
     min-width: 350px;
@@ -398,15 +483,19 @@ body {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     position: relative;
 }
 
+
 .hero-logo-glow {
+
     position: absolute;
 
     width: 320px;
+
     height: 320px;
 
     border-radius: 50%;
@@ -421,6 +510,7 @@ body {
         pulse 4s ease-in-out infinite;
 }
 
+
 @keyframes pulse {
 
     0%,100% {
@@ -430,13 +520,15 @@ body {
     50% {
         transform: scale(1.04);
     }
-
 }
 
+
 .hero-logo {
+
     position: relative;
 
     width: 285px;
+
     height: 285px;
 
     object-fit: contain;
@@ -454,11 +546,12 @@ body {
         0 25px 60px rgba(0,0,0,0.27),
         0 0 0 12px rgba(255,255,255,0.06);
 
-    transition:
-        transform 0.4s ease;
+    transition: .4s;
 }
 
+
 .hero-logo:hover {
+
     transform:
         scale(1.035)
         rotate(1deg);
@@ -470,6 +563,7 @@ body {
 ===================================================== */
 
 .services {
+
     max-width: 1120px;
 
     margin: 78px auto;
@@ -477,13 +571,17 @@ body {
     padding: 0 20px;
 }
 
+
 .section-header {
+
     text-align: center;
 
     margin-bottom: 42px;
 }
 
+
 .section-header h2 {
+
     color: #075985;
 
     font-size: 31px;
@@ -493,12 +591,15 @@ body {
     font-weight: 800;
 }
 
+
 .section-header h2::after {
+
     content: "";
 
     display: block;
 
     width: 55px;
+
     height: 4px;
 
     margin:
@@ -514,7 +615,9 @@ body {
         );
 }
 
+
 .section-header p {
+
     color: #708090;
 
     font-size: 15px;
@@ -523,20 +626,19 @@ body {
 }
 
 
-/* =====================================================
-   البطاقات
-===================================================== */
-
 .cards {
+
     display: grid;
 
     grid-template-columns:
-        repeat(4, 1fr);
+        repeat(4,1fr);
 
     gap: 22px;
 }
 
+
 .card {
+
     position: relative;
 
     background:
@@ -554,23 +656,24 @@ body {
     box-shadow:
         0 10px 30px rgba(15,55,75,0.06);
 
-    transition:
-        transform 0.35s ease,
-        box-shadow 0.35s ease,
-        border-color 0.35s ease;
+    transition: .35s;
 
     overflow: hidden;
 }
 
+
 .card::before {
+
     content: "";
 
     position: absolute;
 
     top: 0;
+
     right: 0;
 
     width: 100%;
+
     height: 4px;
 
     background:
@@ -585,35 +688,40 @@ body {
 
     transform-origin: right;
 
-    transition:
-        transform 0.35s ease;
+    transition: .35s;
 }
 
+
 .card:hover::before {
+
     transform:
         scaleX(1);
 }
 
+
 .card:hover {
+
     transform:
         translateY(-9px);
 
     box-shadow:
         0 20px 45px rgba(15,55,75,0.12);
-
-    border-color:
-        #cde4ea;
 }
 
+
 .card-icon {
+
     width: 72px;
+
     height: 72px;
 
-    margin: 0 auto 20px;
+    margin:
+        0 auto 20px;
 
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     background:
@@ -626,12 +734,11 @@ body {
     border-radius: 20px;
 
     font-size: 34px;
-
-    box-shadow:
-        inset 0 0 0 1px rgba(0,120,120,0.05);
 }
 
+
 .card h3 {
+
     color: #075985;
 
     font-size: 19px;
@@ -641,7 +748,9 @@ body {
     font-weight: 750;
 }
 
+
 .card p {
+
     color: #6b7d8c;
 
     font-size: 14px;
@@ -651,10 +760,11 @@ body {
 
 
 /* =====================================================
-   عن المنصة
+   معلومات المؤسسة
 ===================================================== */
 
 .info-section {
+
     max-width: 1120px;
 
     margin:
@@ -663,8 +773,8 @@ body {
     padding: 0 20px;
 }
 
+
 .info-box {
-    position: relative;
 
     background:
         linear-gradient(
@@ -675,7 +785,7 @@ body {
 
     border-radius: 25px;
 
-    padding: 42px;
+    padding: 40px;
 
     display: flex;
 
@@ -688,31 +798,15 @@ body {
 
     box-shadow:
         0 12px 35px rgba(15,55,75,0.07);
-
-    overflow: hidden;
 }
 
-.info-box::after {
-    content: "";
-
-    position: absolute;
-
-    width: 160px;
-    height: 160px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(0,121,107,0.04);
-
-    left: -65px;
-    bottom: -80px;
-}
 
 .info-icon {
+
     min-width: 82px;
 
     width: 82px;
+
     height: 82px;
 
     background:
@@ -727,15 +821,15 @@ body {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     font-size: 38px;
-
-    box-shadow:
-        0 8px 20px rgba(0,100,120,0.07);
 }
 
+
 .info-box h2 {
+
     color: #075985;
 
     margin-bottom: 10px;
@@ -745,7 +839,9 @@ body {
     font-weight: 800;
 }
 
+
 .info-box p {
+
     color: #687b89;
 
     line-height: 2;
@@ -755,10 +851,107 @@ body {
 
 
 /* =====================================================
-   مشروع المنصة
+   بطاقة المسؤول
+===================================================== */
+
+.manager-section {
+
+    max-width: 1120px;
+
+    margin:
+        0 auto 70px;
+
+    padding: 0 20px;
+}
+
+
+.manager-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef8fb,
+            #f8fcfd
+        );
+
+    border:
+        1px solid #d8e9ef;
+
+    border-radius: 25px;
+
+    padding: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    box-shadow:
+        0 10px 30px rgba(15,55,75,0.06);
+}
+
+
+.manager-title {
+
+    color: #075985;
+
+    font-size: 22px;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+}
+
+
+.manager-role {
+
+    color: #5e7180;
+
+    font-size: 15px;
+
+    margin-bottom: 5px;
+}
+
+
+.manager-name {
+
+    color: #075985;
+
+    font-weight: 800;
+
+    font-size: 17px;
+}
+
+
+.phone {
+
+    background:
+        #075985;
+
+    color: white;
+
+    padding:
+        12px 20px;
+
+    border-radius: 30px;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   بطاقة المشروع
 ===================================================== */
 
 .project-section {
+
     max-width: 1120px;
 
     margin:
@@ -767,12 +960,15 @@ body {
     padding: 0 20px;
 }
 
+
 .project-card {
+
     position: relative;
 
     overflow: hidden;
 
     background:
+
         radial-gradient(
             circle at 10% 20%,
             rgba(255,255,255,0.10),
@@ -798,53 +994,25 @@ body {
         0 18px 45px rgba(0,70,90,0.16);
 }
 
-.project-card::before {
-    content: "";
-
-    position: absolute;
-
-    width: 220px;
-    height: 220px;
-
-    border-radius: 50%;
-
-    border:
-        1px solid rgba(255,255,255,0.08);
-
-    left: -80px;
-    top: -100px;
-}
-
-.project-card::after {
-    content: "";
-
-    position: absolute;
-
-    width: 190px;
-    height: 190px;
-
-    border-radius: 50%;
-
-    border:
-        1px solid rgba(255,255,255,0.07);
-
-    right: -70px;
-    bottom: -100px;
-}
 
 .project-content {
+
     position: relative;
 
     z-index: 2;
 }
 
+
 .project-symbol {
+
     font-size: 40px;
 
     margin-bottom: 10px;
 }
 
+
 .project-card h2 {
+
     font-size: 26px;
 
     margin-bottom: 14px;
@@ -852,7 +1020,9 @@ body {
     font-weight: 800;
 }
 
+
 .project-card p {
+
     max-width: 760px;
 
     margin: auto;
@@ -864,40 +1034,13 @@ body {
     line-height: 2;
 }
 
-.developer-name {
-    margin-top: 23px;
-
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-    padding: 11px 24px;
-
-    border:
-        1px solid rgba(255,255,255,0.22);
-
-    background:
-        rgba(255,255,255,0.10);
-
-    border-radius: 30px;
-
-    font-size: 14px;
-
-    backdrop-filter: blur(5px);
-}
-
-.developer-name strong {
-    color: white;
-}
-
 
 /* =====================================================
    التذييل
 ===================================================== */
 
 footer {
+
     background:
         linear-gradient(
             135deg,
@@ -909,7 +1052,7 @@ footer {
 
     text-align: center;
 
-    padding: 38px 15px;
+    padding: 40px 15px;
 
     line-height: 1.9;
 
@@ -917,57 +1060,81 @@ footer {
         4px solid #087f72;
 }
 
+
 footer strong {
+
     color: white;
 
-    font-size: 19px;
+    font-size: 20px;
 
     font-weight: 800;
 }
 
-footer small {
-    display: block;
+
+.footer-institution {
+
+    color: #e5f5f6;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    margin-top: 5px;
+}
+
+
+.footer-office {
+
+    color: #b8d1d9;
+
+    font-size: 14px;
 
     margin-top: 3px;
+}
+
+
+.footer-manager {
+
+    margin-top: 12px;
+
+    color: #d9edef;
+
+    font-size: 14px;
+}
+
+
+.footer-phone {
+
+    display: inline-block;
+
+    margin-top: 8px;
+
+    background:
+        rgba(255,255,255,0.10);
+
+    padding:
+        7px 18px;
+
+    border-radius: 20px;
+
+    color: white;
 
     font-size: 13px;
 }
 
-.footer-message {
-    max-width: 650px;
 
-    margin: 18px auto;
+.footer-copy {
 
-    padding:
-        15px 20px;
+    margin-top: 18px;
+
+    padding-top: 15px;
 
     border-top:
         1px solid rgba(255,255,255,0.10);
 
-    border-bottom:
-        1px solid rgba(255,255,255,0.10);
-
-    color: #d8ebef;
-
-    font-size: 14px;
-
-    line-height: 1.9;
-}
-
-.developer {
-    margin: 15px 0;
+    font-size: 12px;
 
     color: #9eb4be;
-
-    font-size: 13px;
-}
-
-.developer span {
-    color: white;
-
-    font-weight: 800;
-
-    margin-right: 5px;
 }
 
 
@@ -975,7 +1142,7 @@ footer small {
    الأجهزة اللوحية
 ===================================================== */
 
-@media (max-width: 1000px) {
+@media (max-width:1000px) {
 
     .hero-container {
         gap: 30px;
@@ -1003,7 +1170,7 @@ footer small {
 
     .cards {
         grid-template-columns:
-            repeat(2, 1fr);
+            repeat(2,1fr);
     }
 }
 
@@ -1012,149 +1179,151 @@ footer small {
    الهاتف
 ===================================================== */
 
-@media (max-width: 700px) {
+@media (max-width:700px) {
 
     .navbar {
-        height: 72px;
 
-        padding: 0 16px;
+        min-height: 75px;
+
+        padding:
+            9px 15px;
     }
 
     .small-logo {
-        width: 46px;
-        height: 46px;
+
+        width: 47px;
+
+        height: 47px;
     }
 
     .brand-text {
+
         font-size: 15px;
     }
 
-    .brand-subtitle {
+    .brand-institution {
+
+        font-size: 10px;
+    }
+
+    .brand-office {
+
         font-size: 9px;
     }
 
     .nav-status {
+
         display: none;
     }
 
     .hero {
-        min-height: 590px;
+
+        min-height: 650px;
 
         padding:
             55px 0;
     }
 
     .hero-container {
+
         text-align: center;
 
         justify-content: center;
     }
 
     .hero-logo-wrapper {
+
         display: none;
     }
 
     .hero-text {
+
         max-width: 100%;
     }
 
     .welcome {
-        font-size: 13px;
+
+        font-size: 12px;
 
         padding:
             8px 15px;
     }
 
     .hero-title {
+
         font-size: 31px;
 
         letter-spacing: 0;
-
-        line-height: 1.45;
     }
 
-    .hero-subtitle {
-        font-size: 18px;
+    .hero-institution {
+
+        font-size: 19px;
+    }
+
+    .hero-state {
+
+        font-size: 16px;
+    }
+
+    .hero-office {
+
+        font-size: 12px;
     }
 
     .hero-description {
-        font-size: 15px;
+
+        font-size: 14px;
 
         line-height: 2;
     }
 
     .buttons {
+
         justify-content: center;
 
         flex-direction: column;
-
-        margin-top: 27px;
     }
 
     .login-button {
+
         width: 100%;
-
-        padding:
-            15px 20px;
-    }
-
-    .services {
-        margin:
-            60px auto;
-    }
-
-    .section-header h2 {
-        font-size: 26px;
     }
 
     .cards {
+
         grid-template-columns: 1fr;
-
-        gap: 17px;
-    }
-
-    .card {
-        padding:
-            28px 20px;
     }
 
     .info-box {
+
         flex-direction: column;
 
         text-align: center;
 
         padding:
-            32px 21px;
+            30px 20px;
     }
 
-    .info-box h2 {
-        font-size: 22px;
+    .manager-card {
+
+        flex-direction: column;
+
+        text-align: center;
+
+        padding:
+            28px 20px;
     }
 
-    .info-box p {
-        font-size: 14px;
+    .phone {
+
+        width: 100%;
     }
 
     .project-card {
+
         padding:
-            34px 20px;
-    }
-
-    .project-card h2 {
-        font-size: 22px;
-    }
-
-    .developer-name {
-        flex-wrap: wrap;
-
-        justify-content: center;
-
-        font-size: 13px;
-    }
-
-    footer {
-        padding:
-            34px 15px;
+            35px 20px;
     }
 }
 
@@ -1163,24 +1332,18 @@ footer small {
    شاشات صغيرة جدًا
 ===================================================== */
 
-@media (max-width: 380px) {
-
-    .brand-text {
-        font-size: 14px;
-    }
+@media (max-width:380px) {
 
     .hero-title {
+
         font-size: 28px;
     }
 
-    .hero-description {
-        font-size: 14px;
+    .hero-institution {
+
+        font-size: 17px;
     }
 
-    .project-card {
-        padding:
-            30px 16px;
-    }
 }
 
 </style>
@@ -1202,7 +1365,7 @@ footer small {
         <img
             src="logo.png"
             class="small-logo"
-            alt="شعار منصة التكوين المتواصل">
+            alt="شعار المؤسسة">
 
         <div>
 
@@ -1210,8 +1373,12 @@ footer small {
                 منصة التكوين المتواصل
             </div>
 
-            <div class="brand-subtitle">
-                المؤسسة العمومية الاستشفائية
+            <div class="brand-institution">
+                المؤسسة العمومية الإستشفائية بأولف
+            </div>
+
+            <div class="brand-office">
+                ولاية أدرار — مكتب التكوين المتواصل
             </div>
 
         </div>
@@ -1238,8 +1405,9 @@ footer small {
 
         <div class="hero-text">
 
+
             <span class="welcome">
-                👋 مرحبًا بكم في منصتنا
+                👋 مرحبًا بكم في منصة التكوين المتواصل
             </span>
 
 
@@ -1248,8 +1416,18 @@ footer small {
             </h1>
 
 
-            <div class="hero-subtitle">
-                المؤسسة العمومية الاستشفائية
+            <div class="hero-institution">
+                المؤسسة العمومية الإستشفائية بأولف
+            </div>
+
+
+            <div class="hero-state">
+                ولاية أدرار
+            </div>
+
+
+            <div class="hero-office">
+                🏥 مكتب التكوين المتواصل
             </div>
 
 
@@ -1269,12 +1447,12 @@ footer small {
                     href="login.html"
                     class="login-button">
 
-                    🔐
-                    تسجيل الدخول
+                    🔐 تسجيل الدخول
 
                 </a>
 
             </div>
+
 
         </div>
 
@@ -1289,7 +1467,7 @@ footer small {
             <img
                 src="logo.png"
                 class="hero-logo"
-                alt="شعار مكتب التكوين والتكوين المتواصل">
+                alt="شعار المؤسسة العمومية الإستشفائية بأولف">
 
         </div>
 
@@ -1340,7 +1518,6 @@ footer small {
         </div>
 
 
-
         <div class="card">
 
             <div class="card-icon">
@@ -1359,7 +1536,6 @@ footer small {
         </div>
 
 
-
         <div class="card">
 
             <div class="card-icon">
@@ -1376,7 +1552,6 @@ footer small {
             </p>
 
         </div>
-
 
 
         <div class="card">
@@ -1404,7 +1579,7 @@ footer small {
 
 
 <!-- =====================================================
-     عن المنصة
+     معلومات عن المنصة
 ===================================================== -->
 
 <section class="info-section">
@@ -1442,7 +1617,46 @@ footer small {
 
 
 <!-- =====================================================
-     فكرة وتطوير المنصة
+     مسؤول مكتب التكوين
+===================================================== -->
+
+<section class="manager-section">
+
+    <div class="manager-card">
+
+
+        <div>
+
+            <div class="manager-title">
+                🏥 مكتب التكوين المتواصل
+            </div>
+
+
+            <div class="manager-role">
+                رئيس مكتب التكوين المتواصل
+            </div>
+
+
+            <div class="manager-name">
+                بن صغير منير
+            </div>
+
+        </div>
+
+
+        <div class="phone">
+            📞 0660.48.43.73
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     فكرة المنصة
 ===================================================== -->
 
 <section class="project-section">
@@ -1472,18 +1686,6 @@ footer small {
 
             </p>
 
-
-            <div class="developer-name">
-
-                💡
-                صاحب فكرة وتطوير المنصة:
-
-                <strong>
-                    منير بن صغير
-                </strong>
-
-            </div>
-
         </div>
 
     </div>
@@ -1503,34 +1705,42 @@ footer small {
     </strong>
 
 
-    <small>
-        المؤسسة العمومية الاستشفائية
-    </small>
+    <div class="footer-institution">
 
-
-    <div class="footer-message">
-
-        هذا العمل ثمرة جهد متواصل لتطوير
-        بيئة رقمية حديثة تخدم التكوين
-        والتطوير المهني.
+        المؤسسة العمومية الإستشفائية بأولف – ولاية أدرار
 
     </div>
 
 
-    <div class="developer">
+    <div class="footer-office">
 
-        تصميم وتطوير المنصة
-
-        <span>
-            منير بن صغير
-        </span>
+        مكتب التكوين المتواصل
 
     </div>
 
 
-    <small>
-        © 2026 جميع الحقوق محفوظة
-    </small>
+    <div class="footer-manager">
+
+        رئيس مكتب التكوين المتواصل:
+        <strong>
+            بن صغير منير
+        </strong>
+
+    </div>
+
+
+    <div class="footer-phone">
+
+        📞 0660.48.43.73
+
+    </div>
+
+
+    <div class="footer-copy">
+
+        © 2026 منصة التكوين المتواصل — جميع الحقوق محفوظة
+
+    </div>
 
 </footer>
 
