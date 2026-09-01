@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>تسجيل متربص جديد</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #1565c0;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            background: #1565c0;
+            color: white;
+            border: none;
+            padding: 13px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #message {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>🎓 منصة التكوين</h1>
+
+    <p>تسجيل متربص جديد</p>
+
+</header>
+
+
+<div class="container">
+
+    <div class="box">
+
+        <h2>👤 إنشاء حساب</h2>
+
+
+        <label>الاسم واللقب</label>
+
+        <input
+            type="text"
+            id="fullName"
+            placeholder="أدخل الاسم واللقب"
+        >
+
+
+        <label>البريد الإلكتروني</label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="example@email.com"
+        >
+
+
+        <label>كلمة المرور</label>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="أدخل كلمة المرور"
+        >
+
+
+        <button
+            type="button"
+            onclick="registerTrainee()"
+        >
+            📝 تسجيل الحساب
+        </button>
+
+
+        <div id="message"></div>
+
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase-config.js"></script>
+
+
+<script>
+
+async function registerTrainee() {
+
+    const fullName =
+        document.getElementById("fullName")
+        .value
+        .trim();
+
+    const email =
+        document.getElementById("email")
+        .value
+        .trim();
+
+    const password =
+        document.getElementById("password")
+        .value;
+
+    const message =
+        document.getElementById("message");
+
+
+    if (
+        fullName === "" ||
+        email === "" ||
+        password === ""
+    ) {
+
+        message.textContent =
+            "يرجى ملء جميع المعلومات";
+
+        message.style.color = "red";
+
+        return;
+    }
+
+
+    if (password.length < 6) {
+
+        message.textContent =
+            "كلمة المرور يجب أن تكون 6 أحرف على الأقل";
+
+        message.style.color = "red";
+
+        return;
+    }
+
+
+    message.textContent =
+        "جاري إنشاء الحساب...";
+
+    message.style.color = "black";
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.signUp({
+
+        email: email,
+
+        password: password
+
+    });
+
+
+    if (error) {
+
+        console.error(error);
+
+        message.textContent =
+            "حدث خطأ: " + error.message;
+
+        message.style.color = "red";
+
+        return;
+    }
+
+
+    if (!data.user) {
+
+        message.textContent =
+            "تم إنشاء الحساب، يرجى التحقق من البريد الإلكتروني.";
+
+        message.style.color = "green";
+
+        return;
+    }
+
+
+    const {
+        error: traineeError
+    } = await supabaseClient
+        .from("trainees")
+        .insert({
+
+            id: data.user.id,
+
+            full_name: fullName,
+
+            email: email
+
+        });
+
+
+    if (traineeError) {
+
+        console.error(traineeError);
+
+        message.textContent =
+            "تم إنشاء الحساب لكن حدث خطأ في حفظ بيانات المتربص.";
+
+        message.style.color = "red";
+
+        return;
+    }
+
+
+    message.textContent =
+        "تم التسجيل بنجاح ✅";
+
+    message.style.color = "green";
+
+
+    document.getElementById("fullName").value = "";
+
+    document.getElementById("email").value = "";
+
+    document.getElementById("password").value = "";
+
+}
+
+</script>
+
+</body>
+
+</html>

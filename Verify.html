@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>التحقق من الشهادة</title>
+
+<style>
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+}
+
+header {
+    background: #1565c0;
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.box {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+h2 {
+    color: #1565c0;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    direction: ltr;
+    text-align: center;
+}
+
+button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #1565c0;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+#result {
+    margin-top: 25px;
+}
+
+.valid {
+    background: #e8f5e9;
+    border-right: 5px solid #2e7d32;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.invalid {
+    background: #ffebee;
+    border-right: 5px solid #c62828;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.row {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.small {
+    color: #666;
+    margin-top: 10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>🎓 منصة التكوين</h1>
+
+<p>التحقق من صحة الشهادة</p>
+
+</header>
+
+
+<div class="container">
+
+<div class="box">
+
+<h2>
+🔎 التحقق من الشهادة
+</h2>
+
+<p>
+أدخل رقم الشهادة للتحقق من صحتها.
+</p>
+
+
+<input
+    type="text"
+    id="certificateNumber"
+    placeholder="CERT-2026-000001"
+    autocomplete="off"
+>
+
+
+<button
+    onclick="verifyCertificate()"
+>
+    🔎 التحقق من الشهادة
+</button>
+
+
+<div id="result"></div>
+
+</div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase-config.js"></script>
+
+
+<script>
+
+/* =====================================================
+   التحقق من الشهادة
+===================================================== */
+
+async function verifyCertificate() {
+
+    const input =
+        document.getElementById(
+            "certificateNumber"
+        );
+
+    const result =
+        document.getElementById(
+            "result"
+        );
+
+
+    const certificateNumber =
+        input.value.trim();
+
+
+    result.innerHTML = "";
+
+
+    if (!certificateNumber) {
+
+        result.innerHTML = `
+
+            <div class="invalid">
+
+                ⚠️ يرجى إدخال رقم الشهادة.
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    result.innerHTML = `
+
+        <div class="small">
+
+            ⏳ جاري التحقق من الشهادة...
+
+        </div>
+
+    `;
+
+
+    try {
+
+        /* =================================================
+           1. البحث عن الشهادة
+        ================================================= */
+
+        const {
+            data: certificate,
+            error: certificateError
+        } = await supabaseClient
+            .from("certificates")
+            .select(`
+                id,
+                trainee_id,
+                course_id,
+                certificate_number,
+                issue_date
+            `)
+            .eq(
+                "certificate_number",
+                certificateNumber
+            )
+            .maybeSingle();
+
+
+        if (certificateError) {
+
+            console.error(
+                "خطأ الشهادة:",
+                certificateError
+            );
+
+
+            result.innerHTML = `
+
+                <div class="invalid">
+
+                    ❌ حدث خطأ أثناء البحث عن الشهادة.
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        if (!certificate) {
+
+            result.innerHTML = `
+
+                <div class="invalid">
+
+                    <h3>
+                        ❌ الشهادة غير موجودة
+                    </h3>
+
+                    <p>
+                        لم يتم العثور على شهادة بهذا الرقم.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        /* =================================================
+           2. الحصول على اسم المتربص من trainees
+        ================================================= */
+
+        const {
+            data: trainee,
+            error: traineeError
+        } = await supabaseClient
+            .from("trainees")
+            .select(`
+                full_name,
+                email
+            `)
+            .eq(
+                "id",
+                certificate.trainee_id
+            )
+            .maybeSingle();
+
+
+        if (traineeError) {
+
+            console.error(
+                "خطأ بيانات المتربص:",
+                traineeError
+            );
+        }
+
+
+        /* =================================================
+           3. الحصول على اسم الدورة
+        ================================================= */
+
+        const {
+            data: course,
+            error: courseError
+        } = await supabaseClient
+            .from("courses")
+            .select(
+                "name"
+            )
+            .eq(
+                "id",
+                certificate.course_id
+            )
+            .maybeSingle();
+
+
+        if (courseError) {
+
+            console.error(
+                "خطأ بيانات الدورة:",
+                courseError
+            );
+        }
+
+
+        const traineeName =
+            trainee?.full_name ||
+            "غير متوفر";
+
+
+        const courseName =
+            course?.name ||
+            "غير متوفر";
+
+
+        /* =================================================
+           4. عرض النتيجة
+        ================================================= */
+
+        result.innerHTML = `
+
+            <div class="valid">
+
+                <h3>
+                    ✅ الشهادة صحيحة
+                </h3>
+
+
+                <div class="row">
+
+                    <span class="label">
+                        رقم الشهادة:
+                    </span>
+
+                    <br>
+
+                    ${certificate.certificate_number}
+
+                </div>
+
+
+                <div class="row">
+
+                    <span class="label">
+                        اسم المتربص:
+                    </span>
+
+                    <br>
+
+                    ${traineeName}
+
+                </div>
+
+
+                <div class="row">
+
+                    <span class="label">
+                        الدورة:
+                    </span>
+
+                    <br>
+
+                    ${courseName}
+
+                </div>
+
+
+                <div class="row">
+
+                    <span class="label">
+                        تاريخ الإصدار:
+                    </span>
+
+                    <br>
+
+                    ${certificate.issue_date}
+
+                </div>
+
+
+                <p class="small">
+
+                    ✅ تم التحقق من الشهادة إلكترونيًا
+                    عبر منصة التكوين.
+
+                </p>
+
+            </div>
+
+        `;
+
+
+    } catch (error) {
+
+        console.error(
+            "خطأ غير متوقع:",
+            error
+        );
+
+
+        result.innerHTML = `
+
+            <div class="invalid">
+
+                ❌ حدث خطأ غير متوقع أثناء التحقق.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   الضغط على Enter
+===================================================== */
+
+document
+    .getElementById(
+        "certificateNumber"
+    )
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                verifyCertificate();
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+
+</html>

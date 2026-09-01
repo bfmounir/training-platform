@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدورات التكوينية</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #1565c0;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+        }
+
+        button {
+            background: #1565c0;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .course {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+        }
+
+        .delete {
+            background: #777;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>📚 الدورات التكوينية</h1>
+    <p>إدارة الدورات التكوينية</p>
+</header>
+
+<div class="container">
+
+    <div class="box">
+
+        <h2>➕ إضافة دورة جديدة</h2>
+
+        <label>اسم الدورة</label>
+        <input type="text" id="courseName" placeholder="مثال: الإسعافات الأولية">
+
+        <label>وصف الدورة</label>
+        <textarea id="courseDescription" rows="4"
+            placeholder="اكتب وصفًا مختصرًا للدورة"></textarea>
+
+        <label>تاريخ الدورة</label>
+        <input type="date" id="courseDate">
+
+        <button onclick="addCourse()">
+            إضافة الدورة
+        </button>
+
+    </div>
+
+    <div class="box">
+
+        <h2>📋 الدورات المسجلة</h2>
+
+        <div id="coursesList">
+            لا توجد دورات حاليًا.
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+
+<script>
+
+async function addCourse() {
+
+    const name = document.getElementById("courseName").value;
+    const description = document.getElementById("courseDescription").value;
+    const date = document.getElementById("courseDate").value;
+
+    if (name === "" || description === "" || date === "") {
+        alert("يرجى ملء جميع المعلومات");
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .from("courses")
+        .insert({
+            name: name,
+            description: description,
+            course_date: date
+        });
+
+    if (error) {
+        alert("حدث خطأ أثناء حفظ الدورة");
+        console.error(error);
+        return;
+    }
+
+    alert("تم حفظ الدورة بنجاح ✅");
+
+    document.getElementById("courseName").value = "";
+    document.getElementById("courseDescription").value = "";
+    document.getElementById("courseDate").value = "";
+
+    loadCourses();
+}
+
+
+async function loadCourses() {
+
+    const list = document.getElementById("coursesList");
+
+    const { data, error } = await supabaseClient
+        .from("courses")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        list.innerHTML = "حدث خطأ في تحميل الدورات";
+        console.error(error);
+        return;
+    }
+
+    if (data.length === 0) {
+        list.innerHTML = "لا توجد دورات حاليًا.";
+        return;
+    }
+
+    list.innerHTML = "";
+
+    data.forEach(function(course) {
+
+        list.innerHTML += `
+            <div class="course">
+
+                <h3>📚 ${course.name}</h3>
+
+                <p>${course.description || ""}</p>
+
+                <p>
+                    📅 تاريخ الدورة:
+                    ${course.course_date || ""}
+                </p>
+
+            </div>
+        `;
+    });
+}
+
+loadCourses();
+
+</script>
+
+</body>
+</html>

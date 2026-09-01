@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - منصة التكوين</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-box {
+            background: white;
+            width: 350px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        h1 {
+            color: #1565c0;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #1565c0;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0d47a1;
+        }
+
+        .logo {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <div class="logo">📚</div>
+
+    <h1>منصة التكوين المتواصل</h1>
+
+    <p>تسجيل الدخول</p>
+
+    <select id="userType">
+        <option value="">اختر نوع المستخدم</option>
+        <option value="admin">المسؤول</option>
+        <option value="worker">العامل</option>
+        <option value="trainee">المتربص</option>
+    </select>
+
+    <input 
+        type="text" 
+        id="username" 
+        placeholder="اسم المستخدم"
+    >
+
+    <input 
+        type="password" 
+        id="password" 
+        placeholder="كلمة المرور"
+    >
+
+    <button onclick="login()">
+        تسجيل الدخول
+    </button>
+
+    <p id="message"></p>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+
+<script>
+
+async function login() {
+
+    const userType = document.getElementById("userType").value;
+    const email = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const message = document.getElementById("message");
+
+    if (userType === "" || email === "" || password === "") {
+        message.textContent = "يرجى ملء جميع المعلومات";
+        message.style.color = "red";
+        return;
+    }
+
+    if (userType !== "admin") {
+        message.textContent = "حساب العامل والمتربص سيتم تفعيله لاحقًا";
+        message.style.color = "blue";
+        return;
+    }
+
+    message.textContent = "جاري التحقق من كلمة المرور...";
+    message.style.color = "black";
+
+    const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+
+    if (error) {
+        message.textContent =
+            "فشل تسجيل الدخول: " + error.message;
+        message.style.color = "red";
+        return;
+    }
+
+    window.location.href = "admin.html";
+}
+
+</script>
