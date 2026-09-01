@@ -2,7 +2,6 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta name="viewport"
@@ -13,69 +12,114 @@
     <style>
 
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
+            font-family: Arial, sans-serif;
             background: #f4f6f8;
         }
 
         header {
             background: #1565c0;
             color: white;
-            padding: 25px;
+            padding: 40px 20px;
             text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 15px;
+            font-size: 32px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 18px;
         }
 
         .container {
             max-width: 900px;
-            margin: 40px auto;
+            margin: 50px auto;
             padding: 20px;
+            text-align: center;
         }
 
-        .card {
+        .welcome {
             background: white;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 40px 25px;
+            border-radius: 15px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.10);
         }
 
-        button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            background: #1565c0;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
+        .logo {
+            font-size: 65px;
+            margin-bottom: 15px;
         }
 
-        button:hover {
-            opacity: 0.9;
+        .welcome h2 {
+            color: #1565c0;
+            margin-bottom: 15px;
         }
 
-        .link-button {
+        .welcome p {
+            color: #555;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .login-button {
             display: inline-block;
-            padding: 12px 25px;
-            border-radius: 8px;
+            margin-top: 25px;
+            padding: 14px 40px;
             background: #1565c0;
             color: white;
             text-decoration: none;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 18px;
         }
 
-        .link-button:hover {
-            opacity: 0.9;
+        .login-button:hover {
+            background: #0d47a1;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+        }
+
+        .feature h3 {
+            color: #1565c0;
+        }
+
+        .feature p {
+            color: #666;
+        }
+
+        footer {
+            text-align: center;
+            color: #777;
+            padding: 30px 10px;
         }
 
     </style>
 
 </head>
 
-
 <body>
 
-
 <header>
+
+    <div class="logo">📚</div>
 
     <h1>
         منصة التكوين المتواصل
@@ -88,80 +132,85 @@
 </header>
 
 
-
 <div class="container">
 
-
-    <!-- الدورات التكوينية -->
-
-    <div class="card">
+    <div class="welcome">
 
         <h2>
-            مرحبًا بكم
+            مرحبًا بكم في منصة التكوين المتواصل
         </h2>
 
         <p>
-            هذه المنصة مخصصة للتكوين المتواصل للعمال والمتربصين.
+            منصة إلكترونية مخصصة لإدارة التكوين المتواصل،
+            ومتابعة الدورات والدروس والشهادات.
         </p>
 
         <a
-            href="courses.html"
-            class="link-button"
+            href="login.html"
+            class="login-button"
         >
-            📚 الدورات التكوينية
+            🔐 تسجيل الدخول
         </a>
 
     </div>
 
 
+    <div class="features">
 
-    <!-- الدروس -->
+        <div class="feature">
 
-    <div class="card">
+            <div class="feature-icon">📚</div>
 
-        <h2>
-            الدروس
-        </h2>
+            <h3>
+                الدورات التكوينية
+            </h3>
 
-        <p>
-            يمكنكم الاطلاع على الدروس والمواد التكوينية.
-        </p>
+            <p>
+                متابعة وإدارة الدورات التكوينية.
+            </p>
 
-        <a
-            href="lessons.html"
-            class="link-button"
-        >
-            📖 الدخول إلى الدروس
-        </a>
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">📖</div>
+
+            <h3>
+                الدروس
+            </h3>
+
+            <p>
+                الوصول إلى الدروس والمواد التكوينية.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">🎓</div>
+
+            <h3>
+                الشهادات
+            </h3>
+
+            <p>
+                إصدار والتحقق من شهادات التكوين.
+            </p>
+
+        </div>
 
     </div>
-
-
-
-    <!-- الشهادات -->
-
-    <div class="card">
-
-        <h2>
-            الشهادات
-        </h2>
-
-        <p>
-            يمكن للمستفيدين التحقق من صحة شهاداتهم إلكترونيًا.
-        </p>
-
-        <a
-            href="Verify.html"
-            class="link-button"
-        >
-            🎓 التحقق من الشهادة
-        </a>
-
-    </div>
-
 
 </div>
 
+
+<footer>
+
+    منصة التكوين المتواصل © 2026
+
+</footer>
 
 </body>
 
