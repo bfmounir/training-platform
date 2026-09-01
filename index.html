@@ -23,11 +23,9 @@
             padding: 0;
         }
 
-
         html {
             scroll-behavior: smooth;
         }
-
 
         body {
 
@@ -54,9 +52,9 @@
 
         .navbar {
 
-            height: 78px;
+            height: 82px;
 
-            background: rgba(255,255,255,0.97);
+            background: rgba(255,255,255,0.98);
 
             display: flex;
 
@@ -87,34 +85,18 @@
         }
 
 
-        .logo {
+        .small-logo {
 
-            width: 50px;
+            width: 52px;
 
-            height: 50px;
+            height: 52px;
 
-            display: flex;
+            object-fit: contain;
 
-            align-items: center;
-
-            justify-content: center;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #00695c,
-                    #0288d1
-                );
-
-            color: white;
-
-            font-size: 26px;
-
-            border-radius: 15px;
+            border-radius: 50%;
 
             box-shadow:
-                0 6px 18px
-                rgba(0,105,92,0.25);
+                0 5px 15px rgba(0,0,0,0.12);
 
         }
 
@@ -126,6 +108,17 @@
             font-size: 19px;
 
             font-weight: 700;
+
+        }
+
+
+        .brand-subtitle {
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            margin-top: 1px;
 
         }
 
@@ -153,12 +146,12 @@
 
         .hero {
 
-            min-height: 555px;
+            min-height: 590px;
 
             background:
                 linear-gradient(
                     135deg,
-                    #063b5c 0%,
+                    #052f46 0%,
                     #075985 48%,
                     #00796b 100%
                 );
@@ -180,18 +173,18 @@
 
             position: absolute;
 
-            width: 450px;
+            width: 500px;
 
-            height: 450px;
+            height: 500px;
 
             border-radius: 50%;
 
             background:
                 rgba(255,255,255,0.055);
 
-            top: -200px;
+            top: -220px;
 
-            left: -100px;
+            left: -120px;
 
         }
 
@@ -202,25 +195,25 @@
 
             position: absolute;
 
-            width: 380px;
+            width: 430px;
 
-            height: 380px;
+            height: 430px;
 
             border-radius: 50%;
 
             background:
-                rgba(255,255,255,0.05);
+                rgba(255,255,255,0.045);
 
-            bottom: -200px;
+            bottom: -230px;
 
-            right: -100px;
+            right: -120px;
 
         }
 
 
         .hero-container {
 
-            width: 1100px;
+            width: 1120px;
 
             max-width: 90%;
 
@@ -241,9 +234,13 @@
         }
 
 
+        /* =========================================
+           نص الواجهة
+        ========================================= */
+
         .hero-text {
 
-            max-width: 680px;
+            max-width: 650px;
 
             color: white;
 
@@ -274,15 +271,15 @@
 
         .hero-title {
 
-            font-size: 45px;
+            font-size: 44px;
 
-            line-height: 1.35;
+            line-height: 1.4;
 
             margin-bottom: 12px;
 
             font-weight: 800;
 
-            letter-spacing: -0.7px;
+            letter-spacing: -0.5px;
 
         }
 
@@ -307,8 +304,6 @@
             line-height: 2.05;
 
             color: #e8f8fa;
-
-            max-width: 650px;
 
         }
 
@@ -375,25 +370,16 @@
 
 
         /* =========================================
-           الشعار الكبير
+           الشعار الرئيسي
         ========================================= */
 
-        .hero-logo {
+        .hero-logo-wrapper {
 
-            width: 245px;
+            width: 330px;
 
-            height: 245px;
+            height: 330px;
 
-            min-width: 245px;
-
-            border-radius: 50%;
-
-            background:
-                rgba(255,255,255,0.11);
-
-            border:
-                1px solid
-                rgba(255,255,255,0.20);
+            min-width: 330px;
 
             display: flex;
 
@@ -401,19 +387,56 @@
 
             justify-content: center;
 
-            font-size: 120px;
+            position: relative;
+
+        }
+
+
+        .hero-logo-glow {
+
+            position: absolute;
+
+            width: 315px;
+
+            height: 315px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,0.10);
+
+            filter: blur(2px);
+
+        }
+
+
+        .hero-logo {
+
+            position: relative;
+
+            width: 285px;
+
+            height: 285px;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+
+            border:
+                8px solid
+                rgba(255,255,255,0.88);
 
             box-shadow:
-                0 25px 55px
-                rgba(0,0,0,0.18);
+                0 20px 50px rgba(0,0,0,0.25),
+                0 0 0 10px rgba(255,255,255,0.07);
 
-            backdrop-filter: blur(9px);
+            background: white;
 
         }
 
 
         /* =========================================
-           قسم الخدمات
+           الخدمات
         ========================================= */
 
         .services {
@@ -554,7 +577,7 @@
 
 
         /* =========================================
-           قسم عن المنصة
+           عن المنصة
         ========================================= */
 
         .info-section {
@@ -641,7 +664,7 @@
 
 
         /* =========================================
-           رسالة صاحب المشروع
+           قسم صاحب الفكرة
         ========================================= */
 
         .project-section {
@@ -776,7 +799,7 @@
 
             display: inline-block;
 
-            padding: 9px 22px;
+            padding: 10px 23px;
 
             border:
                 1px solid
@@ -894,14 +917,6 @@
 
         @media (max-width: 900px) {
 
-            .cards {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
-
-            }
-
-
             .hero-container {
 
                 text-align: center;
@@ -911,7 +926,7 @@
             }
 
 
-            .hero-logo {
+            .hero-logo-wrapper {
 
                 display: none;
 
@@ -931,6 +946,14 @@
 
             }
 
+
+            .cards {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
         }
 
 
@@ -940,7 +963,16 @@
 
                 height: 70px;
 
-                padding: 0 20px;
+                padding: 0 18px;
+
+            }
+
+
+            .small-logo {
+
+                width: 45px;
+
+                height: 45px;
 
             }
 
@@ -948,6 +980,13 @@
             .brand-text {
 
                 font-size: 15px;
+
+            }
+
+
+            .brand-subtitle {
+
+                font-size: 9px;
 
             }
 
@@ -1060,14 +1099,24 @@
 
 <nav class="navbar">
 
+
     <div class="logo-area">
 
-        <div class="logo">
-            📚
-        </div>
+        <img
+            src="logo.png"
+            class="small-logo"
+            alt="شعار منصة التكوين المتواصل">
 
-        <div class="brand-text">
-            منصة التكوين المتواصل
+        <div>
+
+            <div class="brand-text">
+                منصة التكوين المتواصل
+            </div>
+
+            <div class="brand-subtitle">
+                المؤسسة العمومية الاستشفائية
+            </div>
+
         </div>
 
     </div>
@@ -1076,6 +1125,7 @@
     <div class="nav-status">
         ● المنصة الإلكترونية
     </div>
+
 
 </nav>
 
@@ -1087,10 +1137,12 @@
 
 <section class="hero">
 
+
     <div class="hero-container">
 
 
         <div class="hero-text">
+
 
             <span class="welcome">
                 👋 مرحبًا بكم في منصتنا
@@ -1119,8 +1171,9 @@
 
             <div class="buttons">
 
-                <a href="login.html"
-                   class="login-button">
+                <a
+                    href="login.html"
+                    class="login-button">
 
                     🔐
                     تسجيل الدخول
@@ -1129,12 +1182,22 @@
 
             </div>
 
+
         </div>
 
 
 
-        <div class="hero-logo">
-            🎓
+        <!-- الشعار الحقيقي -->
+
+        <div class="hero-logo-wrapper">
+
+            <div class="hero-logo-glow"></div>
+
+            <img
+                src="logo.png"
+                class="hero-logo"
+                alt="شعار مكتب التكوين والتكوين المتواصل">
+
         </div>
 
 
@@ -1270,6 +1333,7 @@
                 التكوين الإلكتروني الحديث
             </h2>
 
+
             <p>
 
                 تهدف هذه المنصة إلى تسهيل عملية
@@ -1290,7 +1354,7 @@
 
 
 <!-- =========================================
-     لمسة صاحب المشروع
+     صاحب الفكرة والتطوير
 ========================================= -->
 
 <section class="project-section">
@@ -1328,6 +1392,7 @@
 
                 💡
                 صاحب فكرة وتطوير المنصة:
+
                 <strong>
                     منير بن صغير
                 </strong>
