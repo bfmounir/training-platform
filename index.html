@@ -3,9 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>منصة التكوين المتواصل</title>
 
@@ -13,190 +11,208 @@
 
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
             font-family: "Tahoma", "Arial", sans-serif;
-            background:
-                linear-gradient(135deg, #eef7ff 0%, #f8fbff 45%, #e8f5f3 100%);
-            color: #1f2937;
+            background: #f4f8fb;
+            color: #1e293b;
             min-height: 100vh;
         }
 
-        /* =========================
+        /* ==============================
            الشريط العلوي
-        ========================= */
+        ============================== */
 
-        .topbar {
-            width: 100%;
-            padding: 18px 7%;
+        .navbar {
+            height: 75px;
+            background: #ffffff;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
 
-            background: rgba(255,255,255,0.92);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 3px 18px rgba(0, 0, 0, 0.08);
 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 10;
         }
 
-        .brand {
+        .logo-area {
             display: flex;
             align-items: center;
             gap: 12px;
-            font-weight: bold;
-            color: #0f4c81;
-            font-size: 18px;
         }
 
-        .brand-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 14px;
+        .logo {
+            width: 48px;
+            height: 48px;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            background: linear-gradient(135deg, #087f8c, #1565c0);
+            background: linear-gradient(135deg, #00695c, #0288d1);
 
             color: white;
-            font-size: 24px;
+            font-size: 25px;
 
-            box-shadow: 0 6px 15px rgba(21,101,192,0.25);
+            border-radius: 14px;
+
+            box-shadow: 0 5px 15px rgba(0, 105, 92, 0.25);
         }
 
-        .topbar-badge {
-            background: #e8f5e9;
-            color: #237a3b;
+        .brand-text {
+            color: #075985;
+            font-size: 18px;
+            font-weight: bold;
+        }
 
-            padding: 8px 15px;
+        .nav-status {
+            background: #e8f5e9;
+            color: #2e7d32;
+
+            padding: 8px 16px;
+
             border-radius: 30px;
 
             font-size: 13px;
             font-weight: bold;
         }
 
-
-        /* =========================
+        /* ==============================
            القسم الرئيسي
-        ========================= */
+        ============================== */
 
         .hero {
-            max-width: 1150px;
-            margin: 55px auto 35px;
-            padding: 0 25px;
-        }
+            min-height: 530px;
 
-        .hero-card {
+            background:
+                linear-gradient(
+                    135deg,
+                    #063b5c 0%,
+                    #075985 45%,
+                    #00796b 100%
+                );
+
             position: relative;
             overflow: hidden;
 
-            background: linear-gradient(
-                135deg,
-                #075985,
-                #1565c0 55%,
-                #087f8c
-            );
-
-            border-radius: 30px;
-            padding: 65px 55px;
-
-            color: white;
-
-            box-shadow:
-                0 20px 50px rgba(15,76,129,0.25);
-        }
-
-        .hero-card::before {
-            content: "";
-            position: absolute;
-
-            width: 300px;
-            height: 300px;
-
-            background: rgba(255,255,255,0.08);
-
-            border-radius: 50%;
-
-            top: -130px;
-            left: -80px;
-        }
-
-        .hero-card::after {
-            content: "";
-            position: absolute;
-
-            width: 220px;
-            height: 220px;
-
-            background: rgba(255,255,255,0.07);
-
-            border-radius: 50%;
-
-            bottom: -100px;
-            right: -70px;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-
-            max-width: 720px;
-        }
-
-        .hero-icon {
-            width: 75px;
-            height: 75px;
-
             display: flex;
             align-items: center;
-            justify-content: center;
-
-            background: rgba(255,255,255,0.15);
-
-            border: 1px solid rgba(255,255,255,0.25);
-
-            border-radius: 22px;
-
-            font-size: 40px;
-
-            margin-bottom: 25px;
-
-            backdrop-filter: blur(8px);
         }
 
-        .hero h1 {
-            margin: 0 0 15px;
+        .hero::before {
+            content: "";
 
-            font-size: 38px;
-            line-height: 1.4;
+            position: absolute;
+
+            width: 430px;
+            height: 430px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.06);
+
+            top: -190px;
+            left: -100px;
         }
 
-        .hero h2 {
-            margin: 0 0 18px;
+        .hero::after {
+            content: "";
 
-            font-size: 23px;
-            font-weight: normal;
+            position: absolute;
 
-            color: #dff7ff;
+            width: 350px;
+            height: 350px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.05);
+
+            bottom: -190px;
+            right: -80px;
         }
 
-        .hero p {
-            margin: 0;
+        .hero-container {
+            width: 1100px;
+            max-width: 90%;
 
-            font-size: 17px;
-            line-height: 2;
-
-            color: #eefaff;
-        }
-
-        .hero-buttons {
-            margin-top: 32px;
+            margin: auto;
 
             display: flex;
-            gap: 15px;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 50px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text {
+            max-width: 680px;
+            color: white;
+        }
+
+        .welcome {
+            display: inline-block;
+
+            background: rgba(255,255,255,0.13);
+
+            border: 1px solid rgba(255,255,255,0.2);
+
+            padding: 8px 17px;
+
+            border-radius: 30px;
+
+            font-size: 14px;
+
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: 43px;
+
+            line-height: 1.4;
+
+            margin-bottom: 12px;
+
+            font-weight: 800;
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+
+            color: #cceff5;
+
+            margin-bottom: 22px;
+        }
+
+        .hero-description {
+            font-size: 17px;
+
+            line-height: 2;
+
+            color: #e7f7fa;
+
+            max-width: 650px;
+        }
+
+        /* ==============================
+           زر الدخول
+        ============================== */
+
+        .buttons {
+            margin-top: 30px;
+
+            display: flex;
+
+            gap: 14px;
 
             flex-wrap: wrap;
         }
@@ -205,6 +221,7 @@
             display: inline-flex;
 
             align-items: center;
+
             justify-content: center;
 
             gap: 10px;
@@ -212,6 +229,7 @@
             padding: 15px 32px;
 
             background: white;
+
             color: #075985;
 
             text-decoration: none;
@@ -219,274 +237,316 @@
             border-radius: 12px;
 
             font-size: 17px;
+
             font-weight: bold;
 
             transition: 0.3s;
 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.18);
         }
 
         .login-button:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
 
-            box-shadow:
-                0 12px 25px rgba(0,0,0,0.18);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
         }
 
-        .info-button {
-            display: inline-flex;
+        /* ==============================
+           الشعار الكبير
+        ============================== */
+
+        .hero-logo {
+            width: 230px;
+            height: 230px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.12);
+
+            border: 1px solid rgba(255,255,255,0.2);
+
+            display: flex;
 
             align-items: center;
+
             justify-content: center;
 
-            padding: 15px 28px;
+            font-size: 115px;
 
-            border: 1px solid rgba(255,255,255,0.35);
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.18);
 
-            color: white;
-
-            border-radius: 12px;
-
-            font-size: 16px;
-
-            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(8px);
         }
 
-
-        /* =========================
+        /* ==============================
            الخدمات
-        ========================= */
+        ============================== */
 
         .services {
-            max-width: 1150px;
+            max-width: 1100px;
 
-            margin: 45px auto;
+            margin: 65px auto;
 
-            padding: 0 25px;
+            padding: 0 20px;
         }
 
-        .section-title {
+        .section-header {
             text-align: center;
 
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
-        .section-title h2 {
-            margin: 0 0 10px;
+        .section-header h2 {
+            color: #075985;
 
-            color: #0f4c81;
+            font-size: 30px;
 
-            font-size: 28px;
+            margin-bottom: 10px;
         }
 
-        .section-title p {
-            margin: 0;
-
+        .section-header p {
             color: #64748b;
 
             font-size: 15px;
         }
 
-        .features {
+        .cards {
             display: grid;
 
             grid-template-columns:
-                repeat(auto-fit, minmax(250px, 1fr));
+                repeat(4, 1fr);
 
-            gap: 22px;
+            gap: 20px;
         }
 
-        .feature {
-            background: rgba(255,255,255,0.95);
+        .card {
+            background: white;
 
             border-radius: 20px;
 
-            padding: 30px 25px;
+            padding: 30px 22px;
 
-            border: 1px solid #e5edf5;
+            text-align: center;
+
+            border: 1px solid #e5edf3;
 
             box-shadow:
-                0 8px 25px rgba(15,76,129,0.07);
+                0 7px 25px rgba(0,0,0,0.06);
 
             transition: 0.3s;
-
-            position: relative;
         }
 
-        .feature:hover {
-            transform: translateY(-7px);
+        .card:hover {
+            transform: translateY(-8px);
 
             box-shadow:
-                0 15px 35px rgba(15,76,129,0.13);
+                0 15px 35px rgba(0,0,0,0.11);
         }
 
-        .feature-icon {
-            width: 60px;
-            height: 60px;
+        .card-icon {
+            width: 65px;
+            height: 65px;
+
+            margin: 0 auto 18px;
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
 
-            border-radius: 17px;
+            background: #e8f5f3;
 
-            background: #e8f4ff;
+            border-radius: 18px;
 
-            font-size: 30px;
-
-            margin-bottom: 20px;
+            font-size: 32px;
         }
 
-        .feature h3 {
-            margin: 0 0 12px;
+        .card h3 {
+            color: #075985;
 
-            color: #0f4c81;
+            font-size: 19px;
 
-            font-size: 20px;
+            margin-bottom: 12px;
         }
 
-        .feature p {
-            margin: 0;
-
+        .card p {
             color: #64748b;
 
+            font-size: 14px;
+
             line-height: 1.8;
+        }
+
+        /* ==============================
+           قسم التكوين
+        ============================== */
+
+        .info-section {
+            max-width: 1100px;
+
+            margin: 0 auto 60px;
+
+            padding: 0 20px;
+        }
+
+        .info-box {
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 35px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 30px;
+
+            border: 1px solid #e5edf3;
+
+            box-shadow:
+                0 7px 25px rgba(0,0,0,0.05);
+        }
+
+        .info-icon {
+            min-width: 70px;
+
+            width: 70px;
+            height: 70px;
+
+            background: #e0f2fe;
+
+            border-radius: 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 35px;
+        }
+
+        .info-box h2 {
+            color: #075985;
+
+            margin-bottom: 10px;
+
+            font-size: 23px;
+        }
+
+        .info-box p {
+            color: #64748b;
+
+            line-height: 1.9;
 
             font-size: 15px;
         }
 
-
-        /* =========================
-           إحصائيات
-        ========================= */
-
-        .stats {
-            max-width: 1150px;
-
-            margin: 25px auto 50px;
-
-            padding: 0 25px;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(auto-fit, minmax(200px, 1fr));
-
-            gap: 18px;
-        }
-
-        .stat {
-            background: white;
-
-            border-radius: 18px;
-
-            padding: 22px;
-
-            text-align: center;
-
-            border: 1px solid #e6edf3;
-
-            box-shadow:
-                0 5px 20px rgba(0,0,0,0.05);
-        }
-
-        .stat-number {
-            font-size: 30px;
-
-            font-weight: bold;
-
-            color: #087f8c;
-
-            margin-bottom: 5px;
-        }
-
-        .stat-text {
-            color: #64748b;
-
-            font-size: 14px;
-        }
-
-
-        /* =========================
+        /* ==============================
            التذييل
-        ========================= */
+        ============================== */
 
         footer {
-            background: #073b5c;
+            background: #052f46;
 
-            color: #dbeafe;
+            color: #cbd5e1;
 
             text-align: center;
 
-            padding: 28px 15px;
+            padding: 30px 15px;
 
-            margin-top: 40px;
+            line-height: 1.9;
         }
 
         footer strong {
             color: white;
+
+            font-size: 17px;
         }
 
-        footer p {
-            margin: 7px 0;
+        footer small {
+            display: block;
 
-            font-size: 14px;
+            margin-top: 5px;
         }
 
-
-        /* =========================
+        /* ==============================
            الهاتف
-        ========================= */
+        ============================== */
 
-        @media (max-width: 700px) {
+        @media (max-width: 900px) {
 
-            .topbar {
-                padding: 14px 20px;
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .brand {
+            .hero-container {
+                text-align: center;
+
+                justify-content: center;
+            }
+
+            .hero-logo {
+                display: none;
+            }
+
+            .hero-text {
+                max-width: 800px;
+            }
+
+            .buttons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .brand-text {
                 font-size: 15px;
             }
 
-            .topbar-badge {
+            .nav-status {
                 display: none;
             }
 
             .hero {
-                margin-top: 25px;
+                min-height: 560px;
             }
 
-            .hero-card {
-                padding: 40px 25px;
-
-                border-radius: 23px;
+            .hero-title {
+                font-size: 31px;
             }
 
-            .hero h1 {
-                font-size: 28px;
+            .hero-subtitle {
+                font-size: 18px;
             }
 
-            .hero h2 {
-                font-size: 19px;
-            }
-
-            .hero p {
+            .hero-description {
                 font-size: 15px;
             }
 
-            .hero-buttons {
-                flex-direction: column;
+            .cards {
+                grid-template-columns: 1fr;
             }
 
-            .login-button,
-            .info-button {
+            .login-button {
                 width: 100%;
             }
 
-            .section-title h2 {
-                font-size: 24px;
-            }
+            .info-box {
+                flex-direction: column;
 
+                text-align: center;
+
+                padding: 28px 20px;
+            }
         }
 
     </style>
@@ -497,61 +557,63 @@
 <body>
 
 
-<!-- =========================
+<!-- ==============================
      الشريط العلوي
-========================= -->
+============================== -->
 
-<header class="topbar">
+<nav class="navbar">
 
-    <div class="brand">
+    <div class="logo-area">
 
-        <div class="brand-icon">
+        <div class="logo">
             📚
         </div>
 
-        <span>
+        <div class="brand-text">
             منصة التكوين المتواصل
-        </span>
+        </div>
 
     </div>
 
-    <div class="topbar-badge">
-        نظام التكوين الإلكتروني
+    <div class="nav-status">
+        ● المنصة الإلكترونية
     </div>
 
-</header>
+</nav>
 
 
 
-<!-- =========================
+<!-- ==============================
      الواجهة الرئيسية
-========================= -->
+============================== -->
 
 <section class="hero">
 
-    <div class="hero-card">
+    <div class="hero-container">
 
-        <div class="hero-content">
+        <div class="hero-text">
 
-            <div class="hero-icon">
-                🎓
-            </div>
+            <span class="welcome">
+                👋 مرحبًا بكم
+            </span>
 
-            <h1>
+            <h1 class="hero-title">
                 منصة التكوين المتواصل
             </h1>
 
-            <h2>
+            <div class="hero-subtitle">
                 المؤسسة العمومية الاستشفائية
-            </h2>
+            </div>
 
-            <p>
-                منصة رقمية حديثة لإدارة ومتابعة برامج
-                التكوين المتواصل، الدورات التكوينية،
+            <p class="hero-description">
+
+                منصة رقمية متخصصة في إدارة ومتابعة
+                برامج التكوين المتواصل، الدورات التكوينية،
                 الدروس والمواد التعليمية والشهادات.
+
             </p>
 
-            <div class="hero-buttons">
+            <div class="buttons">
 
                 <a href="login.html"
                    class="login-button">
@@ -561,15 +623,13 @@
 
                 </a>
 
-                <div class="info-button">
-
-                    💡
-                    بوابتك نحو التكوين المستمر
-
-                </div>
-
             </div>
 
+        </div>
+
+
+        <div class="hero-logo">
+            🎓
         </div>
 
     </div>
@@ -578,31 +638,31 @@
 
 
 
-<!-- =========================
+<!-- ==============================
      الخدمات
-========================= -->
+============================== -->
 
 <section class="services">
 
-    <div class="section-title">
+    <div class="section-header">
 
         <h2>
             خدمات المنصة
         </h2>
 
         <p>
-            كل ما تحتاجه لمتابعة التكوين الإلكتروني في مكان واحد
+            جميع أدوات التكوين في مكان واحد
         </p>
 
     </div>
 
 
-    <div class="features">
+    <div class="cards">
 
 
-        <div class="feature">
+        <div class="card">
 
-            <div class="feature-icon">
+            <div class="card-icon">
                 📚
             </div>
 
@@ -611,36 +671,34 @@
             </h3>
 
             <p>
-                الاطلاع على الدورات التكوينية
-                ومتابعة برامج التكوين بسهولة.
+                متابعة الدورات وبرامج التكوين
+                المتواصل بسهولة وتنظيم.
             </p>
 
         </div>
 
 
+        <div class="card">
 
-        <div class="feature">
-
-            <div class="feature-icon">
+            <div class="card-icon">
                 📖
             </div>
 
             <h3>
-                الدروس والمواد
+                الدروس
             </h3>
 
             <p>
                 الوصول إلى الدروس والوثائق
-                والمواد التكوينية في أي وقت.
+                والمواد التعليمية.
             </p>
 
         </div>
 
 
+        <div class="card">
 
-        <div class="feature">
-
-            <div class="feature-icon">
+            <div class="card-icon">
                 🎓
             </div>
 
@@ -649,17 +707,16 @@
             </h3>
 
             <p>
-                الحصول على شهادات التكوين
-                ومتابعة سجل الشهادات.
+                متابعة شهادات التكوين
+                والحصول عليها إلكترونيًا.
             </p>
 
         </div>
 
 
+        <div class="card">
 
-        <div class="feature">
-
-            <div class="feature-icon">
+            <div class="card-icon">
                 📊
             </div>
 
@@ -669,7 +726,41 @@
 
             <p>
                 متابعة تقدم المتربصين
-                والبرامج التكوينية بطريقة منظمة.
+                والبرامج التكوينية.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     معلومات المنصة
+============================== -->
+
+<section class="info-section">
+
+    <div class="info-box">
+
+        <div class="info-icon">
+            💻
+        </div>
+
+        <div>
+
+            <h2>
+                التكوين الإلكتروني الحديث
+            </h2>
+
+            <p>
+                تهدف المنصة إلى تسهيل عملية التكوين
+                ومتابعة المتربصين، وتوفير الدروس
+                والموارد التعليمية والشهادات ضمن
+                بيئة رقمية منظمة وسهلة الاستخدام.
             </p>
 
         </div>
@@ -680,86 +771,23 @@
 
 
 
-<!-- =========================
-     الإحصائيات
-========================= -->
-
-<section class="stats">
-
-    <div class="stat">
-
-        <div class="stat-number">
-            📚
-        </div>
-
-        <div class="stat-text">
-            دورات تكوينية
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-number">
-            👨‍⚕️
-        </div>
-
-        <div class="stat-text">
-            متربصون وموظفون
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-number">
-            🎓
-        </div>
-
-        <div class="stat-text">
-            شهادات التكوين
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-number">
-            💻
-        </div>
-
-        <div class="stat-text">
-            تكوين إلكتروني
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
+<!-- ==============================
      التذييل
-========================= -->
+============================== -->
 
 <footer>
 
-    <p>
-        <strong>
-            منصة التكوين المتواصل
-        </strong>
-    </p>
+    <strong>
+        منصة التكوين المتواصل
+    </strong>
 
-    <p>
+    <small>
         المؤسسة العمومية الاستشفائية
-    </p>
+    </small>
 
-    <p>
+    <small>
         © 2026 جميع الحقوق محفوظة
-    </p>
+    </small>
 
 </footer>
 
