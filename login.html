@@ -1,58 +1,95 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>تسجيل الدخول - منصة التكوين</title>
 
     <style>
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: #f4f6f8;
+
             display: flex;
             justify-content: center;
             align-items: center;
+
             min-height: 100vh;
         }
 
         .login-box {
             background: white;
+
             width: 350px;
+
             padding: 30px;
+
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.15);
+
             text-align: center;
+        }
+
+        .logo {
+            font-size: 50px;
+            margin-bottom: 10px;
         }
 
         h1 {
             color: #1565c0;
             margin-bottom: 10px;
+            font-size: 24px;
         }
 
         p {
             color: #666;
         }
 
-        input, select {
+        input,
+        select {
+
             width: 100%;
+
             padding: 12px;
+
             margin: 10px 0;
+
             box-sizing: border-box;
+
             border: 1px solid #ccc;
+
             border-radius: 8px;
+
             font-size: 15px;
         }
 
         button {
+
             width: 100%;
+
             padding: 13px;
+
             margin-top: 15px;
+
             border: none;
+
             border-radius: 8px;
+
             background: #1565c0;
+
             color: white;
+
             font-size: 16px;
+
             cursor: pointer;
         }
 
@@ -60,91 +97,326 @@
             background: #0d47a1;
         }
 
-        .logo {
-            font-size: 45px;
-            margin-bottom: 10px;
+        #message {
+
+            margin-top: 15px;
+
+            font-weight: bold;
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
+
 <div class="login-box">
 
-    <div class="logo">📚</div>
+    <div class="logo">
+        📚
+    </div>
 
-    <h1>منصة التكوين المتواصل</h1>
+    <h1>
+        منصة التكوين المتواصل
+    </h1>
 
-    <p>تسجيل الدخول</p>
+    <p>
+        تسجيل الدخول
+    </p>
+
 
     <select id="userType">
-        <option value="">اختر نوع المستخدم</option>
-        <option value="admin">المسؤول</option>
-        <option value="worker">العامل</option>
-        <option value="trainee">المتربص</option>
+
+        <option value="">
+            اختر نوع المستخدم
+        </option>
+
+        <option value="admin">
+            المسؤول
+        </option>
+
+        <option value="worker">
+            العامل
+        </option>
+
+        <option value="trainee">
+            المتربص
+        </option>
+
     </select>
 
-    <input 
-        type="text" 
-        id="username" 
-        placeholder="اسم المستخدم"
+
+    <input
+        type="email"
+        id="username"
+        placeholder="البريد الإلكتروني"
     >
 
-    <input 
-        type="password" 
-        id="password" 
+
+    <input
+        type="password"
+        id="password"
         placeholder="كلمة المرور"
     >
+
 
     <button onclick="login()">
         تسجيل الدخول
     </button>
 
+
     <p id="message"></p>
 
 </div>
 
+
+<!-- =========================
+     Supabase
+========================= -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="supabase-config.js"></script>
+
 
 <script>
 
+
 async function login() {
 
-    const userType = document.getElementById("userType").value;
-    const email = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    const message = document.getElementById("message");
+    const userType =
+        document.getElementById(
+            "userType"
+        ).value;
 
-    if (userType === "" || email === "" || password === "") {
-        message.textContent = "يرجى ملء جميع المعلومات";
-        message.style.color = "red";
+
+    const email =
+        document.getElementById(
+            "username"
+        ).value.trim();
+
+
+    const password =
+        document.getElementById(
+            "password"
+        ).value;
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    /* =========================
+       التحقق من البيانات
+    ========================= */
+
+    if (
+        userType === "" ||
+        email === "" ||
+        password === ""
+    ) {
+
+        message.textContent =
+            "يرجى ملء جميع المعلومات.";
+
+        message.style.color =
+            "red";
+
         return;
     }
 
-    if (userType !== "admin") {
-        message.textContent = "حساب العامل والمتربص سيتم تفعيله لاحقًا";
-        message.style.color = "blue";
-        return;
-    }
 
-    message.textContent = "جاري التحقق من كلمة المرور...";
-    message.style.color = "black";
+    message.textContent =
+        "جاري تسجيل الدخول...";
 
-    const { data, error } =
-        await supabaseClient.auth.signInWithPassword({
-            email: email,
-            password: password
-        });
+    message.style.color =
+        "#1565c0";
+
+
+    /* =========================
+       تسجيل الدخول في Supabase
+    ========================= */
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth
+            .signInWithPassword({
+
+                email: email,
+
+                password: password
+
+            });
+
 
     if (error) {
+
+        console.error(error);
+
         message.textContent =
-            "فشل تسجيل الدخول: " + error.message;
-        message.style.color = "red";
+            "فشل تسجيل الدخول: " +
+            error.message;
+
+        message.style.color =
+            "red";
+
         return;
     }
 
-    window.location.href = "admin.html";
+
+    const user =
+        data.user;
+
+
+    if (!user) {
+
+        message.textContent =
+            "تعذر الحصول على بيانات المستخدم.";
+
+        message.style.color =
+            "red";
+
+        return;
+    }
+
+
+    /* =========================
+       التحقق من نوع الحساب
+    ========================= */
+
+    if (userType === "admin") {
+
+        /*
+           المسؤول يجب أن يكون موجودًا
+           في جدول user_roles
+           وصلاحية role = admin
+        */
+
+        const {
+            data: roleData,
+            error: roleError
+        } =
+            await supabaseClient
+                .from("user_roles")
+                .select("role")
+                .eq(
+                    "user_id",
+                    user.id
+                )
+                .maybeSingle();
+
+
+        if (roleError) {
+
+            console.error(
+                "خطأ التحقق من الصلاحية:",
+                roleError
+            );
+
+            await supabaseClient.auth
+                .signOut();
+
+            message.textContent =
+                "تعذر التحقق من صلاحيات المسؤول.";
+
+            message.style.color =
+                "red";
+
+            return;
+        }
+
+
+        if (
+            !roleData ||
+            roleData.role !== "admin"
+        ) {
+
+            await supabaseClient.auth
+                .signOut();
+
+            message.textContent =
+                "هذا الحساب ليس حساب مسؤول.";
+
+            message.style.color =
+                "red";
+
+            return;
+        }
+
+
+        /* المسؤول الحقيقي */
+
+        message.textContent =
+            "تم التحقق من حساب المسؤول...";
+
+        message.style.color =
+            "green";
+
+
+        window.location.href =
+            "admin.html";
+
+        return;
+    }
+
+
+    /* =========================
+       المتربص
+    ========================= */
+
+    if (userType === "trainee") {
+
+        message.textContent =
+            "تم تسجيل الدخول بنجاح...";
+
+        message.style.color =
+            "green";
+
+
+        window.location.href =
+            "trainee.html";
+
+        return;
+    }
+
+
+    /* =========================
+       العامل
+    ========================= */
+
+    if (userType === "worker") {
+
+        message.textContent =
+            "واجهة العامل سيتم تفعيلها لاحقًا.";
+
+        message.style.color =
+            "#1565c0";
+
+
+        /*
+           في الوقت الحالي نخرج المستخدم
+           لأن واجهة العامل لم نبنها بعد.
+        */
+
+        await supabaseClient.auth
+            .signOut();
+
+        return;
+    }
+
 }
 
+
 </script>
+
+
+</body>
+
+</html>
