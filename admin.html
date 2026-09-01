@@ -3,125 +3,728 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>لوحة تحكم المسؤول</title>
+<title>لوحة تحكم المسؤول - منصة التكوين المتواصل</title>
 
-    <style>
+<style>
 
-        * {
-            box-sizing: border-box;
-        }
+/* =====================================================
+   الإعدادات العامة
+===================================================== */
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        header {
-            background: #1565c0;
-            color: white;
-            padding: 25px 20px;
-            text-align: center;
-        }
+body {
 
-        header h1 {
-            margin: 0 0 8px;
-        }
+    margin: 0;
 
-        header p {
-            margin: 0;
-        }
+    font-family: Tahoma, Arial, sans-serif;
 
-        .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 20px;
-        }
+    background: #f4f7fb;
 
-        .welcome {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
+    color: #172b4d;
 
-        .welcome h2 {
-            color: #1565c0;
-            margin-top: 0;
-        }
+}
 
-        .cards {
-            display: grid;
-            grid-template-columns:
-                repeat(auto-fit, minmax(230px, 1fr));
-            gap: 20px;
-        }
 
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-        }
+/* =====================================================
+   الشريط العلوي
+===================================================== */
 
-        .icon {
-            font-size: 45px;
-            margin-bottom: 10px;
-        }
+header {
 
-        .card h3 {
-            color: #1565c0;
-            margin: 10px 0;
-        }
+    background:
+        linear-gradient(
+            135deg,
+            #062d5c,
+            #0d6efd,
+            #159f9f
+        );
 
-        .card p {
-            color: #666;
-            min-height: 42px;
-        }
+    color: white;
 
-        button {
-            border: none;
-            padding: 11px 25px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-size: 15px;
-        }
+    padding: 18px 30px;
 
-        .open-button {
-            background: #1565c0;
-            color: white;
-        }
+    display: flex;
 
-        .open-button:hover {
-            background: #0d47a1;
-        }
+    align-items: center;
 
-        .logout {
-            display: block;
-            margin: 30px auto 10px;
-            background: #555;
-            color: white;
-            padding: 12px 30px;
-        }
+    justify-content: space-between;
 
-        .logout:hover {
-            background: #333;
-        }
+    gap: 20px;
 
-        #message {
-            text-align: center;
-            padding: 20px;
-            font-weight: bold;
-        }
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.15);
 
-    </style>
+}
+
+
+/* جهة الشعار */
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+
+.logo {
+
+    width: 58px;
+
+    height: 58px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 5px;
+
+    object-fit: contain;
+
+}
+
+
+.brand-text h1 {
+
+    margin: 0;
+
+    font-size: 20px;
+}
+
+
+.brand-text p {
+
+    margin: 5px 0 0;
+
+    font-size: 13px;
+
+    opacity: 0.9;
+}
+
+
+/* أزرار الهيدر */
+
+.header-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.header-btn {
+
+    border: 1px solid
+        rgba(255,255,255,0.25);
+
+    background:
+        rgba(255,255,255,0.13);
+
+    color: white;
+
+    padding: 10px 16px;
+
+    border-radius: 25px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    transition: 0.3s;
+}
+
+
+.header-btn:hover {
+
+    background:
+        rgba(255,255,255,0.25);
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =====================================================
+   الحاوية الرئيسية
+===================================================== */
+
+.container {
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 30px 22px 45px;
+}
+
+
+/* =====================================================
+   رسالة التحقق
+===================================================== */
+
+#message {
+
+    text-align: center;
+
+    padding: 18px;
+
+    font-weight: bold;
+
+    color: #0d6efd;
+}
+
+
+/* =====================================================
+   بطاقة الترحيب
+===================================================== */
+
+.welcome {
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 22px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.07);
+
+    border:
+        1px solid #edf1f6;
+}
+
+
+.welcome::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+
+    height: 180px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(13,110,253,0.06);
+
+    left: -70px;
+
+    top: -80px;
+}
+
+
+.welcome-content {
+
+    position: relative;
+
+    z-index: 1;
+}
+
+
+.welcome h2 {
+
+    margin: 0 0 8px;
+
+    color: #073b78;
+
+    font-size: 24px;
+}
+
+
+.welcome p {
+
+    margin: 0;
+
+    color: #667085;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   عنوان الأقسام
+===================================================== */
+
+.section-title {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin:
+        25px 0 17px;
+}
+
+
+.section-title h2 {
+
+    margin: 0;
+
+    color: #073b78;
+
+    font-size: 19px;
+}
+
+
+.section-title span {
+
+    color: #98a2b3;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   بطاقات الإحصائيات
+===================================================== */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 16px;
+
+    margin-bottom: 25px;
+}
+
+
+.stat {
+
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    border:
+        1px solid #edf1f6;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,0.05);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+
+.stat-icon {
+
+    width: 52px;
+
+    height: 52px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        #eef6ff;
+
+    font-size: 25px;
+}
+
+
+.stat h3 {
+
+    margin: 0 0 5px;
+
+    font-size: 22px;
+
+    color: #073b78;
+}
+
+
+.stat p {
+
+    margin: 0;
+
+    color: #98a2b3;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   بطاقات الخدمات
+===================================================== */
+
+.cards {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+
+.card {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 21px;
+
+    border:
+        1px solid #edf1f6;
+
+    box-shadow:
+        0 7px 22px rgba(0,0,0,0.06);
+
+    text-align: center;
+
+    transition:
+        transform 0.3s,
+        box-shadow 0.3s;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    right: 0;
+
+    left: 0;
+
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #073b78,
+            #0d6efd,
+            #159f9f
+        );
+}
+
+
+.card:hover {
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 14px 30px rgba(0,0,0,0.10);
+}
+
+
+.icon {
+
+    width: 70px;
+
+    height: 70px;
+
+    margin: 5px auto 15px;
+
+    border-radius: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        #f0f6ff;
+
+    font-size: 34px;
+}
+
+
+.card h3 {
+
+    margin: 8px 0;
+
+    color: #073b78;
+
+    font-size: 18px;
+}
+
+
+.card p {
+
+    color: #667085;
+
+    min-height: 45px;
+
+    line-height: 1.7;
+
+    font-size: 13px;
+
+    margin:
+        8px 0 18px;
+}
+
+
+/* =====================================================
+   أزرار فتح الأقسام
+===================================================== */
+
+.open-button {
+
+    border: none;
+
+    width: 100%;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #073b78,
+            #0d6efd
+        );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.open-button:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 7px 18px
+        rgba(13,110,253,0.25);
+}
+
+
+/* =====================================================
+   زر تسجيل الخروج
+===================================================== */
+
+.logout-area {
+
+    margin-top: 30px;
+
+    text-align: center;
+}
+
+
+.logout {
+
+    border: none;
+
+    background:
+        #fff;
+
+    color:
+        #dc3545;
+
+    border:
+        1px solid #f0c8ce;
+
+    padding:
+        12px 28px;
+
+    border-radius: 13px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+
+.logout:hover {
+
+    background:
+        #dc3545;
+
+    color: white;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =====================================================
+   تذييل
+===================================================== */
+
+footer {
+
+    text-align: center;
+
+    padding: 22px;
+
+    color: #98a2b3;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   الهاتف
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .cards {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    header {
+
+        padding: 15px;
+
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+
+    .header-actions {
+
+        width: 100%;
+
+        justify-content: center;
+    }
+
+
+    .brand {
+
+        justify-content: center;
+    }
+
+
+    .container {
+
+        padding:
+            20px 15px 35px;
+    }
+
+
+    .welcome {
+
+        padding: 22px;
+    }
+
+
+    .welcome h2 {
+
+        font-size: 20px;
+    }
+
+
+    .stats {
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 10px;
+    }
+
+
+    .stat {
+
+        padding: 15px;
+
+        flex-direction: column;
+
+        text-align: center;
+
+        gap: 8px;
+    }
+
+
+    .cards {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .card {
+
+        padding: 23px;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .stats {
+
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -129,18 +732,54 @@
 <body>
 
 
+<!-- =====================================================
+     الشريط العلوي
+===================================================== -->
+
 <header>
 
-    <h1>
-        🎓 منصة التكوين المتواصل
-    </h1>
 
-    <p>
-        لوحة تحكم المسؤول
-    </p>
+    <div class="brand">
+
+        <img
+            src="logo.png"
+            class="logo"
+            alt="شعار المنصة"
+        >
+
+        <div class="brand-text">
+
+            <h1>
+                منصة التكوين المتواصل
+            </h1>
+
+            <p>
+                لوحة تحكم المسؤول
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-actions">
+
+        <a
+            href="index.html"
+            class="header-btn"
+        >
+            🏠 الرئيسية
+        </a>
+
+    </div>
+
 
 </header>
 
+
+<!-- =====================================================
+     المحتوى
+===================================================== -->
 
 <div class="container">
 
@@ -154,19 +793,140 @@
 
     <!-- محتوى المسؤول -->
 
-    <div id="adminContent"
-         style="display:none;">
+    <div
+        id="adminContent"
+        style="display:none;"
+    >
 
+
+        <!-- الترحيب -->
 
         <div class="welcome">
 
+            <div class="welcome-content">
+
+                <h2>
+                    مرحبًا بك في لوحة التحكم 👋
+                </h2>
+
+                <p>
+                    من هنا يمكنك إدارة منصة التكوين المتواصل
+                    ومتابعة الدورات والدروس والمتربصين والشهادات.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- الإحصائيات -->
+
+        <div class="section-title">
+
             <h2>
-                مرحبًا بك في لوحة التحكم 👋
+                نظرة عامة
             </h2>
 
-            <p>
-                من هنا يمكنك إدارة منصة التكوين المتواصل.
-            </p>
+            <span>
+                إدارة المنصة
+            </span>
+
+        </div>
+
+
+        <div class="stats">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📚
+                </div>
+
+                <div>
+
+                    <h3>—</h3>
+
+                    <p>
+                        الدورات التكوينية
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    👥
+                </div>
+
+                <div>
+
+                    <h3>—</h3>
+
+                    <p>
+                        المتربصون
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📖
+                </div>
+
+                <div>
+
+                    <h3>—</h3>
+
+                    <p>
+                        الدروس
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🎓
+                </div>
+
+                <div>
+
+                    <h3>—</h3>
+
+                    <p>
+                        الشهادات
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- أقسام الإدارة -->
+
+        <div class="section-title">
+
+            <h2>
+                إدارة المنصة
+            </h2>
+
+            <span>
+                اختر القسم المطلوب
+            </span>
 
         </div>
 
@@ -187,14 +947,14 @@
                 </h3>
 
                 <p>
-                    إضافة وتعديل وحذف وإدارة الدورات.
+                    إضافة وتعديل وحذف وإدارة الدورات التكوينية.
                 </p>
 
                 <button
                     class="open-button"
                     onclick="window.location.href='admin-courses.html'"
                 >
-                    فتح
+                    فتح الدورات
                 </button>
 
             </div>
@@ -213,14 +973,14 @@
                 </h3>
 
                 <p>
-                    إضافة وتعديل وإدارة الدروس.
+                    إضافة وتعديل وتنظيم الدروس الخاصة بالدورات.
                 </p>
 
                 <button
                     class="open-button"
                     onclick="window.location.href='admin-lessons.html'"
                 >
-                    فتح
+                    فتح الدروس
                 </button>
 
             </div>
@@ -239,14 +999,14 @@
                 </h3>
 
                 <p>
-                    إدارة العمال والمتربصين.
+                    إدارة العمال والمتربصين وحسابات المستخدمين.
                 </p>
 
                 <button
                     class="open-button"
                     onclick="window.location.href='admin-users.html'"
                 >
-                    فتح
+                    إدارة المستخدمين
                 </button>
 
             </div>
@@ -265,14 +1025,14 @@
                 </h3>
 
                 <p>
-                    إدارة شهادات التكوين.
+                    متابعة وإدارة شهادات التكوين الصادرة.
                 </p>
 
                 <button
                     class="open-button"
                     onclick="window.location.href='admin-certificates.html'"
                 >
-                    فتح
+                    إدارة الشهادات
                 </button>
 
             </div>
@@ -291,14 +1051,14 @@
                 </h3>
 
                 <p>
-                    متابعة نشاط المنصة.
+                    متابعة نشاط المنصة ومؤشرات التكوين.
                 </p>
 
                 <button
                     class="open-button"
                     onclick="window.location.href='admin-statistics.html'"
                 >
-                    فتح
+                    عرض الإحصائيات
                 </button>
 
             </div>
@@ -317,14 +1077,14 @@
                 </h3>
 
                 <p>
-                    مساعد الذكاء الاصطناعي.
+                    أدوات الذكاء الاصطناعي المساعدة في التكوين.
                 </p>
 
                 <button
                     class="open-button"
                     onclick="window.location.href='ai-assistant.html'"
                 >
-                    فتح
+                    فتح المساعد
                 </button>
 
             </div>
@@ -335,12 +1095,16 @@
 
         <!-- تسجيل الخروج -->
 
-        <button
-            class="logout"
-            onclick="logout()"
-        >
-            🚪 تسجيل الخروج
-        </button>
+        <div class="logout-area">
+
+            <button
+                class="logout"
+                onclick="logout()"
+            >
+                🚪 تسجيل الخروج
+            </button>
+
+        </div>
 
 
     </div>
@@ -349,7 +1113,20 @@
 </div>
 
 
-<!-- Supabase -->
+<footer>
+
+    منصة التكوين المتواصل
+
+    <br>
+
+    المؤسسة العمومية الاستشفائية بأولف
+
+</footer>
+
+
+<!-- =====================================================
+     Supabase
+===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -357,7 +1134,6 @@
 
 
 <script>
-
 
 /* =====================================================
    التحقق من حساب المسؤول
@@ -381,7 +1157,9 @@ async function checkAdmin() {
             data: userData,
             error: userError
         } =
-        await supabaseClient.auth.getUser();
+        await supabaseClient
+            .auth
+            .getUser();
 
 
         if (
@@ -394,7 +1172,7 @@ async function checkAdmin() {
                 "⛔ يجب تسجيل الدخول أولًا.";
 
             message.style.color =
-                "red";
+                "#dc3545";
 
 
             setTimeout(function() {
@@ -441,11 +1219,13 @@ async function checkAdmin() {
                 "❌ تعذر التحقق من صلاحية الحساب.";
 
             message.style.color =
-                "red";
+                "#dc3545";
 
             return;
         }
 
+
+        /* التأكد من أن المستخدم مسؤول */
 
         if (
             !roleData ||
@@ -456,7 +1236,7 @@ async function checkAdmin() {
                 "⛔ ليس لديك صلاحية المسؤول.";
 
             message.style.color =
-                "red";
+                "#dc3545";
 
 
             setTimeout(function() {
@@ -471,7 +1251,9 @@ async function checkAdmin() {
         }
 
 
-        /* الحساب مسؤول */
+        /* =================================================
+           الحساب مسؤول
+        ================================================= */
 
         message.style.display =
             "none";
@@ -486,11 +1268,12 @@ async function checkAdmin() {
 
         console.error(error);
 
+
         message.textContent =
             "❌ حدث خطأ أثناء التحقق من الحساب.";
 
         message.style.color =
-            "red";
+            "#dc3545";
 
     }
 
@@ -503,7 +1286,9 @@ async function checkAdmin() {
 
 async function logout() {
 
-    await supabaseClient.auth.signOut();
+    await supabaseClient
+        .auth
+        .signOut();
 
     window.location.href =
         "login.html";
@@ -516,7 +1301,6 @@ async function logout() {
 ===================================================== */
 
 checkAdmin();
-
 
 </script>
 
