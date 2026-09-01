@@ -3,1102 +3,1199 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>منصة التكوين المتواصل</title>
+<title>منصة التكوين المتواصل</title>
 
+<style>
 
-    <style>
+/* =====================================================
+   الإعدادات العامة
+===================================================== */
 
-        /* =========================================
-           الإعدادات العامة
-        ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        html {
-            scroll-behavior: smooth;
-        }
+body {
+    font-family:
+        "Segoe UI",
+        Tahoma,
+        Arial,
+        sans-serif;
 
-        body {
+    background:
+        linear-gradient(
+            180deg,
+            #f7fbff 0%,
+            #eef6fa 100%
+        );
 
-            font-family:
-                "Segoe UI",
-                Tahoma,
-                Arial,
-                sans-serif;
+    color: #172b3a;
+    min-height: 100vh;
+    line-height: 1.7;
+}
 
-            background: #f4f8fb;
 
-            color: #1e293b;
+/* =====================================================
+   الشريط العلوي
+===================================================== */
 
-            min-height: 100vh;
+.navbar {
+    height: 82px;
 
-            line-height: 1.7;
+    background: rgba(255,255,255,0.94);
 
-        }
+    backdrop-filter: blur(15px);
 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-        /* =========================================
-           الشريط العلوي
-        ========================================= */
+    padding: 0 6%;
 
-        .navbar {
+    border-bottom:
+        1px solid rgba(7,89,133,0.08);
 
-            height: 82px;
+    box-shadow:
+        0 5px 25px rgba(15,55,75,0.08);
 
-            background: rgba(255,255,255,0.98);
+    position: relative;
+    z-index: 20;
+}
 
-            display: flex;
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
 
-            align-items: center;
+.small-logo {
+    width: 54px;
+    height: 54px;
 
-            justify-content: space-between;
+    object-fit: contain;
 
-            padding: 0 7%;
+    border-radius: 50%;
 
-            box-shadow:
-                0 3px 20px rgba(0,0,0,0.07);
+    background: white;
 
-            position: relative;
+    padding: 3px;
 
-            z-index: 10;
+    border:
+        2px solid #dceff3;
 
-        }
+    box-shadow:
+        0 6px 18px rgba(0,90,110,0.14);
 
+    transition: 0.3s ease;
+}
 
-        .logo-area {
+.small-logo:hover {
+    transform: rotate(3deg) scale(1.05);
+}
 
-            display: flex;
+.brand-text {
+    color: #075985;
 
-            align-items: center;
+    font-size: 19px;
+    font-weight: 800;
 
-            gap: 13px;
+    line-height: 1.3;
+}
 
-        }
+.brand-subtitle {
+    color: #718096;
 
+    font-size: 11px;
 
-        .small-logo {
+    margin-top: 2px;
+}
 
-            width: 52px;
+.nav-status {
+    background:
+        linear-gradient(
+            135deg,
+            #e9f9f3,
+            #dff4ef
+        );
 
-            height: 52px;
+    color: #08745d;
 
-            object-fit: contain;
+    padding: 8px 18px;
 
-            border-radius: 50%;
+    border-radius: 30px;
 
-            box-shadow:
-                0 5px 15px rgba(0,0,0,0.12);
+    font-size: 13px;
+    font-weight: 700;
 
-        }
+    border:
+        1px solid #ccece3;
 
+    box-shadow:
+        0 4px 12px rgba(0,100,80,0.06);
+}
 
-        .brand-text {
 
-            color: #075985;
+/* =====================================================
+   الواجهة الرئيسية
+===================================================== */
 
-            font-size: 19px;
+.hero {
+    min-height: 610px;
 
-            font-weight: 700;
+    position: relative;
+    overflow: hidden;
 
-        }
+    display: flex;
+    align-items: center;
 
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255,255,255,0.13),
+            transparent 25%
+        ),
 
-        .brand-subtitle {
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(71,214,190,0.18),
+            transparent 28%
+        ),
 
-            color: #64748b;
+        linear-gradient(
+            135deg,
+            #032f46 0%,
+            #075985 48%,
+            #00796b 100%
+        );
+}
 
-            font-size: 11px;
 
-            margin-top: 1px;
+/* زخارف الخلفية */
 
-        }
+.hero::before {
+    content: "";
 
+    position: absolute;
 
-        .nav-status {
+    width: 520px;
+    height: 520px;
 
-            background: #e8f5e9;
+    border-radius: 50%;
 
-            color: #2e7d32;
+    border:
+        1px solid rgba(255,255,255,0.08);
 
-            padding: 8px 17px;
+    top: -270px;
+    left: -130px;
 
-            border-radius: 30px;
+    box-shadow:
+        0 0 0 80px rgba(255,255,255,0.025),
+        0 0 0 160px rgba(255,255,255,0.015);
+}
 
-            font-size: 13px;
+.hero::after {
+    content: "";
 
-            font-weight: 600;
+    position: absolute;
 
-        }
+    width: 430px;
+    height: 430px;
 
+    border-radius: 50%;
 
-        /* =========================================
-           القسم الرئيسي
-        ========================================= */
+    border:
+        1px solid rgba(255,255,255,0.07);
 
-        .hero {
+    bottom: -240px;
+    right: -120px;
+}
 
-            min-height: 590px;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #052f46 0%,
-                    #075985 48%,
-                    #00796b 100%
-                );
+/* خطوط زخرفية */
 
-            position: relative;
+.hero-container::before {
+    content: "";
 
-            overflow: hidden;
+    position: absolute;
 
-            display: flex;
+    width: 180px;
+    height: 180px;
 
-            align-items: center;
+    border:
+        1px solid rgba(255,255,255,0.08);
 
-        }
+    border-radius: 35px;
 
+    transform: rotate(25deg);
 
-        .hero::before {
+    top: -100px;
+    right: 35%;
 
-            content: "";
+    pointer-events: none;
+}
 
-            position: absolute;
+.hero-container {
+    width: 1160px;
+    max-width: 90%;
 
-            width: 500px;
+    margin: auto;
 
-            height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-            border-radius: 50%;
+    gap: 55px;
 
-            background:
-                rgba(255,255,255,0.055);
+    position: relative;
+    z-index: 3;
+}
 
-            top: -220px;
 
-            left: -120px;
+/* =====================================================
+   نص الواجهة
+===================================================== */
 
-        }
+.hero-text {
+    max-width: 650px;
+    color: white;
+}
 
+.welcome {
+    display: inline-flex;
+    align-items: center;
 
-        .hero::after {
+    background:
+        rgba(255,255,255,0.12);
 
-            content: "";
+    border:
+        1px solid rgba(255,255,255,0.20);
 
-            position: absolute;
+    padding: 9px 19px;
 
-            width: 430px;
+    border-radius: 30px;
 
-            height: 430px;
+    font-size: 14px;
 
-            border-radius: 50%;
+    margin-bottom: 22px;
 
-            background:
-                rgba(255,255,255,0.045);
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.08);
+}
 
-            bottom: -230px;
+.hero-title {
+    font-size: 48px;
 
-            right: -120px;
+    line-height: 1.35;
 
-        }
+    margin-bottom: 8px;
 
+    font-weight: 850;
 
-        .hero-container {
+    letter-spacing: -1px;
 
-            width: 1120px;
+    text-shadow:
+        0 4px 18px rgba(0,0,0,0.12);
+}
 
-            max-width: 90%;
+.hero-subtitle {
+    font-size: 21px;
 
-            margin: auto;
+    color: #c9f3f1;
 
-            display: flex;
+    margin-bottom: 22px;
 
-            align-items: center;
+    font-weight: 600;
+}
 
-            justify-content: space-between;
+.hero-description {
+    font-size: 17px;
 
-            gap: 60px;
+    line-height: 2.05;
 
-            position: relative;
+    color: #eaf9fa;
 
-            z-index: 2;
+    max-width: 620px;
+}
 
-        }
 
+/* =====================================================
+   زر الدخول
+===================================================== */
 
-        /* =========================================
-           نص الواجهة
-        ========================================= */
+.buttons {
+    margin-top: 32px;
 
-        .hero-text {
+    display: flex;
+    gap: 14px;
 
-            max-width: 650px;
+    flex-wrap: wrap;
+}
 
-            color: white;
+.login-button {
+    display: inline-flex;
 
-        }
+    align-items: center;
+    justify-content: center;
 
+    gap: 10px;
 
-        .welcome {
+    padding: 16px 34px;
 
-            display: inline-block;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #edfafa
+        );
 
-            background:
-                rgba(255,255,255,0.13);
+    color: #075985;
 
-            border:
-                1px solid
-                rgba(255,255,255,0.22);
+    text-decoration: none;
 
-            padding: 8px 18px;
+    border-radius: 15px;
 
-            border-radius: 30px;
+    font-size: 17px;
+    font-weight: 800;
 
-            font-size: 14px;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 
-            margin-bottom: 22px;
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.18);
+}
 
-        }
+.login-button:hover {
+    transform:
+        translateY(-5px);
 
+    box-shadow:
+        0 18px 38px rgba(0,0,0,0.25);
+}
 
-        .hero-title {
 
-            font-size: 44px;
+/* =====================================================
+   الشعار الرئيسي
+===================================================== */
 
-            line-height: 1.4;
+.hero-logo-wrapper {
+    width: 350px;
+    height: 350px;
 
-            margin-bottom: 12px;
+    min-width: 350px;
 
-            font-weight: 800;
+    display: flex;
 
-            letter-spacing: -0.5px;
+    align-items: center;
+    justify-content: center;
 
-        }
+    position: relative;
+}
 
+.hero-logo-glow {
+    position: absolute;
 
-        .hero-subtitle {
+    width: 320px;
+    height: 320px;
 
-            font-size: 22px;
+    border-radius: 50%;
 
-            color: #d5f2f7;
+    background:
+        rgba(255,255,255,0.10);
 
-            margin-bottom: 22px;
+    box-shadow:
+        0 0 80px rgba(255,255,255,0.08);
 
-            font-weight: 500;
+    animation:
+        pulse 4s ease-in-out infinite;
+}
 
-        }
+@keyframes pulse {
 
+    0%,100% {
+        transform: scale(1);
+    }
 
-        .hero-description {
+    50% {
+        transform: scale(1.04);
+    }
 
-            font-size: 17px;
+}
 
-            line-height: 2.05;
+.hero-logo {
+    position: relative;
 
-            color: #e8f8fa;
+    width: 285px;
+    height: 285px;
 
-        }
+    object-fit: contain;
 
+    border-radius: 50%;
 
-        /* =========================================
-           زر تسجيل الدخول
-        ========================================= */
+    border:
+        8px solid rgba(255,255,255,0.92);
 
-        .buttons {
+    background: white;
 
-            margin-top: 32px;
+    padding: 4px;
 
-            display: flex;
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.27),
+        0 0 0 12px rgba(255,255,255,0.06);
 
-            gap: 14px;
+    transition:
+        transform 0.4s ease;
+}
 
-            flex-wrap: wrap;
+.hero-logo:hover {
+    transform:
+        scale(1.035)
+        rotate(1deg);
+}
 
-        }
 
+/* =====================================================
+   الخدمات
+===================================================== */
 
-        .login-button {
+.services {
+    max-width: 1120px;
 
-            display: inline-flex;
+    margin: 78px auto;
 
-            align-items: center;
+    padding: 0 20px;
+}
 
-            justify-content: center;
+.section-header {
+    text-align: center;
 
-            gap: 10px;
+    margin-bottom: 42px;
+}
 
-            padding: 16px 34px;
+.section-header h2 {
+    color: #075985;
 
-            background: white;
+    font-size: 31px;
 
-            color: #075985;
+    margin-bottom: 8px;
 
-            text-decoration: none;
+    font-weight: 800;
+}
 
-            border-radius: 13px;
+.section-header h2::after {
+    content: "";
 
-            font-size: 17px;
+    display: block;
 
-            font-weight: 700;
+    width: 55px;
+    height: 4px;
 
-            transition: all 0.3s ease;
+    margin:
+        10px auto 0;
 
-            box-shadow:
-                0 9px 28px
-                rgba(0,0,0,0.18);
+    border-radius: 10px;
 
-        }
+    background:
+        linear-gradient(
+            90deg,
+            #075985,
+            #00a88f
+        );
+}
 
+.section-header p {
+    color: #708090;
 
-        .login-button:hover {
+    font-size: 15px;
 
-            transform: translateY(-4px);
+    margin-top: 10px;
+}
 
-            box-shadow:
-                0 14px 32px
-                rgba(0,0,0,0.25);
 
-        }
+/* =====================================================
+   البطاقات
+===================================================== */
 
+.cards {
+    display: grid;
 
-        /* =========================================
-           الشعار الرئيسي
-        ========================================= */
+    grid-template-columns:
+        repeat(4, 1fr);
 
-        .hero-logo-wrapper {
+    gap: 22px;
+}
 
-            width: 330px;
+.card {
+    position: relative;
 
-            height: 330px;
+    background:
+        rgba(255,255,255,0.95);
 
-            min-width: 330px;
+    border-radius: 23px;
 
-            display: flex;
+    padding: 32px 21px;
 
-            align-items: center;
+    text-align: center;
 
-            justify-content: center;
+    border:
+        1px solid #e3edf2;
 
-            position: relative;
+    box-shadow:
+        0 10px 30px rgba(15,55,75,0.06);
 
-        }
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
 
+    overflow: hidden;
+}
 
-        .hero-logo-glow {
+.card::before {
+    content: "";
 
-            position: absolute;
+    position: absolute;
 
-            width: 315px;
+    top: 0;
+    right: 0;
 
-            height: 315px;
+    width: 100%;
+    height: 4px;
 
-            border-radius: 50%;
+    background:
+        linear-gradient(
+            90deg,
+            #075985,
+            #00a88f
+        );
 
-            background:
-                rgba(255,255,255,0.10);
+    transform:
+        scaleX(0);
 
-            filter: blur(2px);
+    transform-origin: right;
 
-        }
+    transition:
+        transform 0.35s ease;
+}
 
+.card:hover::before {
+    transform:
+        scaleX(1);
+}
 
-        .hero-logo {
+.card:hover {
+    transform:
+        translateY(-9px);
 
-            position: relative;
+    box-shadow:
+        0 20px 45px rgba(15,55,75,0.12);
 
-            width: 285px;
+    border-color:
+        #cde4ea;
+}
 
-            height: 285px;
+.card-icon {
+    width: 72px;
+    height: 72px;
 
-            object-fit: cover;
+    margin: 0 auto 20px;
 
-            border-radius: 50%;
+    display: flex;
 
-            border:
-                8px solid
-                rgba(255,255,255,0.88);
+    align-items: center;
+    justify-content: center;
 
-            box-shadow:
-                0 20px 50px rgba(0,0,0,0.25),
-                0 0 0 10px rgba(255,255,255,0.07);
+    background:
+        linear-gradient(
+            135deg,
+            #e4f6f5,
+            #e9f3fb
+        );
 
-            background: white;
+    border-radius: 20px;
 
-        }
+    font-size: 34px;
 
+    box-shadow:
+        inset 0 0 0 1px rgba(0,120,120,0.05);
+}
 
-        /* =========================================
-           الخدمات
-        ========================================= */
+.card h3 {
+    color: #075985;
 
-        .services {
+    font-size: 19px;
 
-            max-width: 1100px;
+    margin-bottom: 11px;
 
-            margin: 70px auto;
+    font-weight: 750;
+}
 
-            padding: 0 20px;
+.card p {
+    color: #6b7d8c;
 
-        }
+    font-size: 14px;
 
+    line-height: 1.9;
+}
 
-        .section-header {
 
-            text-align: center;
+/* =====================================================
+   عن المنصة
+===================================================== */
 
-            margin-bottom: 38px;
+.info-section {
+    max-width: 1120px;
 
-        }
+    margin:
+        0 auto 70px;
 
+    padding: 0 20px;
+}
 
-        .section-header h2 {
+.info-box {
+    position: relative;
 
-            color: #075985;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8fcfd
+        );
 
-            font-size: 30px;
+    border-radius: 25px;
 
-            margin-bottom: 9px;
+    padding: 42px;
 
-            font-weight: 750;
+    display: flex;
 
-        }
+    align-items: center;
 
+    gap: 30px;
 
-        .section-header p {
+    border:
+        1px solid #dfebf0;
 
-            color: #64748b;
+    box-shadow:
+        0 12px 35px rgba(15,55,75,0.07);
 
-            font-size: 15px;
+    overflow: hidden;
+}
 
-        }
+.info-box::after {
+    content: "";
 
+    position: absolute;
 
-        .cards {
+    width: 160px;
+    height: 160px;
 
-            display: grid;
+    border-radius: 50%;
 
-            grid-template-columns:
-                repeat(4, 1fr);
+    background:
+        rgba(0,121,107,0.04);
 
-            gap: 20px;
+    left: -65px;
+    bottom: -80px;
+}
 
-        }
+.info-icon {
+    min-width: 82px;
 
+    width: 82px;
+    height: 82px;
 
-        .card {
+    background:
+        linear-gradient(
+            135deg,
+            #e1f4f1,
+            #e4f0fb
+        );
 
-            background: white;
+    border-radius: 22px;
 
-            border-radius: 21px;
+    display: flex;
 
-            padding: 31px 22px;
+    align-items: center;
+    justify-content: center;
 
-            text-align: center;
+    font-size: 38px;
 
-            border:
-                1px solid #e4edf3;
+    box-shadow:
+        0 8px 20px rgba(0,100,120,0.07);
+}
 
-            box-shadow:
-                0 8px 26px
-                rgba(0,0,0,0.055);
+.info-box h2 {
+    color: #075985;
 
-            transition:
-                transform 0.3s ease,
-                box-shadow 0.3s ease;
+    margin-bottom: 10px;
 
-        }
+    font-size: 24px;
 
+    font-weight: 800;
+}
 
-        .card:hover {
+.info-box p {
+    color: #687b89;
 
-            transform:
-                translateY(-8px);
+    line-height: 2;
 
-            box-shadow:
-                0 17px 38px
-                rgba(0,0,0,0.11);
+    font-size: 15px;
+}
 
-        }
 
+/* =====================================================
+   مشروع المنصة
+===================================================== */
 
-        .card-icon {
+.project-section {
+    max-width: 1120px;
 
-            width: 68px;
+    margin:
+        0 auto 75px;
 
-            height: 68px;
+    padding: 0 20px;
+}
 
-            margin: 0 auto 19px;
+.project-card {
+    position: relative;
 
-            display: flex;
+    overflow: hidden;
 
-            align-items: center;
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(255,255,255,0.10),
+            transparent 23%
+        ),
 
-            justify-content: center;
+        linear-gradient(
+            135deg,
+            #064c6e,
+            #075985 48%,
+            #00695c
+        );
 
-            background: #e8f5f3;
+    color: white;
 
-            border-radius: 19px;
+    border-radius: 27px;
 
-            font-size: 33px;
+    padding: 45px 30px;
 
-        }
+    text-align: center;
 
+    box-shadow:
+        0 18px 45px rgba(0,70,90,0.16);
+}
 
-        .card h3 {
+.project-card::before {
+    content: "";
 
-            color: #075985;
+    position: absolute;
 
-            font-size: 19px;
+    width: 220px;
+    height: 220px;
 
-            margin-bottom: 12px;
+    border-radius: 50%;
 
-            font-weight: 700;
+    border:
+        1px solid rgba(255,255,255,0.08);
 
-        }
+    left: -80px;
+    top: -100px;
+}
 
+.project-card::after {
+    content: "";
 
-        .card p {
+    position: absolute;
 
-            color: #64748b;
+    width: 190px;
+    height: 190px;
 
-            font-size: 14px;
+    border-radius: 50%;
 
-            line-height: 1.9;
+    border:
+        1px solid rgba(255,255,255,0.07);
 
-        }
+    right: -70px;
+    bottom: -100px;
+}
 
+.project-content {
+    position: relative;
 
-        /* =========================================
-           عن المنصة
-        ========================================= */
+    z-index: 2;
+}
 
-        .info-section {
+.project-symbol {
+    font-size: 40px;
 
-            max-width: 1100px;
+    margin-bottom: 10px;
+}
 
-            margin:
-                0 auto 65px;
+.project-card h2 {
+    font-size: 26px;
 
-            padding: 0 20px;
+    margin-bottom: 14px;
 
-        }
+    font-weight: 800;
+}
 
+.project-card p {
+    max-width: 760px;
 
-        .info-box {
+    margin: auto;
 
-            background: white;
+    color: #e1f5f5;
 
-            border-radius: 23px;
+    font-size: 15px;
 
-            padding: 38px;
+    line-height: 2;
+}
 
-            display: flex;
+.developer-name {
+    margin-top: 23px;
 
-            align-items: center;
+    display: inline-flex;
 
-            gap: 30px;
+    align-items: center;
 
-            border:
-                1px solid #e4edf3;
+    gap: 7px;
 
-            box-shadow:
-                0 8px 28px
-                rgba(0,0,0,0.055);
+    padding: 11px 24px;
 
-        }
+    border:
+        1px solid rgba(255,255,255,0.22);
 
+    background:
+        rgba(255,255,255,0.10);
 
-        .info-icon {
+    border-radius: 30px;
 
-            min-width: 75px;
+    font-size: 14px;
 
-            width: 75px;
+    backdrop-filter: blur(5px);
+}
 
-            height: 75px;
+.developer-name strong {
+    color: white;
+}
 
-            background: #e0f2fe;
 
-            border-radius: 19px;
+/* =====================================================
+   التذييل
+===================================================== */
 
-            display: flex;
+footer {
+    background:
+        linear-gradient(
+            135deg,
+            #032b40,
+            #043c56
+        );
 
-            align-items: center;
+    color: #cbdce3;
 
-            justify-content: center;
+    text-align: center;
 
-            font-size: 36px;
+    padding: 38px 15px;
 
-        }
+    line-height: 1.9;
 
+    border-top:
+        4px solid #087f72;
+}
 
-        .info-box h2 {
+footer strong {
+    color: white;
 
-            color: #075985;
+    font-size: 19px;
 
-            margin-bottom: 10px;
+    font-weight: 800;
+}
 
-            font-size: 23px;
+footer small {
+    display: block;
 
-            font-weight: 700;
+    margin-top: 3px;
 
-        }
+    font-size: 13px;
+}
 
+.footer-message {
+    max-width: 650px;
 
-        .info-box p {
+    margin: 18px auto;
 
-            color: #64748b;
+    padding:
+        15px 20px;
 
-            line-height: 1.95;
+    border-top:
+        1px solid rgba(255,255,255,0.10);
 
-            font-size: 15px;
+    border-bottom:
+        1px solid rgba(255,255,255,0.10);
 
-        }
+    color: #d8ebef;
 
+    font-size: 14px;
 
-        /* =========================================
-           قسم صاحب الفكرة
-        ========================================= */
+    line-height: 1.9;
+}
 
-        .project-section {
+.developer {
+    margin: 15px 0;
 
-            max-width: 1100px;
+    color: #9eb4be;
 
-            margin:
-                0 auto 70px;
+    font-size: 13px;
+}
 
-            padding: 0 20px;
+.developer span {
+    color: white;
 
-        }
+    font-weight: 800;
 
+    margin-right: 5px;
+}
 
-        .project-card {
 
-            position: relative;
+/* =====================================================
+   الأجهزة اللوحية
+===================================================== */
 
-            overflow: hidden;
+@media (max-width: 1000px) {
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #075985,
-                    #00695c
-                );
+    .hero-container {
+        gap: 30px;
+    }
 
-            color: white;
+    .hero-title {
+        font-size: 40px;
+    }
 
-            border-radius: 24px;
+    .hero-logo-wrapper {
+        width: 280px;
+        height: 280px;
+        min-width: 280px;
+    }
 
-            padding: 38px;
+    .hero-logo-glow {
+        width: 260px;
+        height: 260px;
+    }
 
-            text-align: center;
+    .hero-logo {
+        width: 235px;
+        height: 235px;
+    }
 
-            box-shadow:
-                0 15px 40px
-                rgba(0,0,0,0.13);
+    .cards {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
 
-        }
 
+/* =====================================================
+   الهاتف
+===================================================== */
 
-        .project-card::before {
+@media (max-width: 700px) {
 
-            content: "";
+    .navbar {
+        height: 72px;
 
-            position: absolute;
+        padding: 0 16px;
+    }
 
-            width: 180px;
+    .small-logo {
+        width: 46px;
+        height: 46px;
+    }
 
-            height: 180px;
+    .brand-text {
+        font-size: 15px;
+    }
 
-            border-radius: 50%;
+    .brand-subtitle {
+        font-size: 9px;
+    }
 
-            background:
-                rgba(255,255,255,0.06);
+    .nav-status {
+        display: none;
+    }
 
-            left: -60px;
+    .hero {
+        min-height: 590px;
 
-            top: -80px;
+        padding:
+            55px 0;
+    }
 
-        }
+    .hero-container {
+        text-align: center;
 
+        justify-content: center;
+    }
 
-        .project-card::after {
+    .hero-logo-wrapper {
+        display: none;
+    }
 
-            content: "";
+    .hero-text {
+        max-width: 100%;
+    }
 
-            position: absolute;
+    .welcome {
+        font-size: 13px;
 
-            width: 150px;
+        padding:
+            8px 15px;
+    }
 
-            height: 150px;
+    .hero-title {
+        font-size: 31px;
 
-            border-radius: 50%;
+        letter-spacing: 0;
 
-            background:
-                rgba(255,255,255,0.05);
+        line-height: 1.45;
+    }
 
-            right: -50px;
+    .hero-subtitle {
+        font-size: 18px;
+    }
 
-            bottom: -70px;
+    .hero-description {
+        font-size: 15px;
 
-        }
+        line-height: 2;
+    }
 
+    .buttons {
+        justify-content: center;
 
-        .project-content {
+        flex-direction: column;
 
-            position: relative;
+        margin-top: 27px;
+    }
 
-            z-index: 2;
+    .login-button {
+        width: 100%;
 
-        }
+        padding:
+            15px 20px;
+    }
 
+    .services {
+        margin:
+            60px auto;
+    }
 
-        .project-symbol {
+    .section-header h2 {
+        font-size: 26px;
+    }
 
-            font-size: 38px;
+    .cards {
+        grid-template-columns: 1fr;
 
-            margin-bottom: 12px;
+        gap: 17px;
+    }
 
-        }
+    .card {
+        padding:
+            28px 20px;
+    }
 
+    .info-box {
+        flex-direction: column;
 
-        .project-card h2 {
+        text-align: center;
 
-            font-size: 24px;
+        padding:
+            32px 21px;
+    }
 
-            margin-bottom: 14px;
+    .info-box h2 {
+        font-size: 22px;
+    }
 
-        }
+    .info-box p {
+        font-size: 14px;
+    }
 
+    .project-card {
+        padding:
+            34px 20px;
+    }
 
-        .project-card p {
+    .project-card h2 {
+        font-size: 22px;
+    }
 
-            max-width: 750px;
+    .developer-name {
+        flex-wrap: wrap;
 
-            margin: auto;
+        justify-content: center;
 
-            color: #e4f7fa;
+        font-size: 13px;
+    }
 
-            font-size: 15px;
+    footer {
+        padding:
+            34px 15px;
+    }
+}
 
-            line-height: 2;
 
-        }
+/* =====================================================
+   شاشات صغيرة جدًا
+===================================================== */
 
+@media (max-width: 380px) {
 
-        .developer-name {
+    .brand-text {
+        font-size: 14px;
+    }
 
-            margin-top: 20px;
+    .hero-title {
+        font-size: 28px;
+    }
 
-            display: inline-block;
+    .hero-description {
+        font-size: 14px;
+    }
 
-            padding: 10px 23px;
+    .project-card {
+        padding:
+            30px 16px;
+    }
+}
 
-            border:
-                1px solid
-                rgba(255,255,255,0.25);
-
-            background:
-                rgba(255,255,255,0.10);
-
-            border-radius: 30px;
-
-            font-size: 14px;
-
-        }
-
-
-        .developer-name strong {
-
-            color: white;
-
-        }
-
-
-        /* =========================================
-           التذييل
-        ========================================= */
-
-        footer {
-
-            background: #052f46;
-
-            color: #cbd5e1;
-
-            text-align: center;
-
-            padding: 34px 15px;
-
-            line-height: 1.9;
-
-        }
-
-
-        footer strong {
-
-            color: white;
-
-            font-size: 18px;
-
-            font-weight: 700;
-
-        }
-
-
-        footer small {
-
-            display: block;
-
-            margin-top: 4px;
-
-            font-size: 13px;
-
-        }
-
-
-        .footer-message {
-
-            max-width: 650px;
-
-            margin: 17px auto;
-
-            padding:
-                14px 20px;
-
-            border-top:
-                1px solid
-                rgba(255,255,255,0.12);
-
-            border-bottom:
-                1px solid
-                rgba(255,255,255,0.12);
-
-            color: #d9edf2;
-
-            font-size: 14px;
-
-            line-height: 1.9;
-
-        }
-
-
-        .developer {
-
-            margin: 14px 0;
-
-            color: #94a3b8;
-
-            font-size: 13px;
-
-        }
-
-
-        .developer span {
-
-            color: white;
-
-            font-weight: bold;
-
-            margin-right: 5px;
-
-        }
-
-
-        /* =========================================
-           الهاتف
-        ========================================= */
-
-        @media (max-width: 900px) {
-
-            .hero-container {
-
-                text-align: center;
-
-                justify-content: center;
-
-            }
-
-
-            .hero-logo-wrapper {
-
-                display: none;
-
-            }
-
-
-            .hero-text {
-
-                max-width: 800px;
-
-            }
-
-
-            .buttons {
-
-                justify-content: center;
-
-            }
-
-
-            .cards {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
-
-            }
-
-        }
-
-
-        @media (max-width: 600px) {
-
-            .navbar {
-
-                height: 70px;
-
-                padding: 0 18px;
-
-            }
-
-
-            .small-logo {
-
-                width: 45px;
-
-                height: 45px;
-
-            }
-
-
-            .brand-text {
-
-                font-size: 15px;
-
-            }
-
-
-            .brand-subtitle {
-
-                font-size: 9px;
-
-            }
-
-
-            .nav-status {
-
-                display: none;
-
-            }
-
-
-            .hero {
-
-                min-height: 570px;
-
-            }
-
-
-            .hero-title {
-
-                font-size: 31px;
-
-                letter-spacing: 0;
-
-            }
-
-
-            .hero-subtitle {
-
-                font-size: 18px;
-
-            }
-
-
-            .hero-description {
-
-                font-size: 15px;
-
-                line-height: 2;
-
-            }
-
-
-            .buttons {
-
-                flex-direction: column;
-
-            }
-
-
-            .login-button {
-
-                width: 100%;
-
-            }
-
-
-            .cards {
-
-                grid-template-columns: 1fr;
-
-            }
-
-
-            .section-header h2 {
-
-                font-size: 25px;
-
-            }
-
-
-            .info-box {
-
-                flex-direction: column;
-
-                text-align: center;
-
-                padding: 30px 20px;
-
-            }
-
-
-            .project-card {
-
-                padding: 30px 20px;
-
-            }
-
-
-            .project-card h2 {
-
-                font-size: 21px;
-
-            }
-
-        }
-
-    </style>
+</style>
 
 </head>
-
 
 
 <body>
 
 
-<!-- =========================================
+<!-- =====================================================
      الشريط العلوي
-========================================= -->
+===================================================== -->
 
 <nav class="navbar">
-
 
     <div class="logo-area">
 
@@ -1126,23 +1223,20 @@
         ● المنصة الإلكترونية
     </div>
 
-
 </nav>
 
 
 
-<!-- =========================================
+<!-- =====================================================
      الواجهة الرئيسية
-========================================= -->
+===================================================== -->
 
 <section class="hero">
-
 
     <div class="hero-container">
 
 
         <div class="hero-text">
-
 
             <span class="welcome">
                 👋 مرحبًا بكم في منصتنا
@@ -1182,12 +1276,11 @@
 
             </div>
 
-
         </div>
 
 
 
-        <!-- الشعار الحقيقي -->
+        <!-- الشعار -->
 
         <div class="hero-logo-wrapper">
 
@@ -1207,12 +1300,11 @@
 
 
 
-<!-- =========================================
+<!-- =====================================================
      الخدمات
-========================================= -->
+===================================================== -->
 
 <section class="services">
-
 
     <div class="section-header">
 
@@ -1225,7 +1317,6 @@
         </p>
 
     </div>
-
 
 
     <div class="cards">
@@ -1312,15 +1403,13 @@
 
 
 
-<!-- =========================================
+<!-- =====================================================
      عن المنصة
-========================================= -->
+===================================================== -->
 
 <section class="info-section">
 
-
     <div class="info-box">
-
 
         <div class="info-icon">
             💻
@@ -1346,25 +1435,21 @@
 
         </div>
 
-
     </div>
 
 </section>
 
 
 
-<!-- =========================================
-     صاحب الفكرة والتطوير
-========================================= -->
+<!-- =====================================================
+     فكرة وتطوير المنصة
+===================================================== -->
 
 <section class="project-section">
 
-
     <div class="project-card">
 
-
         <div class="project-content">
-
 
             <div class="project-symbol">
                 ✨
@@ -1399,7 +1484,6 @@
 
             </div>
 
-
         </div>
 
     </div>
@@ -1408,12 +1492,11 @@
 
 
 
-<!-- =========================================
+<!-- =====================================================
      التذييل
-========================================= -->
+===================================================== -->
 
 <footer>
-
 
     <strong>
         منصة التكوين المتواصل
@@ -1448,7 +1531,6 @@
     <small>
         © 2026 جميع الحقوق محفوظة
     </small>
-
 
 </footer>
 
