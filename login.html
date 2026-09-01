@@ -26,7 +26,6 @@
 
         .login-box {
             background: white;
-
             width: 350px;
             max-width: calc(100% - 40px);
 
@@ -41,56 +40,41 @@
         }
 
         .logo {
-            font-size: 50px;
+            font-size: 48px;
             margin-bottom: 10px;
         }
 
         h1 {
             color: #1565c0;
             font-size: 24px;
-            margin-bottom: 10px;
         }
 
-        p {
-            color: #666;
-        }
-
-        input,
-        select {
-
+        input {
             width: 100%;
-
             padding: 12px;
-
             margin: 10px 0;
 
             box-sizing: border-box;
 
             border: 1px solid #ccc;
-
             border-radius: 8px;
 
             font-size: 15px;
         }
 
         button {
-
             width: 100%;
 
             padding: 13px;
-
             margin-top: 15px;
 
             border: none;
-
             border-radius: 8px;
 
             background: #1565c0;
-
             color: white;
 
             font-size: 16px;
-
             cursor: pointer;
         }
 
@@ -99,7 +83,6 @@
         }
 
         .forgot {
-
             display: block;
 
             margin-top: 18px;
@@ -109,32 +92,14 @@
             cursor: pointer;
 
             text-decoration: underline;
-
-            font-size: 14px;
-        }
-
-        .back {
-
-            display: block;
-
-            margin-top: 20px;
-
-            color: #666;
-
-            text-decoration: none;
-
-            font-size: 14px;
         }
 
         #message {
-
             margin-top: 18px;
 
             font-weight: bold;
 
             line-height: 1.7;
-
-            word-break: break-word;
         }
 
     </style>
@@ -163,40 +128,13 @@
     </p>
 
 
-    <!-- نوع المستخدم -->
-
-    <select id="userType">
-
-        <option value="">
-            اختر نوع المستخدم
-        </option>
-
-        <option value="admin">
-            المسؤول
-        </option>
-
-        <option value="trainee">
-            المتربص
-        </option>
-
-        <option value="worker">
-            العامل
-        </option>
-
-    </select>
-
-
-    <!-- البريد -->
-
     <input
         type="email"
-        id="username"
+        id="email"
         placeholder="البريد الإلكتروني"
         autocomplete="email"
     >
 
-
-    <!-- كلمة المرور -->
 
     <input
         type="password"
@@ -206,8 +144,6 @@
     >
 
 
-    <!-- الدخول -->
-
     <button
         type="button"
         onclick="login()"
@@ -215,8 +151,6 @@
         🔐 تسجيل الدخول
     </button>
 
-
-    <!-- استعادة كلمة المرور -->
 
     <span
         class="forgot"
@@ -229,18 +163,8 @@
     <p id="message"></p>
 
 
-    <a
-        href="index.html"
-        class="back"
-    >
-        ← العودة إلى الصفحة الرئيسية
-    </a>
-
-
 </div>
 
-
-<!-- Supabase -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -256,50 +180,37 @@
 
 async function login() {
 
-    const userType =
-        document.getElementById(
-            "userType"
-        ).value;
-
-
     const email =
-        document.getElementById(
-            "username"
-        ).value.trim();
+        document.getElementById("email")
+        .value
+        .trim();
 
 
     const password =
-        document.getElementById(
-            "password"
-        ).value;
+        document.getElementById("password")
+        .value;
 
 
     const message =
-        document.getElementById(
-            "message"
-        );
+        document.getElementById("message");
 
-
-    /* التحقق من البيانات */
 
     if (
-        userType === "" ||
         email === "" ||
         password === ""
     ) {
 
         message.textContent =
-            "يرجى ملء جميع المعلومات.";
+            "يرجى إدخال البريد الإلكتروني وكلمة المرور.";
 
-        message.style.color =
-            "red";
+        message.style.color = "red";
 
         return;
     }
 
 
     message.textContent =
-        "جاري تسجيل الدخول...";
+        "جاري التحقق من بيانات الدخول...";
 
     message.style.color =
         "#1565c0";
@@ -307,26 +218,21 @@ async function login() {
 
     try {
 
-
-        /* تسجيل الدخول */
+        /* تسجيل الدخول إلى Supabase */
 
         const {
             data,
             error
         } =
-            await supabaseClient.auth
-                .signInWithPassword({
+        await supabaseClient.auth
+            .signInWithPassword({
 
-                    email:
-                        email,
+                email: email,
 
-                    password:
-                        password
+                password: password
 
-                });
+            });
 
-
-        /* خطأ تسجيل الدخول */
 
         if (error) {
 
@@ -353,7 +259,47 @@ async function login() {
         if (!user) {
 
             message.textContent =
-                "تعذر الحصول على بيانات الحساب.";
+                "تعذر العثور على بيانات المستخدم.";
+
+            message.style.color =
+                "red";
+
+            return;
+        }
+
+
+        /* =================================================
+           البحث عن صلاحية المستخدم
+        ================================================= */
+
+        const {
+            data: roleData,
+            error: roleError
+        } =
+        await supabaseClient
+            .from("user_roles")
+            .select("role")
+            .eq(
+                "user_id",
+                user.id
+            )
+            .maybeSingle();
+
+
+        if (roleError) {
+
+            console.error(
+                "خطأ قراءة الصلاحية:",
+                roleError
+            );
+
+
+            await supabaseClient.auth
+                .signOut();
+
+
+            message.textContent =
+                "تعذر التحقق من صلاحيات الحساب.";
 
             message.style.color =
                 "red";
@@ -367,72 +313,12 @@ async function login() {
         ================================================= */
 
         if (
-            userType === "admin"
+            roleData &&
+            roleData.role === "admin"
         ) {
 
-
-            const {
-                data: roleData,
-                error: roleError
-            } =
-                await supabaseClient
-                    .from("user_roles")
-                    .select("role")
-                    .eq(
-                        "user_id",
-                        user.id
-                    )
-                    .maybeSingle();
-
-
-            if (roleError) {
-
-                console.error(
-                    "خطأ الصلاحيات:",
-                    roleError
-                );
-
-
-                await supabaseClient.auth
-                    .signOut();
-
-
-                message.textContent =
-                    "تعذر التحقق من صلاحيات المسؤول: " +
-                    roleError.message;
-
-                message.style.color =
-                    "red";
-
-                return;
-            }
-
-
-            /* التحقق من admin */
-
-            if (
-                !roleData ||
-                roleData.role !== "admin"
-            ) {
-
-                await supabaseClient.auth
-                    .signOut();
-
-
-                message.textContent =
-                    "هذا الحساب ليس لديه صلاحية المسؤول.";
-
-                message.style.color =
-                    "red";
-
-                return;
-            }
-
-
-            /* دخول المسؤول */
-
             message.textContent =
-                "تم التحقق من حساب المسؤول ✅";
+                "مرحبًا بك، تم التعرف على حساب المسؤول ✅";
 
             message.style.color =
                 "green";
@@ -458,7 +344,8 @@ async function login() {
         ================================================= */
 
         if (
-            userType === "trainee"
+            roleData &&
+            roleData.role === "trainee"
         ) {
 
             message.textContent =
@@ -484,25 +371,18 @@ async function login() {
 
 
         /* =================================================
-           العامل
+           عامل أو مستخدم بدون صلاحية
         ================================================= */
 
-        if (
-            userType === "worker"
-        ) {
-
-            await supabaseClient.auth
-                .signOut();
+        await supabaseClient.auth
+            .signOut();
 
 
-            message.textContent =
-                "واجهة العامل سيتم تفعيلها لاحقًا.";
+        message.textContent =
+            "تم تسجيل الدخول، لكن لم يتم العثور على صلاحية لهذا الحساب.";
 
-            message.style.color =
-                "#1565c0";
-
-            return;
-        }
+        message.style.color =
+            "red";
 
 
     }
@@ -534,25 +414,19 @@ async function login() {
 async function resetPassword() {
 
     const email =
-        document.getElementById(
-            "username"
-        ).value.trim();
+        document.getElementById("email")
+        .value
+        .trim();
 
 
     const message =
-        document.getElementById(
-            "message"
-        );
+        document.getElementById("message");
 
 
-    /* يجب إدخال البريد فقط */
-
-    if (
-        email === ""
-    ) {
+    if (email === "") {
 
         message.textContent =
-            "أدخل البريد الإلكتروني أولًا، ثم اضغط «نسيت كلمة المرور؟».";
+            "أدخل البريد الإلكتروني أولًا.";
 
         message.style.color =
             "red";
@@ -570,14 +444,6 @@ async function resetPassword() {
 
     try {
 
-
-        /*
-           رابط العودة بعد إعادة التعيين.
-
-           نستخدم صفحة login.html نفسها
-           حتى يستطيع المستخدم اختيار كلمة مرور جديدة.
-        */
-
         const redirectUrl =
             window.location.origin +
             window.location.pathname;
@@ -586,33 +452,26 @@ async function resetPassword() {
         const {
             error
         } =
-            await supabaseClient.auth
-                .resetPasswordForEmail(
+        await supabaseClient.auth
+            .resetPasswordForEmail(
 
-                    email,
+                email,
 
-                    {
-                        redirectTo:
-                            redirectUrl
-                    }
+                {
+                    redirectTo:
+                        redirectUrl
+                }
 
-                );
+            );
 
-
-        /* في حالة الخطأ */
 
         if (error) {
 
             console.error(
-                "خطأ إعادة تعيين كلمة المرور:",
+                "خطأ إعادة التعيين:",
                 error
             );
 
-
-            /*
-               نعرض رسالة Supabase الحقيقية
-               حتى نعرف سبب المشكلة.
-            */
 
             message.textContent =
                 "تعذر إرسال رابط إعادة التعيين: " +
@@ -625,10 +484,8 @@ async function resetPassword() {
         }
 
 
-        /* نجاح الإرسال */
-
         message.textContent =
-            "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني. تحقق من البريد الوارد والبريد غير المرغوب فيه.";
+            "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.";
 
         message.style.color =
             "green";
@@ -639,13 +496,13 @@ async function resetPassword() {
     catch (error) {
 
         console.error(
-            "خطأ غير متوقع:",
+            "خطأ:",
             error
         );
 
 
         message.textContent =
-            "حدث خطأ أثناء إعادة التعيين: " +
+            "حدث خطأ: " +
             error.message;
 
         message.style.color =
