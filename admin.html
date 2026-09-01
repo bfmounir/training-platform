@@ -2,11 +2,20 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم المسؤول</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>لوحة تحكم المسؤول - منصة التكوين</title>
 
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -16,26 +25,42 @@
         header {
             background: #1565c0;
             color: white;
-            padding: 20px;
+            padding: 25px 20px;
             text-align: center;
         }
 
+        header h1 {
+            margin: 0 0 8px;
+        }
+
+        header p {
+            margin: 0;
+        }
+
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 30px auto;
             padding: 20px;
         }
 
         .welcome {
             background: white;
-            padding: 20px;
+            padding: 25px;
             border-radius: 12px;
             margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .welcome h2 {
+            margin-top: 0;
+            color: #1565c0;
         }
 
         .cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns:
+                repeat(auto-fit, minmax(230px, 1fr));
+
             gap: 20px;
         }
 
@@ -44,117 +69,511 @@
             padding: 25px;
             border-radius: 12px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,0.10);
         }
 
         .icon {
-            font-size: 40px;
+            font-size: 45px;
+            margin-bottom: 10px;
         }
 
         .card h3 {
             color: #1565c0;
+            margin: 10px 0;
         }
 
-        button {
+        .card p {
+            color: #666;
+            min-height: 40px;
+        }
+
+        .open-button {
             background: #1565c0;
             color: white;
             border: none;
-            padding: 10px 20px;
+
+            padding: 11px 25px;
+
             border-radius: 7px;
+
             cursor: pointer;
+
+            font-size: 15px;
+
+            margin-top: 10px;
+        }
+
+        .open-button:hover {
+            background: #0d47a1;
         }
 
         .logout {
             display: block;
-            margin: 30px auto;
+
+            margin: 30px auto 10px;
+
             background: #555;
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 30px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 15px;
         }
+
+        .logout:hover {
+            background: #333;
+        }
+
+        #message {
+            text-align: center;
+            padding: 20px;
+            font-weight: bold;
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
+
 <header>
-    <h1>منصة التكوين المتواصل</h1>
-    <p>لوحة تحكم المسؤول</p>
+
+    <h1>
+        🎓 منصة التكوين المتواصل
+    </h1>
+
+    <p>
+        لوحة تحكم المسؤول
+    </p>
+
 </header>
+
 
 <div class="container">
 
-    <div class="welcome">
-        <h2>مرحبًا بك في لوحة التحكم 👋</h2>
-        <p>من هنا يمكنك إدارة منصة التكوين المتواصل.</p>
+
+    <div id="message">
+        ⏳ جاري التحقق من صلاحيات المسؤول...
     </div>
 
-    <div class="cards">
 
-        <div class="card">
-            <div class="icon">📚</div>
-            <h3>الدورات التكوينية</h3>
-            <p>إضافة وإدارة الدورات.</p>
-            <button onclick="window.location.href='courses.html'">
-                فتح
-            </button>
+    <div id="adminContent" style="display:none;">
+
+
+        <div class="welcome">
+
+            <h2>
+                مرحبًا بك في لوحة التحكم 👋
+            </h2>
+
+            <p>
+                من هنا يمكنك إدارة منصة التكوين المتواصل
+                ومتابعة الدورات والدروس والمتربصين والشهادات.
+            </p>
+
         </div>
 
-        <div class="card">
-            <div class="icon">📖</div>
-            <h3>الدروس</h3>
-            <p>إضافة وتعديل الدروس.</p>
-            <button>
-                فتح
-            </button>
+
+        <div class="cards">
+
+
+            <!-- =========================
+                 الدورات
+            ========================== -->
+
+            <div class="card">
+
+                <div class="icon">
+                    📚
+                </div>
+
+                <h3>
+                    الدورات التكوينية
+                </h3>
+
+                <p>
+                    إضافة وتعديل وحذف وإدارة الدورات.
+                </p>
+
+                <button
+                    class="open-button"
+                    onclick="openPage('admin-courses.html')"
+                >
+                    فتح
+                </button>
+
+            </div>
+
+
+            <!-- =========================
+                 الدروس
+            ========================== -->
+
+            <div class="card">
+
+                <div class="icon">
+                    📖
+                </div>
+
+                <h3>
+                    الدروس
+                </h3>
+
+                <p>
+                    إضافة وتعديل وإدارة الدروس وملفات PDF.
+                </p>
+
+                <button
+                    class="open-button"
+                    onclick="openPage('admin-lessons.html')"
+                >
+                    فتح
+                </button>
+
+            </div>
+
+
+            <!-- =========================
+                 المستخدمون
+            ========================== -->
+
+            <div class="card">
+
+                <div class="icon">
+                    👥
+                </div>
+
+                <h3>
+                    المستخدمون
+                </h3>
+
+                <p>
+                    إدارة العمال والمتربصين وحساباتهم.
+                </p>
+
+                <button
+                    class="open-button"
+                    onclick="openPage('admin-users.html')"
+                >
+                    فتح
+                </button>
+
+            </div>
+
+
+            <!-- =========================
+                 الشهادات
+            ========================== -->
+
+            <div class="card">
+
+                <div class="icon">
+                    🎓
+                </div>
+
+                <h3>
+                    الشهادات
+                </h3>
+
+                <p>
+                    إدارة شهادات إتمام التكوين.
+                </p>
+
+                <button
+                    class="open-button"
+                    onclick="openPage('admin-certificates.html')"
+                >
+                    فتح
+                </button>
+
+            </div>
+
+
+            <!-- =========================
+                 الإحصائيات
+            ========================== -->
+
+            <div class="card">
+
+                <div class="icon">
+                    📊
+                </div>
+
+                <h3>
+                    الإحصائيات
+                </h3>
+
+                <p>
+                    متابعة نشاط المنصة ونسب المشاركة.
+                </p>
+
+                <button
+                    class="open-button"
+                    onclick="openPage('admin-statistics.html')"
+                >
+                    فتح
+                </button>
+
+            </div>
+
+
+            <!-- =========================
+                 المساعد الذكي
+            ========================== -->
+
+            <div class="card">
+
+                <div class="icon">
+                    🤖
+                </div>
+
+                <h3>
+                    المساعد الذكي
+                </h3>
+
+                <p>
+                    أدوات الذكاء الاصطناعي الخاصة بالمنصة.
+                </p>
+
+                <button
+                    class="open-button"
+                    onclick="openPage('ai-assistant.html')"
+                >
+                    فتح
+                </button>
+
+            </div>
+
+
         </div>
 
-        <div class="card">
-            <div class="icon">👥</div>
-            <h3>المستخدمون</h3>
-            <p>إدارة العمال والمتربصين.</p>
-            <button>
-                فتح
-            </button>
-        </div>
 
-        <div class="card">
-            <div class="icon">🎓</div>
-            <h3>الشهادات</h3>
-            <p>إدارة شهادات التكوين.</p>
-            <button>
-                فتح
-            </button>
-        </div>
+        <button
+            class="logout"
+            onclick="logout()"
+        >
+            🚪 تسجيل الخروج
+        </button>
 
-        <div class="card">
-            <div class="icon">📊</div>
-            <h3>الإحصائيات</h3>
-            <p>متابعة نشاط المنصة.</p>
-            <button>
-                فتح
-            </button>
-        </div>
-
-        <div class="card">
-            <div class="icon">🤖</div>
-            <h3>المساعد الذكي</h3>
-            <p>مساعد الذكاء الاصطناعي.</p>
-            <button>
-                فتح
-            </button>
-        </div>
 
     </div>
 
-    <button class="logout" onclick="logout()">
-        تسجيل الخروج
-    </button>
 
 </div>
 
+
+<!-- Supabase -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase-config.js"></script>
+
+
 <script>
-function logout() {
-    window.location.href = "login.html";
+
+
+/* =====================================================
+   فتح الصفحات
+===================================================== */
+
+function openPage(page) {
+
+    window.location.href = page;
+
 }
+
+
+/* =====================================================
+   التحقق من المسؤول
+===================================================== */
+
+async function checkAdmin() {
+
+    const message =
+        document.getElementById("message");
+
+    const adminContent =
+        document.getElementById("adminContent");
+
+
+    try {
+
+
+        /* الحصول على المستخدم الحالي */
+
+        const {
+            data: userData,
+            error: userError
+        } =
+        await supabaseClient.auth.getUser();
+
+
+        if (
+            userError ||
+            !userData ||
+            !userData.user
+        ) {
+
+            message.textContent =
+                "يجب تسجيل الدخول أولًا.";
+
+            message.style.color =
+                "red";
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "login.html";
+
+                },
+                1200
+            );
+
+
+            return;
+        }
+
+
+        const user =
+            userData.user;
+
+
+        /* =================================================
+           التحقق من جدول الصلاحيات
+        ================================================= */
+
+        const {
+            data: roleData,
+            error: roleError
+        } =
+        await supabaseClient
+            .from("user_roles")
+            .select("role")
+            .eq(
+                "user_id",
+                user.id
+            )
+            .maybeSingle();
+
+
+        if (roleError) {
+
+            console.error(
+                "خطأ الصلاحية:",
+                roleError
+            );
+
+
+            message.textContent =
+                "تعذر التحقق من صلاحيات الحساب.";
+
+            message.style.color =
+                "red";
+
+            return;
+        }
+
+
+        /* =================================================
+           ليس مسؤولًا
+        ================================================= */
+
+        if (
+            !roleData ||
+            roleData.role !== "admin"
+        ) {
+
+            message.textContent =
+                "⛔ ليس لديك صلاحية الدخول إلى لوحة المسؤول.";
+
+            message.style.color =
+                "red";
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "trainee.html";
+
+                },
+                1500
+            );
+
+
+            return;
+        }
+
+
+        /* =================================================
+           مسؤول
+        ================================================= */
+
+        message.style.display =
+            "none";
+
+        adminContent.style.display =
+            "block";
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "خطأ:",
+            error
+        );
+
+
+        message.textContent =
+            "حدث خطأ أثناء التحقق من الحساب.";
+
+        message.style.color =
+            "red";
+
+    }
+
+}
+
+
+/* =====================================================
+   تسجيل الخروج
+===================================================== */
+
+async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =====================================================
+   تشغيل الصفحة
+===================================================== */
+
+checkAdmin();
+
+
 </script>
 
+
 </body>
+
 </html>
