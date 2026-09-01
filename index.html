@@ -1,15 +1,769 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<title>اختبار المنصة</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>منصة التكوين المتواصل</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Tahoma", "Arial", sans-serif;
+            background:
+                linear-gradient(135deg, #eef7ff 0%, #f8fbff 45%, #e8f5f3 100%);
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           الشريط العلوي
+        ========================= */
+
+        .topbar {
+            width: 100%;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background: rgba(255,255,255,0.92);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: bold;
+            color: #0f4c81;
+            font-size: 18px;
+        }
+
+        .brand-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: linear-gradient(135deg, #087f8c, #1565c0);
+
+            color: white;
+            font-size: 24px;
+
+            box-shadow: 0 6px 15px rgba(21,101,192,0.25);
+        }
+
+        .topbar-badge {
+            background: #e8f5e9;
+            color: #237a3b;
+
+            padding: 8px 15px;
+            border-radius: 30px;
+
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           القسم الرئيسي
+        ========================= */
+
+        .hero {
+            max-width: 1150px;
+            margin: 55px auto 35px;
+            padding: 0 25px;
+        }
+
+        .hero-card {
+            position: relative;
+            overflow: hidden;
+
+            background: linear-gradient(
+                135deg,
+                #075985,
+                #1565c0 55%,
+                #087f8c
+            );
+
+            border-radius: 30px;
+            padding: 65px 55px;
+
+            color: white;
+
+            box-shadow:
+                0 20px 50px rgba(15,76,129,0.25);
+        }
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            background: rgba(255,255,255,0.08);
+
+            border-radius: 50%;
+
+            top: -130px;
+            left: -80px;
+        }
+
+        .hero-card::after {
+            content: "";
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            background: rgba(255,255,255,0.07);
+
+            border-radius: 50%;
+
+            bottom: -100px;
+            right: -70px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            max-width: 720px;
+        }
+
+        .hero-icon {
+            width: 75px;
+            height: 75px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(255,255,255,0.15);
+
+            border: 1px solid rgba(255,255,255,0.25);
+
+            border-radius: 22px;
+
+            font-size: 40px;
+
+            margin-bottom: 25px;
+
+            backdrop-filter: blur(8px);
+        }
+
+        .hero h1 {
+            margin: 0 0 15px;
+
+            font-size: 38px;
+            line-height: 1.4;
+        }
+
+        .hero h2 {
+            margin: 0 0 18px;
+
+            font-size: 23px;
+            font-weight: normal;
+
+            color: #dff7ff;
+        }
+
+        .hero p {
+            margin: 0;
+
+            font-size: 17px;
+            line-height: 2;
+
+            color: #eefaff;
+        }
+
+        .hero-buttons {
+            margin-top: 32px;
+
+            display: flex;
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .login-button {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            padding: 15px 32px;
+
+            background: white;
+            color: #075985;
+
+            text-decoration: none;
+
+            border-radius: 12px;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            transition: 0.3s;
+
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .login-button:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 25px rgba(0,0,0,0.18);
+        }
+
+        .info-button {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 15px 28px;
+
+            border: 1px solid rgba(255,255,255,0.35);
+
+            color: white;
+
+            border-radius: 12px;
+
+            font-size: 16px;
+
+            background: rgba(255,255,255,0.08);
+        }
+
+
+        /* =========================
+           الخدمات
+        ========================= */
+
+        .services {
+            max-width: 1150px;
+
+            margin: 45px auto;
+
+            padding: 0 25px;
+        }
+
+        .section-title {
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+        .section-title h2 {
+            margin: 0 0 10px;
+
+            color: #0f4c81;
+
+            font-size: 28px;
+        }
+
+        .section-title p {
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 15px;
+        }
+
+        .features {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 22px;
+        }
+
+        .feature {
+            background: rgba(255,255,255,0.95);
+
+            border-radius: 20px;
+
+            padding: 30px 25px;
+
+            border: 1px solid #e5edf5;
+
+            box-shadow:
+                0 8px 25px rgba(15,76,129,0.07);
+
+            transition: 0.3s;
+
+            position: relative;
+        }
+
+        .feature:hover {
+            transform: translateY(-7px);
+
+            box-shadow:
+                0 15px 35px rgba(15,76,129,0.13);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 17px;
+
+            background: #e8f4ff;
+
+            font-size: 30px;
+
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            margin: 0 0 12px;
+
+            color: #0f4c81;
+
+            font-size: 20px;
+        }
+
+        .feature p {
+            margin: 0;
+
+            color: #64748b;
+
+            line-height: 1.8;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           إحصائيات
+        ========================= */
+
+        .stats {
+            max-width: 1150px;
+
+            margin: 25px auto 50px;
+
+            padding: 0 25px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 18px;
+        }
+
+        .stat {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 22px;
+
+            text-align: center;
+
+            border: 1px solid #e6edf3;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .stat-number {
+            font-size: 30px;
+
+            font-weight: bold;
+
+            color: #087f8c;
+
+            margin-bottom: 5px;
+        }
+
+        .stat-text {
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           التذييل
+        ========================= */
+
+        footer {
+            background: #073b5c;
+
+            color: #dbeafe;
+
+            text-align: center;
+
+            padding: 28px 15px;
+
+            margin-top: 40px;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+        footer p {
+            margin: 7px 0;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           الهاتف
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .topbar {
+                padding: 14px 20px;
+            }
+
+            .brand {
+                font-size: 15px;
+            }
+
+            .topbar-badge {
+                display: none;
+            }
+
+            .hero {
+                margin-top: 25px;
+            }
+
+            .hero-card {
+                padding: 40px 25px;
+
+                border-radius: 23px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero h2 {
+                font-size: 19px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .login-button,
+            .info-button {
+                width: 100%;
+            }
+
+            .section-title h2 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
 </head>
 
-<body style="background:red; text-align:center; padding:100px;">
 
-<h1 style="color:white; font-size:50px;">
-هذه هي صفحة INDEX.HTML الجديدة
-</h1>
+<body>
+
+
+<!-- =========================
+     الشريط العلوي
+========================= -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            📚
+        </div>
+
+        <span>
+            منصة التكوين المتواصل
+        </span>
+
+    </div>
+
+    <div class="topbar-badge">
+        نظام التكوين الإلكتروني
+    </div>
+
+</header>
+
+
+
+<!-- =========================
+     الواجهة الرئيسية
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-card">
+
+        <div class="hero-content">
+
+            <div class="hero-icon">
+                🎓
+            </div>
+
+            <h1>
+                منصة التكوين المتواصل
+            </h1>
+
+            <h2>
+                المؤسسة العمومية الاستشفائية
+            </h2>
+
+            <p>
+                منصة رقمية حديثة لإدارة ومتابعة برامج
+                التكوين المتواصل، الدورات التكوينية،
+                الدروس والمواد التعليمية والشهادات.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="login.html"
+                   class="login-button">
+
+                    🔐
+                    تسجيل الدخول
+
+                </a>
+
+                <div class="info-button">
+
+                    💡
+                    بوابتك نحو التكوين المستمر
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     الخدمات
+========================= -->
+
+<section class="services">
+
+    <div class="section-title">
+
+        <h2>
+            خدمات المنصة
+        </h2>
+
+        <p>
+            كل ما تحتاجه لمتابعة التكوين الإلكتروني في مكان واحد
+        </p>
+
+    </div>
+
+
+    <div class="features">
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                📚
+            </div>
+
+            <h3>
+                الدورات التكوينية
+            </h3>
+
+            <p>
+                الاطلاع على الدورات التكوينية
+                ومتابعة برامج التكوين بسهولة.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                📖
+            </div>
+
+            <h3>
+                الدروس والمواد
+            </h3>
+
+            <p>
+                الوصول إلى الدروس والوثائق
+                والمواد التكوينية في أي وقت.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🎓
+            </div>
+
+            <h3>
+                الشهادات
+            </h3>
+
+            <p>
+                الحصول على شهادات التكوين
+                ومتابعة سجل الشهادات.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                📊
+            </div>
+
+            <h3>
+                متابعة التكوين
+            </h3>
+
+            <p>
+                متابعة تقدم المتربصين
+                والبرامج التكوينية بطريقة منظمة.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     الإحصائيات
+========================= -->
+
+<section class="stats">
+
+    <div class="stat">
+
+        <div class="stat-number">
+            📚
+        </div>
+
+        <div class="stat-text">
+            دورات تكوينية
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-number">
+            👨‍⚕️
+        </div>
+
+        <div class="stat-text">
+            متربصون وموظفون
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-number">
+            🎓
+        </div>
+
+        <div class="stat-text">
+            شهادات التكوين
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-number">
+            💻
+        </div>
+
+        <div class="stat-text">
+            تكوين إلكتروني
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     التذييل
+========================= -->
+
+<footer>
+
+    <p>
+        <strong>
+            منصة التكوين المتواصل
+        </strong>
+    </p>
+
+    <p>
+        المؤسسة العمومية الاستشفائية
+    </p>
+
+    <p>
+        © 2026 جميع الحقوق محفوظة
+    </p>
+
+</footer>
+
 
 </body>
+
 </html>
