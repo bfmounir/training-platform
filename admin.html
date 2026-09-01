@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم المسؤول</title>
+
+    <title>لوحة تحكم المسؤول - منصة التكوين</title>
 
     <style>
         body {
@@ -15,21 +17,35 @@
         header {
             background: #1565c0;
             color: white;
-            padding: 20px;
+            padding: 25px 20px;
             text-align: center;
         }
 
+        header h1 {
+            margin: 0 0 8px;
+        }
+
+        header p {
+            margin: 0;
+        }
+
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 30px auto;
             padding: 20px;
         }
 
         .welcome {
             background: white;
-            padding: 20px;
+            padding: 25px;
             border-radius: 12px;
             margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .welcome h2 {
+            margin-top: 0;
+            color: #1565c0;
         }
 
         .cards {
@@ -43,29 +59,58 @@
             padding: 25px;
             border-radius: 12px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
         }
 
         .icon {
-            font-size: 40px;
+            font-size: 45px;
+            margin-bottom: 10px;
         }
 
         .card h3 {
             color: #1565c0;
+            margin: 10px 0;
         }
 
-        button {
+        .card p {
+            color: #666;
+            min-height: 40px;
+        }
+
+        .card button {
             background: #1565c0;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 11px 30px;
             border-radius: 7px;
             cursor: pointer;
+            font-size: 15px;
+        }
+
+        .card button:hover {
+            background: #0d47a1;
         }
 
         .logout {
-            margin-top: 30px;
+            display: block;
+            margin: 30px auto 0;
             background: #555;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .logout:hover {
+            background: #333;
+        }
+
+        #message {
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -80,64 +125,210 @@
 <div class="container">
 
     <div class="welcome">
-        <h2>مرحبًا بك في لوحة التحكم 👋</h2>
-        <p>من هنا يمكنك إدارة منصة التكوين المتواصل.</p>
+        <h2>مرحبًا بك في لوحة تحكم المسؤول 👋</h2>
+        <p>
+            من هنا يمكنك إدارة الدورات التكوينية والدروس والمستخدمين والشهادات والإحصائيات.
+        </p>
     </div>
+
+    <div id="message"></div>
 
     <div class="cards">
 
+        <!-- الدورات -->
         <div class="card">
             <div class="icon">📚</div>
             <h3>الدورات التكوينية</h3>
-            <p>إضافة وإدارة الدورات.</p>
-            <button>فتح</button>
+            <p>إضافة وتعديل وحذف وإدارة الدورات.</p>
+
+            <button onclick="openPage('courses.html')">
+                إدارة الدورات
+            </button>
         </div>
 
+        <!-- الدروس -->
         <div class="card">
             <div class="icon">📖</div>
             <h3>الدروس</h3>
-            <p>إضافة وتعديل الدروس.</p>
-            <button>فتح</button>
+            <p>إضافة وتعديل وإدارة دروس الدورات.</p>
+
+            <button onclick="openPage('lessons.html')">
+                إدارة الدروس
+            </button>
         </div>
 
+        <!-- المستخدمون -->
         <div class="card">
             <div class="icon">👥</div>
             <h3>المستخدمون</h3>
-            <p>إدارة العمال والمتربصين.</p>
-            <button>فتح</button>
+            <p>إدارة العمال والمتربصين وصلاحياتهم.</p>
+
+            <button onclick="openPage('users.html')">
+                إدارة المستخدمين
+            </button>
         </div>
 
+        <!-- الشهادات -->
         <div class="card">
             <div class="icon">🎓</div>
             <h3>الشهادات</h3>
-            <p>إدارة شهادات التكوين.</p>
-            <button>فتح</button>
+            <p>إدارة وإصدار شهادات التكوين.</p>
+
+            <button onclick="openPage('certificates.html')">
+                إدارة الشهادات
+            </button>
         </div>
 
+        <!-- الإحصائيات -->
         <div class="card">
             <div class="icon">📊</div>
             <h3>الإحصائيات</h3>
-            <p>متابعة نشاط المنصة.</p>
-            <button>فتح</button>
+            <p>متابعة الدورات والمستخدمين ونشاط المنصة.</p>
+
+            <button onclick="openPage('statistics.html')">
+                عرض الإحصائيات
+            </button>
         </div>
 
+        <!-- المساعد الذكي -->
         <div class="card">
             <div class="icon">🤖</div>
             <h3>المساعد الذكي</h3>
-            <p>مساعد الذكاء الاصطناعي.</p>
-            <button>فتح</button>
+            <p>مساعد الذكاء الاصطناعي للمنصة.</p>
+
+            <button onclick="openPage('ai-assistant.html')">
+                فتح المساعد
+            </button>
         </div>
 
     </div>
 
-   <button onclick="window.location.href='courses.html'">
-    فتح
-</button>
+    <button class="logout" onclick="logout()">
+        تسجيل الخروج
+    </button>
+
+</div>
+
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- إعدادات Supabase -->
+<script src="supabase-config.js"></script>
+
 
 <script>
-function logout() {
-    window.location.href = "login.html";
+
+async function checkAdmin() {
+
+    const message = document.getElementById("message");
+
+    try {
+
+        // التحقق من وجود جلسة دخول
+        const {
+            data: { session },
+            error: sessionError
+        } = await supabaseClient.auth.getSession();
+
+        if (sessionError) {
+            console.error(sessionError);
+            window.location.href = "login.html";
+            return;
+        }
+
+        // لا يوجد مستخدم مسجل
+        if (!session) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        const user = session.user;
+
+        // البحث عن صلاحية المستخدم
+        const {
+            data: roleData,
+            error: roleError
+        } = await supabaseClient
+            .from("user_roles")
+            .select("role")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+        if (roleError) {
+
+            console.error("خطأ في التحقق من الصلاحية:", roleError);
+
+            message.textContent =
+                "حدث خطأ أثناء التحقق من صلاحيات الحساب.";
+
+            message.style.color = "red";
+
+            return;
+        }
+
+        // المستخدم ليس مسؤولًا
+        if (!roleData || roleData.role !== "admin") {
+
+            message.textContent =
+                "ليس لديك صلاحية الدخول إلى لوحة المسؤول.";
+
+            message.style.color = "red";
+
+            setTimeout(function () {
+                window.location.href = "login.html";
+            }, 2000);
+
+            return;
+        }
+
+        // المستخدم مسؤول
+        message.textContent =
+            "تم التحقق من صلاحية المسؤول بنجاح.";
+
+        message.style.color = "green";
+
+        console.log("Admin verified:", user.email);
+
+    } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+            "حدث خطأ غير متوقع.";
+
+        message.style.color = "red";
+    }
 }
+
+
+// فتح الصفحات
+function openPage(page) {
+    window.location.href = page;
+}
+
+
+// تسجيل الخروج
+async function logout() {
+
+    try {
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href = "login.html";
+
+    } catch (error) {
+
+        console.error(error);
+
+        window.location.href = "login.html";
+    }
+}
+
+
+// تشغيل التحقق عند فتح الصفحة
+checkAdmin();
+
 </script>
 
 </body>
