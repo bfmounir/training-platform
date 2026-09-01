@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>إدارة الدورات التكوينية</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #1565c0;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin-top: 7px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            border: none;
+            padding: 11px 18px;
+            border-radius: 7px;
+            cursor: pointer;
+            color: white;
+            font-size: 15px;
+            margin-top: 15px;
+        }
+
+        .primary {
+            background: #1565c0;
+        }
+
+        .edit {
+            background: #ef6c00;
+            margin-left: 5px;
+        }
+
+        .delete {
+            background: #c62828;
+        }
+
+        .cancel {
+            background: #777;
+            margin-right: 5px;
+        }
+
+        .course {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 10px;
+        }
+
+        .course h3 {
+            color: #1565c0;
+            margin-top: 0;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>⚙️ إدارة الدورات التكوينية</h1>
+
+    <p>لوحة تحكم المسؤول</p>
+
+</header>
+
+
+<div class="container">
+
+
+    <div id="message"></div>
+
+
+    <!-- نموذج إضافة / تعديل -->
+
+    <div class="box">
+
+        <h2 id="formTitle">
+            ➕ إضافة دورة جديدة
+        </h2>
+
+
+        <label>
+            اسم الدورة
+        </label>
+
+        <input
+            type="text"
+            id="courseName"
+            placeholder="مثال: الإسعافات الأولية"
+        >
+
+
+        <label>
+            وصف الدورة
+        </label>
+
+        <textarea
+            id="courseDescription"
+            rows="4"
+            placeholder="اكتب وصف الدورة"
+        ></textarea>
+
+
+        <label>
+            تاريخ الدورة
+        </label>
+
+        <input
+            type="date"
+            id="courseDate"
+        >
+
+
+        <label>
+            الفئة المستهدفة
+        </label>
+
+        <input
+            type="text"
+            id="targetAudience"
+            placeholder="مثال: أعوان التمريض"
+        >
+
+
+        <label>
+            المؤطر
+        </label>
+
+        <select id="trainerSelect">
+
+            <option value="">
+                بدون مؤطر
+            </option>
+
+        </select>
+
+
+        <button
+            class="primary"
+            id="saveButton"
+            onclick="saveCourse()"
+        >
+            💾 حفظ الدورة
+        </button>
+
+
+        <button
+            class="cancel hidden"
+            id="cancelButton"
+            onclick="cancelEdit()"
+        >
+            إلغاء التعديل
+        </button>
+
+    </div>
+
+
+
+    <!-- قائمة الدورات -->
+
+    <div class="box">
+
+        <h2>
+            📋 الدورات الموجودة
+        </h2>
+
+        <div id="coursesList">
+
+            <div class="loading">
+                ⏳ جاري تحميل الدورات...
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase-config.js"></script>
+
+
+<script>
+
+
+/* =====================================================
+   متغيرات عامة
+===================================================== */
+
+let currentUser = null;
+
+let editingCourseId = null;
+
+
+
+/* =====================================================
+   إظهار رسالة
+===================================================== */
+
+function showMessage(
+    text,
+    type
+) {
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+    message.innerHTML = `
+
+        <div class="message ${type}">
+
+            ${text}
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =====================================================
+   التحقق من المسؤول
+===================================================== */
+
+async function checkAdmin() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.getUser();
+
+
+    if (error || !data.user) {
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+
+    currentUser =
+        data.user;
+
+
+    const {
+        data: roleData,
+        error: roleError
+    } = await supabaseClient
+        .from("user_roles")
+        .select("role")
+        .eq(
+            "user_id",
+            currentUser.id
+        )
+        .eq(
+            "role",
+            "admin"
+        )
+        .maybeSingle();
+
+
+    if (
+        roleError ||
+        !roleData
+    ) {
+
+        document.body.innerHTML = `
+
+            <div style="
+                text-align:center;
+                padding:60px;
+                font-family:Arial;
+            ">
+
+                <h2>
+                    🚫 غير مصرح بالدخول
+                </h2>
+
+                <p>
+                    هذه الصفحة مخصصة للمسؤول فقط.
+                </p>
+
+                <a href="index.html">
+                    العودة إلى الصفحة الرئيسية
+                </a>
+
+            </div>
+
+        `;
+
+        return false;
+    }
+
+
+    return true;
+
+}
+
+
+
+/* =====================================================
+   تحميل المؤطرين
+===================================================== */
+
+async function loadTrainers() {
+
+    const select =
+        document.getElementById(
+            "trainerSelect"
+        );
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("trainees")
+        .select(
+            "id, full_name, email"
+        )
+        .order(
+            "full_name",
+            {
+                ascending: true
+            }
+        );
+
+
+    if (error) {
+
+        console.error(
+            "خطأ تحميل المستخدمين:",
+            error
+        );
+
+        return;
+    }
+
+
+    data.forEach(
+        function(person) {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                person.id;
+
+            option.textContent =
+                person.full_name ||
+                person.email ||
+                person.id;
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   حفظ الدورة
+===================================================== */
+
+async function saveCourse() {
+
+    const name =
+        document
+            .getElementById(
+                "courseName"
+            )
+            .value
+            .trim();
+
+
+    const description =
+        document
+            .getElementById(
+                "courseDescription"
+            )
+            .value
+            .trim();
+
+
+    const courseDate =
+        document
+            .getElementById(
+                "courseDate"
+            )
+            .value;
+
+
+    const targetAudience =
+        document
+            .getElementById(
+                "targetAudience"
+            )
+            .value
+            .trim();
+
+
+    const trainerId =
+        document
+            .getElementById(
+                "trainerSelect"
+            )
+            .value;
+
+
+    if (
+        !name ||
+        !description ||
+        !courseDate
+    ) {
+
+        showMessage(
+            "⚠️ يرجى ملء اسم الدورة والوصف والتاريخ.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const courseData = {
+
+        name:
+            name,
+
+        description:
+            description,
+
+        course_date:
+            courseDate,
+
+        target_audience:
+            targetAudience || null,
+
+        trainer_id:
+            trainerId || null
+
+    };
+
+
+    let error;
+
+
+    if (editingCourseId) {
+
+        const result =
+            await supabaseClient
+                .from("courses")
+                .update(
+                    courseData
+                )
+                .eq(
+                    "id",
+                    editingCourseId
+                );
+
+        error =
+            result.error;
+
+    } else {
+
+        const result =
+            await supabaseClient
+                .from("courses")
+                .insert(
+                    courseData
+                );
+
+        error =
+            result.error;
+
+    }
+
+
+    if (error) {
+
+        console.error(
+            "خطأ حفظ الدورة:",
+            error
+        );
+
+        showMessage(
+            "❌ حدث خطأ أثناء حفظ الدورة. راجع Console لمعرفة التفاصيل.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    showMessage(
+        editingCourseId
+            ? "✅ تم تعديل الدورة بنجاح."
+            : "✅ تم إضافة الدورة بنجاح.",
+        "success"
+    );
+
+
+    clearForm();
+
+    await loadCourses();
+
+}
+
+
+
+/* =====================================================
+   تحميل الدورات
+===================================================== */
+
+async function loadCourses() {
+
+    const list =
+        document.getElementById(
+            "coursesList"
+        );
+
+
+    list.innerHTML = `
+
+        <div class="loading">
+            ⏳ جاري تحميل الدورات...
+        </div>
+
+    `;
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("courses")
+        .select(`
+            id,
+            name,
+            description,
+            course_date,
+            target_audience,
+            trainer_id,
+            created_at
+        `)
+        .order(
+            "created_at",
+            {
+                ascending: false
+            }
+        );
+
+
+    if (error) {
+
+        console.error(
+            "خطأ تحميل الدورات:",
+            error
+        );
+
+        list.innerHTML = `
+
+            <div class="message error">
+
+                ❌ تعذر تحميل الدورات.
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    if (
+        !data ||
+        data.length === 0
+    ) {
+
+        list.innerHTML = `
+
+            <div>
+                لا توجد دورات حاليًا.
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    list.innerHTML = "";
+
+
+    data.forEach(
+        function(course) {
+
+
+            const courseBox =
+                document.createElement(
+                    "div"
+                );
+
+
+            courseBox.className =
+                "course";
+
+
+            courseBox.innerHTML = `
+
+                <h3>
+                    📚 ${course.name}
+                </h3>
+
+                <p>
+                    📝 ${course.description || "لا يوجد وصف"}
+                </p>
+
+                <p>
+                    📅 تاريخ الدورة:
+                    ${course.course_date || "غير محدد"}
+                </p>
+
+                <p>
+                    👥 الفئة المستهدفة:
+                    ${course.target_audience || "غير محددة"}
+                </p>
+
+                <button
+                    class="edit"
+                    onclick="editCourse(${course.id})"
+                >
+                    ✏️ تعديل
+                </button>
+
+                <button
+                    class="delete"
+                    onclick="deleteCourse(${course.id})"
+                >
+                    🗑️ حذف
+                </button>
+
+            `;
+
+
+            list.appendChild(
+                courseBox
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   تعديل دورة
+===================================================== */
+
+async function editCourse(
+    courseId
+) {
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("courses")
+        .select(`
+            id,
+            name,
+            description,
+            course_date,
+            target_audience,
+            trainer_id
+        `)
+        .eq(
+            "id",
+            courseId
+        )
+        .single();
+
+
+    if (error) {
+
+        console.error(error);
+
+        showMessage(
+            "❌ تعذر تحميل بيانات الدورة.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    editingCourseId =
+        courseId;
+
+
+    document
+        .getElementById(
+            "courseName"
+        )
+        .value =
+        data.name || "";
+
+
+    document
+        .getElementById(
+            "courseDescription"
+        )
+        .value =
+        data.description || "";
+
+
+    document
+        .getElementById(
+            "courseDate"
+        )
+        .value =
+        data.course_date || "";
+
+
+    document
+        .getElementById(
+            "targetAudience"
+        )
+        .value =
+        data.target_audience || "";
+
+
+    document
+        .getElementById(
+            "trainerSelect"
+        )
+        .value =
+        data.trainer_id || "";
+
+
+    document
+        .getElementById(
+            "formTitle"
+        )
+        .textContent =
+        "✏️ تعديل الدورة";
+
+
+    document
+        .getElementById(
+            "saveButton"
+        )
+        .textContent =
+        "💾 حفظ التعديلات";
+
+
+    document
+        .getElementById(
+            "cancelButton"
+        )
+        .classList
+        .remove(
+            "hidden"
+        );
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+
+/* =====================================================
+   حذف دورة
+===================================================== */
+
+async function deleteCourse(
+    courseId
+) {
+
+    const confirmed =
+        confirm(
+            "هل أنت متأكد من حذف هذه الدورة؟"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    const {
+        error
+    } = await supabaseClient
+        .from("courses")
+        .delete()
+        .eq(
+            "id",
+            courseId
+        );
+
+
+    if (error) {
+
+        console.error(
+            "خطأ حذف الدورة:",
+            error
+        );
+
+        showMessage(
+            "❌ تعذر حذف الدورة. قد تكون مرتبطة بدروس أو تسجيلات.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    showMessage(
+        "✅ تم حذف الدورة.",
+        "success"
+    );
+
+
+    await loadCourses();
+
+}
+
+
+
+/* =====================================================
+   إلغاء التعديل
+===================================================== */
+
+function cancelEdit() {
+
+    clearForm();
+
+}
+
+
+
+/* =====================================================
+   تنظيف النموذج
+===================================================== */
+
+function clearForm() {
+
+    editingCourseId =
+        null;
+
+
+    document
+        .getElementById(
+            "courseName"
+        )
+        .value =
+        "";
+
+
+    document
+        .getElementById(
+            "courseDescription"
+        )
+        .value =
+        "";
+
+
+    document
+        .getElementById(
+            "courseDate"
+        )
+        .value =
+        "";
+
+
+    document
+        .getElementById(
+            "targetAudience"
+        )
+        .value =
+        "";
+
+
+    document
+        .getElementById(
+            "trainerSelect"
+        )
+        .value =
+        "";
+
+
+    document
+        .getElementById(
+            "formTitle"
+        )
+        .textContent =
+        "➕ إضافة دورة جديدة";
+
+
+    document
+        .getElementById(
+            "saveButton"
+        )
+        .textContent =
+        "💾 حفظ الدورة";
+
+
+    document
+        .getElementById(
+            "cancelButton"
+        )
+        .classList
+        .add(
+            "hidden"
+        );
+
+}
+
+
+
+/* =====================================================
+   تشغيل الصفحة
+===================================================== */
+
+async function startAdminPage() {
+
+    const allowed =
+        await checkAdmin();
+
+
+    if (!allowed) {
+        return;
+    }
+
+
+    await loadTrainers();
+
+    await loadCourses();
+
+}
+
+
+startAdminPage();
+
+</script>
+
+
+</body>
+
+</html>
