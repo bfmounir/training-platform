@@ -8,130 +8,440 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>منصة التكوين</title>
+<title>لوحة المتربص | منصة التكوين المستمر</title>
 
 <style>
 
-/* =========================
+/* =====================================================
    الإعدادات العامة
-========================= */
+===================================================== */
 
 * {
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     font-family: Tahoma, Arial, sans-serif;
-    background: #f5f7fb;
+    background:
+        linear-gradient(180deg, #f4f8fc 0%, #eef4f9 100%);
     color: #263238;
 }
 
 
-/* =========================
+/* =====================================================
    الشريط العلوي
-========================= */
+===================================================== */
 
-header {
-    background: linear-gradient(135deg, #0d47a1, #1976d2, #42a5f5);
+.topbar {
+    background:
+        linear-gradient(135deg, #073b78, #0d6efd, #18a6a6);
     color: white;
-    padding: 35px 20px;
-    text-align: center;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+    padding: 18px 25px;
+    box-shadow: 0 8px 30px rgba(13, 71, 161, 0.20);
 }
 
-.logo {
-    font-size: 55px;
-    margin-bottom: 8px;
+.topbar-inner {
+    max-width: 1150px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
 }
 
-header h1 {
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-logo {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+    background: white;
+    border-radius: 15px;
+    padding: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.brand-text h1 {
     margin: 0;
-    font-size: 32px;
+    font-size: 22px;
 }
 
-header p {
-    margin-top: 10px;
-    font-size: 17px;
-    opacity: 0.95;
+.brand-text p {
+    margin: 5px 0 0;
+    font-size: 13px;
+    opacity: .9;
+}
+
+.home-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    color: white;
+    text-decoration: none;
+
+    padding: 11px 18px;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.15);
+
+    border: 1px solid rgba(255,255,255,.25);
+
+    transition: .25s;
+}
+
+.home-button:hover {
+    background: rgba(255,255,255,.25);
+    transform: translateY(-2px);
 }
 
 
-/* =========================
+/* =====================================================
    الحاوية
-========================= */
+===================================================== */
 
 .container {
-    max-width: 1100px;
+    max-width: 1150px;
     margin: 30px auto;
     padding: 0 18px;
 }
 
 
-/* =========================
-   رسالة التحميل
-========================= */
+/* =====================================================
+   الترحيب
+===================================================== */
 
-#message {
-    background: white;
-    border-radius: 18px;
-    padding: 20px;
-    text-align: center;
+.welcome {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(135deg, #ffffff, #f5fbff);
+
+    border-radius: 25px;
+
+    padding: 30px;
+
     margin-bottom: 25px;
-    box-shadow: 0 5px 18px rgba(0,0,0,0.06);
-    font-weight: bold;
+
+    border: 1px solid #e3edf5;
+
+    box-shadow:
+        0 12px 35px rgba(30, 80, 120, .08);
 }
 
+.welcome::before {
+    content: "";
+    position: absolute;
 
-/* =========================
-   بطاقة الدورة
-========================= */
+    width: 180px;
+    height: 180px;
 
-.course {
-    background: white;
-    padding: 25px;
-    margin-bottom: 25px;
-    border-radius: 20px;
-    border: 1px solid #e6eaf0;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.07);
-    transition: 0.25s;
+    left: -70px;
+    top: -70px;
+
+    background: rgba(24,166,166,.08);
+
+    border-radius: 50%;
 }
 
-.course:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+.welcome-content {
+    position: relative;
+    z-index: 1;
 }
 
-.course h2 {
-    color: #1565c0;
-    margin-top: 0;
-    font-size: 23px;
+.welcome h2 {
+    margin: 0;
+
+    color: #0d47a1;
+
+    font-size: 27px;
 }
 
-.course-description {
+.welcome p {
+    margin: 10px 0 0;
+
     color: #607d8b;
+
     line-height: 1.8;
 }
 
 
-/* =========================
-   شارة التسجيل
-========================= */
+/* =====================================================
+   الإحصائيات
+===================================================== */
 
-.enrolled {
-    display: inline-block;
-    background: #e8f5e9;
-    color: #2e7d32;
-    padding: 10px 16px;
-    border-radius: 30px;
-    margin-top: 12px;
-    font-weight: bold;
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 22px;
+
+    border: 1px solid #e5edf4;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.06);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    transition: .25s;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 14px 30px rgba(0,0,0,.09);
+}
+
+.stat-icon {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    font-size: 27px;
+
+    background: #eaf4ff;
+}
+
+.stat-info strong {
+    display: block;
+
+    font-size: 25px;
+
+    color: #0d47a1;
+}
+
+.stat-info span {
+    color: #78909c;
+
+    font-size: 13px;
 }
 
 
-/* =========================
-   أزرار
-========================= */
+/* =====================================================
+   رسالة النظام
+===================================================== */
+
+#message {
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 18px 22px;
+
+    margin-bottom: 25px;
+
+    border-right: 5px solid #1976d2;
+
+    box-shadow:
+        0 6px 20px rgba(0,0,0,.05);
+
+    font-weight: bold;
+
+    color: #455a64;
+}
+
+
+/* =====================================================
+   عنوان القسم
+===================================================== */
+
+.main-section-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 30px 0 18px;
+}
+
+.main-section-title .icon {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(135deg,#0d6efd,#18a6a6);
+
+    color: white;
+
+    border-radius: 13px;
+
+    font-size: 21px;
+}
+
+.main-section-title h2 {
+    margin: 0;
+
+    color: #263238;
+
+    font-size: 24px;
+}
+
+.main-section-title p {
+    margin: 4px 0 0;
+
+    color: #78909c;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   بطاقة الدورة
+===================================================== */
+
+.course {
+    background: white;
+
+    padding: 0;
+
+    margin-bottom: 25px;
+
+    border-radius: 24px;
+
+    border: 1px solid #e1eaf1;
+
+    box-shadow:
+        0 10px 30px rgba(30,70,100,.07);
+
+    overflow: hidden;
+
+    transition: .3s;
+}
+
+.course:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 16px 38px rgba(30,70,100,.11);
+}
+
+
+/* رأس الدورة */
+
+.course-header {
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5faff,
+            #eefbfb
+        );
+
+    border-bottom: 1px solid #e5eef5;
+}
+
+.course-number {
+    display: inline-block;
+
+    background: #e2f0ff;
+
+    color: #1565c0;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+.course h2 {
+    color: #0d47a1;
+
+    margin: 0;
+
+    font-size: 23px;
+
+    line-height: 1.5;
+}
+
+.course-description {
+    color: #607d8b;
+
+    line-height: 1.9;
+
+    margin: 10px 0 0;
+}
+
+
+/* محتوى الدورة */
+
+.course-body {
+    padding: 25px;
+}
+
+
+/* =====================================================
+   حالة التسجيل
+===================================================== */
+
+.enrolled {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    background: #e8f7ed;
+
+    color: #237a3b;
+
+    padding: 10px 16px;
+
+    border-radius: 30px;
+
+    font-weight: bold;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   الأزرار
+===================================================== */
 
 button,
 a {
@@ -143,7 +453,13 @@ a {
 .complete-button,
 .certificate-button {
 
-    display: inline-block;
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
 
     color: white;
 
@@ -151,7 +467,7 @@ a {
 
     padding: 11px 18px;
 
-    border-radius: 10px;
+    border-radius: 11px;
 
     text-decoration: none;
 
@@ -159,65 +475,131 @@ a {
 
     cursor: pointer;
 
-    font-size: 15px;
+    font-size: 14px;
 
-    transition: 0.2s;
+    font-weight: bold;
+
+    transition: .25s;
+
+    box-shadow:
+        0 5px 12px rgba(0,0,0,.08);
 }
 
 .enroll-button:hover,
 .pdf-button:hover,
 .complete-button:hover,
 .certificate-button:hover {
-
     transform: translateY(-2px);
 
-    opacity: 0.92;
+    box-shadow:
+        0 8px 17px rgba(0,0,0,.12);
 }
 
 .enroll-button {
-    background: linear-gradient(135deg,#2e7d32,#43a047);
+    background:
+        linear-gradient(135deg,#198754,#20b15a);
 }
 
 .pdf-button {
-    background: linear-gradient(135deg,#1565c0,#1e88e5);
+    background:
+        linear-gradient(135deg,#0d6efd,#168cff);
 }
 
 .complete-button {
-    background: linear-gradient(135deg,#00897b,#26a69a);
+    background:
+        linear-gradient(135deg,#00897b,#20b5a5);
+
     margin-right: 8px;
 }
 
 .certificate-button {
-    background: linear-gradient(135deg,#6a1b9a,#8e24aa);
+    background:
+        linear-gradient(135deg,#6f42c1,#9b59d0);
 }
 
 
-/* =========================
-   الدرس
-========================= */
+/* =====================================================
+   الدروس
+===================================================== */
+
+.lessons-heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin: 28px 0 15px;
+
+    color: #37474f;
+
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+.lessons-heading span {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #e8f3ff;
+
+    border-radius: 11px;
+}
+
+
+/* =====================================================
+   بطاقة الدرس
+===================================================== */
 
 .lesson {
 
-    background: #f8fafc;
+    background:
+        linear-gradient(
+            135deg,
+            #fbfdff,
+            #f5f9fc
+        );
 
     padding: 20px;
 
-    margin-top: 16px;
+    margin-top: 14px;
 
-    border-radius: 15px;
+    border-radius: 17px;
 
     border-right: 5px solid #1976d2;
 
-    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    border: 1px solid #e4edf4;
+
+    border-right-width: 5px;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,.035);
+
+    transition: .2s;
+}
+
+.lesson:hover {
+    transform: translateX(-2px);
+
+    box-shadow:
+        0 7px 18px rgba(0,0,0,.07);
 }
 
 .lesson h3 {
 
-    margin-top: 0;
+    margin: 0 0 10px;
 
     color: #263238;
 
-    font-size: 19px;
+    font-size: 18px;
+
+    line-height: 1.6;
 }
 
 .lesson p {
@@ -227,65 +609,84 @@ a {
     color: #546e7a;
 
     white-space: pre-line;
+
+    margin-bottom: 5px;
 }
 
 
-/* =========================
-   زر الدرس المكتمل
-========================= */
+/* =====================================================
+   الدرس المكتمل
+===================================================== */
 
 .completed {
 
-    background: #78909c !important;
+    background:
+        linear-gradient(
+            135deg,
+            #78909c,
+            #90a4ae
+        ) !important;
 
     cursor: default !important;
 
-    opacity: 0.85;
+    opacity: .9;
+
+    box-shadow: none !important;
 }
 
 
-/* =========================
+/* =====================================================
    التقدم
-========================= */
+===================================================== */
 
 .progress-area {
 
     margin-top: 22px;
 
-    background: #f8fafc;
+    background:
+        linear-gradient(
+            135deg,
+            #f5f9fd,
+            #f1f8f8
+        );
 
-    padding: 17px;
+    padding: 18px;
 
-    border-radius: 15px;
+    border-radius: 17px;
+
+    border: 1px solid #e4edf2;
 }
 
 .progress-text {
 
     font-weight: bold;
 
-    margin-bottom: 10px;
+    margin-bottom: 11px;
 
     color: #37474f;
+
+    font-size: 14px;
 }
 
 .progress {
 
-    background: #e0e0e0;
+    background: #dfe7ec;
 
     border-radius: 20px;
 
-    height: 16px;
+    height: 15px;
 
     overflow: hidden;
 }
 
 .progress-bar {
 
-    background: linear-gradient(
-        90deg,
-        #2e7d32,
-        #66bb6a
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #198754,
+            #20b98a
+        );
 
     height: 100%;
 
@@ -293,116 +694,126 @@ a {
 
     border-radius: 20px;
 
-    transition: width 0.5s ease;
+    transition:
+        width .6s ease;
 }
 
 
-/* =========================
+/* =====================================================
    اكتملت الدورة
-========================= */
+===================================================== */
 
 .finished {
 
-    background: linear-gradient(
-        135deg,
-        #fff8e1,
-        #fff3cd
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #fff9e6,
+            #fff3c4
+        );
 
-    color: #795548;
+    color: #765600;
 
     padding: 16px;
 
-    border-radius: 14px;
+    border-radius: 15px;
 
     margin-top: 18px;
 
     font-weight: bold;
 
     border-right: 5px solid #ffb300;
+
+    box-shadow:
+        0 5px 15px rgba(255,179,0,.08);
 }
 
 
-/* =========================
-   عنوان الشهادات
-========================= */
+/* =====================================================
+   الشهادات
+===================================================== */
 
 .certificates-title {
 
-    background: linear-gradient(
-        135deg,
-        #6a1b9a,
-        #8e24aa
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #5b21b6,
+            #8b5cf6
+        );
 
     color: white;
 
-    padding: 25px;
+    padding: 27px;
 
-    border-radius: 20px;
+    border-radius: 22px;
 
-    margin-top: 35px;
+    margin-top: 40px;
 
     margin-bottom: 20px;
 
-    box-shadow: 0 8px 25px rgba(106,27,154,0.2);
+    box-shadow:
+        0 10px 30px rgba(91,33,182,.18);
 }
 
 .certificates-title h2 {
-    margin: 0 0 8px 0;
+    margin: 0 0 8px;
+
+    font-size: 24px;
+}
+
+.certificates-title p {
+    margin: 0;
+
+    opacity: .9;
+
+    line-height: 1.7;
 }
 
 
-/* =========================
-   بطاقة الشهادة
-========================= */
+/* بطاقة الشهادة */
 
 .certificate-card {
 
     background: white;
 
-    padding: 22px;
+    padding: 23px;
 
-    border-radius: 18px;
+    border-radius: 19px;
 
     margin-bottom: 18px;
 
-    border: 1px solid #eee;
+    border: 1px solid #ebe5f5;
 
-    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    box-shadow:
+        0 7px 23px rgba(0,0,0,.06);
+
+    transition: .25s;
+}
+
+.certificate-card:hover {
+    transform: translateY(-3px);
 }
 
 .certificate-card h3 {
 
-    color: #6a1b9a;
+    color: #6f42c1;
 
     margin-top: 0;
+
+    font-size: 20px;
+}
+
+.certificate-card p {
+    color: #546e7a;
+
+    line-height: 1.8;
 }
 
 
-/* =========================
-   فاصل
-========================= */
-
-.section-title {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    margin: 30px 0 15px;
-
-    font-size: 22px;
-
-    color: #263238;
-}
-
-
-/* =========================
+/* =====================================================
    قالب الشهادة
-========================= */
+===================================================== */
 
 #certificateTemplate {
 
@@ -492,32 +903,74 @@ a {
 }
 
 
-/* =========================
+/* =====================================================
+   الفوتر
+===================================================== */
+
+footer {
+
+    text-align: center;
+
+    padding: 30px 20px;
+
+    margin-top: 45px;
+
+    background: #ffffff;
+
+    border-top: 1px solid #e3ebf2;
+
+    color: #78909c;
+
+    font-size: 13px;
+}
+
+footer strong {
+    color: #1565c0;
+}
+
+
+/* =====================================================
    الهاتف
-========================= */
+===================================================== */
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 
-    header {
-        padding: 25px 15px;
+    .topbar {
+        padding: 15px;
     }
 
-    header h1 {
-        font-size: 25px;
+    .topbar-inner {
+        flex-direction: column;
+        align-items: stretch;
     }
 
-    .logo {
-        font-size: 42px;
+    .brand {
+        justify-content: center;
     }
 
-    .container {
-        margin-top: 20px;
-        padding: 0 12px;
+    .brand-text h1 {
+        font-size: 18px;
     }
 
-    .course {
-        padding: 18px;
-        border-radius: 16px;
+    .home-button {
+        justify-content: center;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome {
+        padding: 23px;
+    }
+
+    .welcome h2 {
+        font-size: 22px;
+    }
+
+    .course-header,
+    .course-body {
+        padding: 20px;
     }
 
     .course h2 {
@@ -532,29 +985,18 @@ a {
     .pdf-button,
     .complete-button,
     .certificate-button {
+
         width: 100%;
-        text-align: center;
+
         margin-right: 0;
+
+        text-align: center;
     }
 
-}
+    .main-section-title h2 {
+        font-size: 21px;
+    }
 
-
-/* =========================
-   شريط سفلي
-========================= */
-
-footer {
-
-    text-align: center;
-
-    padding: 25px;
-
-    margin-top: 40px;
-
-    color: #78909c;
-
-    font-size: 14px;
 }
 
 </style>
@@ -565,47 +1007,215 @@ footer {
 <body>
 
 
-<header>
+<!-- =====================================================
+     الشريط العلوي
+===================================================== -->
 
-<div class="logo">🎓</div>
+<header class="topbar">
 
-<h1>منصة التكوين المستمر</h1>
+<div class="topbar-inner">
 
-<p>
-التكوين • التعلم • تطوير المهارات
-</p>
+    <div class="brand">
+
+        <img
+            src="logo.png"
+            class="brand-logo"
+            alt="شعار منصة التكوين">
+
+        <div class="brand-text">
+
+            <h1>
+                منصة التكوين المستمر
+            </h1>
+
+            <p>
+                لوحة المتربص التعليمية
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <a
+        href="index.html"
+        class="home-button">
+
+        🏠 الصفحة الرئيسية
+
+    </a>
+
+</div>
 
 </header>
 
 
+<!-- =====================================================
+     المحتوى
+===================================================== -->
+
 <div class="container">
 
-<div id="message">
-⏳ جاري تحميل الدورات...
+
+<!-- الترحيب -->
+
+<section class="welcome">
+
+    <div class="welcome-content">
+
+        <h2>
+            🎓 مرحبًا بك في فضاء المتربص
+        </h2>
+
+        <p>
+            تابع تكويناتك، اطلع على الدروس،
+            سجّل تقدمك واحصل على شهادات إتمام التكوين.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- الإحصائيات -->
+
+<div class="stats">
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            📚
+        </div>
+
+        <div class="stat-info">
+
+            <strong id="coursesCount">
+                0
+            </strong>
+
+            <span>
+                الدورات المتاحة
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            📖
+        </div>
+
+        <div class="stat-info">
+
+            <strong id="enrolledCount">
+                0
+            </strong>
+
+            <span>
+                دورات مسجل فيها
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🏆
+        </div>
+
+        <div class="stat-info">
+
+            <strong id="certificatesCount">
+                0
+            </strong>
+
+            <span>
+                الشهادات المحصل عليها
+            </span>
+
+        </div>
+
+    </div>
+
 </div>
+
+
+<!-- الرسالة -->
+
+<div id="message">
+    ⏳ جاري تحميل الدورات...
+</div>
+
+
+<!-- الدورات -->
+
+<div class="main-section-title">
+
+    <div class="icon">
+        📚
+    </div>
+
+    <div>
+
+        <h2>
+            الدورات التكوينية
+        </h2>
+
+        <p>
+            استعرض الدورات وسجّل في التكوينات المتاحة
+        </p>
+
+    </div>
+
+</div>
+
 
 <div id="coursesList"></div>
 
+
+<!-- الشهادات -->
+
 <div id="certificateArea"></div>
+
 
 </div>
 
 
+<!-- =====================================================
+     الفوتر
+===================================================== -->
+
 <footer>
 
-منصة التكوين المستمر © 2026
+    منصة التكوين المستمر © 2026
+
+    <br>
+
+    <strong>
+        المؤسسة العمومية الاستشفائية بأولف
+    </strong>
 
 </footer>
 
 
-<!-- Supabase -->
+<!-- =====================================================
+     Supabase
+===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase-config.js"></script>
 
 
-<!-- PDF -->
+<!-- =====================================================
+     المكتبات الخاصة بالشهادة
+===================================================== -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -614,7 +1224,9 @@ footer {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 
-<!-- قالب الشهادة -->
+<!-- =====================================================
+     قالب الشهادة
+===================================================== -->
 
 <div id="certificateTemplate">
 
@@ -669,12 +1281,16 @@ footer {
 
 <script>
 
+/* =====================================================
+   المستخدم الحالي
+===================================================== */
+
 let currentUser = null;
 
 
-/* =========================
-   المستخدم
-========================= */
+/* =====================================================
+   الحصول على المستخدم
+===================================================== */
 
 async function getCurrentUser() {
 
@@ -692,9 +1308,9 @@ async function getCurrentUser() {
 }
 
 
-/* =========================
-   التسجيل
-========================= */
+/* =====================================================
+   التحقق من التسجيل
+===================================================== */
 
 async function isEnrolled(courseId) {
 
@@ -717,9 +1333,9 @@ async function isEnrolled(courseId) {
 }
 
 
-/* =========================
+/* =====================================================
    التقدم
-========================= */
+===================================================== */
 
 async function getProgress(lessonIds) {
 
@@ -745,9 +1361,9 @@ async function getProgress(lessonIds) {
 }
 
 
-/* =========================
+/* =====================================================
    إكمال الدرس
-========================= */
+===================================================== */
 
 async function completeLesson(
     lessonId,
@@ -819,9 +1435,9 @@ async function completeLesson(
 }
 
 
-/* =========================
-   حساب التقدم
-========================= */
+/* =====================================================
+   حساب تقدم الدورة
+===================================================== */
 
 async function updateCourseProgress(
     courseId
@@ -882,6 +1498,7 @@ async function updateCourseProgress(
 
         bar.style.width =
             percentage + "%";
+
     }
 
 
@@ -895,6 +1512,7 @@ async function updateCourseProgress(
             " دروس — " +
             percentage +
             "%";
+
     }
 
 
@@ -916,6 +1534,7 @@ async function updateCourseProgress(
 
             finished.textContent =
                 "🏆 ممتاز! لقد أكملت جميع دروس هذه الدورة بنجاح.";
+
         }
 
     }
@@ -923,9 +1542,9 @@ async function updateCourseProgress(
 }
 
 
-/* =========================
+/* =====================================================
    التسجيل في دورة
-========================= */
+===================================================== */
 
 async function enrollInCourse(
     courseId
@@ -977,9 +1596,9 @@ async function enrollInCourse(
 }
 
 
-/* =========================
+/* =====================================================
    تحميل الدروس
-========================= */
+===================================================== */
 
 async function loadLessons(
     courseId,
@@ -1172,9 +1791,9 @@ async function loadLessons(
 }
 
 
-/* =========================
-   الشهادة
-========================= */
+/* =====================================================
+   إنشاء الشهادة
+===================================================== */
 
 async function generateCertificatePDF(
     certificate
@@ -1350,9 +1969,9 @@ async function generateCertificatePDF(
 }
 
 
-/* =========================
+/* =====================================================
    تحميل الشهادات
-========================= */
+===================================================== */
 
 async function loadMyCertificates() {
 
@@ -1391,6 +2010,12 @@ async function loadMyCertificates() {
     area.innerHTML = "";
 
 
+    document.getElementById(
+        "certificatesCount"
+    ).textContent =
+        data ? data.length : 0;
+
+
     if (!data || !data.length) {
         return;
     }
@@ -1406,7 +2031,7 @@ async function loadMyCertificates() {
 
     title.innerHTML = `
         <h2>🏆 شهاداتي</h2>
-        <p>هنا تجد الشهادات التي حصلت عليها.</p>
+        <p>هنا تجد الشهادات التي حصلت عليها بعد إتمام التكوين.</p>
     `;
 
     area.appendChild(title);
@@ -1524,9 +2149,9 @@ async function loadMyCertificates() {
 }
 
 
-/* =========================
+/* =====================================================
    تحميل الدورات
-========================= */
+===================================================== */
 
 async function loadCourses() {
 
@@ -1600,9 +2225,24 @@ async function loadCourses() {
         "📚 الدورات التكوينية المتاحة";
 
 
+    document.getElementById(
+        "coursesCount"
+    ).textContent =
+        courses.length;
+
+
+    let enrolledTotal = 0;
+
+
+    let courseNumber = 0;
+
+
     for (
         const course of courses
     ) {
+
+        courseNumber++;
+
 
         const box =
             document.createElement(
@@ -1611,6 +2251,35 @@ async function loadCourses() {
 
         box.className =
             "course";
+
+
+        /* رأس الدورة */
+
+        const courseHeader =
+            document.createElement(
+                "div"
+            );
+
+        courseHeader.className =
+            "course-header";
+
+
+        const number =
+            document.createElement(
+                "div"
+            );
+
+        number.className =
+            "course-number";
+
+        number.textContent =
+            "الدورة رقم " +
+            courseNumber;
+
+
+        courseHeader.appendChild(
+            number
+        );
 
 
         const title =
@@ -1622,7 +2291,10 @@ async function loadCourses() {
             "📚 " +
             course.name;
 
-        box.appendChild(title);
+
+        courseHeader.appendChild(
+            title
+        );
 
 
         const description =
@@ -1637,9 +2309,26 @@ async function loadCourses() {
             course.description ||
             "لا يوجد وصف للدورة.";
 
-        box.appendChild(
+
+        courseHeader.appendChild(
             description
         );
+
+
+        box.appendChild(
+            courseHeader
+        );
+
+
+        /* جسم الدورة */
+
+        const courseBody =
+            document.createElement(
+                "div"
+            );
+
+        courseBody.className =
+            "course-body";
 
 
         const enrolled =
@@ -1649,6 +2338,9 @@ async function loadCourses() {
 
 
         if (enrolled) {
+
+            enrolledTotal++;
+
 
             const badge =
                 document.createElement(
@@ -1661,7 +2353,8 @@ async function loadCourses() {
             badge.textContent =
                 "✅ أنت مسجل في هذه الدورة";
 
-            box.appendChild(
+
+            courseBody.appendChild(
                 badge
             );
 
@@ -1687,7 +2380,8 @@ async function loadCourses() {
 
                 };
 
-            box.appendChild(
+
+            courseBody.appendChild(
                 button
             );
 
@@ -1748,13 +2442,17 @@ async function loadCourses() {
             course.id;
 
 
-        progress.appendChild(bar);
+        progress.appendChild(
+            bar
+        );
+
 
         progressArea.appendChild(
             progress
         );
 
-        box.appendChild(
+
+        courseBody.appendChild(
             progressArea
         );
 
@@ -1776,7 +2474,8 @@ async function loadCourses() {
         finished.style.display =
             "none";
 
-        box.appendChild(
+
+        courseBody.appendChild(
             finished
         );
 
@@ -1789,12 +2488,15 @@ async function loadCourses() {
             );
 
         lessonTitle.className =
-            "section-title";
+            "lessons-heading";
 
-        lessonTitle.textContent =
-            "📖 دروس الدورة";
+        lessonTitle.innerHTML = `
+            <span>📖</span>
+            دروس الدورة
+        `;
 
-        box.appendChild(
+
+        courseBody.appendChild(
             lessonTitle
         );
 
@@ -1807,18 +2509,32 @@ async function loadCourses() {
         lessonsBox.textContent =
             "⏳ جاري تحميل الدروس...";
 
-        box.appendChild(
+
+        courseBody.appendChild(
             lessonsBox
         );
 
 
-        list.appendChild(box);
+        box.appendChild(
+            courseBody
+        );
+
+
+        list.appendChild(
+            box
+        );
 
 
         await loadLessons(
             course.id,
             lessonsBox
         );
+
+
+        document.getElementById(
+            "enrolledCount"
+        ).textContent =
+            enrolledTotal;
 
     }
 
@@ -1828,9 +2544,9 @@ async function loadCourses() {
 }
 
 
-/* =========================
-   تشغيل
-========================= */
+/* =====================================================
+   تشغيل الصفحة
+===================================================== */
 
 loadCourses();
 
