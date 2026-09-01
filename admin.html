@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>لوحة تحكم المسؤول - منصة التكوين</title>
+    <title>لوحة تحكم المسؤول</title>
 
     <style>
 
@@ -52,15 +52,14 @@
         }
 
         .welcome h2 {
-            margin-top: 0;
             color: #1565c0;
+            margin-top: 0;
         }
 
         .cards {
             display: grid;
             grid-template-columns:
                 repeat(auto-fit, minmax(230px, 1fr));
-
             gap: 20px;
         }
 
@@ -69,9 +68,7 @@
             padding: 25px;
             border-radius: 12px;
             text-align: center;
-
-            box-shadow:
-                0 2px 8px rgba(0,0,0,0.10);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
         }
 
         .icon {
@@ -86,23 +83,20 @@
 
         .card p {
             color: #666;
-            min-height: 40px;
+            min-height: 42px;
+        }
+
+        button {
+            border: none;
+            padding: 11px 25px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 15px;
         }
 
         .open-button {
             background: #1565c0;
             color: white;
-            border: none;
-
-            padding: 11px 25px;
-
-            border-radius: 7px;
-
-            cursor: pointer;
-
-            font-size: 15px;
-
-            margin-top: 10px;
         }
 
         .open-button:hover {
@@ -111,22 +105,10 @@
 
         .logout {
             display: block;
-
             margin: 30px auto 10px;
-
             background: #555;
-
             color: white;
-
-            border: none;
-
             padding: 12px 30px;
-
-            border-radius: 7px;
-
-            cursor: pointer;
-
-            font-size: 15px;
         }
 
         .logout:hover {
@@ -163,12 +145,17 @@
 <div class="container">
 
 
+    <!-- رسالة التحقق -->
+
     <div id="message">
         ⏳ جاري التحقق من صلاحيات المسؤول...
     </div>
 
 
-    <div id="adminContent" style="display:none;">
+    <!-- محتوى المسؤول -->
+
+    <div id="adminContent"
+         style="display:none;">
 
 
         <div class="welcome">
@@ -178,8 +165,7 @@
             </h2>
 
             <p>
-                من هنا يمكنك إدارة منصة التكوين المتواصل
-                ومتابعة الدورات والدروس والمتربصين والشهادات.
+                من هنا يمكنك إدارة منصة التكوين المتواصل.
             </p>
 
         </div>
@@ -188,9 +174,7 @@
         <div class="cards">
 
 
-            <!-- =========================
-                 الدورات
-            ========================== -->
+            <!-- الدورات -->
 
             <div class="card">
 
@@ -208,7 +192,7 @@
 
                 <button
                     class="open-button"
-                    onclick="openPage('admin-courses.html')"
+                    onclick="window.location.href='admin-courses.html'"
                 >
                     فتح
                 </button>
@@ -216,9 +200,7 @@
             </div>
 
 
-            <!-- =========================
-                 الدروس
-            ========================== -->
+            <!-- الدروس -->
 
             <div class="card">
 
@@ -231,12 +213,12 @@
                 </h3>
 
                 <p>
-                    إضافة وتعديل وإدارة الدروس وملفات PDF.
+                    إضافة وتعديل وإدارة الدروس.
                 </p>
 
                 <button
                     class="open-button"
-                    onclick="openPage('admin-lessons.html')"
+                    onclick="window.location.href='admin-lessons.html'"
                 >
                     فتح
                 </button>
@@ -244,9 +226,7 @@
             </div>
 
 
-            <!-- =========================
-                 المستخدمون
-            ========================== -->
+            <!-- المستخدمون -->
 
             <div class="card">
 
@@ -259,12 +239,12 @@
                 </h3>
 
                 <p>
-                    إدارة العمال والمتربصين وحساباتهم.
+                    إدارة العمال والمتربصين.
                 </p>
 
                 <button
                     class="open-button"
-                    onclick="openPage('admin-users.html')"
+                    onclick="window.location.href='admin-users.html'"
                 >
                     فتح
                 </button>
@@ -272,9 +252,7 @@
             </div>
 
 
-            <!-- =========================
-                 الشهادات
-            ========================== -->
+            <!-- الشهادات -->
 
             <div class="card">
 
@@ -287,12 +265,12 @@
                 </h3>
 
                 <p>
-                    إدارة شهادات إتمام التكوين.
+                    إدارة شهادات التكوين.
                 </p>
 
                 <button
                     class="open-button"
-                    onclick="openPage('admin-certificates.html')"
+                    onclick="window.location.href='admin-certificates.html'"
                 >
                     فتح
                 </button>
@@ -300,9 +278,7 @@
             </div>
 
 
-            <!-- =========================
-                 الإحصائيات
-            ========================== -->
+            <!-- الإحصائيات -->
 
             <div class="card">
 
@@ -315,12 +291,12 @@
                 </h3>
 
                 <p>
-                    متابعة نشاط المنصة ونسب المشاركة.
+                    متابعة نشاط المنصة.
                 </p>
 
                 <button
                     class="open-button"
-                    onclick="openPage('admin-statistics.html')"
+                    onclick="window.location.href='admin-statistics.html'"
                 >
                     فتح
                 </button>
@@ -328,9 +304,7 @@
             </div>
 
 
-            <!-- =========================
-                 المساعد الذكي
-            ========================== -->
+            <!-- المساعد الذكي -->
 
             <div class="card">
 
@@ -343,12 +317,12 @@
                 </h3>
 
                 <p>
-                    أدوات الذكاء الاصطناعي الخاصة بالمنصة.
+                    مساعد الذكاء الاصطناعي.
                 </p>
 
                 <button
                     class="open-button"
-                    onclick="openPage('ai-assistant.html')"
+                    onclick="window.location.href='ai-assistant.html'"
                 >
                     فتح
                 </button>
@@ -358,6 +332,8 @@
 
         </div>
 
+
+        <!-- تسجيل الخروج -->
 
         <button
             class="logout"
@@ -384,18 +360,7 @@
 
 
 /* =====================================================
-   فتح الصفحات
-===================================================== */
-
-function openPage(page) {
-
-    window.location.href = page;
-
-}
-
-
-/* =====================================================
-   التحقق من المسؤول
+   التحقق من حساب المسؤول
 ===================================================== */
 
 async function checkAdmin() {
@@ -410,7 +375,7 @@ async function checkAdmin() {
     try {
 
 
-        /* الحصول على المستخدم الحالي */
+        /* الحصول على الحساب الحالي */
 
         const {
             data: userData,
@@ -426,21 +391,18 @@ async function checkAdmin() {
         ) {
 
             message.textContent =
-                "يجب تسجيل الدخول أولًا.";
+                "⛔ يجب تسجيل الدخول أولًا.";
 
             message.style.color =
                 "red";
 
 
-            setTimeout(
-                function() {
+            setTimeout(function() {
 
-                    window.location.href =
-                        "login.html";
+                window.location.href =
+                    "login.html";
 
-                },
-                1200
-            );
+            }, 1200);
 
 
             return;
@@ -451,9 +413,7 @@ async function checkAdmin() {
             userData.user;
 
 
-        /* =================================================
-           التحقق من جدول الصلاحيات
-        ================================================= */
+        /* التحقق من الصلاحية */
 
         const {
             data: roleData,
@@ -472,13 +432,13 @@ async function checkAdmin() {
         if (roleError) {
 
             console.error(
-                "خطأ الصلاحية:",
+                "خطأ التحقق من الصلاحية:",
                 roleError
             );
 
 
             message.textContent =
-                "تعذر التحقق من صلاحيات الحساب.";
+                "❌ تعذر التحقق من صلاحية الحساب.";
 
             message.style.color =
                 "red";
@@ -486,10 +446,6 @@ async function checkAdmin() {
             return;
         }
 
-
-        /* =================================================
-           ليس مسؤولًا
-        ================================================= */
 
         if (
             !roleData ||
@@ -497,30 +453,25 @@ async function checkAdmin() {
         ) {
 
             message.textContent =
-                "⛔ ليس لديك صلاحية الدخول إلى لوحة المسؤول.";
+                "⛔ ليس لديك صلاحية المسؤول.";
 
             message.style.color =
                 "red";
 
 
-            setTimeout(
-                function() {
+            setTimeout(function() {
 
-                    window.location.href =
-                        "trainee.html";
+                window.location.href =
+                    "trainee.html";
 
-                },
-                1500
-            );
+            }, 1500);
 
 
             return;
         }
 
 
-        /* =================================================
-           مسؤول
-        ================================================= */
+        /* الحساب مسؤول */
 
         message.style.display =
             "none";
@@ -533,14 +484,10 @@ async function checkAdmin() {
 
     catch (error) {
 
-        console.error(
-            "خطأ:",
-            error
-        );
-
+        console.error(error);
 
         message.textContent =
-            "حدث خطأ أثناء التحقق من الحساب.";
+            "❌ حدث خطأ أثناء التحقق من الحساب.";
 
         message.style.color =
             "red";
