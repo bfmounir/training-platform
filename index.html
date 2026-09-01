@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>منصة التكوين المتواصل</title>
 
     <style>
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -42,40 +48,121 @@
             cursor: pointer;
             font-size: 16px;
         }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .link-button {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 8px;
+            background: #1565c0;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .link-button:hover {
+            opacity: 0.9;
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
+
 <header>
-    <h1>منصة التكوين المتواصل</h1>
-    <p>المؤسسة العمومية الاستشفائية</p>
+
+    <h1>
+        منصة التكوين المتواصل
+    </h1>
+
+    <p>
+        المؤسسة العمومية الاستشفائية
+    </p>
+
 </header>
+
+
 
 <div class="container">
 
+
+    <!-- الدورات التكوينية -->
+
     <div class="card">
-        <h2>مرحبًا بكم</h2>
+
+        <h2>
+            مرحبًا بكم
+        </h2>
+
         <p>
             هذه المنصة مخصصة للتكوين المتواصل للعمال والمتربصين.
         </p>
 
-        <button onclick="alert('سيتم فتح الدورات التكوينية لاحقًا')">
-            الدورات التكوينية
-        </button>
+        <a
+            href="courses.html"
+            class="link-button"
+        >
+            📚 الدورات التكوينية
+        </a>
+
     </div>
 
-    <div class="card">
-        <h2>الدروس</h2>
-        <p>سيتم هنا عرض الدروس والمواد التكوينية.</p>
-    </div>
+
+
+    <!-- الدروس -->
 
     <div class="card">
-        <h2>الشهادات</h2>
-        <p>يمكن للمستفيدين تحميل شهاداتهم بعد إتمام التكوين.</p>
+
+        <h2>
+            الدروس
+        </h2>
+
+        <p>
+            يمكنكم الاطلاع على الدروس والمواد التكوينية.
+        </p>
+
+        <a
+            href="lessons.html"
+            class="link-button"
+        >
+            📖 الدخول إلى الدروس
+        </a>
+
     </div>
+
+
+
+    <!-- الشهادات -->
+
+    <div class="card">
+
+        <h2>
+            الشهادات
+        </h2>
+
+        <p>
+            يمكن للمستفيدين التحقق من صحة شهاداتهم إلكترونيًا.
+        </p>
+
+        <a
+            href="Verify.html"
+            class="link-button"
+        >
+            🎓 التحقق من الشهادة
+        </a>
+
+    </div>
+
 
 </div>
 
+
 </body>
+
 </html>
