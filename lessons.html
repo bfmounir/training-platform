@@ -5,11 +5,16 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>الدروس التكوينية</title>
+    <title>إدارة الدروس</title>
 
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
@@ -20,8 +25,12 @@
         header {
             background: #1565c0;
             color: white;
-            padding: 20px;
+            padding: 25px 20px;
             text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
         }
 
         .container {
@@ -35,6 +44,19 @@
             padding: 25px;
             border-radius: 12px;
             margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #1565c0;
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
         }
 
         input,
@@ -42,8 +64,7 @@
         select {
             width: 100%;
             padding: 12px;
-            margin: 8px 0 15px;
-            box-sizing: border-box;
+            margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 7px;
             font-size: 15px;
@@ -64,84 +85,185 @@
             font-size: 15px;
         }
 
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .back {
+            background: #555;
+            margin-top: 10px;
+        }
+
         .message {
             margin-top: 15px;
+            padding: 12px;
+            border-radius: 7px;
             font-weight: bold;
+            display: none;
+        }
+
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .info {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 12px;
+            border-radius: 7px;
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
         }
 
     </style>
 
 </head>
 
+
 <body>
+
 
 <header>
 
-    <h1>📖 الدروس التكوينية</h1>
+    <h1>
+        📖 إدارة الدروس
+    </h1>
 
-    <p>إدارة الدروس والمواد التعليمية</p>
+    <p>
+        لوحة تحكم المسؤول
+    </p>
 
 </header>
 
 
 <div class="container">
 
-    <div class="box">
 
-        <h2>➕ إضافة درس جديد</h2>
+    <!-- التحقق من المسؤول -->
 
-
-        <label>عنوان الدرس</label>
-
-        <input
-            type="text"
-            id="lessonTitle"
-            placeholder="مثال: مبادئ الإسعافات الأولية"
-        >
+    <div
+        id="loadingBox"
+        class="box loading"
+    >
+        ⏳ جاري التحقق من صلاحيات المسؤول...
+    </div>
 
 
-        <label>الدورة التكوينية</label>
+    <!-- المحتوى -->
 
-        <select id="lessonCourse">
-
-            <option value="">
-                جاري تحميل الدورات...
-            </option>
-
-        </select>
+    <div
+        id="adminContent"
+        style="display:none;"
+    >
 
 
-        <label>ملف الدرس PDF</label>
+        <div class="box">
 
-        <input
-            type="file"
-            id="lessonFile"
-            accept="application/pdf"
-        >
+            <h2>
+                ➕ إضافة درس جديد
+            </h2>
 
 
-        <label>محتوى الدرس</label>
+            <div class="info">
 
-        <textarea
-            id="lessonContent"
-            placeholder="اكتب محتوى الدرس هنا..."
-        ></textarea>
+                يمكنك إضافة درس وربطه بإحدى الدورات
+                مع ملف PDF.
 
-
-        <button
-            type="button"
-            onclick="addLesson()"
-        >
-            ➕ إضافة الدرس
-        </button>
+            </div>
 
 
-        <div
-            id="message"
-            class="message"
-        ></div>
+            <label>
+                عنوان الدرس
+            </label>
+
+            <input
+                type="text"
+                id="lessonTitle"
+                placeholder="مثال: مبادئ الإسعافات الأولية"
+            >
+
+
+            <label>
+                الدورة التكوينية
+            </label>
+
+            <select id="lessonCourse">
+
+                <option value="">
+                    جاري تحميل الدورات...
+                </option>
+
+            </select>
+
+
+            <label>
+                ملف الدرس PDF
+            </label>
+
+            <input
+                type="file"
+                id="lessonFile"
+                accept="application/pdf"
+            >
+
+
+            <label>
+                محتوى الدرس
+            </label>
+
+            <textarea
+                id="lessonContent"
+                placeholder="اكتب محتوى الدرس هنا..."
+            ></textarea>
+
+
+            <button
+                id="addButton"
+                type="button"
+                onclick="addLesson()"
+            >
+                ➕ إضافة الدرس
+            </button>
+
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+        </div>
+
+
+        <div class="box">
+
+            <button
+                class="back"
+                type="button"
+                onclick="window.location.href='admin.html'"
+            >
+                ⬅️ العودة إلى لوحة المسؤول
+            </button>
+
+        </div>
+
 
     </div>
+
 
 </div>
 
@@ -153,100 +275,259 @@
 
 <script>
 
+
+/* =====================================================
+   التحقق من المستخدم
+===================================================== */
+
+async function checkAdmin() {
+
+    const loadingBox =
+        document.getElementById(
+            "loadingBox"
+        );
+
+
+    const adminContent =
+        document.getElementById(
+            "adminContent"
+        );
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.auth.getUser();
+
+
+    if (
+        error ||
+        !data ||
+        !data.user
+    ) {
+
+        loadingBox.textContent =
+            "⛔ يجب تسجيل الدخول أولًا.";
+
+        setTimeout(function() {
+
+            window.location.href =
+                "login.html";
+
+        }, 1200);
+
+        return;
+
+    }
+
+
+    const user =
+        data.user;
+
+
+    /* التحقق من جدول الصلاحيات */
+
+    const {
+        data: roleData,
+        error: roleError
+    } =
+    await supabaseClient
+        .from("user_roles")
+        .select("role")
+        .eq(
+            "user_id",
+            user.id
+        )
+        .maybeSingle();
+
+
+    if (
+        roleError ||
+        !roleData ||
+        roleData.role !== "admin"
+    ) {
+
+        console.error(
+            "خطأ الصلاحية:",
+            roleError
+        );
+
+
+        loadingBox.textContent =
+            "⛔ ليس لديك صلاحية المسؤول.";
+
+        setTimeout(function() {
+
+            window.location.href =
+                "trainee.html";
+
+        }, 1500);
+
+        return;
+
+    }
+
+
+    loadingBox.style.display =
+        "none";
+
+
+    adminContent.style.display =
+        "block";
+
+
+    await loadCourses();
+
+}
+
+
+/* =====================================================
+   تحميل الدورات
+===================================================== */
+
 async function loadCourses() {
 
     const select =
-        document.getElementById("lessonCourse");
+        document.getElementById(
+            "lessonCourse"
+        );
 
 
-    const { data, error } =
-        await supabaseClient
-            .from("courses")
-            .select("id, name")
-            .order("name", {
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+        .from("courses")
+        .select(
+            "id, name"
+        )
+        .order(
+            "name",
+            {
                 ascending: true
-            });
+            }
+        );
 
 
     if (error) {
 
-        console.error(
-            "خطأ تحميل الدورات:",
-            error
-        );
+        console.error(error);
+
 
         select.innerHTML = `
+
             <option value="">
                 تعذر تحميل الدورات
             </option>
+
         `;
 
         return;
+
     }
 
 
     select.innerHTML = `
+
         <option value="">
             اختر الدورة
         </option>
+
     `;
 
 
-    if (!data || data.length === 0) {
+    if (
+        !data ||
+        data.length === 0
+    ) {
 
         select.innerHTML = `
+
             <option value="">
                 لا توجد دورات
             </option>
+
         `;
 
         return;
+
     }
 
 
     data.forEach(function(course) {
 
         const option =
-            document.createElement("option");
+            document.createElement(
+                "option"
+            );
+
 
         option.value =
             course.id;
 
+
         option.textContent =
             course.name;
 
-        select.appendChild(option);
+
+        select.appendChild(
+            option
+        );
 
     });
 
 }
 
 
+/* =====================================================
+   إضافة الدرس
+===================================================== */
+
 async function addLesson() {
 
     const title =
-        document.getElementById("lessonTitle")
-            .value.trim();
+        document.getElementById(
+            "lessonTitle"
+        ).value.trim();
 
 
     const courseId =
-        document.getElementById("lessonCourse")
-            .value;
+        document.getElementById(
+            "lessonCourse"
+        ).value;
 
 
     const content =
-        document.getElementById("lessonContent")
-            .value.trim();
+        document.getElementById(
+            "lessonContent"
+        ).value.trim();
 
 
     const file =
-        document.getElementById("lessonFile")
-            .files[0];
+        document.getElementById(
+            "lessonFile"
+        ).files[0];
 
 
     const message =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
 
+
+    const button =
+        document.getElementById(
+            "addButton"
+        );
+
+
+    message.style.display =
+        "block";
+
+
+    /* التحقق */
 
     if (
         title === "" ||
@@ -255,58 +536,118 @@ async function addLesson() {
     ) {
 
         message.textContent =
-            "يرجى ملء عنوان الدرس والدورة والمحتوى";
+            "يرجى ملء عنوان الدرس والدورة والمحتوى.";
 
-        message.style.color =
-            "red";
+        message.className =
+            "message error";
 
         return;
+
     }
 
 
     if (!file) {
 
         message.textContent =
-            "يرجى اختيار ملف PDF";
+            "يرجى اختيار ملف PDF.";
 
-        message.style.color =
-            "red";
+        message.className =
+            "message error";
 
         return;
+
     }
 
 
-    if (file.type !== "application/pdf") {
+    if (
+        file.type !==
+        "application/pdf"
+    ) {
 
         message.textContent =
-            "الملف يجب أن يكون بصيغة PDF";
+            "الملف يجب أن يكون بصيغة PDF.";
 
-        message.style.color =
-            "red";
+        message.className =
+            "message error";
 
         return;
+
     }
+
+
+    /* الحد الأقصى 20 MB */
+
+    if (
+        file.size >
+        20 * 1024 * 1024
+    ) {
+
+        message.textContent =
+            "حجم ملف PDF يجب ألا يتجاوز 20 ميغابايت.";
+
+        message.className =
+            "message error";
+
+        return;
+
+    }
+
+
+    button.disabled =
+        true;
 
 
     message.textContent =
-        "جاري رفع ملف PDF...";
+        "⏳ جاري رفع ملف PDF...";
 
-    message.style.color =
-        "black";
+    message.className =
+        "message";
+
+
+
+    /* =================================================
+       اسم الملف
+    ================================================= */
+
+    const safeName =
+        file.name
+            .replace(
+                /[^a-zA-Z0-9._-]/g,
+                "_"
+            );
 
 
     const fileName =
-        Date.now() + "_" + file.name;
+        Date.now() +
+        "_" +
+        safeName;
 
 
-    const { error: uploadError } =
-        await supabaseClient
-            .storage
-            .from("lesson-files")
-            .upload(
-                fileName,
-                file
-            );
+
+    /* =================================================
+       رفع الملف
+       
+       اسم الـBucket الصحيح:
+       Lessons-files
+    ================================================= */
+
+    const {
+        error: uploadError
+    } =
+    await supabaseClient
+        .storage
+        .from("Lessons-files")
+        .upload(
+            fileName,
+            file,
+            {
+                contentType:
+                    "application/pdf",
+
+                upsert:
+                    false
+            }
+        );
 
 
     if (uploadError) {
@@ -316,44 +657,68 @@ async function addLesson() {
             uploadError
         );
 
-        message.textContent =
-            "حدث خطأ أثناء رفع ملف PDF";
 
-        message.style.color =
-            "red";
+        message.textContent =
+            "❌ فشل رفع ملف PDF: " +
+            uploadError.message;
+
+        message.className =
+            "message error";
+
+
+        button.disabled =
+            false;
 
         return;
+
     }
 
 
-    const { data: urlData } =
+
+    /* =================================================
+       الحصول على الرابط
+    ================================================= */
+
+    const {
+        data: urlData
+    } =
     supabaseClient
         .storage
-        .from("lesson-files")
-        .getPublicUrl(fileName);
+        .from("Lessons-files")
+        .getPublicUrl(
+            fileName
+        );
 
-const pdfUrl =
-    urlData.publicUrl;
+
+    const pdfUrl =
+        urlData.publicUrl;
 
 
-    const { error: lessonError } =
-        await supabaseClient
-            .from("lessons")
-            .insert({
 
-                course_id:
-                    courseId,
+    /* =================================================
+       حفظ الدرس في جدول lessons
+    ================================================= */
 
-                title:
-                    title,
+    const {
+        error: lessonError
+    } =
+    await supabaseClient
+        .from("lessons")
+        .insert({
 
-                content:
-                    content,
+            course_id:
+                courseId,
 
-                pdf_url:
-                    pdfUrl
+            title:
+                title,
 
-            });
+            content:
+                content,
+
+            pdf_url:
+                pdfUrl
+
+        });
 
 
     if (lessonError) {
@@ -363,21 +728,33 @@ const pdfUrl =
             lessonError
         );
 
-        message.textContent =
-            "تم رفع PDF لكن حدث خطأ أثناء حفظ الدرس";
 
-        message.style.color =
-            "red";
+        message.textContent =
+            "⚠️ تم رفع PDF لكن تعذر حفظ بيانات الدرس: " +
+            lessonError.message;
+
+        message.className =
+            "message error";
+
+
+        button.disabled =
+            false;
 
         return;
+
     }
 
 
-    message.textContent =
-        "تم حفظ الدرس وملف PDF بنجاح ✅";
 
-    message.style.color =
-        "green";
+    /* =================================================
+       نجاح
+    ================================================= */
+
+    message.textContent =
+        "✅ تم حفظ الدرس ورفع ملف PDF بنجاح.";
+
+    message.className =
+        "message success";
 
 
     document.getElementById(
@@ -399,10 +776,19 @@ const pdfUrl =
         "lessonFile"
     ).value = "";
 
+
+    button.disabled =
+        false;
+
 }
 
 
-loadCourses();
+/* =====================================================
+   تشغيل الصفحة
+===================================================== */
+
+checkAdmin();
+
 
 </script>
 
