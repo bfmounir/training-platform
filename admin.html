@@ -8,7 +8,9 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>لوحة تحكم المسؤول - منصة التكوين المتواصل</title>
+<title>
+لوحة تحكم المسؤول | منصة التكوين المتواصل
+</title>
 
 <style>
 
@@ -21,15 +23,15 @@
 }
 
 body {
-
     margin: 0;
-
     font-family: Tahoma, Arial, sans-serif;
-
-    background: #f4f7fb;
-
+    background:
+        linear-gradient(
+            135deg,
+            #f1f6fc,
+            #f8fbff
+        );
     color: #172b4d;
-
 }
 
 
@@ -49,7 +51,19 @@ header {
 
     color: white;
 
-    padding: 18px 30px;
+    padding: 20px 30px;
+
+    box-shadow:
+        0 6px 25px rgba(0,0,0,0.15);
+
+}
+
+
+.header-content {
+
+    max-width: 1200px;
+
+    margin: auto;
 
     display: flex;
 
@@ -59,13 +73,12 @@ header {
 
     gap: 20px;
 
-    box-shadow:
-        0 5px 20px rgba(0,0,0,0.15);
-
 }
 
 
-/* جهة الشعار */
+/* =====================================================
+   الهوية
+===================================================== */
 
 .brand {
 
@@ -73,46 +86,74 @@ header {
 
     align-items: center;
 
-    gap: 14px;
+    gap: 15px;
+
 }
 
 
 .logo {
 
-    width: 58px;
+    width: 65px;
 
-    height: 58px;
+    height: 65px;
 
     background: white;
 
-    border-radius: 15px;
+    border-radius: 17px;
 
-    padding: 5px;
+    padding: 6px;
 
     object-fit: contain;
 
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.15);
+
 }
 
 
-.brand-text h1 {
+.brand-text {
+
+    line-height: 1.5;
+
+}
+
+
+.platform-name {
 
     margin: 0;
 
-    font-size: 20px;
+    font-size: 21px;
+
+    font-weight: bold;
+
 }
 
 
-.brand-text p {
+.institution {
 
-    margin: 5px 0 0;
+    margin: 3px 0;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+}
+
+
+.office {
+
+    margin: 2px 0;
 
     font-size: 13px;
 
-    opacity: 0.9;
+    opacity: .92;
+
 }
 
 
-/* أزرار الهيدر */
+/* =====================================================
+   أزرار الهيدر
+===================================================== */
 
 .header-actions {
 
@@ -121,20 +162,21 @@ header {
     align-items: center;
 
     gap: 10px;
+
 }
 
 
 .header-btn {
 
     border: 1px solid
-        rgba(255,255,255,0.25);
+        rgba(255,255,255,.3);
 
     background:
-        rgba(255,255,255,0.13);
+        rgba(255,255,255,.13);
 
     color: white;
 
-    padding: 10px 16px;
+    padding: 10px 17px;
 
     border-radius: 25px;
 
@@ -144,31 +186,35 @@ header {
 
     font-size: 13px;
 
-    transition: 0.3s;
+    transition: .3s;
+
 }
 
 
 .header-btn:hover {
 
     background:
-        rgba(255,255,255,0.25);
+        rgba(255,255,255,.25);
 
     transform:
         translateY(-2px);
+
 }
 
 
 /* =====================================================
-   الحاوية الرئيسية
+   الحاوية
 ===================================================== */
 
 .container {
 
     max-width: 1200px;
 
-    margin: 0 auto;
+    margin: auto;
 
-    padding: 30px 22px 45px;
+    padding:
+        30px 22px 45px;
+
 }
 
 
@@ -185,6 +231,7 @@ header {
     font-weight: bold;
 
     color: #0d6efd;
+
 }
 
 
@@ -207,10 +254,11 @@ header {
     margin-bottom: 25px;
 
     box-shadow:
-        0 8px 25px rgba(0,0,0,0.07);
+        0 8px 25px rgba(0,0,0,.07);
 
     border:
         1px solid #edf1f6;
+
 }
 
 
@@ -220,18 +268,19 @@ header {
 
     position: absolute;
 
-    width: 180px;
+    width: 190px;
 
-    height: 180px;
+    height: 190px;
 
     border-radius: 50%;
 
     background:
-        rgba(13,110,253,0.06);
+        rgba(13,110,253,.06);
 
     left: -70px;
 
     top: -80px;
+
 }
 
 
@@ -240,6 +289,7 @@ header {
     position: relative;
 
     z-index: 1;
+
 }
 
 
@@ -250,6 +300,7 @@ header {
     color: #073b78;
 
     font-size: 24px;
+
 }
 
 
@@ -260,6 +311,41 @@ header {
     color: #667085;
 
     line-height: 1.8;
+
+}
+
+
+/* =====================================================
+   بيانات المسؤول
+===================================================== */
+
+.manager-info {
+
+    margin-top: 20px;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+}
+
+
+.manager-item {
+
+    background: #f1f7ff;
+
+    color: #164a85;
+
+    padding: 9px 14px;
+
+    border-radius: 12px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
 }
 
 
@@ -277,6 +363,7 @@ header {
 
     margin:
         25px 0 17px;
+
 }
 
 
@@ -287,6 +374,7 @@ header {
     color: #073b78;
 
     font-size: 19px;
+
 }
 
 
@@ -295,11 +383,12 @@ header {
     color: #98a2b3;
 
     font-size: 13px;
+
 }
 
 
 /* =====================================================
-   بطاقات الإحصائيات
+   الإحصائيات
 ===================================================== */
 
 .stats {
@@ -307,11 +396,12 @@ header {
     display: grid;
 
     grid-template-columns:
-        repeat(4, 1fr);
+        repeat(4,1fr);
 
     gap: 16px;
 
     margin-bottom: 25px;
+
 }
 
 
@@ -327,13 +417,14 @@ header {
         1px solid #edf1f6;
 
     box-shadow:
-        0 5px 18px rgba(0,0,0,0.05);
+        0 5px 18px rgba(0,0,0,.05);
 
     display: flex;
 
     align-items: center;
 
     gap: 15px;
+
 }
 
 
@@ -351,10 +442,10 @@ header {
 
     align-items: center;
 
-    background:
-        #eef6ff;
+    background: #eef6ff;
 
     font-size: 25px;
+
 }
 
 
@@ -365,6 +456,7 @@ header {
     font-size: 22px;
 
     color: #073b78;
+
 }
 
 
@@ -375,6 +467,7 @@ header {
     color: #98a2b3;
 
     font-size: 12px;
+
 }
 
 
@@ -387,9 +480,10 @@ header {
     display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3,1fr);
 
     gap: 20px;
+
 }
 
 
@@ -405,17 +499,18 @@ header {
         1px solid #edf1f6;
 
     box-shadow:
-        0 7px 22px rgba(0,0,0,0.06);
+        0 7px 22px rgba(0,0,0,.06);
 
     text-align: center;
 
     transition:
-        transform 0.3s,
-        box-shadow 0.3s;
+        transform .3s,
+        box-shadow .3s;
 
     position: relative;
 
     overflow: hidden;
+
 }
 
 
@@ -440,6 +535,7 @@ header {
             #0d6efd,
             #159f9f
         );
+
 }
 
 
@@ -449,7 +545,8 @@ header {
         translateY(-5px);
 
     box-shadow:
-        0 14px 30px rgba(0,0,0,0.10);
+        0 14px 30px rgba(0,0,0,.10);
+
 }
 
 
@@ -459,7 +556,8 @@ header {
 
     height: 70px;
 
-    margin: 5px auto 15px;
+    margin:
+        5px auto 15px;
 
     border-radius: 20px;
 
@@ -469,10 +567,10 @@ header {
 
     justify-content: center;
 
-    background:
-        #f0f6ff;
+    background: #f0f6ff;
 
     font-size: 34px;
+
 }
 
 
@@ -483,6 +581,7 @@ header {
     color: #073b78;
 
     font-size: 18px;
+
 }
 
 
@@ -498,11 +597,12 @@ header {
 
     margin:
         8px 0 18px;
+
 }
 
 
 /* =====================================================
-   أزرار فتح الأقسام
+   الأزرار
 ===================================================== */
 
 .open-button {
@@ -530,7 +630,8 @@ header {
 
     cursor: pointer;
 
-    transition: 0.3s;
+    transition: .3s;
+
 }
 
 
@@ -541,12 +642,13 @@ header {
 
     box-shadow:
         0 7px 18px
-        rgba(13,110,253,0.25);
+        rgba(13,110,253,.25);
+
 }
 
 
 /* =====================================================
-   زر تسجيل الخروج
+   تسجيل الخروج
 ===================================================== */
 
 .logout-area {
@@ -554,6 +656,7 @@ header {
     margin-top: 30px;
 
     text-align: center;
+
 }
 
 
@@ -561,11 +664,9 @@ header {
 
     border: none;
 
-    background:
-        #fff;
+    background: white;
 
-    color:
-        #dc3545;
+    color: #dc3545;
 
     border:
         1px solid #f0c8ce;
@@ -581,35 +682,87 @@ header {
 
     font-weight: bold;
 
-    transition: 0.3s;
+    transition: .3s;
+
 }
 
 
 .logout:hover {
 
-    background:
-        #dc3545;
+    background: #dc3545;
 
     color: white;
 
     transform:
         translateY(-2px);
+
 }
 
 
 /* =====================================================
-   تذييل
+   التذييل الرسمي
 ===================================================== */
 
 footer {
 
+    margin-top: 20px;
+
+    background:
+        #062d5c;
+
+    color: white;
+
     text-align: center;
 
-    padding: 22px;
+    padding: 25px 15px;
 
-    color: #98a2b3;
+    line-height: 1.9;
 
-    font-size: 12px;
+}
+
+
+.footer-institution {
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+}
+
+
+.footer-office {
+
+    font-size: 13px;
+
+    opacity: .9;
+
+}
+
+
+.footer-manager {
+
+    margin-top: 4px;
+
+    font-size: 13px;
+
+}
+
+
+.footer-phone {
+
+    display: inline-block;
+
+    margin-top: 8px;
+
+    background:
+        rgba(255,255,255,.12);
+
+    padding: 7px 15px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
 }
 
 
@@ -617,33 +770,57 @@ footer {
    الهاتف
 ===================================================== */
 
-@media (max-width: 900px) {
+@media (max-width:900px) {
 
     .stats {
 
         grid-template-columns:
-            repeat(2, 1fr);
+            repeat(2,1fr);
+
     }
 
 
     .cards {
 
         grid-template-columns:
-            repeat(2, 1fr);
+            repeat(2,1fr);
+
     }
 
 }
 
 
-@media (max-width: 650px) {
+@media (max-width:650px) {
 
     header {
 
-        padding: 15px;
+        padding: 17px 14px;
+
+    }
+
+
+    .header-content {
 
         flex-direction: column;
 
         text-align: center;
+
+    }
+
+
+    .brand {
+
+        justify-content: center;
+
+        flex-direction: column;
+
+    }
+
+
+    .brand-text {
+
+        text-align: center;
+
     }
 
 
@@ -652,31 +829,29 @@ footer {
         width: 100%;
 
         justify-content: center;
-    }
 
-
-    .brand {
-
-        justify-content: center;
     }
 
 
     .container {
 
         padding:
-            20px 15px 35px;
+            20px 14px 35px;
+
     }
 
 
     .welcome {
 
         padding: 22px;
+
     }
 
 
     .welcome h2 {
 
         font-size: 20px;
+
     }
 
 
@@ -686,6 +861,7 @@ footer {
             1fr 1fr;
 
         gap: 10px;
+
     }
 
 
@@ -698,28 +874,33 @@ footer {
         text-align: center;
 
         gap: 8px;
+
     }
 
 
     .cards {
 
         grid-template-columns: 1fr;
+
     }
 
 
-    .card {
+    .manager-info {
 
-        padding: 23px;
+        flex-direction: column;
+
     }
 
 }
 
 
-@media (max-width: 400px) {
+@media (max-width:400px) {
 
     .stats {
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
+
     }
 
 }
@@ -733,46 +914,57 @@ footer {
 
 
 <!-- =====================================================
-     الشريط العلوي
+     الهيدر
 ===================================================== -->
 
 <header>
 
+    <div class="header-content">
 
-    <div class="brand">
 
-        <img
-            src="logo.png"
-            class="logo"
-            alt="شعار المنصة"
-        >
+        <div class="brand">
 
-        <div class="brand-text">
 
-            <h1>
-                منصة التكوين المتواصل
-            </h1>
+            <img
+                src="logo.png"
+                class="logo"
+                alt="شعار المؤسسة"
+            >
 
-            <p>
-                لوحة تحكم المسؤول
-            </p>
+
+            <div class="brand-text">
+
+                <h1 class="platform-name">
+                    منصة التكوين المتواصل
+                </h1>
+
+                <div class="institution">
+                    المؤسسة العمومية الإستشفائية بأولف
+                </div>
+
+                <div class="office">
+                    ولاية أدرار — مكتب التكوين المتواصل
+                </div>
+
+            </div>
+
 
         </div>
 
+
+        <div class="header-actions">
+
+            <a
+                href="index.html"
+                class="header-btn"
+            >
+                🏠 الرئيسية
+            </a>
+
+        </div>
+
+
     </div>
-
-
-    <div class="header-actions">
-
-        <a
-            href="index.html"
-            class="header-btn"
-        >
-            🏠 الرئيسية
-        </a>
-
-    </div>
-
 
 </header>
 
@@ -784,14 +976,10 @@ footer {
 <div class="container">
 
 
-    <!-- رسالة التحقق -->
-
     <div id="message">
         ⏳ جاري التحقق من صلاحيات المسؤول...
     </div>
 
-
-    <!-- محتوى المسؤول -->
 
     <div
         id="adminContent"
@@ -799,27 +987,49 @@ footer {
     >
 
 
-        <!-- الترحيب -->
+        <!-- =================================================
+             الترحيب
+        ================================================= -->
 
         <div class="welcome">
 
             <div class="welcome-content">
 
+
                 <h2>
                     مرحبًا بك في لوحة التحكم 👋
                 </h2>
+
 
                 <p>
                     من هنا يمكنك إدارة منصة التكوين المتواصل
                     ومتابعة الدورات والدروس والمتربصين والشهادات.
                 </p>
 
+
+                <div class="manager-info">
+
+                    <div class="manager-item">
+                        👨‍💼 رئيس مكتب التكوين المتواصل:
+                        بن صغير منير
+                    </div>
+
+
+                    <div class="manager-item">
+                        📞 0660.48.43.73
+                    </div>
+
+                </div>
+
+
             </div>
 
         </div>
 
 
-        <!-- الإحصائيات -->
+        <!-- =================================================
+             الإحصائيات
+        ================================================= -->
 
         <div class="section-title">
 
@@ -916,7 +1126,9 @@ footer {
         </div>
 
 
-        <!-- أقسام الإدارة -->
+        <!-- =================================================
+             الإدارة
+        ================================================= -->
 
         <div class="section-title">
 
@@ -1064,7 +1276,7 @@ footer {
             </div>
 
 
-            <!-- المساعد الذكي -->
+            <!-- الذكاء الاصطناعي -->
 
             <div class="card">
 
@@ -1093,7 +1305,9 @@ footer {
         </div>
 
 
-        <!-- تسجيل الخروج -->
+        <!-- =================================================
+             تسجيل الخروج
+        ================================================= -->
 
         <div class="logout-area">
 
@@ -1109,17 +1323,41 @@ footer {
 
     </div>
 
-
 </div>
 
 
+<!-- =====================================================
+     التذييل
+===================================================== -->
+
 <footer>
 
-    منصة التكوين المتواصل
+    <div class="footer-institution">
 
-    <br>
+        المؤسسة العمومية الإستشفائية بأولف – ولاية أدرار
 
-    المؤسسة العمومية الاستشفائية بأولف
+    </div>
+
+
+    <div class="footer-office">
+
+        مكتب التكوين المتواصل
+
+    </div>
+
+
+    <div class="footer-manager">
+
+        رئيس مكتب التكوين المتواصل: بن صغير منير
+
+    </div>
+
+
+    <div class="footer-phone">
+
+        📞 0660.48.43.73
+
+    </div>
 
 </footer>
 
@@ -1136,7 +1374,7 @@ footer {
 <script>
 
 /* =====================================================
-   التحقق من حساب المسؤول
+   التحقق من المسؤول
 ===================================================== */
 
 async function checkAdmin() {
@@ -1144,14 +1382,13 @@ async function checkAdmin() {
     const message =
         document.getElementById("message");
 
+
     const adminContent =
         document.getElementById("adminContent");
 
 
     try {
 
-
-        /* الحصول على الحساب الحالي */
 
         const {
             data: userData,
@@ -1168,8 +1405,10 @@ async function checkAdmin() {
             !userData.user
         ) {
 
+
             message.textContent =
                 "⛔ يجب تسجيل الدخول أولًا.";
+
 
             message.style.color =
                 "#dc3545";
@@ -1180,18 +1419,17 @@ async function checkAdmin() {
                 window.location.href =
                     "login.html";
 
-            }, 1200);
+            },1200);
 
 
             return;
+
         }
 
 
         const user =
             userData.user;
 
-
-        /* التحقق من الصلاحية */
 
         const {
             data: roleData,
@@ -1209,6 +1447,7 @@ async function checkAdmin() {
 
         if (roleError) {
 
+
             console.error(
                 "خطأ التحقق من الصلاحية:",
                 roleError
@@ -1218,22 +1457,25 @@ async function checkAdmin() {
             message.textContent =
                 "❌ تعذر التحقق من صلاحية الحساب.";
 
+
             message.style.color =
                 "#dc3545";
 
+
             return;
+
         }
 
-
-        /* التأكد من أن المستخدم مسؤول */
 
         if (
             !roleData ||
             roleData.role !== "admin"
         ) {
 
+
             message.textContent =
                 "⛔ ليس لديك صلاحية المسؤول.";
+
 
             message.style.color =
                 "#dc3545";
@@ -1244,19 +1486,17 @@ async function checkAdmin() {
                 window.location.href =
                     "trainee.html";
 
-            }, 1500);
+            },1500);
 
 
             return;
+
         }
 
 
-        /* =================================================
-           الحساب مسؤول
-        ================================================= */
-
         message.style.display =
             "none";
+
 
         adminContent.style.display =
             "block";
@@ -1264,13 +1504,15 @@ async function checkAdmin() {
 
     }
 
-    catch (error) {
+    catch(error) {
+
 
         console.error(error);
 
 
         message.textContent =
             "❌ حدث خطأ أثناء التحقق من الحساب.";
+
 
         message.style.color =
             "#dc3545";
@@ -1289,6 +1531,7 @@ async function logout() {
     await supabaseClient
         .auth
         .signOut();
+
 
     window.location.href =
         "login.html";
