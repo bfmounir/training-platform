@@ -24,7 +24,12 @@ body {
     margin: 0;
     font-family: "Segoe UI", Tahoma, Arial, sans-serif;
     background:
-        linear-gradient(135deg, #eef4ff 0%, #f8fbff 45%, #eefaf7 100%);
+        linear-gradient(
+            135deg,
+            #eef4ff 0%,
+            #f8fbff 45%,
+            #eefaf7 100%
+        );
     color: #1e293b;
     min-height: 100vh;
 }
@@ -36,18 +41,28 @@ body {
 
 .header {
     background:
-        linear-gradient(135deg, #0f3d91, #1769d1);
+        linear-gradient(
+            135deg,
+            #0f3d91,
+            #1769d1
+        );
+
     color: white;
+
     padding: 28px 20px;
-    box-shadow: 0 8px 25px rgba(15, 61, 145, 0.18);
+
+    box-shadow:
+        0 8px 25px rgba(15, 61, 145, 0.18);
 }
 
 .header-content {
     max-width: 1150px;
     margin: auto;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: 20px;
 }
 
@@ -60,13 +75,21 @@ body {
 .logo {
     width: 58px;
     height: 58px;
+
     border-radius: 17px;
-    background: rgba(255,255,255,0.16);
+
+    background:
+        rgba(255,255,255,0.16);
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     font-size: 30px;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(255,255,255,0.15);
 }
 
 .header h1 {
@@ -98,11 +121,19 @@ body {
 
 .loading-screen {
     background: white;
+
     border-radius: 22px;
+
     padding: 55px 25px;
+
     text-align: center;
-    box-shadow: 0 10px 35px rgba(30, 64, 175, 0.08);
+
+    box-shadow:
+        0 10px 35px
+        rgba(30, 64, 175, 0.08);
+
     color: #475569;
+
     font-size: 16px;
 }
 
@@ -113,49 +144,76 @@ body {
 
 .stats {
     display: grid;
+
     grid-template-columns:
         repeat(3, 1fr);
+
     gap: 18px;
+
     margin-bottom: 25px;
 }
 
 .stat-card {
-    background: rgba(255,255,255,.92);
-    border: 1px solid rgba(226,232,240,.9);
+    background:
+        rgba(255,255,255,.92);
+
+    border:
+        1px solid
+        rgba(226,232,240,.9);
+
     border-radius: 20px;
+
     padding: 22px;
+
     display: flex;
     align-items: center;
+
     gap: 16px;
-    box-shadow: 0 8px 25px rgba(15, 23, 42, .06);
+
+    box-shadow:
+        0 8px 25px
+        rgba(15, 23, 42, .06);
+
     transition: .25s ease;
 }
 
 .stat-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 30px rgba(15, 23, 42, .10);
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 14px 30px
+        rgba(15, 23, 42, .10);
 }
 
 .stat-icon {
     width: 52px;
     height: 52px;
+
     border-radius: 15px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     font-size: 25px;
+
     background: #eaf2ff;
 }
 
 .stat-number {
     font-size: 25px;
+
     font-weight: 800;
+
     color: #0f3d91;
 }
 
 .stat-title {
     color: #64748b;
+
     font-size: 13px;
+
     margin-top: 3px;
 }
 
@@ -165,41 +223,62 @@ body {
 ========================= */
 
 .box {
-    background: rgba(255,255,255,.95);
+    background:
+        rgba(255,255,255,.95);
+
     border-radius: 22px;
+
     padding: 27px;
+
     margin-bottom: 25px;
-    border: 1px solid rgba(226,232,240,.9);
-    box-shadow: 0 10px 35px rgba(15,23,42,.07);
+
+    border:
+        1px solid
+        rgba(226,232,240,.9);
+
+    box-shadow:
+        0 10px 35px
+        rgba(15,23,42,.07);
 }
 
 .box-title {
     display: flex;
+
     align-items: center;
+
     gap: 12px;
+
     margin-bottom: 23px;
 }
 
 .box-title-icon {
     width: 44px;
     height: 44px;
+
     border-radius: 13px;
+
     background: #eaf2ff;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     font-size: 21px;
 }
 
 .box h2 {
     margin: 0;
+
     font-size: 21px;
+
     color: #0f3d91;
 }
 
 .box-subtitle {
     color: #64748b;
+
     font-size: 13px;
+
     margin-top: 5px;
 }
 
@@ -210,7 +289,10 @@ body {
 
 .form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap: 18px;
 }
 
@@ -224,35 +306,54 @@ body {
 
 label {
     display: block;
+
     margin-bottom: 8px;
+
     color: #334155;
+
     font-weight: 700;
+
     font-size: 14px;
 }
 
 input,
 textarea {
     width: 100%;
-    border: 1px solid #d8e0ea;
+
+    border:
+        1px solid #d8e0ea;
+
     background: #f8fafc;
+
     padding: 14px 15px;
+
     border-radius: 13px;
+
     font-size: 15px;
+
     font-family: inherit;
+
     color: #1e293b;
+
     outline: none;
+
     transition: .2s ease;
 }
 
 input:focus,
 textarea:focus {
     background: white;
+
     border-color: #1769d1;
-    box-shadow: 0 0 0 4px rgba(23,105,209,.10);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(23,105,209,.10);
 }
 
 textarea {
     min-height: 115px;
+
     resize: vertical;
 }
 
@@ -263,53 +364,86 @@ textarea {
 
 .button-row {
     display: flex;
+
     flex-wrap: wrap;
+
     gap: 10px;
+
     margin-top: 22px;
 }
 
 button {
     border: none;
+
     cursor: pointer;
+
     border-radius: 12px;
+
     padding: 12px 20px;
+
     font-size: 14px;
+
     font-family: inherit;
+
     font-weight: 700;
+
     transition: .2s ease;
 }
 
 button:hover {
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 }
 
 button:active {
-    transform: translateY(0);
+    transform:
+        translateY(0);
+}
+
+button:disabled {
+    opacity: .6;
+
+    cursor: not-allowed;
+
+    transform: none;
 }
 
 .primary {
-    background: linear-gradient(135deg, #1769d1, #0f4fa8);
+    background:
+        linear-gradient(
+            135deg,
+            #1769d1,
+            #0f4fa8
+        );
+
     color: white;
-    box-shadow: 0 6px 15px rgba(23,105,209,.20);
+
+    box-shadow:
+        0 6px 15px
+        rgba(23,105,209,.20);
 }
 
 .secondary {
     background: #64748b;
+
     color: white;
 }
 
 .success {
     background: #0f9f6e;
+
     color: white;
 }
 
 .warning {
     background: #f59e0b;
+
     color: white;
 }
 
 .danger {
     background: #dc3545;
+
     color: white;
 }
 
@@ -320,23 +454,34 @@ button:active {
 
 .message {
     display: none;
+
     padding: 14px 16px;
+
     border-radius: 12px;
+
     margin-top: 18px;
+
     font-size: 14px;
+
     font-weight: 600;
 }
 
 .message.ok {
     background: #ecfdf5;
+
     color: #087f5b;
-    border: 1px solid #bbf7d0;
+
+    border:
+        1px solid #bbf7d0;
 }
 
 .message.error {
     background: #fff1f2;
+
     color: #be123c;
-    border: 1px solid #fecdd3;
+
+    border:
+        1px solid #fecdd3;
 }
 
 
@@ -346,18 +491,27 @@ button:active {
 
 .courses-header {
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
     gap: 15px;
+
     margin-bottom: 22px;
 }
 
 .course-count {
     background: #eaf2ff;
+
     color: #0f4fa8;
+
     padding: 7px 13px;
+
     border-radius: 20px;
+
     font-size: 13px;
+
     font-weight: 700;
 }
 
@@ -368,65 +522,97 @@ button:active {
 
 .course {
     position: relative;
+
     background: white;
-    border: 1px solid #e2e8f0;
+
+    border:
+        1px solid #e2e8f0;
+
     border-radius: 19px;
+
     padding: 22px;
+
     margin-bottom: 16px;
+
     transition: .25s ease;
+
     overflow: hidden;
 }
 
 .course::before {
     content: "";
+
     position: absolute;
+
     top: 0;
     right: 0;
+
     width: 5px;
     height: 100%;
-    background: linear-gradient(
-        to bottom,
-        #1769d1,
-        #0f9f6e
-    );
+
+    background:
+        linear-gradient(
+            to bottom,
+            #1769d1,
+            #0f9f6e
+        );
 }
 
 .course:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(15,23,42,.08);
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 12px 30px
+        rgba(15,23,42,.08);
 }
 
 .course h3 {
     margin: 0 0 17px;
+
     color: #0f3d91;
+
     font-size: 19px;
 }
 
 .info {
     display: flex;
+
     gap: 7px;
+
     margin: 9px 0;
+
     color: #475569;
+
     font-size: 14px;
+
     line-height: 1.7;
 }
 
 .info strong {
     color: #334155;
+
     min-width: 75px;
 }
 
 .actions {
     display: flex;
+
     flex-wrap: wrap;
+
     gap: 8px;
-    border-top: 1px solid #eef2f7;
+
+    border-top:
+        1px solid #eef2f7;
+
     padding-top: 16px;
+
     margin-top: 17px;
 }
 
 .actions button {
     padding: 10px 15px;
+
     font-size: 13px;
 }
 
@@ -437,19 +623,25 @@ button:active {
 
 .empty {
     text-align: center;
+
     padding: 50px 20px;
+
     color: #64748b;
 }
 
 .empty-icon {
     font-size: 48px;
+
     margin-bottom: 12px;
 }
 
 .empty-title {
     font-size: 18px;
+
     font-weight: 700;
+
     color: #334155;
+
     margin-bottom: 5px;
 }
 
@@ -460,7 +652,9 @@ button:active {
 
 .back-button {
     width: 100%;
+
     margin-top: 5px;
+
     padding: 14px;
 }
 
@@ -482,6 +676,7 @@ button:active {
 
     .header-content {
         flex-direction: column;
+
         text-align: center;
     }
 
@@ -503,21 +698,26 @@ button:active {
 
     .box {
         padding: 20px;
+
         border-radius: 18px;
     }
 
     .container {
         margin-top: 20px;
-        padding: 0 13px 30px;
+
+        padding:
+            0 13px 30px;
     }
 
     .courses-header {
         align-items: flex-start;
+
         flex-direction: column;
     }
 
     .actions button {
-        flex: 1 1 auto;
+        flex:
+            1 1 auto;
     }
 
     .info {
@@ -762,6 +962,7 @@ button:active {
     <div class="button-row">
 
         <button
+            id="saveButton"
             class="primary"
             onclick="saveCourse()"
         >
@@ -887,12 +1088,14 @@ function showMessage(text, type = "ok") {
     box.className =
         "message " + type;
 
-    box.style.display = "block";
+    box.style.display =
+        "block";
 
 
     setTimeout(function() {
 
-        box.style.display = "none";
+        box.style.display =
+            "none";
 
     }, 5000);
 
@@ -909,7 +1112,9 @@ async function getCurrentUser() {
         data,
         error
     } =
-    await supabaseClient.auth.getUser();
+    await supabaseClient
+        .auth
+        .getUser();
 
 
     if (
@@ -935,10 +1140,14 @@ async function getCurrentUser() {
 async function checkAdmin() {
 
     const loading =
-        document.getElementById("loadingBox");
+        document.getElementById(
+            "loadingBox"
+        );
 
     const content =
-        document.getElementById("adminContent");
+        document.getElementById(
+            "adminContent"
+        );
 
 
     currentUser =
@@ -984,6 +1193,12 @@ async function checkAdmin() {
         roleData.role !== "admin"
     ) {
 
+        console.error(
+            "خطأ الصلاحية:",
+            error
+        );
+
+
         loading.textContent =
             "⛔ هذه الصفحة مخصصة للمسؤول فقط.";
 
@@ -1022,7 +1237,9 @@ async function checkAdmin() {
 async function loadCourses() {
 
     const list =
-        document.getElementById("coursesList");
+        document.getElementById(
+            "coursesList"
+        );
 
 
     list.innerHTML =
@@ -1048,11 +1265,16 @@ async function loadCourses() {
 
     if (error) {
 
-        console.error(error);
+        console.error(
+            "خطأ تحميل الدورات:",
+            error
+        );
 
 
         list.innerHTML =
-            '<div class="message error" style="display:block;">❌ تعذر تحميل الدورات.</div>';
+            '<div class="message error" style="display:block;">❌ تعذر تحميل الدورات.<br><br>' +
+            escapeHtml(error.message) +
+            '</div>';
 
         return;
 
@@ -1250,6 +1472,16 @@ async function saveCourse() {
     };
 
 
+    const saveButton =
+        document.getElementById(
+            "saveButton"
+        );
+
+
+    saveButton.disabled =
+        true;
+
+
     let result;
 
 
@@ -1259,23 +1491,29 @@ async function saveCourse() {
             await supabaseClient
                 .from("courses")
                 .update(courseData)
-                .eq("id", id);
+                .eq("id", id)
+                .select("id");
 
-    }
 
-    else {
+    } else {
 
         result =
             await supabaseClient
                 .from("courses")
-                .insert(courseData);
+                .insert(courseData)
+                .select("id");
 
     }
+
+
+    saveButton.disabled =
+        false;
 
 
     if (result.error) {
 
         console.error(
+            "خطأ الحفظ:",
             result.error
         );
 
@@ -1283,6 +1521,21 @@ async function saveCourse() {
         showMessage(
             "❌ حدث خطأ: " +
             result.error.message,
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !result.data ||
+        result.data.length === 0
+    ) {
+
+        showMessage(
+            "⚠️ لم يتم حفظ الدورة. لم تسمح قاعدة البيانات بالعملية.",
             "error"
         );
 
@@ -1386,27 +1639,32 @@ function clearForm() {
 
     document.getElementById(
         "courseId"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "courseName"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "courseDescription"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "courseDate"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "targetAudience"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
@@ -1425,14 +1683,16 @@ function clearForm() {
 
 
 /* =====================================================
-   حذف الدورة
+   حذف الدورة - النسخة المصححة
 ===================================================== */
 
 async function deleteCourse(courseId) {
 
     const confirmed =
         confirm(
-            "هل أنت متأكد من حذف هذه الدورة؟"
+            "⚠️ هل أنت متأكد من حذف هذه الدورة؟\n\n" +
+            "سيتم حذف الدورة من قائمة الدورات.\n\n" +
+            "اضغط «موافق» للمتابعة."
         );
 
 
@@ -1443,39 +1703,172 @@ async function deleteCourse(courseId) {
     }
 
 
-    const {
-        error
-    } =
-    await supabaseClient
-        .from("courses")
-        .delete()
-        .eq(
-            "id",
-            courseId
+    try {
+
+        /* ---------------------------------------------
+           1. التحقق من وجود الدورة
+        --------------------------------------------- */
+
+        const {
+            data: existingCourse,
+            error: checkError
+        } =
+        await supabaseClient
+            .from("courses")
+            .select(
+                "id, name"
+            )
+            .eq(
+                "id",
+                courseId
+            )
+            .maybeSingle();
+
+
+        if (checkError) {
+
+            console.error(
+                "خطأ أثناء البحث عن الدورة:",
+                checkError
+            );
+
+
+            alert(
+                "❌ تعذر التحقق من الدورة.\n\n" +
+                checkError.message
+            );
+
+
+            return;
+
+        }
+
+
+        if (!existingCourse) {
+
+            alert(
+                "⚠️ هذه الدورة غير موجودة أصلًا في قاعدة البيانات."
+            );
+
+
+            await loadCourses();
+
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           2. تنفيذ الحذف
+        --------------------------------------------- */
+
+        const {
+            data: deletedCourse,
+            error: deleteError
+        } =
+        await supabaseClient
+            .from("courses")
+            .delete()
+            .eq(
+                "id",
+                courseId
+            )
+            .select(
+                "id, name"
+            );
+
+
+        /* ---------------------------------------------
+           3. وجود خطأ من Supabase
+        --------------------------------------------- */
+
+        if (deleteError) {
+
+            console.error(
+                "خطأ حذف الدورة:",
+                deleteError
+            );
+
+
+            alert(
+                "❌ لم يتم حذف الدورة.\n\n" +
+                "سبب الخطأ:\n" +
+                deleteError.message
+            );
+
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           4. لم يتم حذف أي صف
+        --------------------------------------------- */
+
+        if (
+            !deletedCourse ||
+            deletedCourse.length === 0
+        ) {
+
+            console.error(
+                "لم يتم حذف أي صف."
+            );
+
+
+            alert(
+                "⚠️ لم يتم حذف الدورة فعليًا.\n\n" +
+                "قاعدة البيانات لم تسمح بعملية الحذف.\n\n" +
+                "غالبًا توجد مشكلة في صلاحيات RLS."
+            );
+
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           5. نجاح الحذف الحقيقي
+        --------------------------------------------- */
+
+        console.log(
+            "تم حذف الدورة بنجاح:",
+            deletedCourse
         );
-
-
-    if (error) {
-
-        console.error(error);
 
 
         alert(
-            "❌ تعذر حذف الدورة: " +
-            error.message
+            "✅ تم حذف الدورة:\n\n" +
+            existingCourse.name +
+            "\n\nبنجاح."
         );
 
-        return;
+
+        /* ---------------------------------------------
+           6. تحديث القائمة
+        --------------------------------------------- */
+
+        await loadCourses();
 
     }
 
 
-    alert(
-        "تم حذف الدورة بنجاح ✅"
-    );
+    catch (error) {
+
+        console.error(
+            "خطأ غير متوقع أثناء الحذف:",
+            error
+        );
 
 
-    await loadCourses();
+        alert(
+            "❌ حدث خطأ غير متوقع أثناء حذف الدورة.\n\n" +
+            error.message
+        );
+
+    }
 
 }
 
@@ -1488,7 +1881,9 @@ function openLessons(courseId) {
 
     window.location.href =
         "admin-lessons.html?course_id=" +
-        encodeURIComponent(courseId);
+        encodeURIComponent(
+            courseId
+        );
 
 }
 
@@ -1506,22 +1901,37 @@ function goBack() {
 
 
 /* =====================================================
-   حماية النص
+   حماية النصوص
 ===================================================== */
 
 function escapeHtml(value) {
 
     return String(value)
 
-        .replace(/&/g, "&amp;")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
-        .replace(/</g, "&lt;")
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
-        .replace(/>/g, "&gt;")
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
-        .replace(/"/g, "&quot;")
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-        .replace(/'/g, "&#039;");
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
