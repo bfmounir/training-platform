@@ -1,712 +1,298 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>تسجيل الدخول - منصة التكوين المتواصل</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: Tahoma, Arial, sans-serif;
-
-    background:
-        radial-gradient(circle at 10% 20%,
-        rgba(24,166,166,.25),
-        transparent 30%),
-
-        radial-gradient(circle at 90% 80%,
-        rgba(13,110,253,.25),
-        transparent 30%),
-
-        linear-gradient(
-            135deg,
-            #062d5c,
-            #0d6efd,
-            #159f9f
-        );
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px;
-}
-
-.login-box {
-
-    width: 100%;
-    max-width: 430px;
-
-    background: rgba(255,255,255,.98);
-
-    border-radius: 25px;
-
-    padding: 35px 28px;
-
-    box-shadow:
-        0 25px 70px rgba(0,0,0,.25);
-
-}
-
-.logo {
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.logo img {
-    width: 90px;
-    height: 90px;
-    object-fit: contain;
-}
-
-h1 {
-    text-align: center;
-    color: #073b78;
-    margin: 10px 0;
-    font-size: 24px;
-}
-
-.subtitle {
-    text-align: center;
-    color: #667085;
-    font-size: 14px;
-    line-height: 1.8;
-    margin-bottom: 25px;
-}
-
-.field {
-    margin-bottom: 17px;
-}
-
-label {
-    display: block;
-    margin-bottom: 7px;
-    color: #344054;
-    font-weight: bold;
-}
-
-input {
-    width: 100%;
-    height: 52px;
-
-    padding: 0 14px;
-
-    border: 1px solid #d9e2ec;
-
-    border-radius: 12px;
-
-    font-size: 15px;
-
-    outline: none;
-
-    background: #f8fafc;
-}
-
-input:focus {
-    border-color: #0d6efd;
-
-    box-shadow:
-        0 0 0 4px rgba(13,110,253,.10);
-}
-
-button {
-
-    width: 100%;
-
-    height: 54px;
-
-    border: none;
-
-    border-radius: 13px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #073b78,
-            #0d6efd,
-            #159f9f
-        );
-
-    color: white;
-
-    font-size: 16px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-}
-
-button:disabled {
-    opacity: .7;
-}
-
-#message {
-
-    margin-top: 20px;
-
-    padding: 15px;
-
-    border-radius: 12px;
-
-    line-height: 1.8;
-
-    font-size: 14px;
-
-    white-space: pre-wrap;
-
-    word-break: break-word;
-
-    display: none;
-}
-
-.info {
-    display: block !important;
-
-    background: #eef8ff;
-
-    color: #075985;
-
-    border: 1px solid #b8dff5;
-}
-
-.success {
-    display: block !important;
-
-    background: #effaf3;
-
-    color: #166534;
-
-    border: 1px solid #b8e1c5;
-}
-
-.error {
-    display: block !important;
-
-    background: #fff1f1;
-
-    color: #991b1b;
-
-    border: 1px solid #efb5b5;
-}
-
-.home {
-    display: block;
-
-    text-align: center;
-
-    margin-top: 20px;
-
-    color: #0d6efd;
-
-    text-decoration: none;
-
-    font-weight: bold;
-}
-
-.footer {
-    text-align: center;
-
-    color: white;
-
-    font-size: 13px;
-
-    line-height: 1.8;
-
-    margin-top: 18px;
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>تسجيل الدخول - منصة التكوين</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Tahoma, sans-serif;
+            background: linear-gradient(135deg, #0f766e, #164e63);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 430px;
+            background: white;
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 20px 50px rgba(0,0,0,.25);
+        }
+
+        .logo {
+            width: 90px;
+            height: 90px;
+            margin: auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecfdf5;
+            font-size: 45px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #134e4a;
+            margin: 20px 0 8px;
+            font-size: 25px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #334155;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #0f766e;
+            box-shadow: 0 0 0 3px rgba(15,118,110,.12);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: #0f766e;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #115e59;
+        }
+
+        button:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        #message {
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            line-height: 1.6;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+    </style>
 </head>
-
 
 <body>
 
-
-<div>
-
 <div class="login-box">
 
+    <div class="logo">🎓</div>
 
-<div class="logo">
+    <h1>منصة التكوين المستمر</h1>
 
-<img src="logo.png"
-     alt="شعار المؤسسة">
+    <div class="subtitle">
+        المؤسسة العمومية الإستشفائية بأولف<br>
+        ولاية أدرار
+    </div>
 
-</div>
+    <form id="loginForm">
 
+        <label for="email">البريد الإلكتروني</label>
+        <input
+            type="email"
+            id="email"
+            placeholder="أدخل البريد الإلكتروني"
+            required
+        >
 
-<h1>
-منصة التكوين المتواصل
-</h1>
+        <label for="password">كلمة المرور</label>
+        <input
+            type="password"
+            id="password"
+            placeholder="أدخل كلمة المرور"
+            required
+        >
 
+        <button id="loginButton" type="submit">
+            تسجيل الدخول
+        </button>
 
-<div class="subtitle">
+    </form>
 
-المؤسسة العمومية الإستشفائية بأولف ولاية أدرار
+    <div id="message"></div>
 
-<br>
-
-تسجيل الدخول إلى حسابك
-
-</div>
-
-
-<div class="field">
-
-<label>
-البريد الإلكتروني
-</label>
-
-<input
-    type="email"
-    id="email"
-    placeholder="أدخل البريد الإلكتروني"
-    autocomplete="email">
-
-</div>
-
-
-<div class="field">
-
-<label>
-كلمة المرور
-</label>
-
-<input
-    type="password"
-    id="password"
-    placeholder="أدخل كلمة المرور"
-    autocomplete="current-password">
+    <div class="footer">
+        رئيس مكتب التكوين المتواصل: بن صغير منير<br>
+        الهاتف: 0660.48.43.73
+    </div>
 
 </div>
-
-
-<button
-    id="loginButton"
-    onclick="login()">
-
-🔐 تسجيل الدخول
-
-</button>
-
-
-<div id="message"></div>
-
-
-<a href="index.html"
-   class="home">
-
-← العودة إلى الصفحة الرئيسية
-
-</a>
-
-
-</div>
-
-
-<div class="footer">
-
-رئيس مكتب التكوين المتواصل: بن صغير منير
-
-<br>
-
-0660.48.43.73
-
-</div>
-
-</div>
-
-
-
-<!-- Supabase -->
-
-<script src="supabase-config.js"></script>
-
 
 <script>
 
-
-/* =========================================
-   عرض الرسالة
-========================================= */
+const loginForm = document.getElementById("loginForm");
+const loginButton = document.getElementById("loginButton");
+const message = document.getElementById("message");
 
 function showMessage(text, type) {
-
-    const message =
-        document.getElementById("message");
-
-    message.className = type;
-
     message.textContent = text;
-
+    message.className = type;
+    message.style.display = "block";
 }
 
+loginForm.addEventListener("submit", async function(event) {
 
+    event.preventDefault();
 
-/* =========================================
-   تسجيل الدخول
-========================================= */
+    loginButton.disabled = true;
+    loginButton.textContent = "جارٍ تسجيل الدخول...";
 
-async function login() {
-
+    message.style.display = "none";
 
     const email =
-        document.getElementById("email")
-        .value
-        .trim();
-
+        document.getElementById("email").value.trim();
 
     const password =
-        document.getElementById("password")
-        .value;
-
-
-    const button =
-        document.getElementById("loginButton");
-
-
-    if (!email || !password) {
-
-        showMessage(
-            "⚠️ أدخل البريد الإلكتروني وكلمة المرور.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    button.disabled = true;
-
-    button.textContent =
-        "جارٍ التحقق...";
-
+        document.getElementById("password").value;
 
     try {
 
+        const { data, error } =
+            await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
 
-        /* ==============================
-           المرحلة 1
-        ============================== */
-
-        showMessage(
-            "المرحلة 1/4\n\nجارٍ تسجيل الدخول...",
-            "info"
-        );
-
-
-        const {
-            data: authData,
-            error: authError
-        } =
-        await supabaseClient.auth.signInWithPassword({
-
-            email: email,
-
-            password: password
-
-        });
-
-
-        if (authError) {
-
+        if (error) {
             throw new Error(
-                "فشل تسجيل الدخول:\n\n" +
-                authError.message
+                "بيانات الدخول غير صحيحة: " + error.message
             );
-
         }
 
+        const user = data.user;
 
-        if (!authData.user) {
-
-            throw new Error(
-                "لم يتم العثور على بيانات المستخدم."
-            );
-
+        if (!user) {
+            throw new Error("تعذر الحصول على بيانات المستخدم.");
         }
 
-
-        const user =
-            authData.user;
-
-
-        /* ==============================
-           المرحلة 2
-        ============================== */
-
-        showMessage(
-
-            "المرحلة 2/4\n\n" +
-
-            "تم تسجيل الدخول بنجاح ✅\n\n" +
-
-            "البريد الإلكتروني:\n" +
-
-            user.email +
-
-            "\n\n" +
-
-            "User ID:\n" +
-
-            user.id +
-
-            "\n\n" +
-
-            "جارٍ التحقق من جدول الصلاحيات...",
-
-            "info"
-
-        );
-
-
-        console.log(
-            "USER ID:",
-            user.id
-        );
-
-
-        /* ==============================
-           المرحلة 3
-        ============================== */
-
-        const roleResult =
+        const { data: roleData, error: roleError } =
             await supabaseClient
-            .from("user_roles")
-            .select("role")
-            .eq("user_id", user.id)
-            .maybeSingle();
+                .from("user_roles")
+                .select("role")
+                .eq("user_id", user.id)
+                .maybeSingle();
 
-
-        console.log(
-            "ROLE RESULT:",
-            roleResult
-        );
-
-
-        /* خطأ في قاعدة البيانات */
-
-        if (roleResult.error) {
-
-            await supabaseClient.auth.signOut();
-
-
-            showMessage(
-
-                "❌ المرحلة 3/4: خطأ في قراءة الصلاحية\n\n" +
-
-                "رسالة Supabase:\n" +
-
-                roleResult.error.message +
-
-                "\n\n" +
-
-                "رمز الخطأ:\n" +
-
-                (
-                    roleResult.error.code ||
-                    "غير موجود"
-                ) +
-
-                "\n\n" +
-
-                "User ID:\n" +
-
-                user.id,
-
-                "error"
-
+        if (roleError) {
+            throw new Error(
+                "تعذر قراءة صلاحية المستخدم: " +
+                roleError.message
             );
-
-
-            return;
-
         }
 
-
-        /* لا توجد صلاحية */
-
-        if (!roleResult.data) {
-
-            await supabaseClient.auth.signOut();
-
-
-            showMessage(
-
-                "❌ المرحلة 3/4\n\n" +
-
-                "تم تسجيل الدخول بنجاح، ولكن لم يتم العثور على صلاحية لهذا الحساب.\n\n" +
-
-                "User ID:\n" +
-
-                user.id +
-
-                "\n\n" +
-
-                "لا يوجد سجل مطابق في جدول user_roles.",
-
-                "error"
-
+        if (!roleData) {
+            throw new Error(
+                "هذا الحساب لا توجد له صلاحية محددة في المنصة."
             );
-
-
-            return;
-
         }
 
-
-        /* ==============================
-           المرحلة 4
-        ============================== */
-
-        const role =
-            roleResult.data.role;
-
-
-        console.log(
-            "ROLE:",
-            role
-        );
-
+        const role = roleData.role;
 
         showMessage(
-
-            "✅ تم التحقق من الحساب بنجاح\n\n" +
-
-            "البريد الإلكتروني:\n" +
-
-            user.email +
-
-            "\n\n" +
-
-            "User ID:\n" +
-
-            user.id +
-
-            "\n\n" +
-
-            "الصلاحية:\n" +
-
-            role +
-
-            "\n\n" +
-
-            "جارٍ فتح الصفحة...",
-
+            "تم تسجيل الدخول بنجاح، جارٍ فتح المنصة...",
             "success"
-
         );
 
+        /*
+           مهم:
+           نستعمل أسماء ملفات بحروف صغيرة
+           لتجنب مشكلة 404 في GitHub Pages.
+        */
 
-        /* ==============================
-           التحويل
-        ============================== */
+        if (role === "admin") {
 
-        setTimeout(function () {
+            window.location.href = "admin.html";
 
+        } else if (role === "trainee") {
 
-            if (role === "admin") {
+            window.location.href = "trainee.html";
 
-                window.location.href =
-                    "admin.html";
+        } else if (role === "trainer") {
 
-                return;
+            window.location.href = "trainer.html";
 
-            }
+        } else {
 
-
-            if (role === "trainee") {
-
-                window.location.href =
-                    "Trainee.html";
-
-                return;
-
-            }
-
-
-            if (role === "trainer") {
-
-                window.location.href =
-                    "Trainer.html";
-
-                return;
-
-            }
-
-
-            showMessage(
-
-                "⚠️ الحساب موجود ولكن الصلاحية غير معروفة.\n\n" +
-
-                "الصلاحية الموجودة:\n" +
-
-                role,
-
-                "error"
-
+            throw new Error(
+                "صلاحية غير معروفة: " + role
             );
+        }
 
+    } catch (error) {
 
-        }, 1200);
-
-
-    }
-
-    catch (error) {
-
-
-        console.error(
-            "LOGIN ERROR:",
-            error
-        );
-
+        console.error(error);
 
         showMessage(
-
-            "❌ حدث خطأ\n\n" +
-
             error.message,
-
             "error"
-
         );
 
+        loginButton.disabled = false;
+        loginButton.textContent = "تسجيل الدخول";
     }
 
-
-    finally {
-
-        button.disabled = false;
-
-        button.textContent =
-            "🔐 تسجيل الدخول";
-
-    }
-
-}
-
+});
 
 </script>
 
-
 </body>
-
 </html>
