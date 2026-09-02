@@ -5,7 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>إدارة الإعلانات</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+window.addEventListener("error", (event) => {
+    console.error("Page error:", event.error || event.message);
+
+    const info = document.getElementById("adminInfo");
+    if (info && info.textContent.includes("جاري التحقق")) {
+        info.textContent = "❌ خطأ JavaScript";
+    }
+});
+
+</script>
 <script src="supabase-config.js"></script>
 
 <style>
@@ -237,10 +247,34 @@ textarea{min-height:130px;resize:vertical}
 </main>
 
 <script>
-const supabaseClient = window.supabaseClient || window.supabase.createClient(
-    window.SUPABASE_URL,
-    window.SUPABASE_ANON_KEY
-);
+let supabaseClient = null;
+
+function initSupabase() {
+    try {
+        if (window.supabaseClient) {
+            supabaseClient = window.supabaseClient;
+            return true;
+        }
+
+        if (!window.supabase) {
+            throw new Error("مكتبة Supabase لم يتم تحميلها.");
+        }
+
+        if (!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
+            throw new Error("إعدادات Supabase غير موجودة في supabase-config.js.");
+        }
+
+        supabaseClient = window.supabase.createClient(
+            window.SUPABASE_URL,
+            window.SUPABASE_ANON_KEY
+        );
+
+        return true;
+    } catch (error) {
+        console.error("Supabase initialization error:", error);
+        return false;
+    }
+}
 
 let announcements = [];
 let currentUser = null;
@@ -291,40 +325,81 @@ function showMessage(text, type="success") {
 }
 
 async function checkAdmin() {
-    try {
-        const { data:{user}, error } = await supabaseClient.auth.getUser();
+    const info = document.getElementById("adminInfo");
 
-        if (error || !user) {
-            window.location.href = "login.html";
+    try {
+        info.textContent = "⏳ جاري التحقق من الحساب...";
+
+        if (!initSupabase()) {
+            info.textContent = "❌ تعذر تشغيل Supabase";
+            showMessage("تعذر تشغيل الاتصال بقاعدة البيانات. تأكد من وجود ملف supabase-config.js.", "error");
+            return false;
+        }
+
+        // مهلة حتى لا تبقى الصفحة معلقة إذا كان الاتصال لا يستجيب.
+        const timeout = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("انتهت مهلة الاتصال بـ Supabase.")), 10000)
+        );
+
+        const authRequest = supabaseClient.auth.getUser();
+        const result = await Promise.race([authRequest, timeout]);
+
+        const user = result?.data?.user;
+        const authError = result?.error;
+
+        if (authError || !user) {
+            console.error("Auth error:", authError);
+            info.textContent = "❌ لم يتم تسجيل الدخول";
+            showMessage("جلسة الدخول غير موجودة أو انتهت. سيتم تحويلك إلى صفحة الدخول.", "error");
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 1200);
             return false;
         }
 
         currentUser = user;
 
-        const { data:roleData, error:roleError } = await supabaseClient
-            .from("user_roles")
-            .select("role")
-            .eq("user_id", user.id)
-            .maybeSingle();
+        const roleResult = await Promise.race([
+            supabaseClient
+                .from("user_roles")
+                .select("role")
+                .eq("user_id", user.id)
+                .maybeSingle(),
+            new Promise((_, reject) =>
+                setTimeout(() => reject(new Error("انتهت مهلة قراءة صلاحية المستخدم.")), 10000)
+            )
+        ]);
+
+        const roleData = roleResult?.data;
+        const roleError = roleResult?.error;
 
         if (roleError) {
-            console.error(roleError);
-            document.getElementById("adminInfo").textContent = "تعذر التحقق من الصلاحيات";
+            console.error("Role error:", roleError);
+            info.textContent = "❌ خطأ في قراءة الصلاحية";
+            showMessage(
+                "تعذر قراءة صلاحية المسؤول: " + (roleError.message || "خطأ غير معروف"),
+                "error"
+            );
             return false;
         }
 
         if (!roleData || roleData.role !== "admin") {
+            info.textContent = "❌ لا توجد صلاحية مسؤول";
             alert("ليس لديك صلاحية الدخول إلى إدارة الإعلانات.");
             window.location.href = "index.html";
             return false;
         }
 
-        document.getElementById("adminInfo").textContent = user.email || "المسؤول";
+        info.textContent = "👤 المسؤول: " + (user.email || "المسؤول");
         return true;
 
     } catch (error) {
-        console.error(error);
-        alert("حدث خطأ أثناء التحقق من الحساب.");
+        console.error("checkAdmin error:", error);
+        info.textContent = "❌ حدث خطأ أثناء التحقق";
+        showMessage(
+            "تعذر التحقق من حساب المسؤول: " + (error.message || "خطأ غير معروف"),
+            "error"
+        );
         return false;
     }
 }
@@ -568,6 +643,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("publishDate").value = todayString();
 
     const allowed = await checkAdmin();
+
     if (allowed) {
         await loadAnnouncements();
     }
