@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>إدارة المستخدمين - منصة التكوين</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Tahoma, sans-serif;
+    background: #f3f6fb;
+    color: #1f2937;
+}
+
+/* الشريط العلوي */
+
+.header {
+    background: linear-gradient(135deg, #0f766e, #0d9488);
+    color: white;
+    padding: 22px 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.header h1 {
+    margin: 0 0 8px;
+    font-size: 26px;
+}
+
+.header p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* المحتوى */
+
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 18px;
+}
+
+/* أزرار */
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.btn {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-back {
+    background: #64748b;
+    color: white;
+}
+
+.btn-refresh {
+    background: #0f766e;
+    color: white;
+}
+
+/* بطاقة الإحصائيات */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.stat {
+    background: white;
+    border-radius: 15px;
+    padding: 22px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+    text-align: center;
+}
+
+.stat .number {
+    font-size: 30px;
+    font-weight: bold;
+    color: #0f766e;
+}
+
+.stat .label {
+    margin-top: 7px;
+    color: #64748b;
+}
+
+/* البحث */
+
+.search-box {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: #0f766e;
+}
+
+/* جدول المستخدمين */
+
+.card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 15px 12px;
+    border-bottom: 1px solid #edf0f4;
+    text-align: right;
+    white-space: nowrap;
+}
+
+th {
+    background: #f8fafc;
+    color: #475569;
+}
+
+tr:hover {
+    background: #f8fafc;
+}
+
+/* الصلاحيات */
+
+.role {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.role-admin {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.role-trainee {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.role-trainer {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.role-other {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+/* أزرار الإجراءات */
+
+.action-btn {
+    border: none;
+    padding: 8px 11px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-left: 4px;
+}
+
+.edit-btn {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.delete-btn {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* النافذة */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,0.55);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.modal-box h2 {
+    margin-top: 0;
+    color: #0f766e;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    font-size: 15px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.save-btn {
+    background: #0f766e;
+    color: white;
+    flex: 1;
+}
+
+.cancel-btn {
+    background: #e5e7eb;
+    color: #374151;
+    flex: 1;
+}
+
+/* الرسائل */
+
+.message {
+    display: none;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.message.success {
+    display: block;
+    background: #dcfce7;
+    color: #166534;
+}
+
+.message.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.message.info {
+    display: block;
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+/* حالة فارغة */
+
+.empty {
+    padding: 45px 20px;
+    text-align: center;
+    color: #64748b;
+}
+
+/* الهاتف */
+
+@media (max-width: 750px) {
+
+    .header h1 {
+        font-size: 21px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+
+    th,
+    td {
+        padding: 11px 9px;
+        font-size: 13px;
+    }
+
+    .modal-box {
+        padding: 20px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="header-content">
+
+        <h1>👥 إدارة المستخدمين</h1>
+
+        <p>
+            منصة التكوين المتواصل -
+            المؤسسة العمومية الإستشفائية بأولف ولاية أدرار
+        </p>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <div class="buttons">
+
+        <button
+            class="btn btn-back"
+            onclick="window.location.href='admin.html'">
+            ← العودة إلى لوحة التحكم
+        </button>
+
+        <button
+            class="btn btn-refresh"
+            onclick="loadUsers()">
+            🔄 تحديث
+        </button>
+
+    </div>
+
+
+    <div id="message" class="message"></div>
+
+
+    <section class="stats">
+
+        <div class="stat">
+
+            <div
+                id="totalUsers"
+                class="number">
+                0
+            </div>
+
+            <div class="label">
+                إجمالي الحسابات
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                id="adminUsers"
+                class="number">
+                0
+            </div>
+
+            <div class="label">
+                المسؤولون
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                id="traineeUsers"
+                class="number">
+                0
+            </div>
+
+            <div class="label">
+                المتربصون
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="search-box">
+
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="🔎 ابحث عن مستخدم أو البريد الإلكتروني أو الصلاحية..."
+            oninput="filterUsers()">
+
+    </section>
+
+
+    <section class="card">
+
+        <div class="card-header">
+
+            <h2>
+                قائمة المستخدمين
+            </h2>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>معرف المستخدم</th>
+
+                        <th>البريد الإلكتروني</th>
+
+                        <th>الاسم</th>
+
+                        <th>الصلاحية</th>
+
+                        <th>تاريخ الإضافة</th>
+
+                        <th>الإجراءات</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="usersTableBody">
+
+                    <tr>
+
+                        <td
+                            colspan="7"
+                            class="empty">
+
+                            جاري تحميل المستخدمين...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- نافذة تعديل الصلاحية -->
+
+<div
+    id="editModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <h2>
+            تعديل صلاحية المستخدم
+        </h2>
+
+        <div class="form-group">
+
+            <label>
+                المستخدم
+            </label>
+
+            <input
+                id="editUserName"
+                type="text"
+                readonly>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                الصلاحية
+            </label>
+
+            <select id="editRole">
+
+                <option value="trainee">
+                    متربص
+                </option>
+
+                <option value="trainer">
+                    مكوّن
+                </option>
+
+                <option value="admin">
+                    مسؤول
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="btn save-btn"
+                onclick="saveRole()">
+
+                💾 حفظ
+
+            </button>
+
+            <button
+                class="btn cancel-btn"
+                onclick="closeModal()">
+
+                إلغاء
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let supabaseClient;
+
+let allUsers = [];
+
+let currentEditUserId = null;
+
+
+/* ================================
+   الاتصال بـ Supabase
+================================ */
+
+try {
+
+    if (
+        typeof window.supabaseClient !== "undefined" &&
+        window.supabaseClient
+    ) {
+
+        supabaseClient = window.supabaseClient;
+
+    } else if (
+        typeof supabase !== "undefined"
+    ) {
+
+        console.error(
+            "يرجى التأكد من أن supabase-config.js ينشئ المتغير supabaseClient"
+        );
+
+    }
+
+} catch (error) {
+
+    console.error(error);
+
+}
+
+
+/* ================================
+   الرسائل
+================================ */
+
+function showMessage(text, type = "info") {
+
+    const box = document.getElementById("message");
+
+    box.textContent = text;
+
+    box.className = "message " + type;
+
+}
+
+
+function hideMessage() {
+
+    const box = document.getElementById("message");
+
+    box.className = "message";
+
+}
+
+
+/* ================================
+   التحقق من تسجيل الدخول
+================================ */
+
+async function checkAdmin() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.getUser();
+
+    if (error || !data.user) {
+
+        window.location.href = "login.html";
+
+        return null;
+
+    }
+
+    const user = data.user;
+
+
+    const {
+        data: roleData,
+        error: roleError
+    } = await supabaseClient
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+
+    if (roleError) {
+
+        console.error(roleError);
+
+        showMessage(
+            "تعذر التحقق من صلاحيات الحساب: " +
+            roleError.message,
+            "error"
+        );
+
+        return null;
+
+    }
+
+
+    if (
+        !roleData ||
+        roleData.role !== "admin"
+    ) {
+
+        showMessage(
+            "ليس لديك صلاحية الدخول إلى إدارة المستخدمين.",
+            "error"
+        );
+
+        setTimeout(() => {
+
+            window.location.href = "trainee.html";
+
+        }, 2000);
+
+        return null;
+
+    }
+
+
+    return user;
+
+}
+
+
+/* ================================
+   تحميل المستخدمين
+================================ */
+
+async function loadUsers() {
+
+    hideMessage();
+
+    const tbody =
+        document.getElementById("usersTableBody");
+
+
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="7" class="empty">
+                ⏳ جاري تحميل المستخدمين...
+            </td>
+        </tr>
+    `;
+
+
+    try {
+
+        const adminUser =
+            await checkAdmin();
+
+        if (!adminUser) return;
+
+
+        /*
+         * ملاحظة:
+         * هذا الاستعلام يقرأ user_roles.
+         *
+         * البريد الإلكتروني والاسم الحقيقي
+         * موجودان في Supabase Auth وليس في
+         * user_roles.
+         *
+         * لذلك سنعرض معرف المستخدم
+         * والصلاحية من user_roles.
+         */
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("user_roles")
+            .select(
+                "id, user_id, role, created_at"
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+        if (error) {
+
+            console.error(error);
+
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="empty">
+                        ❌ تعذر تحميل المستخدمين
+                        <br><br>
+                        ${escapeHtml(error.message)}
+                    </td>
+                </tr>
+            `;
+
+            showMessage(
+                "تعذر تحميل قائمة المستخدمين. تحقق من RLS لجدول user_roles.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        allUsers = data || [];
+
+
+        updateStats();
+
+        renderUsers(allUsers);
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" class="empty">
+                    ❌ حدث خطأ أثناء تحميل المستخدمين.
+                    <br><br>
+                    ${escapeHtml(error.message)}
+                </td>
+            </tr>
+        `;
+
+        showMessage(
+            "حدث خطأ غير متوقع.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ================================
+   الإحصائيات
+================================ */
+
+function updateStats() {
+
+    const total =
+        allUsers.length;
+
+    const admins =
+        allUsers.filter(
+            u => u.role === "admin"
+        ).length;
+
+    const trainees =
+        allUsers.filter(
+            u => u.role === "trainee"
+        ).length;
+
+
+    document.getElementById(
+        "totalUsers"
+    ).textContent = total;
+
+
+    document.getElementById(
+        "adminUsers"
+    ).textContent = admins;
+
+
+    document.getElementById(
+        "traineeUsers"
+    ).textContent = trainees;
+
+}
+
+
+/* ================================
+   عرض المستخدمين
+================================ */
+
+function renderUsers(users) {
+
+    const tbody =
+        document.getElementById(
+            "usersTableBody"
+        );
+
+
+    if (!users.length) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" class="empty">
+                    👤 لا يوجد مستخدمون.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML = users
+        .map((user, index) => {
+
+            const roleName =
+                getRoleName(user.role);
+
+            const roleClass =
+                getRoleClass(user.role);
+
+
+            const createdDate =
+                user.created_at
+                    ? new Date(
+                        user.created_at
+                    ).toLocaleDateString(
+                        "ar-DZ"
+                    )
+                    : "-";
+
+
+            return `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td
+                        title="${escapeHtml(user.user_id)}">
+
+                        ${escapeHtml(
+                            user.user_id.substring(
+                                0,
+                                8
+                            )
+                        )}...
+
+                    </td>
+
+                    <td>
+                        —
+                    </td>
+
+                    <td>
+                        —
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="role ${roleClass}">
+
+                            ${roleName}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+                        ${createdDate}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="action-btn edit-btn"
+                            onclick="editUser('${user.user_id}')">
+
+                            ✏️ تعديل
+
+                        </button>
+
+                        <button
+                            class="action-btn delete-btn"
+                            onclick="deleteRole('${user.user_id}', '${user.role}')">
+
+                            🗑️ حذف الصلاحية
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        })
+        .join("");
+
+}
+
+
+/* ================================
+   أسماء الصلاحيات
+================================ */
+
+function getRoleName(role) {
+
+    if (role === "admin")
+        return "مسؤول";
+
+    if (role === "trainee")
+        return "متربص";
+
+    if (role === "trainer")
+        return "مكوّن";
+
+    return role || "غير محدد";
+
+}
+
+
+function getRoleClass(role) {
+
+    if (role === "admin")
+        return "role-admin";
+
+    if (role === "trainee")
+        return "role-trainee";
+
+    if (role === "trainer")
+        return "role-trainer";
+
+    return "role-other";
+
+}
+
+
+/* ================================
+   البحث
+================================ */
+
+function filterUsers() {
+
+    const search =
+        document.getElementById(
+            "searchInput"
+        ).value
+        .trim()
+        .toLowerCase();
+
+
+    if (!search) {
+
+        renderUsers(allUsers);
+
+        return;
+
+    }
+
+
+    const filtered =
+        allUsers.filter(user => {
+
+            return (
+
+                String(
+                    user.user_id || ""
+                )
+                .toLowerCase()
+                .includes(search)
+
+                ||
+
+                String(
+                    user.role || ""
+                )
+                .toLowerCase()
+                .includes(search)
+
+            );
+
+        });
+
+
+    renderUsers(filtered);
+
+}
+
+
+/* ================================
+   فتح نافذة التعديل
+================================ */
+
+function editUser(userId) {
+
+    const user =
+        allUsers.find(
+            u => u.user_id === userId
+        );
+
+
+    if (!user) {
+
+        showMessage(
+            "لم يتم العثور على المستخدم.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    currentEditUserId =
+        userId;
+
+
+    document.getElementById(
+        "editUserName"
+    ).value =
+        userId;
+
+
+    document.getElementById(
+        "editRole"
+    ).value =
+        user.role;
+
+
+    document.getElementById(
+        "editModal"
+    ).classList.add("show");
+
+}
+
+
+/* ================================
+   إغلاق النافذة
+================================ */
+
+function closeModal() {
+
+    currentEditUserId = null;
+
+    document.getElementById(
+        "editModal"
+    ).classList.remove("show");
+
+}
+
+
+/* ================================
+   حفظ الصلاحية
+================================ */
+
+async function saveRole() {
+
+    if (!currentEditUserId) {
+
+        return;
+
+    }
+
+
+    const newRole =
+        document.getElementById(
+            "editRole"
+        ).value;
+
+
+    if (
+        ![
+            "admin",
+            "trainee",
+            "trainer"
+        ].includes(newRole)
+    ) {
+
+        alert(
+            "الصلاحية غير صحيحة."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        showMessage(
+            "⏳ جاري حفظ الصلاحية...",
+            "info"
+        );
+
+
+        const {
+            error
+        } = await supabaseClient
+            .from("user_roles")
+            .update({
+                role: newRole
+            })
+            .eq(
+                "user_id",
+                currentEditUserId
+            );
+
+
+        if (error) {
+
+            console.error(error);
+
+            showMessage(
+                "❌ تعذر تعديل الصلاحية: " +
+                error.message,
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        closeModal();
+
+
+        showMessage(
+            "✅ تم تعديل صلاحية المستخدم بنجاح.",
+            "success"
+        );
+
+
+        await loadUsers();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            "❌ حدث خطأ أثناء تعديل الصلاحية.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ================================
+   حذف الصلاحية
+================================ */
+
+async function deleteRole(
+    userId,
+    role
+) {
+
+    /*
+     * حماية إضافية:
+     * لا نسمح للمسؤول بحذف
+     * صلاحية حسابه الحالي.
+     */
+
+    const {
+        data
+    } = await supabaseClient.auth.getUser();
+
+
+    if (
+        data &&
+        data.user &&
+        data.user.id === userId
+    ) {
+
+        alert(
+            "لا يمكنك حذف صلاحية حسابك الحالي من هذه الصفحة."
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "هل أنت متأكد من حذف صلاحية هذا المستخدم؟\n\n" +
+            "سيتم حذف السجل من user_roles فقط، " +
+            "ولن يتم حذف حساب Supabase Auth."
+        );
+
+
+    if (!confirmed) return;
+
+
+    try {
+
+        showMessage(
+            "⏳ جاري حذف الصلاحية...",
+            "info"
+        );
+
+
+        const {
+            data: deleted,
+            error
+        } = await supabaseClient
+            .from("user_roles")
+            .delete()
+            .eq(
+                "user_id",
+                userId
+            )
+            .select(
+                "user_id"
+            );
+
+
+        if (error) {
+
+            console.error(error);
+
+            showMessage(
+                "❌ تعذر حذف الصلاحية: " +
+                error.message,
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !deleted ||
+            deleted.length === 0
+        ) {
+
+            showMessage(
+                "⚠️ لم يتم حذف السجل. غالبًا توجد مشكلة RLS في جدول user_roles.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        showMessage(
+            "✅ تم حذف الصلاحية بنجاح.",
+            "success"
+        );
+
+
+        await loadUsers();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            "❌ حدث خطأ أثناء حذف الصلاحية.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ================================
+   حماية HTML
+================================ */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* ================================
+   التشغيل
+================================ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+        await loadUsers();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
