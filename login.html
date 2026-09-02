@@ -21,16 +21,14 @@
             font-family: Arial, Tahoma, sans-serif;
 
             background:
-                radial-gradient(
-                    circle at top right,
+                radial-gradient(circle at top right,
                     rgba(8,127,140,.18),
-                    transparent 35%
-                ),
-                radial-gradient(
-                    circle at bottom left,
+                    transparent 35%),
+
+                radial-gradient(circle at bottom left,
                     rgba(11,110,253,.15),
-                    transparent 35%
-                ),
+                    transparent 35%),
+
                 #f3f7fa;
 
             display: flex;
@@ -47,7 +45,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
 
-            background: #fff;
+            background: white;
 
             border-radius: 25px;
 
@@ -56,10 +54,6 @@
             box-shadow:
                 0 20px 60px rgba(27,66,91,.15);
         }
-
-        /* =========================
-           معلومات المؤسسة
-        ========================== */
 
         .info {
             background:
@@ -79,6 +73,7 @@
             justify-content: center;
 
             position: relative;
+
             overflow: hidden;
         }
 
@@ -172,10 +167,6 @@
             position: relative;
             z-index: 2;
         }
-
-        /* =========================
-           صندوق تسجيل الدخول
-        ========================== */
 
         .login-box {
             padding: 55px 45px;
@@ -298,24 +289,16 @@
             cursor: pointer;
 
             transition: .25s;
-
-            box-shadow:
-                0 10px 25px rgba(8,127,140,.20);
         }
 
         .login-btn:hover {
             transform: translateY(-2px);
-
-            box-shadow:
-                0 14px 30px rgba(8,127,140,.28);
         }
 
         .login-btn:disabled {
             opacity: .65;
 
             cursor: not-allowed;
-
-            transform: none;
         }
 
         .forgot {
@@ -350,6 +333,8 @@
             font-size: 14px;
 
             line-height: 1.7;
+
+            word-break: break-word;
         }
 
         .message.error {
@@ -387,10 +372,6 @@
 
             line-height: 1.8;
         }
-
-        /* =========================
-           الهاتف
-        ========================== */
 
         @media (max-width: 800px) {
 
@@ -443,10 +424,6 @@
 
 <div class="container">
 
-    <!-- =========================
-         معلومات المؤسسة
-    ========================== -->
-
     <div class="info">
 
         <img
@@ -492,10 +469,6 @@
 
     </div>
 
-
-    <!-- =========================
-         تسجيل الدخول
-    ========================== -->
 
     <div class="login-box">
 
@@ -548,8 +521,7 @@
                 <button
                     type="button"
                     class="show-password"
-                    onclick="togglePassword()"
-                    aria-label="إظهار كلمة المرور">
+                    onclick="togglePassword()">
 
                     👁️
 
@@ -596,10 +568,6 @@
 </div>
 
 
-<!-- =========================
-     Supabase
-========================== -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase-config.js"></script>
@@ -607,31 +575,18 @@
 
 <script>
 
-    /* =====================================
-       إظهار / إخفاء كلمة المرور
-    ====================================== */
-
     function togglePassword() {
 
         const password =
             document.getElementById("password");
 
-        if (password.type === "password") {
-
-            password.type = "text";
-
-        } else {
-
-            password.type = "password";
-
-        }
+        password.type =
+            password.type === "password"
+                ? "text"
+                : "password";
 
     }
 
-
-    /* =====================================
-       عرض الرسائل
-    ====================================== */
 
     function showMessage(text, type = "error") {
 
@@ -645,10 +600,6 @@
 
     }
 
-
-    /* =====================================
-       تسجيل الدخول
-    ====================================== */
 
     async function login() {
 
@@ -678,7 +629,6 @@
         const button =
             document.getElementById("loginBtn");
 
-
         button.disabled = true;
 
         button.textContent =
@@ -688,13 +638,10 @@
         try {
 
             /* =========================
-               تسجيل الدخول في Supabase
+               تسجيل الدخول
             ========================== */
 
-            const {
-                data,
-                error
-            } =
+            const result =
                 await supabaseClient.auth.signInWithPassword({
 
                     email: email,
@@ -704,75 +651,99 @@
                 });
 
 
-            if (error) {
+            console.log(
+                "Login result:",
+                result
+            );
 
-                throw error;
+
+            if (result.error) {
+
+                throw result.error;
 
             }
 
 
-            if (!data.user) {
+            const user =
+                result.data.user;
+
+
+            if (!user) {
 
                 throw new Error(
-                    "تعذر الحصول على بيانات المستخدم."
+                    "تم تسجيل الدخول ولكن لم يتم العثور على المستخدم."
                 );
 
             }
 
 
-            const userId =
-                data.user.id;
+            console.log(
+                "User ID:",
+                user.id
+            );
 
 
             /* =========================
-               قراءة صلاحية المستخدم
-               
-               مهم:
-               جدول الصلاحيات هو roles
+               قراءة الصلاحية
             ========================== */
 
-            const {
-                data: roleData,
-                error: roleError
-            } =
+            const roleResult =
                 await supabaseClient
-                    .from("roles")
+                    .from("user_roles")
                     .select("role")
-                    .eq("user_id", userId)
+                    .eq("user_id", user.id)
                     .maybeSingle();
 
 
-            if (roleError) {
+            console.log(
+                "Role result:",
+                roleResult
+            );
+
+
+            /*
+             * هنا نعرض الخطأ الحقيقي
+             * بدل إخفائه.
+             */
+
+            if (roleResult.error) {
 
                 console.error(
-                    "Role error:",
-                    roleError
+                    "Supabase role error:",
+                    roleResult.error
                 );
 
                 await supabaseClient.auth.signOut();
 
                 throw new Error(
-                    "تعذر التحقق من صلاحيات الحساب."
+                    "خطأ قاعدة البيانات: " +
+                    roleResult.error.message
                 );
 
             }
 
 
-            if (!roleData || !roleData.role) {
+            if (!roleResult.data) {
 
                 await supabaseClient.auth.signOut();
 
                 throw new Error(
-                    "لا توجد صلاحية مرتبطة بهذا الحساب."
+                    "لا توجد صلاحية لهذا الحساب في جدول user_roles."
                 );
 
             }
 
 
             const role =
-                String(roleData.role)
+                String(roleResult.data.role)
                     .toLowerCase()
                     .trim();
+
+
+            console.log(
+                "User role:",
+                role
+            );
 
 
             /* =========================
@@ -786,14 +757,12 @@
                     "success"
                 );
 
-
                 setTimeout(function() {
 
                     window.location.href =
                         "admin.html";
 
                 }, 500);
-
 
                 return;
 
@@ -811,19 +780,12 @@
                     "success"
                 );
 
-
                 setTimeout(function() {
-
-                    /*
-                     * اسم الملف الحقيقي:
-                     * Trainee.html
-                     */
 
                     window.location.href =
                         "Trainee.html";
 
                 }, 500);
-
 
                 return;
 
@@ -841,7 +803,6 @@
                     "success"
                 );
 
-
                 setTimeout(function() {
 
                     window.location.href =
@@ -849,27 +810,23 @@
 
                 }, 500);
 
-
                 return;
 
             }
 
 
-            /* =========================
-               صلاحية غير معروفة
-            ========================== */
-
             await supabaseClient.auth.signOut();
 
             throw new Error(
-                "صلاحية الحساب غير معروفة: " + role
+                "الصلاحية الموجودة في قاعدة البيانات غير معروفة: " +
+                role
             );
 
 
         } catch (error) {
 
             console.error(
-                "Login error:",
+                "LOGIN ERROR:",
                 error
             );
 
@@ -890,10 +847,6 @@
     }
 
 
-    /* =====================================
-       استعادة كلمة المرور
-    ====================================== */
-
     async function resetPassword() {
 
         const email =
@@ -906,7 +859,7 @@
         if (!email) {
 
             showMessage(
-                "أدخل بريدك الإلكتروني أولاً ثم اضغط على نسيت كلمة المرور."
+                "أدخل بريدك الإلكتروني أولاً."
             );
 
             return;
@@ -919,8 +872,7 @@
             const {
                 error
             } =
-                await supabaseClient
-                    .auth
+                await supabaseClient.auth
                     .resetPasswordForEmail(
                         email,
                         {
@@ -946,12 +898,6 @@
 
         } catch (error) {
 
-            console.error(
-                "Reset password error:",
-                error
-            );
-
-
             showMessage(
                 error.message ||
                 "تعذر إرسال رابط استعادة كلمة المرور."
@@ -961,10 +907,6 @@
 
     }
 
-
-    /* =====================================
-       الضغط على Enter لتسجيل الدخول
-    ====================================== */
 
     document
         .getElementById("password")
