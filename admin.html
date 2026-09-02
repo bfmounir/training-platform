@@ -8,15 +8,12 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>
-لوحة تحكم المسؤول | منصة التكوين المتواصل
-</title>
+<title>لوحة تحكم المسؤول - منصة التكوين</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 
 <style>
-
-/* =====================================================
-   الإعدادات العامة
-===================================================== */
 
 * {
     box-sizing: border-box;
@@ -24,883 +21,299 @@
 
 body {
     margin: 0;
-    font-family: Tahoma, Arial, sans-serif;
-    background:
-        linear-gradient(
-            135deg,
-            #f1f6fc,
-            #f8fbff
-        );
-    color: #172b4d;
+    font-family: Arial, Tahoma, sans-serif;
+    background: #f4f7fb;
+    color: #1f2937;
 }
 
-
-/* =====================================================
+/* =========================
    الشريط العلوي
-===================================================== */
+========================= */
 
-header {
-
-    background:
-        linear-gradient(
-            135deg,
-            #062d5c,
-            #0d6efd,
-            #159f9f
-        );
-
+.topbar {
+    background: linear-gradient(135deg, #0f766e, #0d9488);
     color: white;
-
-    padding: 20px 30px;
-
-    box-shadow:
-        0 6px 25px rgba(0,0,0,0.15);
-
+    padding: 22px 25px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
 }
 
-
-.header-content {
-
-    max-width: 1200px;
-
+.topbar-content {
+    max-width: 1250px;
     margin: auto;
-
     display: flex;
-
-    align-items: center;
-
     justify-content: space-between;
-
+    align-items: center;
     gap: 20px;
-
 }
 
-
-/* =====================================================
-   الهوية
-===================================================== */
-
-.brand {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-}
-
-
-.logo {
-
-    width: 65px;
-
-    height: 65px;
-
-    background: white;
-
-    border-radius: 17px;
-
-    padding: 6px;
-
-    object-fit: contain;
-
-    box-shadow:
-        0 5px 15px rgba(0,0,0,0.15);
-
-}
-
-
-.brand-text {
-
-    line-height: 1.5;
-
-}
-
-
-.platform-name {
-
+.brand h1 {
     margin: 0;
-
-    font-size: 21px;
-
-    font-weight: bold;
-
+    font-size: 25px;
 }
 
-
-.institution {
-
-    margin: 3px 0;
-
-    font-size: 15px;
-
-    font-weight: bold;
-
+.brand p {
+    margin: 7px 0 0;
+    opacity: 0.9;
+    font-size: 14px;
 }
 
-
-.office {
-
-    margin: 2px 0;
-
-    font-size: 13px;
-
-    opacity: .92;
-
-}
-
-
-/* =====================================================
-   أزرار الهيدر
-===================================================== */
-
-.header-actions {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-}
-
-
-.header-btn {
-
-    border: 1px solid
-        rgba(255,255,255,.3);
-
-    background:
-        rgba(255,255,255,.13);
-
+.logout-btn {
+    border: none;
+    background: rgba(255,255,255,0.16);
     color: white;
-
-    padding: 10px 17px;
-
-    border-radius: 25px;
-
+    padding: 11px 17px;
+    border-radius: 10px;
     cursor: pointer;
-
-    text-decoration: none;
-
-    font-size: 13px;
-
-    transition: .3s;
-
+    font-weight: bold;
+    font-size: 14px;
 }
 
-
-.header-btn:hover {
-
-    background:
-        rgba(255,255,255,.25);
-
-    transform:
-        translateY(-2px);
-
+.logout-btn:hover {
+    background: rgba(255,255,255,0.25);
 }
 
-
-/* =====================================================
-   الحاوية
-===================================================== */
+/* =========================
+   المحتوى
+========================= */
 
 .container {
-
-    max-width: 1200px;
-
-    margin: auto;
-
-    padding:
-        30px 22px 45px;
-
+    max-width: 1250px;
+    margin: 30px auto;
+    padding: 0 18px;
 }
 
-
-/* =====================================================
-   رسالة التحقق
-===================================================== */
-
-#message {
-
-    text-align: center;
-
-    padding: 18px;
-
-    font-weight: bold;
-
-    color: #0d6efd;
-
-}
-
-
-/* =====================================================
-   بطاقة الترحيب
-===================================================== */
+/* =========================
+   الترحيب
+========================= */
 
 .welcome {
-
-    position: relative;
-
-    overflow: hidden;
-
     background: white;
-
-    padding: 30px;
-
-    border-radius: 22px;
-
+    border-radius: 18px;
+    padding: 25px;
     margin-bottom: 25px;
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.07);
-
-    border:
-        1px solid #edf1f6;
-
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
 }
-
-
-.welcome::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 190px;
-
-    height: 190px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(13,110,253,.06);
-
-    left: -70px;
-
-    top: -80px;
-
-}
-
-
-.welcome-content {
-
-    position: relative;
-
-    z-index: 1;
-
-}
-
 
 .welcome h2 {
-
     margin: 0 0 8px;
-
-    color: #073b78;
-
-    font-size: 24px;
-
+    color: #0f766e;
 }
-
 
 .welcome p {
-
     margin: 0;
-
-    color: #667085;
-
-    line-height: 1.8;
-
+    color: #64748b;
 }
 
-
-/* =====================================================
-   بيانات المسؤول
-===================================================== */
-
-.manager-info {
-
-    margin-top: 20px;
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 10px;
-
-}
-
-
-.manager-item {
-
-    background: #f1f7ff;
-
-    color: #164a85;
-
-    padding: 9px 14px;
-
-    border-radius: 12px;
-
-    font-size: 13px;
-
-    font-weight: bold;
-
-}
-
-
-/* =====================================================
-   عنوان الأقسام
-===================================================== */
-
-.section-title {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    margin:
-        25px 0 17px;
-
-}
-
-
-.section-title h2 {
-
-    margin: 0;
-
-    color: #073b78;
-
-    font-size: 19px;
-
-}
-
-
-.section-title span {
-
-    color: #98a2b3;
-
-    font-size: 13px;
-
-}
-
-
-/* =====================================================
-   الإحصائيات
-===================================================== */
-
-.stats {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap: 16px;
-
-    margin-bottom: 25px;
-
-}
-
-
-.stat {
-
-    background: white;
-
-    padding: 20px;
-
-    border-radius: 18px;
-
-    border:
-        1px solid #edf1f6;
-
-    box-shadow:
-        0 5px 18px rgba(0,0,0,.05);
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-}
-
-
-.stat-icon {
-
-    width: 52px;
-
-    height: 52px;
-
-    border-radius: 15px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    background: #eef6ff;
-
-    font-size: 25px;
-
-}
-
-
-.stat h3 {
-
-    margin: 0 0 5px;
-
-    font-size: 22px;
-
-    color: #073b78;
-
-}
-
-
-.stat p {
-
-    margin: 0;
-
-    color: #98a2b3;
-
-    font-size: 12px;
-
-}
-
-
-/* =====================================================
-   بطاقات الخدمات
-===================================================== */
+/* =========================
+   البطاقات
+========================= */
 
 .cards {
-
     display: grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-
 }
-
 
 .card {
-
     background: white;
-
+    border-radius: 18px;
     padding: 25px;
-
-    border-radius: 21px;
-
-    border:
-        1px solid #edf1f6;
-
-    box-shadow:
-        0 7px 22px rgba(0,0,0,.06);
-
-    text-align: center;
-
-    transition:
-        transform .3s,
-        box-shadow .3s;
-
-    position: relative;
-
-    overflow: hidden;
-
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    transition: 0.2s;
+    border: 1px solid #eef2f7;
 }
-
-
-.card::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-
-    right: 0;
-
-    left: 0;
-
-    height: 4px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #073b78,
-            #0d6efd,
-            #159f9f
-        );
-
-}
-
 
 .card:hover {
-
-    transform:
-        translateY(-5px);
-
-    box-shadow:
-        0 14px 30px rgba(0,0,0,.10);
-
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.09);
 }
 
-
-.icon {
-
-    width: 70px;
-
-    height: 70px;
-
-    margin:
-        5px auto 15px;
-
-    border-radius: 20px;
-
+.card-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 15px;
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    background: #f0f6ff;
-
-    font-size: 34px;
-
+    font-size: 28px;
+    margin-bottom: 18px;
+    background: #ecfeff;
 }
-
 
 .card h3 {
-
-    margin: 8px 0;
-
-    color: #073b78;
-
-    font-size: 18px;
-
+    margin: 0 0 10px;
+    color: #1f2937;
+    font-size: 19px;
 }
-
 
 .card p {
-
-    color: #667085;
-
-    min-height: 45px;
-
+    margin: 0 0 20px;
+    color: #64748b;
     line-height: 1.7;
-
-    font-size: 13px;
-
-    margin:
-        8px 0 18px;
-
+    font-size: 14px;
 }
 
-
-/* =====================================================
-   الأزرار
-===================================================== */
-
-.open-button {
-
-    border: none;
-
-    width: 100%;
-
+.card-btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    background: #0f766e;
+    color: white;
     padding: 12px;
-
-    border-radius: 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #073b78,
-            #0d6efd
-        );
-
-    color: white;
-
-    font-size: 14px;
-
+    border-radius: 10px;
     font-weight: bold;
-
-    cursor: pointer;
-
-    transition: .3s;
-
+    transition: 0.2s;
 }
 
-
-.open-button:hover {
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 7px 18px
-        rgba(13,110,253,.25);
-
+.card-btn:hover {
+    background: #0d5f59;
 }
 
+/* ألوان البطاقات */
 
-/* =====================================================
-   تسجيل الخروج
-===================================================== */
+.users .card-icon {
+    background: #dbeafe;
+}
 
-.logout-area {
+.courses .card-icon {
+    background: #dcfce7;
+}
 
-    margin-top: 30px;
+.lessons .card-icon {
+    background: #fef3c7;
+}
 
+.certificates .card-icon {
+    background: #f3e8ff;
+}
+
+.reports .card-icon {
+    background: #fee2e2;
+}
+
+.settings .card-icon {
+    background: #e0e7ff;
+}
+
+/* =========================
+   معلومات المؤسسة
+========================= */
+
+.institution {
+    margin-top: 28px;
+    background: linear-gradient(
+        135deg,
+        #0f766e,
+        #115e59
+    );
+    color: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 7px 22px rgba(0,0,0,0.1);
+}
+
+.institution h3 {
+    margin-top: 0;
+    font-size: 19px;
+}
+
+.institution p {
+    margin: 8px 0;
+}
+
+.institution strong {
+    color: #ccfbf1;
+}
+
+/* =========================
+   حالة التحميل
+========================= */
+
+.loading {
     text-align: center;
-
+    padding: 60px 20px;
+    font-size: 18px;
+    color: #64748b;
 }
 
+/* =========================
+   رسالة الخطأ
+========================= */
 
-.logout {
+.error-box {
+    display: none;
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fee2e2;
+    color: #991b1b;
+    border-radius: 15px;
+    padding: 22px;
+    text-align: center;
+}
 
+.error-box button {
+    margin-top: 15px;
     border: none;
-
-    background: white;
-
-    color: #dc3545;
-
-    border:
-        1px solid #f0c8ce;
-
-    padding:
-        12px 28px;
-
-    border-radius: 13px;
-
+    background: #991b1b;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 9px;
     cursor: pointer;
-
-    font-size: 14px;
-
-    font-weight: bold;
-
-    transition: .3s;
-
 }
 
+/* =========================
+   الفوتر
+========================= */
 
-.logout:hover {
-
-    background: #dc3545;
-
-    color: white;
-
-    transform:
-        translateY(-2px);
-
-}
-
-
-/* =====================================================
-   التذييل الرسمي
-===================================================== */
-
-footer {
-
-    margin-top: 20px;
-
-    background:
-        #062d5c;
-
-    color: white;
-
+.footer {
+    margin-top: 35px;
     text-align: center;
-
     padding: 25px 15px;
-
-    line-height: 1.9;
-
+    color: #64748b;
+    font-size: 14px;
 }
 
-
-.footer-institution {
-
-    font-size: 15px;
-
-    font-weight: bold;
-
-}
-
-
-.footer-office {
-
-    font-size: 13px;
-
-    opacity: .9;
-
-}
-
-
-.footer-manager {
-
-    margin-top: 4px;
-
-    font-size: 13px;
-
-}
-
-
-.footer-phone {
-
-    display: inline-block;
-
-    margin-top: 8px;
-
-    background:
-        rgba(255,255,255,.12);
-
-    padding: 7px 15px;
-
-    border-radius: 20px;
-
-    font-size: 13px;
-
-}
-
-
-/* =====================================================
+/* =========================
    الهاتف
-===================================================== */
+========================= */
 
-@media (max-width:900px) {
-
-    .stats {
-
-        grid-template-columns:
-            repeat(2,1fr);
-
-    }
-
+@media (max-width: 900px) {
 
     .cards {
-
-        grid-template-columns:
-            repeat(2,1fr);
-
+        grid-template-columns: repeat(2, 1fr);
     }
 
 }
 
+@media (max-width: 600px) {
 
-@media (max-width:650px) {
-
-    header {
-
-        padding: 17px 14px;
-
-    }
-
-
-    .header-content {
-
+    .topbar-content {
         flex-direction: column;
-
-        text-align: center;
-
+        align-items: flex-start;
     }
 
-
-    .brand {
-
-        justify-content: center;
-
-        flex-direction: column;
-
+    .topbar {
+        padding: 18px;
     }
 
-
-    .brand-text {
-
-        text-align: center;
-
+    .brand h1 {
+        font-size: 21px;
     }
 
-
-    .header-actions {
-
-        width: 100%;
-
-        justify-content: center;
-
+    .cards {
+        grid-template-columns: 1fr;
     }
-
 
     .container {
-
-        padding:
-            20px 14px 35px;
-
+        margin-top: 20px;
     }
-
 
     .welcome {
-
-        padding: 22px;
-
+        padding: 20px;
     }
 
-
-    .welcome h2 {
-
-        font-size: 20px;
-
-    }
-
-
-    .stats {
-
-        grid-template-columns:
-            1fr 1fr;
-
-        gap: 10px;
-
-    }
-
-
-    .stat {
-
-        padding: 15px;
-
-        flex-direction: column;
-
-        text-align: center;
-
-        gap: 8px;
-
-    }
-
-
-    .cards {
-
-        grid-template-columns: 1fr;
-
-    }
-
-
-    .manager-info {
-
-        flex-direction: column;
-
-    }
-
-}
-
-
-@media (max-width:400px) {
-
-    .stats {
-
-        grid-template-columns:
-            1fr;
-
+    .card {
+        padding: 21px;
     }
 
 }
@@ -913,323 +326,189 @@ footer {
 <body>
 
 
-<!-- =====================================================
-     الهيدر
-===================================================== -->
+<!-- =========================
+     الشريط العلوي
+========================= -->
 
-<header>
+<header class="topbar">
 
-    <div class="header-content">
-
+    <div class="topbar-content">
 
         <div class="brand">
 
+            <h1>
+                🏥 منصة التكوين المتواصل
+            </h1>
 
-            <img
-                src="logo.png"
-                class="logo"
-                alt="شعار المؤسسة"
-            >
-
-
-            <div class="brand-text">
-
-                <h1 class="platform-name">
-                    منصة التكوين المتواصل
-                </h1>
-
-                <div class="institution">
-                    المؤسسة العمومية الإستشفائية بأولف
-                </div>
-
-                <div class="office">
-                    ولاية أدرار — مكتب التكوين المتواصل
-                </div>
-
-            </div>
-
+            <p>
+                لوحة تحكم المسؤول
+            </p>
 
         </div>
 
 
-        <div class="header-actions">
+        <button
+            class="logout-btn"
+            onclick="logout()">
 
-            <a
-                href="index.html"
-                class="header-btn"
-            >
-                🏠 الرئيسية
-            </a>
+            🚪 تسجيل الخروج
 
-        </div>
-
+        </button>
 
     </div>
 
 </header>
 
 
-<!-- =====================================================
+<!-- =========================
      المحتوى
-===================================================== -->
+========================= -->
 
-<div class="container">
+<main class="container">
 
 
-    <div id="message">
-        ⏳ جاري التحقق من صلاحيات المسؤول...
+    <div
+        id="loading"
+        class="loading">
+
+        ⏳ جاري التحقق من الحساب...
+
     </div>
 
 
     <div
-        id="adminContent"
-        style="display:none;"
-    >
+        id="errorBox"
+        class="error-box">
 
-
-        <!-- =================================================
-             الترحيب
-        ================================================= -->
-
-        <div class="welcome">
-
-            <div class="welcome-content">
-
-
-                <h2>
-                    مرحبًا بك في لوحة التحكم 👋
-                </h2>
-
-
-                <p>
-                    من هنا يمكنك إدارة منصة التكوين المتواصل
-                    ومتابعة الدورات والدروس والمتربصين والشهادات.
-                </p>
-
-
-                <div class="manager-info">
-
-                    <div class="manager-item">
-                        👨‍💼 رئيس مكتب التكوين المتواصل:
-                        بن صغير منير
-                    </div>
-
-
-                    <div class="manager-item">
-                        📞 0660.48.43.73
-                    </div>
-
-                </div>
-
-
-            </div>
-
+        <div id="errorMessage">
+            حدث خطأ.
         </div>
 
+        <button
+            onclick="window.location.href='login.html'">
 
-        <!-- =================================================
-             الإحصائيات
-        ================================================= -->
+            العودة إلى تسجيل الدخول
 
-        <div class="section-title">
+        </button>
+
+    </div>
+
+
+    <div
+        id="dashboard"
+        style="display:none;">
+
+
+        <!-- الترحيب -->
+
+        <section class="welcome">
 
             <h2>
-                نظرة عامة
+                👋 مرحبًا بك في لوحة تحكم المسؤول
             </h2>
 
-            <span>
-                إدارة المنصة
-            </span>
+            <p id="adminEmail">
+                جاري تحميل بيانات الحساب...
+            </p>
 
-        </div>
-
-
-        <div class="stats">
+        </section>
 
 
-            <div class="stat">
+        <!-- البطاقات -->
 
-                <div class="stat-icon">
-                    📚
-                </div>
-
-                <div>
-
-                    <h3>—</h3>
-
-                    <p>
-                        الدورات التكوينية
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-icon">
-                    👥
-                </div>
-
-                <div>
-
-                    <h3>—</h3>
-
-                    <p>
-                        المتربصون
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-icon">
-                    📖
-                </div>
-
-                <div>
-
-                    <h3>—</h3>
-
-                    <p>
-                        الدروس
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-icon">
-                    🎓
-                </div>
-
-                <div>
-
-                    <h3>—</h3>
-
-                    <p>
-                        الشهادات
-                    </p>
-
-                </div>
-
-            </div>
-
-
-        </div>
-
-
-        <!-- =================================================
-             الإدارة
-        ================================================= -->
-
-        <div class="section-title">
-
-            <h2>
-                إدارة المنصة
-            </h2>
-
-            <span>
-                اختر القسم المطلوب
-            </span>
-
-        </div>
-
-
-        <div class="cards">
-
-
-            <!-- الدورات -->
-
-            <div class="card">
-
-                <div class="icon">
-                    📚
-                </div>
-
-                <h3>
-                    الدورات التكوينية
-                </h3>
-
-                <p>
-                    إضافة وتعديل وحذف وإدارة الدورات التكوينية.
-                </p>
-
-                <button
-                    class="open-button"
-                    onclick="window.location.href='admin-courses.html'"
-                >
-                    فتح الدورات
-                </button>
-
-            </div>
-
-
-            <!-- الدروس -->
-
-            <div class="card">
-
-                <div class="icon">
-                    📖
-                </div>
-
-                <h3>
-                    الدروس
-                </h3>
-
-                <p>
-                    إضافة وتعديل وتنظيم الدروس الخاصة بالدورات.
-                </p>
-
-                <button
-                    class="open-button"
-                    onclick="window.location.href='admin-lessons.html'"
-                >
-                    فتح الدروس
-                </button>
-
-            </div>
+        <section class="cards">
 
 
             <!-- المستخدمون -->
 
-            <div class="card">
+            <article class="card users">
 
-                <div class="icon">
+                <div class="card-icon">
                     👥
                 </div>
 
                 <h3>
-                    المستخدمون
+                    إدارة المستخدمين
                 </h3>
 
                 <p>
-                    إدارة العمال والمتربصين وحسابات المستخدمين.
+                    عرض المستخدمين وإدارة الصلاحيات
+                    مثل المسؤول والمتربص والمكوّن.
                 </p>
 
-                <button
-                    class="open-button"
-                    onclick="window.location.href='admin-users.html'"
-                >
-                    إدارة المستخدمين
-                </button>
+                <a
+                    href="admin-users.html"
+                    class="card-btn">
 
-            </div>
+                    👥 فتح المستخدمين
+
+                </a>
+
+            </article>
+
+
+            <!-- الدورات -->
+
+            <article class="card courses">
+
+                <div class="card-icon">
+                    📚
+                </div>
+
+                <h3>
+                    إدارة الدورات
+                </h3>
+
+                <p>
+                    إضافة الدورات التدريبية وتعديلها
+                    وحذف الدورات القديمة.
+                </p>
+
+                <a
+                    href="admin-courses.html"
+                    class="card-btn">
+
+                    📚 إدارة الدورات
+
+                </a>
+
+            </article>
+
+
+            <!-- الدروس -->
+
+            <article class="card lessons">
+
+                <div class="card-icon">
+                    📖
+                </div>
+
+                <h3>
+                    إدارة الدروس
+                </h3>
+
+                <p>
+                    إضافة الدروس والملفات والمواد
+                    التعليمية الخاصة بكل دورة.
+                </p>
+
+                <a
+                    href="admin-lessons.html"
+                    class="card-btn">
+
+                    📖 إدارة الدروس
+
+                </a>
+
+            </article>
 
 
             <!-- الشهادات -->
 
-            <div class="card">
+            <article class="card certificates">
 
-                <div class="icon">
-                    🎓
+                <div class="card-icon">
+                    🏆
                 </div>
 
                 <h3>
@@ -1237,190 +516,257 @@ footer {
                 </h3>
 
                 <p>
-                    متابعة وإدارة شهادات التكوين الصادرة.
+                    متابعة شهادات المتربصين
+                    وإدارة بيانات الشهادات.
                 </p>
 
-                <button
-                    class="open-button"
-                    onclick="window.location.href='admin-certificates.html'"
-                >
-                    إدارة الشهادات
-                </button>
+                <a
+                    href="admin-certificates.html"
+                    class="card-btn">
 
-            </div>
+                    🏆 الشهادات
+
+                </a>
+
+            </article>
 
 
-            <!-- الإحصائيات -->
+            <!-- التقارير -->
 
-            <div class="card">
+            <article class="card reports">
 
-                <div class="icon">
+                <div class="card-icon">
                     📊
                 </div>
 
                 <h3>
-                    الإحصائيات
+                    التقارير والإحصائيات
                 </h3>
 
                 <p>
-                    متابعة نشاط المنصة ومؤشرات التكوين.
+                    متابعة الدورات والمتربصين
+                    ونسب المشاركة والإنجاز.
                 </p>
 
-                <button
-                    class="open-button"
-                    onclick="window.location.href='admin-statistics.html'"
-                >
-                    عرض الإحصائيات
-                </button>
+                <a
+                    href="#"
+                    class="card-btn"
+                    onclick="comingSoon(event)">
 
-            </div>
+                    📊 قريبًا
+
+                </a>
+
+            </article>
 
 
-            <!-- الذكاء الاصطناعي -->
+            <!-- الإعدادات -->
 
-            <div class="card">
+            <article class="card settings">
 
-                <div class="icon">
-                    🤖
+                <div class="card-icon">
+                    ⚙️
                 </div>
 
                 <h3>
-                    المساعد الذكي
+                    إعدادات المنصة
                 </h3>
 
                 <p>
-                    أدوات الذكاء الاصطناعي المساعدة في التكوين.
+                    إعدادات عامة للمنصة
+                    والخصائص المستقبلية.
                 </p>
 
-                <button
-                    class="open-button"
-                    onclick="window.location.href='ai-assistant.html'"
-                >
-                    فتح المساعد
-                </button>
+                <a
+                    href="#"
+                    class="card-btn"
+                    onclick="comingSoon(event)">
 
-            </div>
+                    ⚙️ قريبًا
+
+                </a>
+
+            </article>
 
 
-        </div>
+        </section>
 
 
-        <!-- =================================================
-             تسجيل الخروج
-        ================================================= -->
+        <!-- معلومات المؤسسة -->
 
-        <div class="logout-area">
+        <section class="institution">
 
-            <button
-                class="logout"
-                onclick="logout()"
-            >
-                🚪 تسجيل الخروج
-            </button>
+            <h3>
+                🏥 معلومات المؤسسة
+            </h3>
 
-        </div>
+            <p>
+                <strong>
+                    المؤسسة:
+                </strong>
+
+                المؤسسة العمومية الإستشفائية بأولف
+                ولاية أدرار
+            </p>
+
+            <p>
+                <strong>
+                    مكتب التكوين المتواصل:
+                </strong>
+
+                بن صغير منير
+            </p>
+
+            <p>
+                <strong>
+                    الهاتف:
+                </strong>
+
+                0660.48.43.73
+            </p>
+
+        </section>
+
+
+        <!-- الفوتر -->
+
+        <footer class="footer">
+
+            منصة التكوين المتواصل
+            © 2026
+
+            <br>
+
+            المؤسسة العمومية الإستشفائية بأولف
+            ولاية أدرار
+
+        </footer>
 
 
     </div>
 
-</div>
-
-
-<!-- =====================================================
-     التذييل
-===================================================== -->
-
-<footer>
-
-    <div class="footer-institution">
-
-        المؤسسة العمومية الإستشفائية بأولف – ولاية أدرار
-
-    </div>
-
-
-    <div class="footer-office">
-
-        مكتب التكوين المتواصل
-
-    </div>
-
-
-    <div class="footer-manager">
-
-        رئيس مكتب التكوين المتواصل: بن صغير منير
-
-    </div>
-
-
-    <div class="footer-phone">
-
-        📞 0660.48.43.73
-
-    </div>
-
-</footer>
-
-
-<!-- =====================================================
-     Supabase
-===================================================== -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="supabase-config.js"></script>
+</main>
 
 
 <script>
 
-/* =====================================================
+/* =========================
+   Supabase
+========================= */
+
+let client = null;
+
+
+/* =========================
+   تهيئة Supabase
+========================= */
+
+function getSupabaseClient() {
+
+    /*
+     * ملف supabase-config.js في مشروعك
+     * يفترض أن ينشئ:
+     *
+     * window.supabaseClient
+     *
+     */
+
+    if (
+        window.supabaseClient
+    ) {
+
+        return window.supabaseClient;
+
+    }
+
+
+    /*
+     * في حال كان الملف يستخدم
+     * متغير supabaseClient مباشرة
+     */
+
+    if (
+        typeof supabaseClient !== "undefined"
+    ) {
+
+        return supabaseClient;
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================
    التحقق من المسؤول
-===================================================== */
+========================= */
 
 async function checkAdmin() {
 
-    const message =
-        document.getElementById("message");
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+    const dashboard =
+        document.getElementById(
+            "dashboard"
+        );
+
+    const errorBox =
+        document.getElementById(
+            "errorBox"
+        );
+
+    const errorMessage =
+        document.getElementById(
+            "errorMessage"
+        );
 
 
-    const adminContent =
-        document.getElementById("adminContent");
+    client =
+        getSupabaseClient();
+
+
+    if (!client) {
+
+        loading.style.display =
+            "none";
+
+        errorBox.style.display =
+            "block";
+
+        errorMessage.textContent =
+            "تعذر الاتصال بـ Supabase. تأكد من ملف supabase-config.js.";
+
+        return;
+
+    }
 
 
     try {
 
+        /*
+         * التحقق من المستخدم الحالي
+         */
 
         const {
-            data: userData,
-            error: userError
+            data,
+            error
         } =
-        await supabaseClient
-            .auth
-            .getUser();
+            await client.auth.getUser();
 
 
         if (
-            userError ||
-            !userData ||
-            !userData.user
+            error ||
+            !data ||
+            !data.user
         ) {
 
-
-            message.textContent =
-                "⛔ يجب تسجيل الدخول أولًا.";
-
-
-            message.style.color =
-                "#dc3545";
-
-
-            setTimeout(function() {
-
-                window.location.href =
-                    "login.html";
-
-            },1200);
-
+            window.location.href =
+                "login.html";
 
             return;
 
@@ -1428,39 +774,42 @@ async function checkAdmin() {
 
 
         const user =
-            userData.user;
+            data.user;
 
+
+        /*
+         * التحقق من الصلاحية
+         */
 
         const {
             data: roleData,
             error: roleError
         } =
-        await supabaseClient
-            .from("user_roles")
-            .select("role")
-            .eq(
-                "user_id",
-                user.id
-            )
-            .maybeSingle();
+            await client
+                .from("user_roles")
+                .select("role")
+                .eq(
+                    "user_id",
+                    user.id
+                )
+                .maybeSingle();
 
 
         if (roleError) {
 
-
             console.error(
-                "خطأ التحقق من الصلاحية:",
                 roleError
             );
 
+            loading.style.display =
+                "none";
 
-            message.textContent =
-                "❌ تعذر التحقق من صلاحية الحساب.";
+            errorBox.style.display =
+                "block";
 
-
-            message.style.color =
-                "#dc3545";
-
+            errorMessage.textContent =
+                "تعذر التحقق من صلاحيات الحساب: " +
+                roleError.message;
 
             return;
 
@@ -1472,78 +821,172 @@ async function checkAdmin() {
             roleData.role !== "admin"
         ) {
 
+            loading.style.display =
+                "none";
 
-            message.textContent =
-                "⛔ ليس لديك صلاحية المسؤول.";
+            errorBox.style.display =
+                "block";
 
+            errorMessage.textContent =
+                "هذا الحساب ليس لديه صلاحية المسؤول.";
 
-            message.style.color =
-                "#dc3545";
+            setTimeout(
+                () => {
 
+                    window.location.href =
+                        "trainee.html";
 
-            setTimeout(function() {
-
-                window.location.href =
-                    "trainee.html";
-
-            },1500);
-
+                },
+                2000
+            );
 
             return;
 
         }
 
 
-        message.style.display =
+        /*
+         * عرض بيانات المسؤول
+         */
+
+        document.getElementById(
+            "adminEmail"
+        ).textContent =
+            "تم تسجيل الدخول بالحساب: " +
+            (user.email || "مسؤول المنصة");
+
+
+        loading.style.display =
             "none";
 
 
-        adminContent.style.display =
+        dashboard.style.display =
             "block";
 
 
-    }
+    } catch (error) {
 
-    catch(error) {
+        console.error(
+            error
+        );
 
+        loading.style.display =
+            "none";
 
-        console.error(error);
+        errorBox.style.display =
+            "block";
 
-
-        message.textContent =
-            "❌ حدث خطأ أثناء التحقق من الحساب.";
-
-
-        message.style.color =
-            "#dc3545";
+        errorMessage.textContent =
+            "حدث خطأ أثناء التحقق من الحساب: " +
+            error.message;
 
     }
 
 }
 
 
-/* =====================================================
+/* =========================
    تسجيل الخروج
-===================================================== */
+========================= */
 
 async function logout() {
 
-    await supabaseClient
-        .auth
-        .signOut();
+    if (!client) {
+
+        client =
+            getSupabaseClient();
+
+    }
 
 
-    window.location.href =
-        "login.html";
+    if (!client) {
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "هل تريد تسجيل الخروج؟"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const {
+            error
+        } =
+            await client.auth.signOut();
+
+
+        if (error) {
+
+            alert(
+                "تعذر تسجيل الخروج: " +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        window.location.href =
+            "login.html";
+
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+        window.location.href =
+            "login.html";
+
+    }
 
 }
 
 
-/* =====================================================
-   تشغيل الصفحة
-===================================================== */
+/* =========================
+   الخصائص المستقبلية
+========================= */
 
-checkAdmin();
+function comingSoon(event) {
+
+    event.preventDefault();
+
+    alert(
+        "هذه الخاصية سيتم إضافتها في المرحلة القادمة بإذن الله."
+    );
+
+}
+
+
+/* =========================
+   بدء الصفحة
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        checkAdmin();
+
+    }
+);
 
 </script>
 
