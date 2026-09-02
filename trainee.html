@@ -1126,7 +1126,23 @@ a {
 }
 
 
-/* الأسئلة المقترحة */
+/* =====================================================
+   حالة الخطأ داخل المساعد
+===================================================== */
+
+.ai-message.error {
+
+    background: #fff5f5;
+
+    color: #b42318;
+
+    border: 1px solid #f5c2c0;
+}
+
+
+/* =====================================================
+   الأسئلة المقترحة
+===================================================== */
 
 .ai-suggestions {
 
@@ -1155,17 +1171,37 @@ a {
 
     border-radius: 20px;
 
-    padding: 7px 11px;
+    padding: 8px 12px;
 
     font-family: inherit;
 
     font-size: 12px;
 
     cursor: pointer;
+
+    transition: .2s;
+}
+
+.ai-suggestion:hover {
+
+    background: #e8f3ff;
+
+    transform: translateY(-1px);
+}
+
+.ai-suggestion:disabled {
+
+    opacity: .6;
+
+    cursor: not-allowed;
+
+    transform: none;
 }
 
 
-/* منطقة الكتابة */
+/* =====================================================
+   منطقة الكتابة
+===================================================== */
 
 .ai-input-area {
 
@@ -1199,6 +1235,8 @@ a {
     outline: none;
 
     min-height: 43px;
+
+    max-height: 100px;
 }
 
 .ai-input:focus {
@@ -1230,6 +1268,13 @@ a {
     font-size: 19px;
 
     cursor: pointer;
+
+    transition: .2s;
+}
+
+.ai-send:hover {
+
+    transform: translateY(-1px);
 }
 
 .ai-send:disabled {
@@ -1237,6 +1282,56 @@ a {
     opacity: .6;
 
     cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =====================================================
+   مؤشر التفكير
+===================================================== */
+
+.ai-thinking {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+}
+
+.ai-thinking span {
+
+    width: 6px;
+    height: 6px;
+
+    background: #78909c;
+
+    border-radius: 50%;
+
+    animation: aiDot 1.2s infinite;
+}
+
+.ai-thinking span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.ai-thinking span:nth-child(3) {
+    animation-delay: .4s;
+}
+
+@keyframes aiDot {
+
+    0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: .4;
+    }
+
+    30% {
+        transform: translateY(-4px);
+        opacity: 1;
+    }
+
 }
 
 
@@ -1619,6 +1714,7 @@ footer strong {
     <div class="ai-suggestions">
 
         <button
+            type="button"
             class="ai-suggestion"
             onclick="useAISuggestion('اشرح لي أهمية التكوين المتواصل للموظفين')">
 
@@ -1628,6 +1724,7 @@ footer strong {
 
 
         <button
+            type="button"
             class="ai-suggestion"
             onclick="useAISuggestion('لخص لي هذا الدرس بطريقة سهلة')">
 
@@ -1637,6 +1734,7 @@ footer strong {
 
 
         <button
+            type="button"
             class="ai-suggestion"
             onclick="useAISuggestion('أنشئ لي أسئلة للمراجعة')">
 
@@ -1657,6 +1755,7 @@ footer strong {
 
 
         <button
+            type="button"
             id="aiSend"
             class="ai-send"
             onclick="sendAIMessage()">
@@ -1777,17 +1876,40 @@ let currentUser = null;
 
 async function getCurrentUser() {
 
-    const { data, error } =
-        await supabaseClient.auth.getUser();
+    try {
 
-    if (error || !data.user) {
+        const { data, error } =
+            await supabaseClient.auth.getUser();
 
-        console.error(error);
+        if (error) {
+
+            console.error(
+                "خطأ في getUser:",
+                error
+            );
+
+            return null;
+        }
+
+        if (!data || !data.user) {
+
+            return null;
+        }
+
+        return data.user;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "خطأ أثناء الحصول على المستخدم:",
+            error
+        );
 
         return null;
     }
 
-    return data.user;
 }
 
 
@@ -3032,7 +3154,7 @@ async function loadCourses() {
 
 
 /* =====================================================
-   المساعد الذكي
+   فتح وإغلاق المساعد
 ===================================================== */
 
 function toggleAIAssistant() {
@@ -3041,6 +3163,10 @@ function toggleAIAssistant() {
         document.getElementById(
             "aiPanel"
         );
+
+    if (!panel) {
+        return;
+    }
 
     panel.classList.toggle(
         "open"
@@ -3062,6 +3188,11 @@ function addAIMessage(
         document.getElementById(
             "aiMessages"
         );
+
+
+    if (!messages) {
+        return;
+    }
 
 
     const message =
@@ -3091,7 +3222,55 @@ function addAIMessage(
 
 
 /* =====================================================
+   رسالة خطأ مفصلة
+===================================================== */
+
+function addAIError(
+    title,
+    details
+) {
+
+    const messages =
+        document.getElementById(
+            "aiMessages"
+        );
+
+
+    if (!messages) {
+        return;
+    }
+
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+
+    message.className =
+        "ai-message error";
+
+
+    message.textContent =
+        title +
+        "\n\n" +
+        details;
+
+
+    messages.appendChild(
+        message
+    );
+
+
+    messages.scrollTop =
+        messages.scrollHeight;
+
+}
+
+
+/* =====================================================
    السؤال المقترح
+   الآن يتم الإرسال مباشرة
 ===================================================== */
 
 function useAISuggestion(
@@ -3104,11 +3283,19 @@ function useAISuggestion(
         );
 
 
+    if (!input) {
+        return;
+    }
+
+
     input.value =
         text;
 
 
-    input.focus();
+    /*
+     * إرسال السؤال مباشرة
+     */
+    sendAIMessage();
 
 }
 
@@ -3131,6 +3318,13 @@ async function sendAIMessage() {
         );
 
 
+    if (!input || !sendButton) {
+
+        return;
+
+    }
+
+
     const message =
         input.value.trim();
 
@@ -3142,21 +3336,72 @@ async function sendAIMessage() {
     }
 
 
-    /* التأكد من تسجيل الدخول */
+    /* =================================================
+       التأكد من وجود جلسة تسجيل الدخول
+    ================================================= */
 
-    if (!currentUser) {
+    try {
+
+        const {
+            data: sessionData,
+            error: sessionError
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (sessionError) {
+
+            console.error(
+                "Session error:",
+                sessionError
+            );
+
+            addAIError(
+                "❌ تعذر التحقق من تسجيل الدخول.",
+                sessionError.message ||
+                "حدث خطأ أثناء التحقق من جلسة Supabase."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !sessionData ||
+            !sessionData.session ||
+            !sessionData.session.user
+        ) {
+
+            currentUser = null;
+
+            addAIError(
+                "🔐 يجب تسجيل الدخول أولًا.",
+                "لا توجد جلسة Supabase نشطة في هذه الصفحة."
+            );
+
+            return;
+
+        }
+
 
         currentUser =
-            await getCurrentUser();
+            sessionData.session.user;
+
 
     }
 
+    catch (sessionException) {
 
-    if (!currentUser) {
+        console.error(
+            "Session exception:",
+            sessionException
+        );
 
-        addAIMessage(
-            "🔐 يجب تسجيل الدخول إلى المنصة أولًا لاستخدام المساعد الذكي.",
-            "bot"
+        addAIError(
+            "❌ حدث خطأ أثناء التحقق من الجلسة.",
+            sessionException.message ||
+            String(sessionException)
         );
 
         return;
@@ -3164,7 +3409,9 @@ async function sendAIMessage() {
     }
 
 
-    /* إظهار رسالة المستخدم */
+    /* =================================================
+       إظهار رسالة المستخدم
+    ================================================= */
 
     addAIMessage(
         message,
@@ -3175,17 +3422,43 @@ async function sendAIMessage() {
     input.value = "";
 
 
-    /* تعطيل زر الإرسال */
+    /* =================================================
+       تعطيل الإرسال
+    ================================================= */
 
     sendButton.disabled =
         true;
-
 
     sendButton.textContent =
         "⏳";
 
 
-    /* جاري التفكير */
+    /*
+     * تعطيل أزرار الاقتراحات أثناء الطلب
+     */
+
+    const suggestionButtons =
+        document.querySelectorAll(
+            ".ai-suggestion"
+        );
+
+
+    suggestionButtons.forEach(
+        button => {
+            button.disabled = true;
+        }
+    );
+
+
+    /* =================================================
+       إضافة حالة التفكير
+    ================================================= */
+
+    const messages =
+        document.getElementById(
+            "aiMessages"
+        );
+
 
     const thinking =
         document.createElement(
@@ -3201,14 +3474,14 @@ async function sendAIMessage() {
         "aiThinking";
 
 
-    thinking.textContent =
-        "🤔 جاري التفكير...";
-
-
-    const messages =
-        document.getElementById(
-            "aiMessages"
-        );
+    thinking.innerHTML = `
+        🤔 جاري التفكير
+        <span class="ai-thinking">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+    `;
 
 
     messages.appendChild(
@@ -3220,26 +3493,42 @@ async function sendAIMessage() {
         messages.scrollHeight;
 
 
+    /* =================================================
+       الاتصال بـ Edge Function
+    ================================================= */
+
     try {
 
-        /*
-         * مهم:
-         *
-         * لا نضع OPENAI_API_KEY هنا.
-         *
-         * supabaseClient.functions.invoke
-         * يستخدم جلسة Supabase الحالية.
-         */
+        console.log(
+            "إرسال الطلب إلى swift-processor..."
+        );
 
-        const { data, error } =
+
+        const {
+            data,
+            error
+        } =
             await supabaseClient.functions.invoke(
                 "swift-processor",
                 {
                     body: {
-                        message: message
+                        message:
+                            message
                     }
                 }
             );
+
+
+        console.log(
+            "نتيجة المساعد:",
+            data
+        );
+
+
+        console.log(
+            "خطأ المساعد:",
+            error
+        );
 
 
         /* إزالة جاري التفكير */
@@ -3257,7 +3546,9 @@ async function sendAIMessage() {
         }
 
 
-        /* معالجة الخطأ */
+        /* =================================================
+           معالجة خطأ Edge Function
+        ================================================= */
 
         if (error) {
 
@@ -3267,9 +3558,62 @@ async function sendAIMessage() {
             );
 
 
-            addAIMessage(
-                "❌ تعذر الاتصال بالمساعد الذكي. تأكد من تسجيل الدخول ثم حاول مرة أخرى.",
-                "bot"
+            let details =
+                error.message ||
+                "تعذر الاتصال بـ Edge Function.";
+
+
+            /*
+             * محاولة استخراج تفاصيل إضافية
+             */
+
+            if (
+                error.context &&
+                typeof error.context === "object"
+            ) {
+
+                try {
+
+                    const response =
+                        error.context;
+
+
+                    if (
+                        response &&
+                        typeof response.text ===
+                        "function"
+                    ) {
+
+                        const errorText =
+                            await response.text();
+
+                        if (errorText) {
+
+                            details +=
+                                "\n\nتفاصيل الخادم:\n" +
+                                errorText;
+
+                        }
+
+                    }
+
+                }
+
+                catch (detailsError) {
+
+                    console.error(
+                        "Error reading function details:",
+                        detailsError
+                    );
+
+                }
+
+            }
+
+
+            addAIError(
+                "❌ حدث خطأ أثناء الاتصال بالمساعد الذكي.",
+                details
             );
 
 
@@ -3278,26 +3622,42 @@ async function sendAIMessage() {
         }
 
 
-        /* التأكد من وجود الإجابة */
+        /* =================================================
+           التأكد من وجود البيانات
+        ================================================= */
 
-        if (
-            !data ||
-            !data.success
-        ) {
+        if (!data) {
 
-            addAIMessage(
-                data?.error ||
-                "❌ لم يتم الحصول على إجابة من المساعد.",
-                "bot"
+            addAIError(
+                "❌ لم تصل أي استجابة من المساعد.",
+                "Edge Function لم تُرجع بيانات."
             );
-
 
             return;
 
         }
 
 
-        /* عرض الإجابة */
+        /* =================================================
+           معالجة خطأ مرسل من Edge Function
+        ================================================= */
+
+        if (!data.success) {
+
+            addAIError(
+                "❌ المساعد الذكي أرجع خطأ.",
+                data.error ||
+                "حدث خطأ غير معروف داخل Edge Function."
+            );
+
+            return;
+
+        }
+
+
+        /* =================================================
+           عرض الإجابة
+        ================================================= */
 
         addAIMessage(
             data.answer ||
@@ -3328,9 +3688,10 @@ async function sendAIMessage() {
         }
 
 
-        addAIMessage(
-            "❌ حدث خطأ أثناء الاتصال بالمساعد الذكي.",
-            "bot"
+        addAIError(
+            "❌ حدث خطأ غير متوقع.",
+            error.message ||
+            String(error)
         );
 
     }
@@ -3343,6 +3704,13 @@ async function sendAIMessage() {
 
         sendButton.textContent =
             "➤";
+
+
+        suggestionButtons.forEach(
+            button => {
+                button.disabled = false;
+            }
+        );
 
     }
 
