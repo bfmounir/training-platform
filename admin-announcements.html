@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إدارة الإعلانات</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Tahoma,sans-serif;background:#f3f6fa;color:#1f2937}
+.sidebar{position:fixed;right:0;top:0;width:270px;height:100vh;background:linear-gradient(180deg,#075985,#0f766e);color:#fff;padding:25px 18px;box-shadow:-4px 0 15px rgba(0,0,0,.12);z-index:1000}
+.logo-box{text-align:center;margin-bottom:25px}
+.logo-box img{width:75px;height:75px;object-fit:contain;background:#fff;border-radius:18px;padding:7px}
+.logo-box h2{font-size:18px;margin:12px 0 5px}
+.logo-box p{font-size:13px;line-height:1.7;opacity:.9}
+.menu{margin-top:25px}
+.menu a{display:block;color:#fff;text-decoration:none;padding:12px 14px;margin-bottom:7px;border-radius:11px;transition:.2s}
+.menu a:hover,.menu a.active{background:rgba(255,255,255,.18);transform:translateX(-3px)}
+.logout{position:absolute;bottom:20px;left:18px;right:18px;border:none;padding:12px;border-radius:11px;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;font-size:15px}
+.main{margin-right:270px;min-height:100vh}
+.topbar{height:75px;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:0 30px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.topbar h1{margin:0;color:#075985;font-size:24px}
+.admin-info{color:#64748b;font-size:14px}
+.content{padding:30px}
+.hero{background:linear-gradient(135deg,#075985,#0f766e);color:#fff;border-radius:22px;padding:30px;margin-bottom:25px;box-shadow:0 8px 25px rgba(7,89,133,.18)}
+.hero h2{margin:0 0 10px;font-size:27px}.hero p{line-height:1.9;margin:0;opacity:.95}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:25px}
+.stat{background:#fff;border-radius:18px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.06);border:1px solid #eef2f7}
+.stat .icon{font-size:27px;margin-bottom:8px}.stat strong{display:block;font-size:28px;color:#075985}.stat span{color:#64748b;font-size:13px}
+
+.panel{background:#fff;border-radius:20px;padding:25px;margin-bottom:25px;box-shadow:0 5px 18px rgba(0,0,0,.06)}
+.panel-title{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px}
+.panel-title h2{margin:0;color:#075985;font-size:21px}
+.btn{border:0;border-radius:10px;padding:11px 17px;cursor:pointer;font-size:14px;font-weight:bold}
+.btn-primary{background:#075985;color:#fff}.btn-secondary{background:#e2e8f0;color:#334155}.btn-danger{background:#dc2626;color:#fff}.btn-edit{background:#0f766e;color:#fff}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:7px}
+.form-group.full{grid-column:1/-1}
+label{font-size:14px;font-weight:bold;color:#334155}
+input,textarea,select{width:100%;border:1px solid #dbe3ec;border-radius:10px;padding:12px;font-family:inherit;font-size:14px;background:#fff;outline:none}
+input:focus,textarea:focus,select:focus{border-color:#075985;box-shadow:0 0 0 3px rgba(7,89,133,.08)}
+textarea{min-height:130px;resize:vertical}
+.check-row{display:flex;align-items:center;gap:8px;margin-top:4px}.check-row input{width:auto}
+.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+
+.toolbar{display:flex;gap:12px;align-items:center;margin-bottom:20px}
+.search{flex:1}
+.filter{width:210px}
+
+.announcement-list{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.announcement-card{border:1px solid #e5eaf0;border-radius:17px;padding:20px;background:#fff;position:relative;overflow:hidden}
+.announcement-card.important{border-right:5px solid #dc2626}
+.card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:12px}
+.card-title{font-size:18px;font-weight:bold;color:#075985;margin:0;line-height:1.5}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:12px;white-space:nowrap}
+.badge-important{background:#fee2e2;color:#b91c1c}
+.badge-normal{background:#e0f2fe;color:#075985}
+.badge-admin{background:#fef3c7;color:#92400e}
+.badge-training{background:#dcfce7;color:#166534}
+.badge-info{background:#ede9fe;color:#6d28d9}
+.card-content{color:#475569;line-height:1.9;font-size:14px;white-space:pre-wrap}
+.meta{display:flex;flex-wrap:wrap;gap:10px;color:#64748b;font-size:12px;margin-top:15px;padding-top:12px;border-top:1px solid #eef2f7}
+.card-actions{display:flex;gap:8px;margin-top:15px}
+.card-actions .btn{padding:8px 12px;font-size:12px}
+.link-preview{display:inline-block;margin-top:10px;color:#075985;text-decoration:none;font-size:13px}
+.empty{text-align:center;padding:45px 15px;color:#94a3b8}
+.loading{text-align:center;padding:30px;color:#64748b}
+.message{padding:12px 15px;border-radius:10px;margin-bottom:15px;display:none}
+.message.success{display:block;background:#dcfce7;color:#166534}
+.message.error{display:block;background:#fee2e2;color:#991b1b}
+.hidden{display:none!important}
+.footer{text-align:center;color:#94a3b8;padding:30px 10px;font-size:13px}
+
+@media(max-width:1050px){
+.stats{grid-template-columns:1fr 1fr}.announcement-list{grid-template-columns:1fr}
+}
+@media(max-width:800px){
+.sidebar{position:relative;width:100%;height:auto}
+.logout{position:static;width:100%;margin-top:15px}
+.main{margin-right:0}.content{padding:18px}.topbar{padding:0 18px}
+.form-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}
+.toolbar{flex-direction:column;align-items:stretch}.filter{width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+    <div class="logo-box">
+        <img src="logo.png" alt="شعار المؤسسة">
+        <h2>منصة التكوين المتواصل</h2>
+        <p>المؤسسة العمومية الإستشفائية بأولف<br>ولاية أدرار</p>
+    </div>
+
+    <nav class="menu">
+        <a href="admin.html">🏠 لوحة التحكم</a>
+        <a href="admin-users.html">👥 إدارة المستخدمين</a>
+        <a href="admin-courses.html">📚 إدارة الدورات</a>
+        <a href="admin-lessons.html">📖 إدارة الدروس</a>
+        <a href="admin-certificates.html">🏆 الشهادات</a>
+        <a href="admin-statistics.html">📊 الإحصائيات</a>
+        <a href="external-training.html">🌐 التكوينات الخارجية</a>
+        <a href="admin-announcements.html" class="active">📢 الإعلانات</a>
+    </nav>
+
+    <button class="logout" onclick="logout()">🚪 تسجيل الخروج</button>
+</aside>
+
+<main class="main">
+    <header class="topbar">
+        <h1>إدارة الإعلانات</h1>
+        <div class="admin-info" id="adminInfo">جاري التحقق...</div>
+    </header>
+
+    <section class="content">
+
+        <div class="hero">
+            <h2>📢 إدارة إعلانات المنصة</h2>
+            <p>
+                من هنا يمكنك نشر الإعلانات والمعلومات المهمة للمتربصين،
+                مع إمكانية تحديد نوع الإعلان وتاريخ النشر والانتهاء.
+            </p>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="icon">📢</div>
+                <strong id="totalCount">0</strong>
+                <span>إجمالي الإعلانات</span>
+            </div>
+            <div class="stat">
+                <div class="icon">⭐</div>
+                <strong id="importantCount">0</strong>
+                <span>الإعلانات المهمة</span>
+            </div>
+            <div class="stat">
+                <div class="icon">📅</div>
+                <strong id="activeCount">0</strong>
+                <span>الإعلانات الحالية</span>
+            </div>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <div class="panel">
+            <div class="panel-title">
+                <h2 id="formTitle">➕ إضافة إعلان جديد</h2>
+                <button class="btn btn-secondary hidden" id="cancelEditBtn" onclick="cancelEdit()">إلغاء التعديل</button>
+            </div>
+
+            <form id="announcementForm">
+                <input type="hidden" id="announcementId">
+
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label for="title">عنوان الإعلان *</label>
+                        <input id="title" type="text" maxlength="200" required placeholder="مثال: إعلان عن دورة تكوينية جديدة">
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="content">محتوى الإعلان *</label>
+                        <textarea id="content" required placeholder="اكتب تفاصيل الإعلان هنا..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="announcementType">نوع الإعلان</label>
+                        <select id="announcementType">
+                            <option value="عام">📢 عام</option>
+                            <option value="تكوين">📚 تكوين</option>
+                            <option value="إداري">🏢 إداري</option>
+                            <option value="معلومات">ℹ️ معلومات</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="publishDate">تاريخ النشر</label>
+                        <input id="publishDate" type="date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expiryDate">تاريخ انتهاء الإعلان (اختياري)</label>
+                        <input id="expiryDate" type="date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="linkUrl">رابط إضافي (اختياري)</label>
+                        <input id="linkUrl" type="url" placeholder="https://example.com">
+                    </div>
+
+                    <div class="form-group full">
+                        <label class="check-row">
+                            <input id="isImportant" type="checkbox">
+                            ⭐ وضع علامة "إعلان مهم"
+                        </label>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" type="submit" id="saveBtn">💾 نشر الإعلان</button>
+                    <button class="btn btn-secondary hidden" type="button" id="cancelBtn" onclick="cancelEdit()">إلغاء</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">
+                <h2>📋 الإعلانات المنشورة</h2>
+            </div>
+
+            <div class="toolbar">
+                <input class="search" id="searchInput" type="search" placeholder="🔎 ابحث في عنوان أو محتوى الإعلان...">
+                <select class="filter" id="typeFilter">
+                    <option value="">كل الأنواع</option>
+                    <option value="عام">عام</option>
+                    <option value="تكوين">تكوين</option>
+                    <option value="إداري">إداري</option>
+                    <option value="معلومات">معلومات</option>
+                </select>
+            </div>
+
+            <div id="announcementList" class="announcement-list">
+                <div class="loading">⏳ جاري تحميل الإعلانات...</div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="footer">
+        منصة التكوين المتواصل © 2026<br>
+        المؤسسة العمومية الإستشفائية بأولف - ولاية أدرار
+    </div>
+</main>
+
+<script>
+const supabaseClient = window.supabaseClient || window.supabase.createClient(
+    window.SUPABASE_URL,
+    window.SUPABASE_ANON_KEY
+);
+
+let announcements = [];
+let currentUser = null;
+
+function escapeHtml(value) {
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+function safeUrl(value) {
+    try {
+        const url = new URL(value);
+        return (url.protocol === "http:" || url.protocol === "https:") ? url.href : "";
+    } catch {
+        return "";
+    }
+}
+
+function todayString() {
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,"0");
+    const day = String(d.getDate()).padStart(2,"0");
+    return `${y}-${m}-${day}`;
+}
+
+function formatDate(value) {
+    if (!value) return "—";
+    const d = new Date(value + "T00:00:00");
+    if (Number.isNaN(d.getTime())) return value;
+    return d.toLocaleDateString("ar-DZ", {
+        year:"numeric", month:"long", day:"numeric"
+    });
+}
+
+function showMessage(text, type="success") {
+    const box = document.getElementById("message");
+    box.textContent = text;
+    box.className = "message " + type;
+    setTimeout(() => {
+        box.className = "message";
+        box.textContent = "";
+    }, 4500);
+}
+
+async function checkAdmin() {
+    try {
+        const { data:{user}, error } = await supabaseClient.auth.getUser();
+
+        if (error || !user) {
+            window.location.href = "login.html";
+            return false;
+        }
+
+        currentUser = user;
+
+        const { data:roleData, error:roleError } = await supabaseClient
+            .from("user_roles")
+            .select("role")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+        if (roleError) {
+            console.error(roleError);
+            document.getElementById("adminInfo").textContent = "تعذر التحقق من الصلاحيات";
+            return false;
+        }
+
+        if (!roleData || roleData.role !== "admin") {
+            alert("ليس لديك صلاحية الدخول إلى إدارة الإعلانات.");
+            window.location.href = "index.html";
+            return false;
+        }
+
+        document.getElementById("adminInfo").textContent = user.email || "المسؤول";
+        return true;
+
+    } catch (error) {
+        console.error(error);
+        alert("حدث خطأ أثناء التحقق من الحساب.");
+        return false;
+    }
+}
+
+async function loadAnnouncements() {
+    const list = document.getElementById("announcementList");
+    list.innerHTML = '<div class="loading">⏳ جاري تحميل الإعلانات...</div>';
+
+    const { data, error } = await supabaseClient
+        .from("announcements")
+        .select("*")
+        .order("publish_date", { ascending:false })
+        .order("created_at", { ascending:false });
+
+    if (error) {
+        console.error(error);
+        list.innerHTML = '<div class="empty">❌ تعذر تحميل الإعلانات.<br><small>' +
+            escapeHtml(error.message) + '</small></div>';
+        return;
+    }
+
+    announcements = data || [];
+    updateStats();
+    renderAnnouncements();
+}
+
+function updateStats() {
+    const today = todayString();
+
+    document.getElementById("totalCount").textContent = announcements.length;
+
+    document.getElementById("importantCount").textContent =
+        announcements.filter(a => a.is_important).length;
+
+    document.getElementById("activeCount").textContent =
+        announcements.filter(a =>
+            !a.expiry_date || a.expiry_date >= today
+        ).length;
+}
+
+function typeBadge(type) {
+    const map = {
+        "عام":"badge-normal",
+        "تكوين":"badge-training",
+        "إداري":"badge-admin",
+        "معلومات":"badge-info"
+    };
+    return map[type] || "badge-normal";
+}
+
+function renderAnnouncements() {
+    const list = document.getElementById("announcementList");
+    const search = document.getElementById("searchInput").value.trim().toLowerCase();
+    const type = document.getElementById("typeFilter").value;
+
+    const filtered = announcements.filter(a => {
+        const matchesSearch =
+            !search ||
+            String(a.title || "").toLowerCase().includes(search) ||
+            String(a.content || "").toLowerCase().includes(search);
+
+        const matchesType = !type || a.announcement_type === type;
+
+        return matchesSearch && matchesType;
+    });
+
+    if (!filtered.length) {
+        list.innerHTML = '<div class="empty">📭 لا توجد إعلانات مطابقة للبحث.</div>';
+        return;
+    }
+
+    list.innerHTML = filtered.map(a => {
+        const link = safeUrl(a.link_url);
+        const important = a.is_important ? " important" : "";
+
+        return `
+        <article class="announcement-card${important}">
+            <div class="card-top">
+                <h3 class="card-title">${escapeHtml(a.title)}</h3>
+                <div>
+                    <span class="badge ${typeBadge(a.announcement_type)}">
+                        ${escapeHtml(a.announcement_type || "عام")}
+                    </span>
+                    ${a.is_important ? '<span class="badge badge-important">⭐ مهم</span>' : ''}
+                </div>
+            </div>
+
+            <div class="card-content">${escapeHtml(a.content)}</div>
+
+            ${link ? `<a class="link-preview" href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer">🔗 فتح الرابط المرفق</a>` : ""}
+
+            <div class="meta">
+                <span>📅 النشر: ${formatDate(a.publish_date)}</span>
+                ${a.expiry_date ? `<span>⏳ الانتهاء: ${formatDate(a.expiry_date)}</span>` : ""}
+            </div>
+
+            <div class="card-actions">
+                <button class="btn btn-edit" onclick="editAnnouncement(${a.id})">✏️ تعديل</button>
+                <button class="btn btn-danger" onclick="deleteAnnouncement(${a.id})">🗑️ حذف</button>
+            </div>
+        </article>`;
+    }).join("");
+}
+
+async function saveAnnouncement(event) {
+    event.preventDefault();
+
+    const id = document.getElementById("announcementId").value;
+    const title = document.getElementById("title").value.trim();
+    const content = document.getElementById("content").value.trim();
+    const announcementType = document.getElementById("announcementType").value;
+    const publishDate = document.getElementById("publishDate").value || todayString();
+    const expiryDate = document.getElementById("expiryDate").value || null;
+    const linkUrlRaw = document.getElementById("linkUrl").value.trim();
+    const linkUrl = linkUrlRaw ? safeUrl(linkUrlRaw) : null;
+    const isImportant = document.getElementById("isImportant").checked;
+
+    if (!title || !content) {
+        showMessage("يرجى إدخال عنوان ومحتوى الإعلان.", "error");
+        return;
+    }
+
+    if (linkUrlRaw && !linkUrl) {
+        showMessage("الرابط غير صالح. استخدم رابطًا يبدأ بـ https:// أو http://", "error");
+        return;
+    }
+
+    if (expiryDate && expiryDate < publishDate) {
+        showMessage("تاريخ الانتهاء يجب أن يكون بعد تاريخ النشر.", "error");
+        return;
+    }
+
+    const payload = {
+        title,
+        content,
+        announcement_type: announcementType,
+        is_important: isImportant,
+        publish_date: publishDate,
+        expiry_date: expiryDate,
+        link_url: linkUrl,
+        created_by: currentUser.id
+    };
+
+    const saveBtn = document.getElementById("saveBtn");
+    saveBtn.disabled = true;
+    saveBtn.textContent = id ? "⏳ جاري التعديل..." : "⏳ جاري النشر...";
+
+    let error;
+
+    if (id) {
+        ({ error } = await supabaseClient
+            .from("announcements")
+            .update(payload)
+            .eq("id", Number(id)));
+    } else {
+        ({ error } = await supabaseClient
+            .from("announcements")
+            .insert(payload));
+    }
+
+    saveBtn.disabled = false;
+
+    if (error) {
+        console.error(error);
+        showMessage("تعذر حفظ الإعلان: " + error.message, "error");
+        saveBtn.textContent = id ? "💾 حفظ التعديل" : "💾 نشر الإعلان";
+        return;
+    }
+
+    showMessage(id ? "تم تعديل الإعلان بنجاح ✅" : "تم نشر الإعلان بنجاح ✅");
+    cancelEdit();
+    await loadAnnouncements();
+}
+
+function editAnnouncement(id) {
+    const a = announcements.find(item => Number(item.id) === Number(id));
+    if (!a) return;
+
+    document.getElementById("announcementId").value = a.id;
+    document.getElementById("title").value = a.title || "";
+    document.getElementById("content").value = a.content || "";
+    document.getElementById("announcementType").value = a.announcement_type || "عام";
+    document.getElementById("publishDate").value = a.publish_date || todayString();
+    document.getElementById("expiryDate").value = a.expiry_date || "";
+    document.getElementById("linkUrl").value = a.link_url || "";
+    document.getElementById("isImportant").checked = !!a.is_important;
+
+    document.getElementById("formTitle").textContent = "✏️ تعديل الإعلان";
+    document.getElementById("saveBtn").textContent = "💾 حفظ التعديل";
+    document.getElementById("cancelEditBtn").classList.remove("hidden");
+    document.getElementById("cancelBtn").classList.remove("hidden");
+
+    window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function cancelEdit() {
+    document.getElementById("announcementForm").reset();
+    document.getElementById("announcementId").value = "";
+    document.getElementById("publishDate").value = todayString();
+    document.getElementById("formTitle").textContent = "➕ إضافة إعلان جديد";
+    document.getElementById("saveBtn").textContent = "💾 نشر الإعلان";
+    document.getElementById("cancelEditBtn").classList.add("hidden");
+    document.getElementById("cancelBtn").classList.add("hidden");
+}
+
+async function deleteAnnouncement(id) {
+    const a = announcements.find(item => Number(item.id) === Number(id));
+    if (!a) return;
+
+    const confirmed = confirm(
+        "هل أنت متأكد من حذف هذا الإعلان؟\n\n" + (a.title || "")
+    );
+
+    if (!confirmed) return;
+
+    const { error } = await supabaseClient
+        .from("announcements")
+        .delete()
+        .eq("id", Number(id));
+
+    if (error) {
+        console.error(error);
+        showMessage("تعذر حذف الإعلان: " + error.message, "error");
+        return;
+    }
+
+    showMessage("تم حذف الإعلان بنجاح ✅");
+    await loadAnnouncements();
+}
+
+async function logout() {
+    await supabaseClient.auth.signOut();
+    window.location.href = "login.html";
+}
+
+document.getElementById("announcementForm").addEventListener("submit", saveAnnouncement);
+document.getElementById("searchInput").addEventListener("input", renderAnnouncements);
+document.getElementById("typeFilter").addEventListener("change", renderAnnouncements);
+
+document.addEventListener("DOMContentLoaded", async () => {
+    document.getElementById("publishDate").value = todayString();
+
+    const allowed = await checkAdmin();
+    if (allowed) {
+        await loadAnnouncements();
+    }
+});
+</script>
+
+</body>
+</html>
