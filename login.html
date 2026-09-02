@@ -19,9 +19,18 @@
             margin: 0;
             min-height: 100vh;
             font-family: Arial, Tahoma, sans-serif;
+
             background:
-                radial-gradient(circle at top right, rgba(8,127,140,.18), transparent 35%),
-                radial-gradient(circle at bottom left, rgba(11,110,253,.15), transparent 35%),
+                radial-gradient(
+                    circle at top right,
+                    rgba(8,127,140,.18),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom left,
+                    rgba(11,110,253,.15),
+                    transparent 35%
+                ),
                 #f3f7fa;
 
             display: flex;
@@ -38,7 +47,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
 
-            background: white;
+            background: #fff;
 
             border-radius: 25px;
 
@@ -49,7 +58,7 @@
         }
 
         /* =========================
-           الجانب التعريفي
+           معلومات المؤسسة
         ========================== */
 
         .info {
@@ -70,7 +79,6 @@
             justify-content: center;
 
             position: relative;
-
             overflow: hidden;
         }
 
@@ -132,7 +140,6 @@
             margin: 0 0 15px;
 
             position: relative;
-
             z-index: 2;
         }
 
@@ -146,7 +153,6 @@
             margin: 0 0 25px;
 
             position: relative;
-
             z-index: 2;
         }
 
@@ -164,7 +170,6 @@
             line-height: 1.8;
 
             position: relative;
-
             z-index: 2;
         }
 
@@ -253,7 +258,6 @@
             position: absolute;
 
             left: 15px;
-
             top: 50%;
 
             transform: translateY(-50%);
@@ -431,6 +435,7 @@
         }
 
     </style>
+
 </head>
 
 
@@ -444,9 +449,11 @@
 
     <div class="info">
 
-        <img src="logo.png"
-             class="logo"
-             alt="شعار المؤسسة">
+        <img
+            src="logo.png"
+            class="logo"
+            alt="شعار المؤسسة"
+        >
 
         <h1>
             منصة التكوين المتواصل
@@ -501,8 +508,9 @@
         </div>
 
 
-        <div id="message"
-             class="message">
+        <div
+            id="message"
+            class="message">
         </div>
 
 
@@ -617,6 +625,7 @@
             password.type = "password";
 
         }
+
     }
 
 
@@ -644,12 +653,14 @@
     async function login() {
 
         const email =
-            document.getElementById("email")
+            document
+                .getElementById("email")
                 .value
                 .trim();
 
         const password =
-            document.getElementById("password")
+            document
+                .getElementById("password")
                 .value;
 
 
@@ -660,11 +671,13 @@
             );
 
             return;
+
         }
 
 
         const button =
             document.getElementById("loginBtn");
+
 
         button.disabled = true;
 
@@ -674,15 +687,20 @@
 
         try {
 
-            /* تسجيل الدخول عبر Supabase */
+            /* =========================
+               تسجيل الدخول في Supabase
+            ========================== */
 
             const {
                 data,
                 error
             } =
                 await supabaseClient.auth.signInWithPassword({
+
                     email: email,
+
                     password: password
+
                 });
 
 
@@ -706,19 +724,19 @@
                 data.user.id;
 
 
-            /*
-             * قراءة صلاحية المستخدم
-             *
-             * الجدول المستخدم:
-             * user_roles
-             */
+            /* =========================
+               قراءة صلاحية المستخدم
+               
+               مهم:
+               جدول الصلاحيات هو roles
+            ========================== */
 
             const {
                 data: roleData,
                 error: roleError
             } =
                 await supabaseClient
-                    .from("user_roles")
+                    .from("roles")
                     .select("role")
                     .eq("user_id", userId)
                     .maybeSingle();
@@ -736,6 +754,7 @@
                 throw new Error(
                     "تعذر التحقق من صلاحيات الحساب."
                 );
+
             }
 
 
@@ -746,6 +765,7 @@
                 throw new Error(
                     "لا توجد صلاحية مرتبطة بهذا الحساب."
                 );
+
             }
 
 
@@ -755,9 +775,9 @@
                     .trim();
 
 
-            /* =================================
+            /* =========================
                المسؤول
-            ================================== */
+            ========================== */
 
             if (role === "admin") {
 
@@ -766,20 +786,23 @@
                     "success"
                 );
 
-                setTimeout(() => {
+
+                setTimeout(function() {
 
                     window.location.href =
                         "admin.html";
 
                 }, 500);
 
+
                 return;
+
             }
 
 
-            /* =================================
+            /* =========================
                المتربص
-            ================================== */
+            ========================== */
 
             if (role === "trainee") {
 
@@ -788,12 +811,12 @@
                     "success"
                 );
 
-                setTimeout(() => {
+
+                setTimeout(function() {
 
                     /*
-                     * مهم جداً:
-                     * اسم الملف الحقيقي هو Trainee.html
-                     * بحرف T كبير.
+                     * اسم الملف الحقيقي:
+                     * Trainee.html
                      */
 
                     window.location.href =
@@ -801,13 +824,15 @@
 
                 }, 500);
 
+
                 return;
+
             }
 
 
-            /* =================================
+            /* =========================
                المدرب
-            ================================== */
+            ========================== */
 
             if (role === "trainer") {
 
@@ -816,20 +841,23 @@
                     "success"
                 );
 
-                setTimeout(() => {
+
+                setTimeout(function() {
 
                     window.location.href =
                         "Trainer.html";
 
                 }, 500);
 
+
                 return;
+
             }
 
 
-            /* =================================
+            /* =========================
                صلاحية غير معروفة
-            ================================== */
+            ========================== */
 
             await supabaseClient.auth.signOut();
 
@@ -845,15 +873,18 @@
                 error
             );
 
+
             showMessage(
                 error.message ||
                 "حدث خطأ أثناء تسجيل الدخول."
             );
 
+
             button.disabled = false;
 
             button.textContent =
                 "🔐 تسجيل الدخول";
+
         }
 
     }
@@ -866,7 +897,8 @@
     async function resetPassword() {
 
         const email =
-            document.getElementById("email")
+            document
+                .getElementById("email")
                 .value
                 .trim();
 
@@ -878,6 +910,7 @@
             );
 
             return;
+
         }
 
 
@@ -918,6 +951,7 @@
                 error
             );
 
+
             showMessage(
                 error.message ||
                 "تعذر إرسال رابط استعادة كلمة المرور."
@@ -929,7 +963,7 @@
 
 
     /* =====================================
-       الضغط على Enter
+       الضغط على Enter لتسجيل الدخول
     ====================================== */
 
     document
