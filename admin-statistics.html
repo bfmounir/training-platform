@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>الإحصائيات - منصة التكوين المتواصل</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Tahoma, sans-serif;
+    background: #f4f7fb;
+    color: #1f2937;
+}
+
+/* =========================
+   الرأس
+========================= */
+
+.header {
+    background: linear-gradient(135deg, #0f766e, #0d9488);
+    color: white;
+    padding: 22px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.12);
+}
+
+.header-content {
+    max-width: 1250px;
+    margin: auto;
+}
+
+.header h1 {
+    margin: 0 0 8px;
+    font-size: 26px;
+}
+
+.header p {
+    margin: 0;
+    opacity: .9;
+}
+
+/* =========================
+   المحتوى
+========================= */
+
+.container {
+    max-width: 1250px;
+    margin: 30px auto;
+    padding: 0 18px;
+}
+
+/* =========================
+   الأزرار
+========================= */
+
+.top-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.btn {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.back-btn {
+    background: #64748b;
+    color: white;
+}
+
+.refresh-btn {
+    background: #0f766e;
+    color: white;
+}
+
+/* =========================
+   رسالة
+========================= */
+
+.message {
+    display: none;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.message.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.message.success {
+    display: block;
+    background: #dcfce7;
+    color: #166534;
+}
+
+/* =========================
+   البطاقات الرئيسية
+========================= */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 17px;
+    padding: 22px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.06);
+    border: 1px solid #eef2f7;
+}
+
+.stat-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+}
+
+.stat-number {
+    font-size: 31px;
+    font-weight: bold;
+    margin-top: 18px;
+    color: #0f766e;
+}
+
+.stat-label {
+    color: #64748b;
+    margin-top: 6px;
+}
+
+/* =========================
+   ألوان الأيقونات
+========================= */
+
+.icon-users {
+    background: #dbeafe;
+}
+
+.icon-trainees {
+    background: #dcfce7;
+}
+
+.icon-trainers {
+    background: #fef3c7;
+}
+
+.icon-admins {
+    background: #fee2e2;
+}
+
+.icon-courses {
+    background: #ccfbf1;
+}
+
+.icon-lessons {
+    background: #f3e8ff;
+}
+
+.icon-enrollments {
+    background: #e0e7ff;
+}
+
+.icon-certificates {
+    background: #fce7f3;
+}
+
+/* =========================
+   الأقسام
+========================= */
+
+.section {
+    background: white;
+    border-radius: 17px;
+    padding: 22px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.06);
+}
+
+.section h2 {
+    margin-top: 0;
+    color: #0f766e;
+}
+
+/* =========================
+   نسبة الإنجاز
+========================= */
+
+.progress-box {
+    margin-top: 20px;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.progress {
+    height: 22px;
+    background: #e5e7eb;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #0f766e;
+    border-radius: 20px;
+    transition: width .6s ease;
+}
+
+/* =========================
+   آخر الدورات
+========================= */
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 14px;
+    border-bottom: 1px solid #edf0f4;
+    text-align: right;
+}
+
+th {
+    background: #f8fafc;
+    color: #475569;
+}
+
+.empty {
+    text-align: center;
+    padding: 35px;
+    color: #64748b;
+}
+
+/* =========================
+   المؤسسة
+========================= */
+
+.institution {
+    background: linear-gradient(
+        135deg,
+        #0f766e,
+        #115e59
+    );
+    color: white;
+    border-radius: 17px;
+    padding: 25px;
+    margin-top: 25px;
+}
+
+.institution h3 {
+    margin-top: 0;
+}
+
+.institution p {
+    margin: 8px 0;
+}
+
+.institution strong {
+    color: #ccfbf1;
+}
+
+/* =========================
+   الهاتف
+========================= */
+
+@media (max-width: 1000px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header h1 {
+        font-size: 21px;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+
+    .stat-number {
+        font-size: 27px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =========================
+     الرأس
+========================= -->
+
+<header class="header">
+
+    <div class="header-content">
+
+        <h1>
+            📊 إحصائيات منصة التكوين
+        </h1>
+
+        <p>
+            المؤسسة العمومية الإستشفائية بأولف
+            ولاية أدرار
+        </p>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+    <!-- الأزرار -->
+
+    <div class="top-actions">
+
+        <button
+            class="btn back-btn"
+            onclick="window.location.href='admin.html'">
+
+            ← العودة إلى لوحة التحكم
+
+        </button>
+
+
+        <button
+            class="btn refresh-btn"
+            onclick="loadStatistics()">
+
+            🔄 تحديث الإحصائيات
+
+        </button>
+
+    </div>
+
+
+    <!-- الرسالة -->
+
+    <div
+        id="message"
+        class="message">
+    </div>
+
+
+    <!-- =========================
+         الإحصائيات
+    ========================= -->
+
+    <section class="stats-grid">
+
+
+        <!-- المستخدمون -->
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+                    👥
+                </div>
+
+                <div class="stat-icon icon-users">
+                    👥
+                </div>
+
+            </div>
+
+            <div
+                id="totalUsers"
+                class="stat-number">
+                ...
+            </div>
+
+            <div class="stat-label">
+                إجمالي المستخدمين
+            </div>
+
+        </div>
+
+
+        <!-- المتربصون -->
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+                    🎓
+                </div>
+
+                <div class="stat-icon icon-trainees">
+                    🎓
+                </div>
+
+            </div>
+
+            <div
+                id="totalTrainees"
+                class="stat-number">
+                ...
+            </div>
+
+            <div class="stat-label">
+                المتربصون
+            </div>
+
+        </div>
+
+
+        <!-- المكوّنون -->
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+                    👨‍🏫
+                </div>
+
+                <div class="stat-icon icon-trainers">
+                    👨‍🏫
+                </div>
+
+            </div>
+
+            <div
+                id="totalTrainers"
+                class="stat-number">
+                ...
+            </div>
+
+            <div class="stat-label">
+                المكوّنون
+            </div>
+
+        </div>
+
+
+        <!-- المسؤولون -->
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+                    🔐
+                </div>
+
+                <div class="stat-icon icon-admins">
+                    🔐
+                </div>
+
+            </div>
+
+            <div
+                id="totalAdmins"
+                class="stat-number">
+                ...
+            </div>
+
+            <div class="stat-label">
+                المسؤولون
+            </div>
+
+        </div>
+
+
+        <!-- الدورات -->
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+                    📚
+                </div>
+
+                <div class="stat-icon icon-courses">
+                    📚
+                </div>
+
+            </div>
+
+            <div
+                id="totalCourses"
+                class="stat-number">
+                ...
+            </div>
+
+            <div class="stat-label">
+                الدورات التدريبية
+            </div>
+
+        </div>
+
+
+        <!-- الدروس -->
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+                    📖
+                </div>
+
+                <div class="stat-icon icon-lessons">
+                    📖
+                </div>
+
+            </div>
+
+            <div
+                id="totalLessons"
+                class="stat-number">
+                ...
+            </div>
+
+            <div class="stat-label">
+                الدروس
+            </div>
+
+        </div>
+
+
+        <!-- التسجيلات -->
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+                    📝
+                </div>
+
+                <div class="stat-icon icon-enrollments">
+                    📝
+                </div>
+
+            </div>
+
+            <div
+                id="totalEnrollments"
+                class="stat-number">
+                ...
+            </div>
+
+            <div class="stat-label">
+                التسجيلات في الدورات
+            </div>
+
+        </div>
+
+
+        <!-- الشهادات -->
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div>
+                    🏆
+                </div>
+
+                <div class="stat-icon icon-certificates">
+                    🏆
+                </div>
+
+            </div>
+
+            <div
+                id="totalCertificates"
+                class="stat-number">
+                ...
+            </div>
+
+            <div class="stat-label">
+                الشهادات
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         نسبة إتمام التكوين
+    ========================= -->
+
+    <section class="section">
+
+        <h2>
+            📈 نسبة إنجاز الدروس
+        </h2>
+
+        <p>
+            النسبة التقريبية للدروس التي تم إكمالها
+            من طرف المتربصين المسجلين.
+        </p>
+
+
+        <div class="progress-box">
+
+            <div class="progress-header">
+
+                <span>
+                    نسبة الإنجاز
+                </span>
+
+                <span
+                    id="progressPercent">
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    id="progressBar"
+                    class="progress-bar">
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         آخر الدورات
+    ========================= -->
+
+    <section class="section">
+
+        <h2>
+            📚 آخر الدورات المضافة
+        </h2>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            الدورة
+                        </th>
+
+                        <th>
+                            تاريخ الدورة
+                        </th>
+
+                        <th>
+                            الفئة المستهدفة
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="coursesTable">
+
+                    <tr>
+
+                        <td
+                            colspan="3"
+                            class="empty">
+
+                            ⏳ جاري التحميل...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- معلومات المؤسسة -->
+
+    <section class="institution">
+
+        <h3>
+            🏥 معلومات المؤسسة
+        </h3>
+
+        <p>
+
+            <strong>
+                المؤسسة:
+            </strong>
+
+            المؤسسة العمومية الإستشفائية بأولف
+            ولاية أدرار
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                رئيس مكتب التكوين المتواصل:
+            </strong>
+
+            بن صغير منير
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                الهاتف:
+            </strong>
+
+            0660.48.43.73
+
+        </p>
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+/* =========================
+   Supabase
+========================= */
+
+let supabaseClientApp = null;
+
+
+/* =========================
+   تهيئة الاتصال
+========================= */
+
+function getClient() {
+
+    if (
+        window.supabaseClient
+    ) {
+
+        return window.supabaseClient;
+
+    }
+
+    if (
+        typeof supabaseClient !== "undefined"
+    ) {
+
+        return supabaseClient;
+
+    }
+
+    return null;
+
+}
+
+
+/* =========================
+   الرسائل
+========================= */
+
+function showMessage(
+    text,
+    type
+) {
+
+    const box =
+        document.getElementById(
+            "message"
+        );
+
+    box.textContent =
+        text;
+
+    box.className =
+        "message " + type;
+
+}
+
+
+function hideMessage() {
+
+    const box =
+        document.getElementById(
+            "message"
+        );
+
+    box.className =
+        "message";
+
+}
+
+
+/* =========================
+   التحقق من المسؤول
+========================= */
+
+async function checkAdmin() {
+
+    supabaseClientApp =
+        getClient();
+
+
+    if (!supabaseClientApp) {
+
+        throw new Error(
+            "تعذر الاتصال بـ Supabase."
+        );
+
+    }
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClientApp
+            .auth
+            .getUser();
+
+
+    if (
+        error ||
+        !data ||
+        !data.user
+    ) {
+
+        window.location.href =
+            "login.html";
+
+        return false;
+
+    }
+
+
+    const user =
+        data.user;
+
+
+    const {
+        data: roleData,
+        error: roleError
+    } =
+        await supabaseClientApp
+            .from("user_roles")
+            .select("role")
+            .eq(
+                "user_id",
+                user.id
+            )
+            .maybeSingle();
+
+
+    if (roleError) {
+
+        throw roleError;
+
+    }
+
+
+    if (
+        !roleData ||
+        roleData.role !== "admin"
+    ) {
+
+        alert(
+            "ليس لديك صلاحية الدخول إلى الإحصائيات."
+        );
+
+        window.location.href =
+            "trainee.html";
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =========================
+   عدّ السجلات
+========================= */
+
+async function getCount(
+    table
+) {
+
+    const {
+        count,
+        error
+    } =
+        await supabaseClientApp
+            .from(table)
+            .select(
+                "*",
+                {
+                    count: "exact",
+                    head: true
+                }
+            );
+
+
+    if (error) {
+
+        throw error;
+
+    }
+
+
+    return count || 0;
+
+}
+
+
+/* =========================
+   تحميل الإحصائيات
+========================= */
+
+async function loadStatistics() {
+
+    hideMessage();
+
+
+    try {
+
+        const isAdmin =
+            await checkAdmin();
+
+
+        if (!isAdmin) {
+
+            return;
+
+        }
+
+
+        /* المستخدمون */
+
+        const {
+            data: roles,
+            error: rolesError
+        } =
+            await supabaseClientApp
+                .from("user_roles")
+                .select(
+                    "role"
+                );
+
+
+        if (rolesError) {
+
+            throw rolesError;
+
+        }
+
+
+        const users =
+            roles || [];
+
+
+        const totalUsers =
+            users.length;
+
+
+        const totalAdmins =
+            users.filter(
+                u =>
+                    u.role === "admin"
+            ).length;
+
+
+        const totalTrainees =
+            users.filter(
+                u =>
+                    u.role === "trainee"
+            ).length;
+
+
+        const totalTrainers =
+            users.filter(
+                u =>
+                    u.role === "trainer"
+            ).length;
+
+
+        /* الدورات */
+
+        const totalCourses =
+            await getCount(
+                "courses"
+            );
+
+
+        /* الدروس */
+
+        const totalLessons =
+            await getCount(
+                "lessons"
+            );
+
+
+        /* التسجيلات */
+
+        const totalEnrollments =
+            await getCount(
+                "enrollments"
+            );
+
+
+        /* الشهادات */
+
+        const totalCertificates =
+            await getCount(
+                "certificates"
+            );
+
+
+        /* عرض النتائج */
+
+        document.getElementById(
+            "totalUsers"
+        ).textContent =
+            totalUsers;
+
+
+        document.getElementById(
+            "totalTrainees"
+        ).textContent =
+            totalTrainees;
+
+
+        document.getElementById(
+            "totalTrainers"
+        ).textContent =
+            totalTrainers;
+
+
+        document.getElementById(
+            "totalAdmins"
+        ).textContent =
+            totalAdmins;
+
+
+        document.getElementById(
+            "totalCourses"
+        ).textContent =
+            totalCourses;
+
+
+        document.getElementById(
+            "totalLessons"
+        ).textContent =
+            totalLessons;
+
+
+        document.getElementById(
+            "totalEnrollments"
+        ).textContent =
+            totalEnrollments;
+
+
+        document.getElementById(
+            "totalCertificates"
+        ).textContent =
+            totalCertificates;
+
+
+        /* نسبة الإنجاز */
+
+        await calculateProgress();
+
+
+        /* آخر الدورات */
+
+        await loadRecentCourses();
+
+
+        showMessage(
+            "تم تحديث الإحصائيات بنجاح.",
+            "success"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        showMessage(
+            "تعذر تحميل الإحصائيات: " +
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   حساب نسبة الإنجاز
+========================= */
+
+async function calculateProgress() {
+
+    const totalLessons =
+        await getCount(
+            "lessons"
+        );
+
+
+    const completedLessons =
+        await getCount(
+            "lesson_progress"
+        );
+
+
+    let percent = 0;
+
+
+    if (
+        totalLessons > 0 &&
+        completedLessons > 0
+    ) {
+
+        /*
+         * النسبة العامة التقريبية.
+         */
+
+        percent =
+            Math.round(
+                (
+                    completedLessons /
+                    (
+                        totalLessons
+                    )
+                ) * 100
+            );
+
+    }
+
+
+    /*
+     * لا نسمح بتجاوز 100%
+     */
+
+    percent =
+        Math.min(
+            percent,
+            100
+        );
+
+
+    document.getElementById(
+        "progressPercent"
+    ).textContent =
+        percent + "%";
+
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        percent + "%";
+
+}
+
+
+/* =========================
+   آخر الدورات
+========================= */
+
+async function loadRecentCourses() {
+
+    const tbody =
+        document.getElementById(
+            "coursesTable"
+        );
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClientApp
+            .from("courses")
+            .select(
+                "id, name, course_date, target_audience"
+            )
+            .order(
+                "id",
+                {
+                    ascending: false
+                }
+            )
+            .limit(10);
+
+
+    if (error) {
+
+        throw error;
+
+    }
+
+
+    if (
+        !data ||
+        data.length === 0
+    ) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td
+                    colspan="3"
+                    class="empty">
+                    لا توجد دورات حاليًا.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        data
+            .map(
+                course => `
+
+                <tr>
+
+                    <td>
+                        ${escapeHtml(
+                            course.name
+                        )}
+                    </td>
+
+                    <td>
+                        ${
+                            course.course_date
+                            || "—"
+                        }
+                    </td>
+
+                    <td>
+                        ${
+                            course.target_audience
+                            || "—"
+                        }
+                    </td>
+
+                </tr>
+
+            `
+            )
+            .join("");
+
+}
+
+
+/* =========================
+   حماية HTML
+========================= */
+
+function escapeHtml(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================
+   التشغيل
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        loadStatistics();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
