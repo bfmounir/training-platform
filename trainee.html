@@ -5,9 +5,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>فضاء المتربص | التكوين المستمر</title>
+<title>فضاء المتربص | منصة التكوين المستمر</title>
 
 <style>
+
+/* =========================================================
+   الإعدادات العامة
+========================================================= */
 
 *{
     box-sizing:border-box;
@@ -20,12 +24,22 @@
     --success:#159957;
     --warning:#f59e0b;
     --danger:#dc3545;
+    --purple:#7952b3;
+
     --dark:#17324d;
     --text:#526477;
+    --muted:#8998a8;
+
     --light:#f4f8fb;
     --white:#ffffff;
     --border:#e4edf3;
+
     --shadow:0 10px 35px rgba(27,66,91,.08);
+    --shadow-hover:0 18px 45px rgba(27,66,91,.14);
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
@@ -35,167 +49,172 @@ body{
         Arial,
         sans-serif;
 
-    background:#f4f8fb;
-    color:var(--dark);
-}
-
-
-/* ================================
-   التخطيط الرئيسي
-================================ */
-
-.app{
-    min-height:100vh;
-    display:flex;
-}
-
-
-/* ================================
-   القائمة الجانبية
-================================ */
-
-.sidebar{
-
-    width:270px;
-
     background:
         linear-gradient(
             180deg,
-            #073b4c,
-            #075c66 55%,
-            #087f8c
+            #f7fafc 0%,
+            #f1f6f9 100%
         );
 
-    color:white;
+    color:var(--dark);
+}
+
+/* =========================================================
+   التطبيق
+========================================================= */
+
+.app{
+    min-height:100vh;
+}
+
+/* =========================================================
+   القائمة الجانبية
+========================================================= */
+
+.sidebar{
+    width:270px;
 
     position:fixed;
-
-    right:0;
     top:0;
+    right:0;
     bottom:0;
 
     z-index:1000;
 
-    padding:25px 18px;
+    padding:22px 16px;
 
-    transition:.3s;
+    color:white;
+
+    background:
+        linear-gradient(
+            180deg,
+            #073b4c 0%,
+            #075c66 55%,
+            #087f8c 100%
+        );
+
+    box-shadow:
+        -8px 0 30px rgba(7,59,76,.12);
 
     overflow-y:auto;
+
+    transition:.3s ease;
 }
 
 .logo-area{
-
     text-align:center;
 
-    padding-bottom:25px;
+    padding:
+        4px 5px 24px;
 
     border-bottom:
         1px solid
-        rgba(255,255,255,.15);
-
+        rgba(255,255,255,.14);
 }
 
 .logo{
-
     width:72px;
     height:72px;
+
+    object-fit:contain;
+
+    padding:7px;
 
     background:white;
 
     border-radius:20px;
 
-    padding:7px;
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.12);
 
-    object-fit:contain;
-
-    margin-bottom:12px;
+    margin-bottom:11px;
 }
 
 .logo-area h2{
+    margin:3px 0 5px;
 
     font-size:18px;
-
-    margin:4px 0;
-
 }
 
 .logo-area p{
+    margin:0;
 
     font-size:11px;
 
-    opacity:.75;
+    line-height:1.8;
 
-    line-height:1.7;
-
-    margin:0;
+    color:
+        rgba(255,255,255,.72);
 }
 
+/* =========================================================
+   التنقل
+========================================================= */
 
 .nav{
-
-    margin-top:25px;
+    margin-top:24px;
 }
 
 .nav-title{
+    margin:
+        0 11px 10px;
 
     font-size:11px;
 
     color:
-        rgba(255,255,255,.55);
-
-    margin:
-        0 12px 10px;
+        rgba(255,255,255,.52);
 }
 
 .nav-item{
-
     display:flex;
 
     align-items:center;
 
-    gap:13px;
+    gap:12px;
 
-    color:
-        rgba(255,255,255,.82);
-
-    text-decoration:none;
-
-    padding:13px 15px;
+    padding:
+        12px 13px;
 
     margin-bottom:7px;
 
-    border-radius:13px;
+    border-radius:14px;
+
+    color:
+        rgba(255,255,255,.80);
+
+    text-decoration:none;
+
+    font-size:13px;
 
     cursor:pointer;
 
-    transition:.2s;
-
-    font-size:14px;
+    transition:.2s ease;
 }
 
 .nav-item:hover,
 .nav-item.active{
+    color:white;
 
     background:
-        rgba(255,255,255,.14);
-
-    color:white;
+        rgba(255,255,255,.13);
 
     transform:
         translateX(-3px);
 }
 
 .nav-icon{
+    width:37px;
+    height:37px;
 
-    width:32px;
-    height:32px;
-
-    border-radius:10px;
+    flex:0 0 37px;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
+
+    border-radius:11px;
 
     background:
         rgba(255,255,255,.10);
@@ -203,76 +222,76 @@ body{
     font-size:17px;
 }
 
+/* =========================================================
+   أسفل القائمة
+========================================================= */
 
 .sidebar-footer{
+    margin-top:30px;
 
-    margin-top:35px;
-
-    padding:
-        16px 12px;
+    padding:15px 12px;
 
     border-radius:15px;
 
     background:
         rgba(255,255,255,.08);
 
+    color:
+        rgba(255,255,255,.70);
+
     font-size:11px;
 
-    line-height:1.8;
-
-    color:
-        rgba(255,255,255,.75);
-
+    line-height:1.9;
 }
 
+.sidebar-footer strong{
+    color:white;
+}
 
-/* ================================
-   المحتوى
-================================ */
+/* =========================================================
+   المحتوى الرئيسي
+========================================================= */
 
 .main{
-
-    width:
-        calc(100% - 270px);
+    width:calc(100% - 270px);
 
     margin-right:270px;
 
     min-height:100vh;
 }
 
-
-/* ================================
+/* =========================================================
    الشريط العلوي
-================================ */
+========================================================= */
 
 .topbar{
+    height:76px;
 
-    height:75px;
+    position:sticky;
+    top:0;
 
-    background:white;
-
-    border-bottom:
-        1px solid
-        var(--border);
+    z-index:900;
 
     display:flex;
 
     align-items:center;
-
     justify-content:space-between;
 
     padding:
         0 30px;
 
-    position:sticky;
+    background:
+        rgba(255,255,255,.94);
 
-    top:0;
+    border-bottom:
+        1px solid
+        var(--border);
 
-    z-index:900;
+    backdrop-filter:
+        blur(12px);
 }
 
 .page-title h1{
-
     margin:0;
 
     font-size:21px;
@@ -281,234 +300,228 @@ body{
 }
 
 .page-title span{
-
     display:block;
 
-    color:#8998a8;
+    margin-top:4px;
+
+    color:var(--muted);
 
     font-size:11px;
-
-    margin-top:5px;
 }
 
-
 .top-actions{
-
     display:flex;
 
     align-items:center;
 
-    gap:10px;
+    gap:9px;
 }
 
 .top-button{
-
     width:42px;
     height:42px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
 
     border:
         1px solid
         var(--border);
 
-    background:#f8fafc;
-
     border-radius:12px;
 
-    cursor:pointer;
+    background:#f8fafc;
 
-    font-size:18px;
+    color:var(--dark);
+
+    font-size:17px;
+
+    cursor:pointer;
 
     transition:.2s;
 }
 
 .top-button:hover{
-
     background:#edf7f8;
+
+    border-color:#cde6e9;
 
     transform:
         translateY(-2px);
 }
 
-
-/* ================================
-   المحتوى الداخلي
-================================ */
+/* =========================================================
+   المحتوى
+========================================================= */
 
 .content{
+    width:100%;
 
-    padding:30px;
-
-    max-width:1400px;
+    max-width:1450px;
 
     margin:auto;
+
+    padding:30px;
 }
 
-
-/* ================================
+/* =========================================================
    Hero
-================================ */
+========================================================= */
 
 .hero{
-
-    min-height:230px;
-
-    border-radius:25px;
-
-    padding:35px;
-
-    color:white;
+    min-height:235px;
 
     position:relative;
 
     overflow:hidden;
 
-    background:
-        linear-gradient(
-            115deg,
-            #073b4c,
-            #087f8c 52%,
-            #0b6efd
-        );
-
-    box-shadow:
-        0 15px 40px
-        rgba(7,59,76,.18);
-
     display:flex;
 
     align-items:center;
-
     justify-content:space-between;
 
     gap:30px;
+
+    padding:36px;
+
+    border-radius:27px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            115deg,
+            #073b4c 0%,
+            #087f8c 52%,
+            #0b6efd 100%
+        );
+
+    box-shadow:
+        0 17px 45px
+        rgba(7,59,76,.18);
 }
 
 .hero::before{
-
     content:"";
 
     position:absolute;
 
-    width:280px;
-    height:280px;
+    width:300px;
+    height:300px;
+
+    left:-100px;
+    top:-120px;
 
     border-radius:50%;
 
     background:
         rgba(255,255,255,.06);
-
-    left:-80px;
-    top:-100px;
 }
 
 .hero::after{
-
     content:"";
 
     position:absolute;
 
-    width:190px;
-    height:190px;
+    width:230px;
+    height:230px;
+
+    right:38%;
+    bottom:-160px;
 
     border-radius:50%;
 
     background:
         rgba(255,255,255,.05);
-
-    right:35%;
-
-    bottom:-120px;
 }
 
 .hero-content{
-
     position:relative;
 
     z-index:2;
 
-    max-width:720px;
+    max-width:760px;
 }
 
 .hero-label{
-
     display:inline-block;
 
     padding:
-        7px 13px;
+        7px 14px;
 
-    border-radius:30px;
-
-    background:
-        rgba(255,255,255,.13);
+    margin-bottom:13px;
 
     border:
         1px solid
         rgba(255,255,255,.15);
 
-    font-size:12px;
+    border-radius:30px;
 
-    margin-bottom:14px;
+    background:
+        rgba(255,255,255,.12);
+
+    font-size:12px;
 }
 
 .hero h2{
-
     margin:0;
 
     font-size:31px;
 
-    line-height:1.5;
+    line-height:1.55;
 }
 
 .hero p{
-
     margin:
-        10px 0 0;
+        9px 0 0;
 
-    line-height:1.9;
+    max-width:690px;
 
     color:
         rgba(255,255,255,.82);
 
     font-size:14px;
+
+    line-height:1.9;
 }
 
 .hero-icon{
+    width:145px;
+    height:145px;
 
     position:relative;
 
     z-index:2;
 
-    width:145px;
-    height:145px;
-
-    border-radius:35px;
+    flex:0 0 145px;
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
-
-    background:
-        rgba(255,255,255,.10);
 
     border:
         1px solid
         rgba(255,255,255,.15);
 
-    font-size:70px;
+    border-radius:38px;
+
+    background:
+        rgba(255,255,255,.10);
+
+    font-size:68px;
 
     backdrop-filter:
-        blur(5px);
+        blur(6px);
 }
 
-
-/* ================================
+/* =========================================================
    الإحصائيات
-================================ */
+========================================================= */
 
 .stats{
-
     display:grid;
 
     grid-template-columns:
@@ -521,8 +534,13 @@ body{
 }
 
 .stat{
+    display:flex;
 
-    background:white;
+    align-items:center;
+
+    gap:15px;
+
+    padding:20px;
 
     border:
         1px solid
@@ -530,33 +548,26 @@ body{
 
     border-radius:20px;
 
-    padding:20px;
+    background:white;
 
     box-shadow:var(--shadow);
 
-    display:flex;
-
-    align-items:center;
-
-    gap:16px;
-
-    transition:.25s;
+    transition:.25s ease;
 }
 
 .stat:hover{
-
     transform:
         translateY(-4px);
 
     box-shadow:
-        0 15px 35px
-        rgba(27,66,91,.12);
+        var(--shadow-hover);
 }
 
 .stat-icon{
+    width:58px;
+    height:58px;
 
-    width:57px;
-    height:57px;
+    flex:0 0 58px;
 
     display:flex;
 
@@ -565,19 +576,20 @@ body{
 
     border-radius:17px;
 
-    font-size:25px;
-
     background:#e9f7f8;
+
+    font-size:25px;
 }
 
-.stat:nth-child(2)
-.stat-icon{
-
+.stat:nth-child(2) .stat-icon{
     background:#edf4ff;
 }
 
-.stat-info strong{
+.stat:nth-child(3) .stat-icon{
+    background:#f4edff;
+}
 
+.stat-info strong{
     display:block;
 
     font-size:27px;
@@ -586,31 +598,26 @@ body{
 }
 
 .stat-info span{
+    color:var(--muted);
 
     font-size:12px;
-
-    color:#8998a8;
 }
 
-
-/* ================================
-   عنوان القسم
-================================ */
+/* =========================================================
+   عناوين الأقسام
+========================================================= */
 
 .section-head{
-
     display:flex;
 
     align-items:end;
-
     justify-content:space-between;
 
     margin:
-        35px 0 18px;
+        36px 0 18px;
 }
 
 .section-title{
-
     display:flex;
 
     align-items:center;
@@ -619,31 +626,28 @@ body{
 }
 
 .section-title-icon{
-
-    width:45px;
-    height:45px;
-
-    border-radius:14px;
-
-    background:#e7f7f8;
+    width:46px;
+    height:46px;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
 
+    border-radius:14px;
+
+    background:#e7f7f8;
+
     font-size:21px;
 }
 
 .section-title h2{
-
     margin:0;
 
     font-size:21px;
 }
 
 .section-title p{
-
     margin:4px 0 0;
 
     color:#8a99a7;
@@ -651,23 +655,23 @@ body{
     font-size:12px;
 }
 
-
-/* ================================
+/* =========================================================
    الرسالة
-================================ */
+========================================================= */
 
 #message{
-
-    background:white;
+    margin-bottom:20px;
 
     padding:
         14px 18px;
 
-    border-radius:14px;
-
     border-right:
         4px solid
         var(--primary);
+
+    border-radius:14px;
+
+    background:white;
 
     color:var(--text);
 
@@ -676,33 +680,23 @@ body{
         rgba(0,0,0,.04);
 
     font-size:13px;
-
-    margin-bottom:20px;
 }
 
-
-/* ================================
-   شبكة الدورات
-================================ */
+/* =========================================================
+   الدورات
+========================================================= */
 
 #coursesList{
-
     display:grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        repeat(2,minmax(0,1fr));
 
     gap:20px;
 }
 
-
-/* ================================
-   بطاقة الدورة
-================================ */
-
 .course{
-
-    background:white;
+    overflow:hidden;
 
     border:
         1px solid
@@ -710,28 +704,29 @@ body{
 
     border-radius:23px;
 
-    overflow:hidden;
+    background:white;
 
     box-shadow:var(--shadow);
 
-    transition:.3s;
+    transition:.3s ease;
 }
 
 .course:hover{
-
     transform:
         translateY(-5px);
 
     box-shadow:
-        0 18px 40px
-        rgba(27,66,91,.13);
+        var(--shadow-hover);
 }
 
 .course-header{
+    position:relative;
 
     padding:25px;
 
-    position:relative;
+    border-bottom:
+        1px solid
+        var(--border);
 
     background:
         linear-gradient(
@@ -739,28 +734,23 @@ body{
             #f0fbfc,
             #f5f9ff
         );
-
-    border-bottom:
-        1px solid
-        var(--border);
 }
 
 .course-number{
-
     position:absolute;
 
     top:18px;
     left:18px;
 
-    width:38px;
-    height:38px;
-
-    border-radius:12px;
+    width:39px;
+    height:39px;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
+
+    border-radius:12px;
 
     background:white;
 
@@ -774,10 +764,9 @@ body{
 }
 
 .course-header h2{
-
     margin:0;
 
-    padding-left:45px;
+    padding-left:48px;
 
     font-size:19px;
 
@@ -787,7 +776,6 @@ body{
 }
 
 .course-description{
-
     margin:
         12px 0 0;
 
@@ -799,17 +787,14 @@ body{
 }
 
 .course-body{
-
     padding:22px;
 }
 
-
-/* ================================
+/* =========================================================
    حالة التسجيل
-================================ */
+========================================================= */
 
 .enrolled{
-
     display:inline-flex;
 
     align-items:center;
@@ -819,33 +804,40 @@ body{
     padding:
         8px 13px;
 
+    border-radius:30px;
+
     background:#e9f8ef;
 
     color:#168348;
-
-    border-radius:30px;
 
     font-size:12px;
 
     font-weight:bold;
 }
 
-
-/* ================================
+/* =========================================================
    الأزرار
-================================ */
+========================================================= */
 
 .enroll-button,
 .pdf-button,
 .complete-button,
 .certificate-button{
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:6px;
+
+    margin-top:10px;
+
+    padding:
+        10px 15px;
 
     border:none;
 
     border-radius:11px;
-
-    padding:
-        10px 15px;
 
     color:white;
 
@@ -855,25 +847,14 @@ body{
 
     font-weight:bold;
 
-    cursor:pointer;
-
     text-decoration:none;
 
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:6px;
-
-    margin-top:10px;
+    cursor:pointer;
 
     transition:.2s;
 }
 
 .enroll-button{
-
     background:
         linear-gradient(
             135deg,
@@ -883,7 +864,6 @@ body{
 }
 
 .pdf-button{
-
     background:
         linear-gradient(
             135deg,
@@ -893,7 +873,6 @@ body{
 }
 
 .complete-button{
-
     background:
         linear-gradient(
             135deg,
@@ -903,7 +882,6 @@ body{
 }
 
 .certificate-button{
-
     background:
         linear-gradient(
             135deg,
@@ -916,68 +894,61 @@ body{
 .pdf-button:hover,
 .complete-button:hover,
 .certificate-button:hover{
-
     transform:
         translateY(-2px);
 
-    filter:brightness(1.04);
+    filter:brightness(1.05);
 }
 
 .completed{
-
-    background:
-        #8a99a7 !important;
+    background:#8a99a7 !important;
 
     cursor:default !important;
 }
 
-
-/* ================================
+/* =========================================================
    التقدم
-================================ */
+========================================================= */
 
 .progress-area{
-
     margin-top:18px;
 
     padding:15px;
 
-    border-radius:15px;
-
-    background:#f7fafc;
-
     border:
         1px solid
         var(--border);
+
+    border-radius:15px;
+
+    background:#f7fafc;
 }
 
 .progress-text{
+    margin-bottom:9px;
+
+    color:var(--text);
 
     font-size:12px;
 
     font-weight:bold;
-
-    color:var(--text);
-
-    margin-bottom:9px;
 }
 
 .progress{
-
     height:9px;
 
-    background:#e4edf1;
+    overflow:hidden;
 
     border-radius:20px;
 
-    overflow:hidden;
+    background:#e4edf1;
 }
 
 .progress-bar{
-
+    width:0;
     height:100%;
 
-    width:0;
+    border-radius:20px;
 
     background:
         linear-gradient(
@@ -986,17 +957,20 @@ body{
             #0b9ca8
         );
 
-    border-radius:20px;
-
     transition:
         width .6s ease;
 }
 
 .finished{
+    display:none;
 
     margin-top:13px;
 
     padding:11px;
+
+    border-right:
+        3px solid
+        var(--warning);
 
     border-radius:12px;
 
@@ -1004,22 +978,16 @@ body{
 
     color:#876000;
 
-    border-right:
-        3px solid
-        #f59e0b;
-
     font-size:12px;
 
     font-weight:bold;
 }
 
-
-/* ================================
+/* =========================================================
    الدروس
-================================ */
+========================================================= */
 
 .lessons-heading{
-
     margin-top:22px;
 
     padding-top:18px;
@@ -1028,20 +996,17 @@ body{
         1px solid
         var(--border);
 
+    color:var(--dark);
+
     font-size:15px;
 
     font-weight:bold;
-
-    color:var(--dark);
 }
 
 .lesson{
-
     margin-top:10px;
 
     padding:15px;
-
-    background:#fafcfd;
 
     border:
         1px solid
@@ -1049,21 +1014,21 @@ body{
 
     border-radius:14px;
 
+    background:#fafcfd;
 }
 
 .lesson h3{
-
-    margin:0 0 8px;
-
-    font-size:14px;
+    margin:
+        0 0 8px;
 
     color:var(--dark);
+
+    font-size:14px;
 
     line-height:1.6;
 }
 
 .lesson p{
-
     margin:0;
 
     color:var(--text);
@@ -1075,17 +1040,16 @@ body{
     white-space:pre-line;
 }
 
-
-/* ================================
+/* =========================================================
    الشهادات
-================================ */
+========================================================= */
 
 #certificateArea{
-
-    margin-top:35px;
+    margin-top:38px;
 }
 
 .certificates-title{
+    margin-bottom:18px;
 
     padding:27px;
 
@@ -1103,29 +1067,27 @@ body{
     box-shadow:
         0 12px 35px
         rgba(91,60,164,.15);
-
-    margin-bottom:18px;
 }
 
 .certificates-title h2{
-
-    margin:0 0 7px;
+    margin:
+        0 0 7px;
 
     font-size:22px;
 }
 
 .certificates-title p{
-
     margin:0;
 
-    font-size:12px;
-
     opacity:.85;
+
+    font-size:12px;
 }
 
 .certificate-card{
+    margin-bottom:15px;
 
-    background:white;
+    padding:22px;
 
     border:
         1px solid
@@ -1133,16 +1095,14 @@ body{
 
     border-radius:19px;
 
-    padding:22px;
-
-    margin-bottom:15px;
+    background:white;
 
     box-shadow:var(--shadow);
 }
 
 .certificate-card h3{
-
-    margin:0 0 14px;
+    margin:
+        0 0 14px;
 
     color:#6f42c1;
 
@@ -1150,7 +1110,6 @@ body{
 }
 
 .certificate-card p{
-
     color:var(--text);
 
     font-size:12px;
@@ -1158,13 +1117,11 @@ body{
     line-height:1.8;
 }
 
-
-/* ================================
+/* =========================================================
    المساعد الذكي
-================================ */
+========================================================= */
 
 .ai-button{
-
     position:fixed;
 
     left:25px;
@@ -1172,7 +1129,12 @@ body{
 
     z-index:2000;
 
+    padding:
+        14px 20px;
+
     border:none;
+
+    border-radius:50px;
 
     color:white;
 
@@ -1183,11 +1145,6 @@ body{
             #0b6efd
         );
 
-    padding:
-        14px 20px;
-
-    border-radius:50px;
-
     font-family:inherit;
 
     font-weight:bold;
@@ -1196,63 +1153,58 @@ body{
 
     box-shadow:
         0 10px 30px
-        rgba(7,92,102,.3);
+        rgba(7,92,102,.30);
 
     transition:.25s;
 }
 
 .ai-button:hover{
-
     transform:
         translateY(-4px);
 }
 
-
-/* ================================
-   نافذة AI
-================================ */
-
 .ai-panel{
-
     position:fixed;
 
     left:25px;
     bottom:85px;
 
+    z-index:1999;
+
     width:400px;
+    height:570px;
 
     max-width:
         calc(100vw - 30px);
-
-    height:570px;
-
-    background:white;
-
-    border-radius:24px;
-
-    box-shadow:
-        0 20px 60px
-        rgba(15,40,60,.25);
-
-    overflow:hidden;
-
-    z-index:1999;
 
     display:none;
 
     flex-direction:column;
 
+    overflow:hidden;
+
     border:
         1px solid
         var(--border);
+
+    border-radius:24px;
+
+    background:white;
+
+    box-shadow:
+        0 20px 60px
+        rgba(15,40,60,.25);
 }
 
 .ai-panel.open{
-
     display:flex;
 }
 
 .ai-header{
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
 
     padding:18px;
 
@@ -1265,16 +1217,9 @@ body{
             #087f8c,
             #0b6efd
         );
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
 }
 
 .ai-header-info{
-
     display:flex;
 
     align-items:center;
@@ -1283,43 +1228,39 @@ body{
 }
 
 .ai-header-icon{
-
     width:43px;
     height:43px;
-
-    border-radius:14px;
-
-    background:
-        rgba(255,255,255,.14);
 
     display:flex;
 
     align-items:center;
     justify-content:center;
 
+    border-radius:14px;
+
+    background:
+        rgba(255,255,255,.14);
+
     font-size:22px;
 }
 
 .ai-header h3{
-
     margin:0;
 
     font-size:16px;
 }
 
 .ai-header small{
-
     display:block;
 
     margin-top:4px;
 
-    font-size:10px;
-
     opacity:.8;
+
+    font-size:10px;
 }
 
 .ai-close{
-
     border:none;
 
     background:transparent;
@@ -1332,7 +1273,6 @@ body{
 }
 
 .ai-messages{
-
     flex:1;
 
     overflow-y:auto;
@@ -1343,13 +1283,12 @@ body{
 }
 
 .ai-message{
-
     max-width:88%;
+
+    margin-bottom:11px;
 
     padding:
         11px 14px;
-
-    margin-bottom:11px;
 
     border-radius:15px;
 
@@ -1361,21 +1300,23 @@ body{
 }
 
 .ai-message.bot{
-
-    background:white;
+    margin-left:auto;
 
     border:
         1px solid
         var(--border);
 
-    margin-left:auto;
+    border-bottom-left-radius:5px;
+
+    background:white;
 
     color:var(--text);
-
-    border-bottom-left-radius:5px;
 }
 
 .ai-message.user{
+    margin-right:auto;
+
+    border-bottom-right-radius:5px;
 
     background:
         linear-gradient(
@@ -1385,38 +1326,27 @@ body{
         );
 
     color:white;
-
-    margin-right:auto;
-
-    border-bottom-right-radius:5px;
 }
 
 .ai-message.error{
+    border:
+        1px solid
+        #f1c2c2;
 
     background:#fff2f2;
 
     color:#a61b1b;
-
-    border:
-        1px solid
-        #f1c2c2;
 }
 
-
-/* ================================
-   الاقتراحات
-================================ */
-
 .ai-suggestions{
-
     display:flex;
 
     gap:7px;
 
+    overflow-x:auto;
+
     padding:
         9px 12px;
-
-    overflow-x:auto;
 
     background:white;
 
@@ -1426,21 +1356,20 @@ body{
 }
 
 .ai-suggestion{
-
     white-space:nowrap;
+
+    padding:
+        8px 11px;
 
     border:
         1px solid
         #dce7ed;
 
+    border-radius:20px;
+
     background:#f7fafc;
 
     color:var(--primary);
-
-    padding:
-        8px 11px;
-
-    border-radius:20px;
 
     font-family:inherit;
 
@@ -1449,13 +1378,7 @@ body{
     cursor:pointer;
 }
 
-
-/* ================================
-   إدخال AI
-================================ */
-
 .ai-input-area{
-
     display:flex;
 
     gap:8px;
@@ -1470,14 +1393,14 @@ body{
 }
 
 .ai-input{
-
     flex:1;
+
+    min-height:44px;
+    max-height:100px;
 
     resize:none;
 
-    min-height:44px;
-
-    max-height:100px;
+    padding:10px;
 
     border:
         1px solid
@@ -1485,17 +1408,14 @@ body{
 
     border-radius:13px;
 
-    padding:10px;
+    outline:none;
 
     font-family:inherit;
 
     font-size:13px;
-
-    outline:none;
 }
 
 .ai-input:focus{
-
     border-color:
         var(--primary);
 
@@ -1505,7 +1425,6 @@ body{
 }
 
 .ai-send{
-
     width:45px;
     height:45px;
 
@@ -1528,32 +1447,27 @@ body{
 }
 
 .ai-send:disabled{
-
     opacity:.55;
 
     cursor:not-allowed;
 }
 
-
-/* ================================
-   الشهادة
-================================ */
+/* =========================================================
+   قالب الشهادة
+========================================================= */
 
 #certificateTemplate{
-
     position:absolute;
 
     left:-10000px;
-
     top:0;
 
     width:1123px;
-
     height:794px;
 
-    background:white;
-
     padding:50px;
+
+    background:white;
 
     text-align:center;
 
@@ -1561,88 +1475,77 @@ body{
 }
 
 .certificate-border{
-
     width:100%;
-
     height:100%;
+
+    padding:45px;
 
     border:
         8px double
         #087f8c;
-
-    padding:45px;
 }
 
 .certificate-title{
-
-    font-size:42px;
+    margin:25px;
 
     color:#087f8c;
 
-    font-weight:bold;
+    font-size:42px;
 
-    margin:25px;
+    font-weight:bold;
 }
 
 .certificate-subtitle{
+    margin:15px;
 
     font-size:23px;
-
-    margin:15px;
 }
 
 .certificate-name{
+    margin:25px;
 
     font-size:38px;
 
     font-weight:bold;
-
-    margin:25px;
 }
 
 .certificate-course{
+    margin:20px;
 
     font-size:28px;
 
     font-weight:bold;
-
-    margin:20px;
-
 }
 
 .certificate-number{
-
     margin-top:25px;
 
     font-size:18px;
 }
 
-
-/* ================================
+/* =========================================================
    الفوتر
-================================ */
+========================================================= */
 
 footer{
-
-    text-align:center;
-
-    padding:30px;
-
     margin-top:40px;
 
-    color:#8a99a7;
-
-    font-size:11px;
-
-    background:white;
+    padding:30px;
 
     border-top:
         1px solid
         var(--border);
+
+    background:white;
+
+    color:#8a99a7;
+
+    text-align:center;
+
+    font-size:11px;
 }
 
 footer strong{
-
     display:block;
 
     margin-top:5px;
@@ -1650,15 +1553,25 @@ footer strong{
     color:var(--primary);
 }
 
+/* =========================================================
+   استجابة الكمبيوتر اللوحي
+========================================================= */
 
-/* ================================
-   الهاتف
-================================ */
+@media(max-width:1100px){
+
+    #coursesList{
+        grid-template-columns:1fr;
+    }
+
+}
+
+/* =========================================================
+   استجابة الهاتف
+========================================================= */
 
 @media(max-width:900px){
 
     .sidebar{
-
         width:75px;
 
         padding:
@@ -1666,7 +1579,6 @@ footer strong{
     }
 
     .logo{
-
         width:48px;
         height:48px;
 
@@ -1678,115 +1590,182 @@ footer strong{
     .nav-title,
     .nav-item span:not(.nav-icon),
     .sidebar-footer{
-
         display:none;
     }
 
     .nav-item{
-
         justify-content:center;
 
-        padding:11px;
+        padding:10px;
     }
 
     .nav-icon{
-
         width:40px;
         height:40px;
+
+        flex-basis:40px;
     }
 
     .main{
-
-        width:
-            calc(100% - 75px);
+        width:calc(100% - 75px);
 
         margin-right:75px;
     }
 
-    #coursesList{
-
-        grid-template-columns:1fr;
+    .content{
+        padding:20px;
     }
 
+    .hero{
+        padding:28px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
 }
+
+/* =========================================================
+   هاتف صغير
+========================================================= */
 
 @media(max-width:600px){
 
     .topbar{
-
         height:65px;
 
         padding:
-            0 15px;
+            0 13px;
     }
 
     .page-title h1{
-
         font-size:16px;
     }
 
-    .content{
+    .page-title span{
+        font-size:10px;
+    }
 
-        padding:15px;
+    .top-button{
+        width:38px;
+        height:38px;
+    }
+
+    .content{
+        padding:13px;
     }
 
     .hero{
-
-        min-height:250px;
-
-        padding:25px;
+        min-height:280px;
 
         align-items:flex-start;
+
+        padding:23px;
+
+        border-radius:21px;
     }
 
     .hero h2{
-
-        font-size:23px;
+        font-size:22px;
     }
 
     .hero p{
-
         font-size:12px;
     }
 
     .hero-icon{
-
         position:absolute;
 
-        left:20px;
-        bottom:15px;
+        left:18px;
+        bottom:16px;
 
-        width:70px;
-        height:70px;
+        width:68px;
+        height:68px;
 
-        font-size:34px;
+        flex:none;
+
+        border-radius:20px;
+
+        font-size:33px;
     }
 
-    .stats{
+    .section-head{
+        margin-top:28px;
+    }
 
-        grid-template-columns:1fr;
+    .section-title h2{
+        font-size:18px;
+    }
 
+    .course-header{
+        padding:20px;
+    }
+
+    .course-header h2{
+        font-size:17px;
+    }
+
+    .course-body{
+        padding:17px;
     }
 
     .ai-button{
-
-        left:15px;
-        bottom:15px;
+        left:14px;
+        bottom:14px;
 
         padding:
-            12px 16px;
+            12px 15px;
+
+        font-size:12px;
     }
 
     .ai-panel{
-
         left:10px;
-        bottom:70px;
+        bottom:68px;
 
         width:
             calc(100vw - 20px);
 
         height:
-            calc(100vh - 100px);
+            calc(100vh - 90px);
+
+        border-radius:20px;
+    }
+
+    #certificateTemplate{
+        left:-15000px;
+    }
+}
+
+/* =========================================================
+   هاتف صغير جدًا
+========================================================= */
+
+@media(max-width:380px){
+
+    .sidebar{
+        width:65px;
+    }
+
+    .main{
+        width:calc(100% - 65px);
+
+        margin-right:65px;
+    }
+
+    .nav-icon{
+        width:36px;
+        height:36px;
+
+        flex-basis:36px;
+    }
+
+    .hero{
+        padding:19px;
+    }
+
+    .hero h2{
+        font-size:20px;
     }
 
 }
@@ -1794,12 +1773,9 @@ footer strong{
 </style>
 </head>
 
-
 <body>
 
-
 <div class="app">
-
 
 <!-- =====================================================
      القائمة الجانبية
@@ -1826,91 +1802,64 @@ footer strong{
 
     </div>
 
-
     <nav class="nav">
 
         <div class="nav-title">
             القائمة الرئيسية
         </div>
 
-
         <a
             class="nav-item active"
             href="#top">
 
-            <span class="nav-icon">
-                🏠
-            </span>
+            <span class="nav-icon">🏠</span>
 
-            <span>
-                الرئيسية
-            </span>
+            <span>الرئيسية</span>
 
         </a>
-
 
         <a
             class="nav-item"
             href="#courses">
 
-            <span class="nav-icon">
-                📚
-            </span>
+            <span class="nav-icon">📚</span>
 
-            <span>
-                الدورات
-            </span>
+            <span>الدورات</span>
 
         </a>
-
 
         <a
             class="nav-item"
             href="#certificates">
 
-            <span class="nav-icon">
-                🏆
-            </span>
+            <span class="nav-icon">🏆</span>
 
-            <span>
-                شهاداتي
-            </span>
+            <span>شهاداتي</span>
 
         </a>
-
 
         <a
             class="nav-item"
             href="#assistant"
             onclick="toggleAIAssistant(); return false;">
 
-            <span class="nav-icon">
-                🤖
-            </span>
+            <span class="nav-icon">🤖</span>
 
-            <span>
-                المساعد الذكي
-            </span>
+            <span>المساعد الذكي</span>
 
         </a>
-
 
         <a
             class="nav-item"
             href="index.html">
 
-            <span class="nav-icon">
-                ↩️
-            </span>
+            <span class="nav-icon">↩️</span>
 
-            <span>
-                الصفحة الرئيسية
-            </span>
+            <span>الصفحة الرئيسية</span>
 
         </a>
 
     </nav>
-
 
     <div class="sidebar-footer">
 
@@ -1928,247 +1877,236 @@ footer strong{
 </aside>
 
 
-
 <!-- =====================================================
      المحتوى الرئيسي
 ===================================================== -->
 
-<main class="main" id="top">
+<main
+    class="main"
+    id="top">
 
+    <!-- الشريط العلوي -->
 
-<!-- الشريط العلوي -->
+    <header class="topbar">
 
-<header class="topbar">
+        <div class="page-title">
 
-    <div class="page-title">
-
-        <h1>
-            فضاء المتربص
-        </h1>
-
-        <span>
-            منصة التكوين المستمر
-        </span>
-
-    </div>
-
-
-    <div class="top-actions">
-
-        <button
-            class="top-button"
-            onclick="window.location.reload()"
-            title="تحديث">
-
-            🔄
-
-        </button>
-
-        <button
-            class="top-button"
-            onclick="toggleAIAssistant()"
-            title="المساعد الذكي">
-
-            🤖
-
-        </button>
-
-    </div>
-
-</header>
-
-
-
-<div class="content">
-
-
-<!-- =====================================================
-     الترحيب
-===================================================== -->
-
-<section class="hero">
-
-    <div class="hero-content">
-
-        <span class="hero-label">
-            🎓 مرحبًا بك في منصة التكوين
-        </span>
-
-        <h2>
-            طوّر مهاراتك...
-            وواصل مسارك المهني
-        </h2>
-
-        <p>
-            تابع دوراتك التكوينية،
-            اقرأ الدروس، سجّل تقدمك،
-            واحصل على شهاداتك إلكترونيًا.
-        </p>
-
-    </div>
-
-
-    <div class="hero-icon">
-        🏥
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     الإحصائيات
-===================================================== -->
-
-<section class="stats">
-
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            📚
-        </div>
-
-        <div class="stat-info">
-
-            <strong id="coursesCount">
-                0
-            </strong>
+            <h1>
+                فضاء المتربص
+            </h1>
 
             <span>
-                الدورات المتاحة
+                منصة التكوين المستمر
             </span>
 
         </div>
 
-    </div>
+        <div class="top-actions">
 
+            <button
+                class="top-button"
+                onclick="window.location.reload()"
+                title="تحديث">
 
-    <div class="stat">
+                🔄
 
-        <div class="stat-icon">
-            🎓
-        </div>
+            </button>
 
-        <div class="stat-info">
+            <button
+                class="top-button"
+                onclick="toggleAIAssistant()"
+                title="المساعد الذكي">
 
-            <strong id="enrolledCount">
-                0
-            </strong>
+                🤖
 
-            <span>
-                دوراتي المسجل فيها
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            🏆
-        </div>
-
-        <div class="stat-info">
-
-            <strong id="certificatesCount">
-                0
-            </strong>
-
-            <span>
-                الشهادات المحصل عليها
-            </span>
+            </button>
 
         </div>
 
-    </div>
+    </header>
 
 
-</section>
+    <div class="content">
 
+        <!-- =================================================
+             الترحيب
+        ================================================= -->
 
+        <section class="hero">
 
-<!-- =====================================================
-     الدورات
-===================================================== -->
+            <div class="hero-content">
 
-<section id="courses">
-
-    <div class="section-head">
-
-        <div class="section-title">
-
-            <div class="section-title-icon">
-                📚
-            </div>
-
-            <div>
+                <span class="hero-label">
+                    🎓 مرحبًا بك في منصة التكوين
+                </span>
 
                 <h2>
-                    الدورات التكوينية
+                    طوّر مهاراتك...
+                    <br>
+                    وواصل مسارك المهني
                 </h2>
 
                 <p>
-                    اختر الدورة المناسبة وابدأ التعلم
+                    تابع دوراتك التكوينية،
+                    اقرأ الدروس، سجّل تقدمك،
+                    واحصل على شهاداتك إلكترونيًا.
                 </p>
 
             </div>
 
-        </div>
+            <div class="hero-icon">
+                🏥
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             الإحصائيات
+        ================================================= -->
+
+        <section class="stats">
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📚
+                </div>
+
+                <div class="stat-info">
+
+                    <strong id="coursesCount">
+                        0
+                    </strong>
+
+                    <span>
+                        الدورات المتاحة
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🎓
+                </div>
+
+                <div class="stat-info">
+
+                    <strong id="enrolledCount">
+                        0
+                    </strong>
+
+                    <span>
+                        دوراتي المسجل فيها
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🏆
+                </div>
+
+                <div class="stat-info">
+
+                    <strong id="certificatesCount">
+                        0
+                    </strong>
+
+                    <span>
+                        الشهادات المحصل عليها
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             الدورات
+        ================================================= -->
+
+        <section id="courses">
+
+            <div class="section-head">
+
+                <div class="section-title">
+
+                    <div class="section-title-icon">
+                        📚
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            الدورات التكوينية
+                        </h2>
+
+                        <p>
+                            اختر الدورة المناسبة وابدأ التعلم
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div id="message">
+                ⏳ جاري تحميل الدورات...
+            </div>
+
+
+            <div id="coursesList"></div>
+
+        </section>
+
+
+        <!-- =================================================
+             الشهادات
+        ================================================= -->
+
+        <section id="certificates">
+
+            <div id="certificateArea"></div>
+
+        </section>
 
     </div>
 
 
-    <div id="message">
-        ⏳ جاري تحميل الدورات...
-    </div>
+    <!-- =====================================================
+         الفوتر
+    ===================================================== -->
 
+    <footer>
 
-    <div id="coursesList"></div>
+        منصة التكوين المستمر © 2026
 
-</section>
+        <strong>
+            المؤسسة العمومية الاستشفائية بأولف - ولاية أدرار
+        </strong>
 
-
-
-<!-- =====================================================
-     الشهادات
-===================================================== -->
-
-<section id="certificates">
-
-    <div id="certificateArea"></div>
-
-</section>
-
-
-</div>
-
-
-<!-- =====================================================
-     الفوتر
-===================================================== -->
-
-<footer>
-
-    منصة التكوين المستمر © 2026
-
-    <strong>
-        المؤسسة العمومية الاستشفائية بأولف - ولاية أدرار
-    </strong>
-
-</footer>
-
+    </footer>
 
 </main>
 
 </div>
 
 
-
 <!-- =====================================================
-     زر المساعد
+     زر المساعد الذكي
 ===================================================== -->
 
 <button
@@ -2181,16 +2119,14 @@ footer strong{
 </button>
 
 
-
 <!-- =====================================================
-     نافذة المساعد
+     نافذة المساعد الذكي
 ===================================================== -->
 
 <div
     id="aiPanel"
     class="ai-panel"
     dir="rtl">
-
 
     <div class="ai-header">
 
@@ -2213,7 +2149,6 @@ footer strong{
             </div>
 
         </div>
-
 
         <button
             class="ai-close"
@@ -2254,7 +2189,6 @@ footer strong{
 
         </button>
 
-
         <button
             class="ai-suggestion"
             onclick="useAISuggestion('لخص لي هذا الدرس بطريقة سهلة')">
@@ -2262,7 +2196,6 @@ footer strong{
             📝 لخص لي
 
         </button>
-
 
         <button
             class="ai-suggestion"
@@ -2283,7 +2216,6 @@ footer strong{
             placeholder="اكتب سؤالك هنا..."
             rows="1"></textarea>
 
-
         <button
             id="aiSend"
             class="ai-send"
@@ -2296,7 +2228,6 @@ footer strong{
     </div>
 
 </div>
-
 
 
 <!-- =====================================================
@@ -2358,7 +2289,6 @@ footer strong{
 </div>
 
 
-
 <!-- =====================================================
      المكتبات
 ===================================================== -->
@@ -2374,19 +2304,18 @@ footer strong{
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 
-
 <script>
 
-/* =====================================================
-   المستخدم
-===================================================== */
+/* =========================================================
+   المتغيرات
+========================================================= */
 
 let currentUser = null;
 
 
-/* =====================================================
-   الحصول على المستخدم
-===================================================== */
+/* =========================================================
+   الحصول على المستخدم الحالي
+========================================================= */
 
 async function getCurrentUser(){
 
@@ -2398,14 +2327,15 @@ async function getCurrentUser(){
         } =
         await supabaseClient.auth.getUser();
 
-
         if(error){
 
-            console.error(error);
+            console.error(
+                "Auth error:",
+                error
+            );
 
             return null;
         }
-
 
         return data?.user || null;
 
@@ -2421,11 +2351,15 @@ async function getCurrentUser(){
 }
 
 
-/* =====================================================
+/* =========================================================
    التحقق من التسجيل
-===================================================== */
+========================================================= */
 
 async function isEnrolled(courseId){
+
+    if(!currentUser){
+        return false;
+    }
 
     const {
         data,
@@ -2444,31 +2378,34 @@ async function isEnrolled(courseId){
     )
     .maybeSingle();
 
-
     if(error){
 
-        console.error(error);
+        console.error(
+            "Enrollment error:",
+            error
+        );
 
         return false;
     }
-
 
     return !!data;
 
 }
 
 
-/* =====================================================
-   التقدم
-===================================================== */
+/* =========================================================
+   الحصول على التقدم
+========================================================= */
 
 async function getProgress(lessonIds){
 
-    if(!lessonIds.length){
+    if(
+        !currentUser ||
+        !lessonIds.length
+    ){
 
         return [];
     }
-
 
     const {
         data,
@@ -2486,29 +2423,35 @@ async function getProgress(lessonIds){
         lessonIds
     );
 
-
     if(error){
 
-        console.error(error);
+        console.error(
+            "Progress error:",
+            error
+        );
 
         return [];
     }
-
 
     return data || [];
 
 }
 
 
-/* =====================================================
+/* =========================================================
    إكمال الدرس
-===================================================== */
+========================================================= */
 
 async function completeLesson(
     lessonId,
     button,
     courseId
 ){
+
+    if(!currentUser){
+        alert("يجب تسجيل الدخول أولًا.");
+        return;
+    }
 
     button.disabled = true;
 
@@ -2534,6 +2477,11 @@ async function completeLesson(
 
     if(error){
 
+        console.error(
+            "Save progress error:",
+            error
+        );
+
         if(error.code === "23505"){
 
             button.textContent =
@@ -2546,10 +2494,8 @@ async function completeLesson(
         }
         else{
 
-            console.error(error);
-
             alert(
-                "حدث خطأ أثناء حفظ التقدم"
+                "حدث خطأ أثناء حفظ التقدم."
             );
 
             button.disabled = false;
@@ -2577,13 +2523,17 @@ async function completeLesson(
 }
 
 
-/* =====================================================
-   تحديث التقدم
-===================================================== */
+/* =========================================================
+   تحديث تقدم الدورة
+========================================================= */
 
 async function updateCourseProgress(
     courseId
 ){
+
+    if(!currentUser){
+        return;
+    }
 
     const {
         data: lessons,
@@ -2597,8 +2547,9 @@ async function updateCourseProgress(
         courseId
     );
 
-
     if(error || !lessons){
+
+        console.error(error);
 
         return;
     }
@@ -2606,7 +2557,7 @@ async function updateCourseProgress(
 
     const ids =
         lessons.map(
-            x => x.id
+            lesson => lesson.id
         );
 
 
@@ -2667,40 +2618,47 @@ async function updateCourseProgress(
     }
 
 
+    const finished =
+        document.getElementById(
+            "finished-" +
+            courseId
+        );
+
+
     if(
+        finished &&
         total > 0 &&
         completed === total
     ){
 
-        const finished =
-            document.getElementById(
-                "finished-" +
-                courseId
-            );
+        finished.style.display =
+            "block";
 
-
-        if(finished){
-
-            finished.style.display =
-                "block";
-
-            finished.textContent =
-                "🏆 ممتاز! لقد أكملت جميع دروس هذه الدورة.";
-
-        }
+        finished.textContent =
+            "🏆 ممتاز! لقد أكملت جميع دروس هذه الدورة.";
 
     }
 
 }
 
 
-/* =====================================================
-   التسجيل
-===================================================== */
+/* =========================================================
+   التسجيل في الدورة
+========================================================= */
 
 async function enrollInCourse(
     courseId
 ){
+
+    if(!currentUser){
+
+        alert(
+            "يجب تسجيل الدخول أولًا."
+        );
+
+        return;
+    }
+
 
     const {
         error
@@ -2720,6 +2678,11 @@ async function enrollInCourse(
 
     if(error){
 
+        console.error(
+            "Enrollment insert error:",
+            error
+        );
+
         if(
             error.code ===
             "23505"
@@ -2731,8 +2694,6 @@ async function enrollInCourse(
 
         }
         else{
-
-            console.error(error);
 
             alert(
                 "حدث خطأ أثناء التسجيل."
@@ -2754,9 +2715,9 @@ async function enrollInCourse(
 }
 
 
-/* =====================================================
+/* =========================================================
    تحميل الدروس
-===================================================== */
+========================================================= */
 
 async function loadLessons(
     courseId,
@@ -2786,7 +2747,10 @@ async function loadLessons(
 
     if(error){
 
-        console.error(error);
+        console.error(
+            "Lessons error:",
+            error
+        );
 
         container.textContent =
             "❌ تعذر تحميل الدروس.";
@@ -2809,7 +2773,7 @@ async function loadLessons(
 
     const ids =
         lessons.map(
-            x => x.id
+            lesson => lesson.id
         );
 
 
@@ -2819,7 +2783,7 @@ async function loadLessons(
 
     const completedIds =
         progress.map(
-            x => x.lesson_id
+            item => item.lesson_id
         );
 
 
@@ -2845,7 +2809,10 @@ async function loadLessons(
 
             title.textContent =
                 "📖 " +
-                lesson.title;
+                (
+                    lesson.title ||
+                    "درس تكويني"
+                );
 
 
             box.appendChild(title);
@@ -2925,7 +2892,7 @@ async function loadLessons(
                     "☑️ تم إكمال الدرس";
 
                 button.onclick =
-                    () => {
+                    function(){
 
                         completeLesson(
                             lesson.id,
@@ -2953,11 +2920,15 @@ async function loadLessons(
 }
 
 
-/* =====================================================
+/* =========================================================
    تحميل الشهادات
-===================================================== */
+========================================================= */
 
 async function loadMyCertificates(){
+
+    if(!currentUser){
+        return;
+    }
 
     const area =
         document.getElementById(
@@ -2988,7 +2959,10 @@ async function loadMyCertificates(){
 
     if(error){
 
-        console.error(error);
+        console.error(
+            "Certificates error:",
+            error
+        );
 
         return;
     }
@@ -3047,26 +3021,64 @@ async function loadMyCertificates(){
             "certificate-card";
 
 
-        card.innerHTML = `
-            <h3>
-                🏆 شهادة إتمام التكوين
-            </h3>
+        const title =
+            document.createElement(
+                "h3"
+            );
 
-            <p>
-                <strong>📚 الدورة:</strong>
-                ${course?.name || "دورة تكوينية"}
-            </p>
+        title.textContent =
+            "🏆 شهادة إتمام التكوين";
 
-            <p>
-                <strong>🔢 رقم الشهادة:</strong>
-                ${certificate.certificate_number}
-            </p>
 
-            <p>
-                <strong>📅 تاريخ الإصدار:</strong>
-                ${certificate.issue_date}
-            </p>
-        `;
+        card.appendChild(title);
+
+
+        const courseP =
+            document.createElement(
+                "p"
+            );
+
+        courseP.innerHTML =
+            "<strong>📚 الدورة:</strong> " +
+            (
+                course?.name ||
+                "دورة تكوينية"
+            );
+
+
+        card.appendChild(courseP);
+
+
+        const numberP =
+            document.createElement(
+                "p"
+            );
+
+        numberP.innerHTML =
+            "<strong>🔢 رقم الشهادة:</strong> " +
+            (
+                certificate.certificate_number ||
+                "-"
+            );
+
+
+        card.appendChild(numberP);
+
+
+        const dateP =
+            document.createElement(
+                "p"
+            );
+
+        dateP.innerHTML =
+            "<strong>📅 تاريخ الإصدار:</strong> " +
+            (
+                certificate.issue_date ||
+                "-"
+            );
+
+
+        card.appendChild(dateP);
 
 
         if(certificate.pdf_url){
@@ -3108,7 +3120,7 @@ async function loadMyCertificates(){
                 "🎓 إنشاء الشهادة";
 
             button.onclick =
-                () => {
+                function(){
 
                     generateCertificatePDF(
                         certificate
@@ -3128,9 +3140,9 @@ async function loadMyCertificates(){
 }
 
 
-/* =====================================================
+/* =========================================================
    تحميل الدورات
-===================================================== */
+========================================================= */
 
 async function loadCourses(){
 
@@ -3138,7 +3150,6 @@ async function loadCourses(){
         document.getElementById(
             "coursesList"
         );
-
 
     const message =
         document.getElementById(
@@ -3184,7 +3195,10 @@ async function loadCourses(){
 
     if(error){
 
-        console.error(error);
+        console.error(
+            "Courses error:",
+            error
+        );
 
         message.textContent =
             "❌ حدث خطأ أثناء تحميل الدورات.";
@@ -3200,6 +3214,10 @@ async function loadCourses(){
 
         message.textContent =
             "📭 لا توجد دورات حاليًا.";
+
+        document.getElementById(
+            "coursesCount"
+        ).textContent = "0";
 
         return;
     }
@@ -3250,81 +3268,77 @@ async function loadCourses(){
             "course";
 
 
-        card.innerHTML = `
+        const header =
+            document.createElement(
+                "div"
+            );
 
-            <div class="course-header">
-
-                <div class="course-number">
-                    ${i + 1}
-                </div>
-
-                <h2>
-                    📚 ${course.name}
-                </h2>
-
-                <p class="course-description">
-                    ${
-                        course.description ||
-                        "لا يوجد وصف للدورة."
-                    }
-                </p>
-
-            </div>
-
-            <div class="course-body">
-
-                <div id="course-status-${course.id}"></div>
-
-                <div class="progress-area">
-
-                    <div
-                        class="progress-text"
-                        id="progress-text-${course.id}">
-
-                        📊 جاري حساب التقدم...
-
-                    </div>
-
-                    <div class="progress">
-
-                        <div
-                            class="progress-bar"
-                            id="progress-${course.id}">
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div
-                    id="finished-${course.id}"
-                    class="finished"
-                    style="display:none;">
-                </div>
-
-                <div class="lessons-heading">
-                    📖 دروس الدورة
-                </div>
-
-                <div
-                    id="lessons-${course.id}"
-                    style="margin-top:10px;">
-
-                    ⏳ جاري تحميل الدروس...
-
-                </div>
-
-            </div>
-        `;
+        header.className =
+            "course-header";
 
 
-        list.appendChild(card);
+        const number =
+            document.createElement(
+                "div"
+            );
+
+        number.className =
+            "course-number";
+
+        number.textContent =
+            i + 1;
+
+
+        header.appendChild(number);
+
+
+        const title =
+            document.createElement(
+                "h2"
+            );
+
+        title.textContent =
+            "📚 " +
+            (
+                course.name ||
+                "دورة تكوينية"
+            );
+
+
+        header.appendChild(title);
+
+
+        const description =
+            document.createElement(
+                "p"
+            );
+
+        description.className =
+            "course-description";
+
+        description.textContent =
+            course.description ||
+            "لا يوجد وصف للدورة.";
+
+
+        header.appendChild(description);
+
+
+        card.appendChild(header);
+
+
+        const body =
+            document.createElement(
+                "div"
+            );
+
+        body.className =
+            "course-body";
 
 
         const status =
-            document.getElementById(
-                "course-status-" +
-                course.id
+            document.createElement(
+                "div"
             );
 
 
@@ -3358,7 +3372,7 @@ async function loadCourses(){
                 "📝 التسجيل في الدورة";
 
             button.onclick =
-                () => {
+                function(){
 
                     enrollInCourse(
                         course.id
@@ -3371,12 +3385,138 @@ async function loadCourses(){
         }
 
 
+        body.appendChild(status);
+
+
+        const progressArea =
+            document.createElement(
+                "div"
+            );
+
+        progressArea.className =
+            "progress-area";
+
+
+        const progressText =
+            document.createElement(
+                "div"
+            );
+
+        progressText.className =
+            "progress-text";
+
+        progressText.id =
+            "progress-text-" +
+            course.id;
+
+        progressText.textContent =
+            "📊 جاري حساب التقدم...";
+
+
+        progressArea.appendChild(
+            progressText
+        );
+
+
+        const progress =
+            document.createElement(
+                "div"
+            );
+
+        progress.className =
+            "progress";
+
+
+        const progressBar =
+            document.createElement(
+                "div"
+            );
+
+        progressBar.className =
+            "progress-bar";
+
+        progressBar.id =
+            "progress-" +
+            course.id;
+
+
+        progress.appendChild(
+            progressBar
+        );
+
+        progressArea.appendChild(
+            progress
+        );
+
+        body.appendChild(
+            progressArea
+        );
+
+
+        const finished =
+            document.createElement(
+                "div"
+            );
+
+        finished.className =
+            "finished";
+
+        finished.id =
+            "finished-" +
+            course.id;
+
+
+        body.appendChild(
+            finished
+        );
+
+
+        const lessonsHeading =
+            document.createElement(
+                "div"
+            );
+
+        lessonsHeading.className =
+            "lessons-heading";
+
+        lessonsHeading.textContent =
+            "📖 دروس الدورة";
+
+
+        body.appendChild(
+            lessonsHeading
+        );
+
+
+        const lessonsContainer =
+            document.createElement(
+                "div"
+            );
+
+        lessonsContainer.id =
+            "lessons-" +
+            course.id;
+
+        lessonsContainer.style.marginTop =
+            "10px";
+
+        lessonsContainer.textContent =
+            "⏳ جاري تحميل الدروس...";
+
+
+        body.appendChild(
+            lessonsContainer
+        );
+
+
+        card.appendChild(body);
+
+        list.appendChild(card);
+
+
         await loadLessons(
             course.id,
-            document.getElementById(
-                "lessons-" +
-                course.id
-            )
+            lessonsContainer
         );
 
     }
@@ -3393,9 +3533,9 @@ async function loadCourses(){
 }
 
 
-/* =====================================================
-   إنشاء الشهادة
-===================================================== */
+/* =========================================================
+   إنشاء شهادة PDF
+========================================================= */
 
 async function generateCertificatePDF(
     certificate
@@ -3447,14 +3587,20 @@ async function generateCertificatePDF(
             "certificateDate"
         ).textContent =
             "تاريخ الإصدار: " +
-            certificate.issue_date;
+            (
+                certificate.issue_date ||
+                ""
+            );
 
 
         document.getElementById(
             "certificateNumber"
         ).textContent =
             "رقم الشهادة: " +
-            certificate.certificate_number;
+            (
+                certificate.certificate_number ||
+                ""
+            );
 
 
         const qr =
@@ -3471,9 +3617,10 @@ async function generateCertificatePDF(
             {
                 text:
                     window.location.origin +
-                    "/verify.html?certificate=" +
+                    "/training-platform/verify.html?certificate=" +
                     encodeURIComponent(
-                        certificate.certificate_number
+                        certificate.certificate_number ||
+                        ""
                     ),
 
                 width:110,
@@ -3543,15 +3690,20 @@ async function generateCertificatePDF(
 
 
         pdf.save(
-            certificate.certificate_number +
+            (
+                certificate.certificate_number ||
+                "certificate"
+            ) +
             ".pdf"
         );
-
 
     }
     catch(error){
 
-        console.error(error);
+        console.error(
+            "Certificate error:",
+            error
+        );
 
         alert(
             "حدث خطأ أثناء إنشاء الشهادة."
@@ -3562,9 +3714,9 @@ async function generateCertificatePDF(
 }
 
 
-/* =====================================================
-   فتح المساعد
-===================================================== */
+/* =========================================================
+   فتح / إغلاق المساعد
+========================================================= */
 
 function toggleAIAssistant(){
 
@@ -3574,6 +3726,11 @@ function toggleAIAssistant(){
         );
 
 
+    if(!panel){
+        return;
+    }
+
+
     panel.classList.toggle(
         "open"
     );
@@ -3581,9 +3738,9 @@ function toggleAIAssistant(){
 }
 
 
-/* =====================================================
-   إضافة رسالة AI
-===================================================== */
+/* =========================================================
+   إضافة رسالة للمساعد
+========================================================= */
 
 function addAIMessage(
     text,
@@ -3594,6 +3751,11 @@ function addAIMessage(
         document.getElementById(
             "aiMessages"
         );
+
+
+    if(!messages){
+        return;
+    }
 
 
     const div =
@@ -3620,9 +3782,9 @@ function addAIMessage(
 }
 
 
-/* =====================================================
-   السؤال المقترح
-===================================================== */
+/* =========================================================
+   الاقتراحات
+========================================================= */
 
 function useAISuggestion(
     text
@@ -3634,22 +3796,23 @@ function useAISuggestion(
         );
 
 
+    if(!input){
+        return;
+    }
+
+
     input.value =
         text;
 
-
-    /*
-       الإرسال مباشرة
-    */
 
     sendAIMessage();
 
 }
 
 
-/* =====================================================
-   إرسال AI
-===================================================== */
+/* =========================================================
+   إرسال السؤال إلى AI
+========================================================= */
 
 async function sendAIMessage(){
 
@@ -3670,14 +3833,9 @@ async function sendAIMessage(){
 
 
     if(!message){
-
         return;
     }
 
-
-    /* ===========================
-       التحقق من الجلسة
-    =========================== */
 
     try{
 
@@ -3718,10 +3876,6 @@ async function sendAIMessage(){
         return;
     }
 
-
-    /* ===========================
-       عرض السؤال
-    =========================== */
 
     addAIMessage(
         message,
@@ -3770,16 +3924,7 @@ async function sendAIMessage(){
         messages.scrollHeight;
 
 
-    /* ===========================
-       الاتصال بالدالة
-    =========================== */
-
     try{
-
-        console.log(
-            "الاتصال بـ swift-processor..."
-        );
-
 
         const {
             data,
@@ -3795,18 +3940,6 @@ async function sendAIMessage(){
         );
 
 
-        console.log(
-            "AI DATA:",
-            data
-        );
-
-
-        console.log(
-            "AI ERROR:",
-            error
-        );
-
-
         const thinkingElement =
             document.getElementById(
                 "aiThinking"
@@ -3814,16 +3947,14 @@ async function sendAIMessage(){
 
 
         if(thinkingElement){
-
             thinkingElement.remove();
-
         }
 
 
         if(error){
 
             console.error(
-                "Function error:",
+                "AI function error:",
                 error
             );
 
@@ -3836,7 +3967,6 @@ async function sendAIMessage(){
                 ),
                 "error"
             );
-
 
             return;
         }
@@ -3855,7 +3985,6 @@ async function sendAIMessage(){
                 ),
                 "error"
             );
-
 
             return;
         }
@@ -3883,9 +4012,7 @@ async function sendAIMessage(){
 
 
         if(thinkingElement){
-
             thinkingElement.remove();
-
         }
 
 
@@ -3912,9 +4039,9 @@ async function sendAIMessage(){
 }
 
 
-/* =====================================================
+/* =========================================================
    Enter للإرسال
-===================================================== */
+========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -3926,28 +4053,28 @@ document.addEventListener(
             );
 
 
-        input.addEventListener(
-            "keydown",
-            function(event){
+        if(input){
 
-                if(
-                    event.key === "Enter" &&
-                    !event.shiftKey
-                ){
+            input.addEventListener(
+                "keydown",
+                function(event){
 
-                    event.preventDefault();
+                    if(
+                        event.key === "Enter" &&
+                        !event.shiftKey
+                    ){
 
-                    sendAIMessage();
+                        event.preventDefault();
+
+                        sendAIMessage();
+
+                    }
 
                 }
+            );
 
-            }
-        );
+        }
 
-
-        /*
-         * تشغيل الصفحة
-         */
 
         loadCourses();
 
