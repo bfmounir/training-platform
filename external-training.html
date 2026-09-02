@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>التكوينات الخارجية - منصة التكوين المتواصل</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase-config.js"></script>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Tahoma, sans-serif;
+    background: #f3f6fa;
+    color: #1f2937;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 270px;
+    height: 100vh;
+    background: linear-gradient(180deg, #075985, #0f766e);
+    color: white;
+    padding: 25px 18px;
+    z-index: 1000;
+    box-shadow: -4px 0 15px rgba(0,0,0,.12);
+}
+
+.logo-box {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.logo-box img {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+    background: white;
+    border-radius: 18px;
+    padding: 7px;
+}
+
+.logo-box h2 {
+    font-size: 19px;
+    margin: 12px 0 5px;
+}
+
+.logo-box p {
+    font-size: 13px;
+    line-height: 1.7;
+    opacity: .9;
+}
+
+.menu {
+    margin-top: 25px;
+}
+
+.menu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 13px 15px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    transition: .2s;
+}
+
+.menu a:hover,
+.menu a.active {
+    background: rgba(255,255,255,.18);
+    transform: translateX(-3px);
+}
+
+.logout {
+    position: absolute;
+    bottom: 20px;
+    left: 18px;
+    right: 18px;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.15);
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    margin-right: 270px;
+    min-height: 100vh;
+}
+
+.topbar {
+    height: 75px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+}
+
+.topbar h1 {
+    margin: 0;
+    font-size: 23px;
+    color: #075985;
+}
+
+.admin-name {
+    font-size: 14px;
+    color: #64748b;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content {
+    padding: 30px;
+}
+
+.hero {
+    background: linear-gradient(135deg, #075985, #0f766e);
+    color: white;
+    padding: 30px;
+    border-radius: 22px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 25px rgba(7,89,133,.18);
+}
+
+.hero h2 {
+    margin-top: 0;
+    font-size: 26px;
+}
+
+.hero p {
+    margin-bottom: 0;
+    line-height: 1.8;
+    opacity: .95;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.06);
+}
+
+.form-card h3 {
+    margin-top: 0;
+    color: #075985;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 15px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    margin-bottom: 7px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    background: #fff;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #0f766e;
+    box-shadow: 0 0 0 3px rgba(15,118,110,.10);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: #075985;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #064e75;
+}
+
+.btn-secondary {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.btn-success {
+    background: #0f766e;
+    color: white;
+}
+
+/* =========================
+   LIST
+========================= */
+
+.list-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.06);
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.list-header h3 {
+    margin: 0;
+    color: #075985;
+}
+
+.search {
+    max-width: 300px;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.training-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 17px;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: .2s;
+}
+
+.training-card:hover {
+    box-shadow: 0 5px 18px rgba(0,0,0,.07);
+    transform: translateY(-2px);
+}
+
+.training-title {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.training-title h4 {
+    margin: 0;
+    color: #075985;
+    font-size: 19px;
+}
+
+.status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    white-space: nowrap;
+    background: #dcfce7;
+    color: #166534;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.info {
+    background: #f8fafc;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+.info strong {
+    display: block;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.description {
+    margin-top: 15px;
+    line-height: 1.8;
+    color: #475569;
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 17px;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 15px;
+}
+
+.btn-small {
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.edit {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.delete {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.link {
+    background: #dcfce7;
+    color: #166534;
+    text-decoration: none;
+}
+
+/* =========================
+   EMPTY / LOADING
+========================= */
+
+.empty {
+    text-align: center;
+    padding: 45px 20px;
+    color: #64748b;
+}
+
+.empty-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.loading {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .logout {
+        position: static;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .main {
+        margin-right: 0;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        padding: 0 18px;
+    }
+
+    .content {
+        padding: 18px;
+    }
+
+    .list-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search {
+        max-width: none;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+    <div class="logo-box">
+
+        <img src="logo.png" alt="شعار المؤسسة">
+
+        <h2>منصة التكوين المتواصل</h2>
+
+        <p>
+            المؤسسة العمومية الإستشفائية بأولف<br>
+            ولاية أدرار
+        </p>
+
+    </div>
+
+    <nav class="menu">
+
+        <a href="admin.html">
+            🏠 لوحة التحكم
+        </a>
+
+        <a href="admin-users.html">
+            👥 إدارة المستخدمين
+        </a>
+
+        <a href="admin-courses.html">
+            📚 إدارة الدورات
+        </a>
+
+        <a href="admin-lessons.html">
+            📖 إدارة الدروس
+        </a>
+
+        <a href="admin-certificates.html">
+            🏆 الشهادات
+        </a>
+
+        <a href="admin-statistics.html">
+            📊 الإحصائيات
+        </a>
+
+        <a href="external-training.html" class="active">
+            🌐 التكوينات الخارجية
+        </a>
+
+    </nav>
+
+    <button class="logout" onclick="logout()">
+        🚪 تسجيل الخروج
+    </button>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+    <header class="topbar">
+
+        <h1>🌐 التكوينات الخارجية</h1>
+
+        <div class="admin-name" id="adminName">
+            جاري التحقق...
+        </div>
+
+    </header>
+
+
+    <section class="content">
+
+        <div class="hero">
+
+            <h2>إدارة التكوينات الخارجية</h2>
+
+            <p>
+                يمكنك من خلال هذه الصفحة الإعلان عن الدورات والتكوينات
+                التي تنظمها جهات خارج المؤسسة عبر Zoom أو Google Meet
+                أو Microsoft Teams وغيرها من المنصات.
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             FORM
+        ========================= -->
+
+        <div class="form-card">
+
+            <h3 id="formTitle">
+                ➕ إضافة تكوين خارجي جديد
+            </h3>
+
+            <input type="hidden" id="trainingId">
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+
+                    <label>
+                        اسم التكوين *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="مثال: التكوين في الإسعافات الأولية"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        الجهة المنظمة
+                    </label>
+
+                    <input
+                        type="text"
+                        id="organizer"
+                        placeholder="اسم المؤسسة أو الجهة المنظمة"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        المنصة
+                    </label>
+
+                    <select id="platform">
+
+                        <option value="">
+                            اختر المنصة
+                        </option>
+
+                        <option value="Zoom">
+                            Zoom
+                        </option>
+
+                        <option value="Google Meet">
+                            Google Meet
+                        </option>
+
+                        <option value="Microsoft Teams">
+                            Microsoft Teams
+                        </option>
+
+                        <option value="Webex">
+                            Webex
+                        </option>
+
+                        <option value="أخرى">
+                            أخرى
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        تاريخ التكوين
+                    </label>
+
+                    <input
+                        type="date"
+                        id="trainingDate"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        الفئة المستهدفة
+                    </label>
+
+                    <input
+                        type="text"
+                        id="targetAudience"
+                        placeholder="مثال: جميع مهنيي الصحة"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        وقت البداية
+                    </label>
+
+                    <input
+                        type="time"
+                        id="startTime"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        وقت النهاية
+                    </label>
+
+                    <input
+                        type="time"
+                        id="endTime"
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        رابط التكوين / الاجتماع
+                    </label>
+
+                    <input
+                        type="url"
+                        id="meetingUrl"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        رابط التسجيل
+                    </label>
+
+                    <input
+                        type="url"
+                        id="registrationUrl"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        حالة التكوين
+                    </label>
+
+                    <select id="status">
+
+                        <option value="مفتوح">
+                            مفتوح للتسجيل
+                        </option>
+
+                        <option value="قريبًا">
+                            قريبًا
+                        </option>
+
+                        <option value="مغلق">
+                            التسجيل مغلق
+                        </option>
+
+                        <option value="منتهي">
+                            منتهي
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        وصف التكوين
+                    </label>
+
+                    <textarea
+                        id="description"
+                        placeholder="اكتب معلومات مختصرة عن محتوى التكوين..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="buttons">
+
+                <button
+                    class="btn btn-primary"
+                    onclick="saveTraining()"
+                >
+                    💾 حفظ التكوين
+                </button>
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="resetForm()"
+                >
+                    ↩️ إلغاء
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             LIST
+        ========================= -->
+
+        <div class="list-card">
+
+            <div class="list-header">
+
+                <h3>
+                    📋 التكوينات الخارجية
+                </h3>
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    class="search"
+                    placeholder="🔎 البحث عن تكوين..."
+                    oninput="filterTrainings()"
+                >
+
+            </div>
+
+            <div id="trainingList">
+
+                <div class="loading">
+                    جاري تحميل التكوينات...
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+/* =========================
+   GLOBAL
+========================= */
+
+let allTrainings = [];
+
+
+/* =========================
+   GET CURRENT USER
+========================= */
+
+async function checkAdmin() {
+
+    try {
+
+        const {
+            data: { user },
+            error
+        } = await supabaseClient.auth.getUser();
+
+        if (error || !user) {
+
+            window.location.href = "login.html";
+
+            return false;
+        }
+
+
+        const { data: roleData, error: roleError } =
+            await supabaseClient
+                .from("user_roles")
+                .select("role")
+                .eq("user_id", user.id)
+                .maybeSingle();
+
+
+        if (roleError) {
+
+            console.error(roleError);
+
+            alert(
+                "تعذر التحقق من صلاحيات الحساب: "
+                + roleError.message
+            );
+
+            return false;
+        }
+
+
+        if (!roleData || roleData.role !== "admin") {
+
+            alert("ليس لديك صلاحية الدخول إلى هذه الصفحة.");
+
+            window.location.href = "index.html";
+
+            return false;
+        }
+
+
+        document.getElementById("adminName").textContent =
+            user.email || "المسؤول";
+
+        return true;
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("حدث خطأ أثناء التحقق من الحساب.");
+
+        return false;
+    }
+}
+
+
+/* =========================
+   LOAD TRAININGS
+========================= */
+
+async function loadTrainings() {
+
+    const container =
+        document.getElementById("trainingList");
+
+    container.innerHTML =
+        '<div class="loading">جاري تحميل التكوينات...</div>';
+
+
+    const { data, error } =
+        await supabaseClient
+            .from("external_trainings")
+            .select("*")
+            .order("training_date", {
+                ascending: true
+            });
+
+
+    if (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+            <div class="empty">
+                <div class="empty-icon">⚠️</div>
+                <p>تعذر تحميل التكوينات.</p>
+                <small>${escapeHtml(error.message)}</small>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    allTrainings = data || [];
+
+    renderTrainings(allTrainings);
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function renderTrainings(trainings) {
+
+    const container =
+        document.getElementById("trainingList");
+
+
+    if (!trainings.length) {
+
+        container.innerHTML = `
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🌐
+                </div>
+
+                <h3>
+                    لا توجد تكوينات خارجية
+                </h3>
+
+                <p>
+                    يمكنك إضافة أول تكوين خارجي من النموذج أعلاه.
+                </p>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML =
+        trainings.map(training => {
+
+            const date =
+                training.training_date
+                ? formatDate(training.training_date)
+                : "غير محدد";
+
+
+            const time =
+                training.start_time
+                ? training.start_time.substring(0, 5)
+                : "غير محدد";
+
+
+            const endTime =
+                training.end_time
+                ? training.end_time.substring(0, 5)
+                : "";
+
+
+            const timeText =
+                endTime
+                ? `${time} - ${endTime}`
+                : time;
+
+
+            return `
+
+                <div class="training-card">
+
+                    <div class="training-title">
+
+                        <h4>
+                            ${escapeHtml(training.title || "بدون عنوان")}
+                        </h4>
+
+                        <span class="status">
+                            ${escapeHtml(training.status || "مفتوح")}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-grid">
+
+                        <div class="info">
+
+                            <strong>
+                                🏢 الجهة المنظمة
+                            </strong>
+
+                            ${escapeHtml(
+                                training.organizer || "غير محددة"
+                            )}
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <strong>
+                                💻 المنصة
+                            </strong>
+
+                            ${escapeHtml(
+                                training.platform || "غير محددة"
+                            )}
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <strong>
+                                📅 التاريخ
+                            </strong>
+
+                            ${date}
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <strong>
+                                ⏰ الوقت
+                            </strong>
+
+                            ${timeText}
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <strong>
+                                👥 الفئة المستهدفة
+                            </strong>
+
+                            ${escapeHtml(
+                                training.target_audience || "غير محددة"
+                            )}
+
+                        </div>
+
+                    </div>
+
+
+                    ${
+                        training.description
+                        ? `
+                        <div class="description">
+                            ${escapeHtml(training.description)}
+                        </div>
+                        `
+                        : ""
+                    }
+
+
+                    <div class="card-actions">
+
+                        ${
+                            training.meeting_url
+                            ? `
+                            <a
+                                href="${safeUrl(training.meeting_url)}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn-small link"
+                            >
+                                🔗 رابط التكوين
+                            </a>
+                            `
+                            : ""
+                        }
+
+
+                        ${
+                            training.registration_url
+                            ? `
+                            <a
+                                href="${safeUrl(training.registration_url)}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn-small link"
+                            >
+                                📝 التسجيل
+                            </a>
+                            `
+                            : ""
+                        }
+
+
+                        <button
+                            class="btn-small edit"
+                            onclick="editTraining(${training.id})"
+                        >
+                            ✏️ تعديل
+                        </button>
+
+
+                        <button
+                            class="btn-small delete"
+                            onclick="deleteTraining(${training.id})"
+                        >
+                            🗑️ حذف
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+async function saveTraining() {
+
+    const id =
+        document.getElementById("trainingId").value;
+
+
+    const title =
+        document.getElementById("title").value.trim();
+
+
+    if (!title) {
+
+        alert("يرجى إدخال اسم التكوين.");
+
+        document.getElementById("title").focus();
+
+        return;
+    }
+
+
+    const trainingData = {
+
+        title: title,
+
+        description:
+            document.getElementById("description").value.trim() || null,
+
+        organizer:
+            document.getElementById("organizer").value.trim() || null,
+
+        platform:
+            document.getElementById("platform").value || null,
+
+        meeting_url:
+            document.getElementById("meetingUrl").value.trim() || null,
+
+        training_date:
+            document.getElementById("trainingDate").value || null,
+
+        start_time:
+            document.getElementById("startTime").value || null,
+
+        end_time:
+            document.getElementById("endTime").value || null,
+
+        target_audience:
+            document.getElementById("targetAudience").value.trim() || null,
+
+        registration_url:
+            document.getElementById("registrationUrl").value.trim() || null,
+
+        status:
+            document.getElementById("status").value
+
+    };
+
+
+    if (!id) {
+
+        const {
+            data: { user }
+        } = await supabaseClient.auth.getUser();
+
+
+        trainingData.created_by =
+            user ? user.id : null;
+
+
+        const { error } =
+            await supabaseClient
+                .from("external_trainings")
+                .insert([trainingData]);
+
+
+        if (error) {
+
+            console.error(error);
+
+            alert(
+                "❌ تعذر إضافة التكوين:\n"
+                + error.message
+            );
+
+            return;
+        }
+
+
+        alert("✅ تمت إضافة التكوين بنجاح.");
+
+    } else {
+
+
+        const { error } =
+            await supabaseClient
+                .from("external_trainings")
+                .update(trainingData)
+                .eq("id", id);
+
+
+        if (error) {
+
+            console.error(error);
+
+            alert(
+                "❌ تعذر تعديل التكوين:\n"
+                + error.message
+            );
+
+            return;
+        }
+
+
+        alert("✅ تم تعديل التكوين بنجاح.");
+    }
+
+
+    resetForm();
+
+    await loadTrainings();
+}
+
+
+/* =========================
+   EDIT
+========================= */
+
+function editTraining(id) {
+
+    const training =
+        allTrainings.find(item =>
+            Number(item.id) === Number(id)
+        );
+
+
+    if (!training) {
+
+        alert("لم يتم العثور على التكوين.");
+
+        return;
+    }
+
+
+    document.getElementById("trainingId").value =
+        training.id;
+
+
+    document.getElementById("title").value =
+        training.title || "";
+
+
+    document.getElementById("description").value =
+        training.description || "";
+
+
+    document.getElementById("organizer").value =
+        training.organizer || "";
+
+
+    document.getElementById("platform").value =
+        training.platform || "";
+
+
+    document.getElementById("meetingUrl").value =
+        training.meeting_url || "";
+
+
+    document.getElementById("trainingDate").value =
+        training.training_date || "";
+
+
+    document.getElementById("startTime").value =
+        training.start_time
+        ? training.start_time.substring(0, 5)
+        : "";
+
+
+    document.getElementById("endTime").value =
+        training.end_time
+        ? training.end_time.substring(0, 5)
+        : "";
+
+
+    document.getElementById("targetAudience").value =
+        training.target_audience || "";
+
+
+    document.getElementById("registrationUrl").value =
+        training.registration_url || "";
+
+
+    document.getElementById("status").value =
+        training.status || "مفتوح";
+
+
+    document.getElementById("formTitle").textContent =
+        "✏️ تعديل التكوين الخارجي";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* =========================
+   DELETE
+========================= */
+
+async function deleteTraining(id) {
+
+    const training =
+        allTrainings.find(item =>
+            Number(item.id) === Number(id)
+        );
+
+
+    if (!training) return;
+
+
+    const confirmed =
+        confirm(
+            `هل أنت متأكد من حذف التكوين:\n\n${training.title}`
+        );
+
+
+    if (!confirmed) return;
+
+
+    const { data: deletedData, error } =
+        await supabaseClient
+            .from("external_trainings")
+            .delete()
+            .eq("id", id)
+            .select("id");
+
+
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "❌ تعذر حذف التكوين:\n"
+            + error.message
+        );
+
+        return;
+    }
+
+
+    if (!deletedData || deletedData.length === 0) {
+
+        alert(
+            "⚠️ لم يتم حذف التكوين.\n\n"
+            + "قد تكون هناك مشكلة في صلاحيات RLS."
+        );
+
+        return;
+    }
+
+
+    alert("✅ تم حذف التكوين بنجاح.");
+
+    await loadTrainings();
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+function resetForm() {
+
+    document.getElementById("trainingId").value = "";
+
+    document.getElementById("title").value = "";
+
+    document.getElementById("description").value = "";
+
+    document.getElementById("organizer").value = "";
+
+    document.getElementById("platform").value = "";
+
+    document.getElementById("meetingUrl").value = "";
+
+    document.getElementById("trainingDate").value = "";
+
+    document.getElementById("startTime").value = "";
+
+    document.getElementById("endTime").value = "";
+
+    document.getElementById("targetAudience").value = "";
+
+    document.getElementById("registrationUrl").value = "";
+
+    document.getElementById("status").value = "مفتوح";
+
+    document.getElementById("formTitle").textContent =
+        "➕ إضافة تكوين خارجي جديد";
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function filterTrainings() {
+
+    const search =
+        document.getElementById("searchInput")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    if (!search) {
+
+        renderTrainings(allTrainings);
+
+        return;
+    }
+
+
+    const filtered =
+        allTrainings.filter(training => {
+
+            const text = [
+
+                training.title,
+
+                training.description,
+
+                training.organizer,
+
+                training.platform,
+
+                training.target_audience,
+
+                training.status
+
+            ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+
+            return text.includes(search);
+        });
+
+
+    renderTrainings(filtered);
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function formatDate(dateString) {
+
+    try {
+
+        const parts =
+            dateString.split("-");
+
+        if (parts.length !== 3) {
+            return dateString;
+        }
+
+        return `${parts[2]}/${parts[1]}/${parts[0]}`;
+
+    } catch {
+
+        return dateString;
+    }
+}
+
+
+/* =========================
+   SECURITY HELPERS
+========================= */
+
+function escapeHtml(value) {
+
+    if (value === null || value === undefined) {
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+function safeUrl(url) {
+
+    if (!url) return "#";
+
+    try {
+
+        const parsed =
+            new URL(url);
+
+        if (
+            parsed.protocol === "https:" ||
+            parsed.protocol === "http:"
+        ) {
+
+            return escapeHtml(parsed.href);
+        }
+
+    } catch {
+
+        return "#";
+    }
+
+    return "#";
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href =
+        "login.html";
+}
+
+
+/* =========================
+   START
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function() {
+
+        const isAdmin =
+            await checkAdmin();
+
+        if (!isAdmin) return;
+
+        await loadTrainings();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
