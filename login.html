@@ -2,565 +2,515 @@
 <html lang="ar" dir="rtl">
 
 <head>
+    <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - منصة التكوين المتواصل</title>
 
-<title>تسجيل الدخول - منصة التكوين المتواصل</title>
+    <style>
 
-<style>
+        * {
+            box-sizing: border-box;
+        }
 
-/* =====================================================
-   الإعدادات العامة
-===================================================== */
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Tahoma, sans-serif;
+            background:
+                radial-gradient(circle at top right, rgba(8,127,140,.18), transparent 35%),
+                radial-gradient(circle at bottom left, rgba(11,110,253,.15), transparent 35%),
+                #f3f7fa;
 
-* {
-    box-sizing: border-box;
-}
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-body {
-    margin: 0;
-    font-family: Tahoma, Arial, sans-serif;
+            padding: 20px;
+        }
 
-    min-height: 100vh;
+        .container {
+            width: 100%;
+            max-width: 1050px;
 
-    background:
-        radial-gradient(circle at 10% 20%,
-        rgba(24,166,166,0.25),
-        transparent 30%),
+            display: grid;
+            grid-template-columns: 1fr 1fr;
 
-        radial-gradient(circle at 90% 80%,
-        rgba(13,110,253,0.25),
-        transparent 30%),
+            background: white;
 
-        linear-gradient(
-            135deg,
-            #062d5c,
-            #0d6efd,
-            #159f9f
-        );
+            border-radius: 25px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+            overflow: hidden;
 
-    padding: 25px;
+            box-shadow:
+                0 20px 60px rgba(27,66,91,.15);
+        }
 
-    position: relative;
+        /* =========================
+           الجانب التعريفي
+        ========================== */
 
-    overflow: hidden;
-}
+        .info {
+            background:
+                linear-gradient(
+                    145deg,
+                    #073b4c,
+                    #075c66,
+                    #087f8c
+                );
 
+            color: white;
 
-/* =====================================================
-   أشكال خلفية جمالية
-===================================================== */
+            padding: 55px 45px;
 
-body::before,
-body::after {
-    content: "";
-    position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
 
-    border-radius: 50%;
+            position: relative;
 
-    background: rgba(255,255,255,0.08);
+            overflow: hidden;
+        }
 
-    pointer-events: none;
-}
+        .info::before {
+            content: "";
 
-body::before {
-    width: 330px;
-    height: 330px;
+            position: absolute;
 
-    top: -120px;
-    right: -100px;
-}
+            width: 300px;
+            height: 300px;
 
-body::after {
-    width: 280px;
-    height: 280px;
+            border-radius: 50%;
 
-    bottom: -120px;
-    left: -80px;
-}
+            background: rgba(255,255,255,.06);
 
+            top: -120px;
+            right: -100px;
+        }
 
-/* =====================================================
-   زر الصفحة الرئيسية
-===================================================== */
+        .info::after {
+            content: "";
 
-.home-btn {
-    position: absolute;
+            position: absolute;
 
-    top: 25px;
-    right: 30px;
+            width: 220px;
+            height: 220px;
 
-    text-decoration: none;
+            border-radius: 50%;
 
-    color: white;
+            background: rgba(255,255,255,.05);
 
-    background: rgba(255,255,255,0.14);
+            bottom: -100px;
+            left: -70px;
+        }
 
-    border: 1px solid rgba(255,255,255,0.25);
+        .logo {
+            width: 95px;
+            height: 95px;
 
-    padding: 11px 18px;
+            object-fit: contain;
 
-    border-radius: 30px;
+            background: white;
 
-    font-size: 14px;
+            border-radius: 22px;
 
-    backdrop-filter: blur(10px);
+            padding: 8px;
 
-    transition: 0.3s;
+            margin-bottom: 25px;
 
-    z-index: 5;
-}
+            box-shadow:
+                0 10px 30px rgba(0,0,0,.15);
+        }
 
-.home-btn:hover {
-    background: rgba(255,255,255,0.25);
+        .info h1 {
+            font-size: 28px;
 
-    transform: translateY(-2px);
-}
+            line-height: 1.6;
 
+            margin: 0 0 15px;
 
-/* =====================================================
-   بطاقة تسجيل الدخول
-===================================================== */
+            position: relative;
 
-.login-box {
+            z-index: 2;
+        }
 
-    position: relative;
+        .info p {
+            font-size: 16px;
 
-    z-index: 2;
+            line-height: 1.9;
 
-    width: 430px;
+            opacity: .9;
 
-    max-width: 100%;
+            margin: 0 0 25px;
 
-    padding: 38px 35px 32px;
+            position: relative;
 
-    background: rgba(255,255,255,0.97);
+            z-index: 2;
+        }
 
-    border-radius: 26px;
+        .institution {
+            background: rgba(255,255,255,.10);
 
-    text-align: center;
+            border: 1px solid rgba(255,255,255,.12);
 
-    box-shadow:
-        0 25px 70px rgba(0,0,0,0.25);
+            border-radius: 15px;
 
-    animation: appear 0.7s ease;
-}
+            padding: 18px;
 
+            font-size: 14px;
 
-/* حركة ظهور البطاقة */
+            line-height: 1.8;
 
-@keyframes appear {
+            position: relative;
 
-    from {
-        opacity: 0;
-        transform: translateY(25px) scale(0.97);
-    }
+            z-index: 2;
+        }
 
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+        /* =========================
+           صندوق تسجيل الدخول
+        ========================== */
 
-}
+        .login-box {
+            padding: 55px 45px;
 
+            display: flex;
 
-/* =====================================================
-   الشعار
-===================================================== */
+            flex-direction: column;
 
-.logo-container {
+            justify-content: center;
+        }
 
-    width: 105px;
-    height: 105px;
+        .login-box h2 {
+            margin: 0 0 10px;
 
-    margin: 0 auto 18px;
+            color: #17324d;
 
-    background: white;
+            font-size: 30px;
+        }
 
-    border-radius: 25px;
+        .subtitle {
+            color: #718096;
 
-    display: flex;
+            margin-bottom: 35px;
 
-    justify-content: center;
+            font-size: 15px;
+        }
 
-    align-items: center;
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-    box-shadow:
-        0 8px 25px rgba(13,110,253,0.18);
+        label {
+            display: block;
 
-    border: 1px solid #eef2f7;
+            margin-bottom: 8px;
 
-    overflow: hidden;
-}
+            color: #34495e;
 
+            font-weight: bold;
 
-.logo-container img {
+            font-size: 14px;
+        }
 
-    width: 82px;
-    height: 82px;
+        input {
+            width: 100%;
 
-    object-fit: contain;
+            padding: 15px 16px;
 
-}
+            border: 1px solid #dce6ec;
 
+            border-radius: 13px;
 
-/* =====================================================
-   العنوان
-===================================================== */
+            outline: none;
 
-h1 {
+            font-size: 15px;
 
-    margin: 5px 0 8px;
+            background: #f9fbfc;
 
-    font-size: 25px;
+            transition: .25s;
+        }
 
-    color: #073b78;
+        input:focus {
+            border-color: #087f8c;
 
-    font-weight: 800;
-}
+            background: white;
 
+            box-shadow:
+                0 0 0 4px rgba(8,127,140,.10);
+        }
 
-.subtitle {
+        .password-box {
+            position: relative;
+        }
 
-    margin: 0 0 28px;
+        .password-box input {
+            padding-left: 50px;
+        }
 
-    color: #667085;
+        .show-password {
+            position: absolute;
 
-    font-size: 15px;
-}
+            left: 15px;
 
+            top: 50%;
 
-/* =====================================================
-   الحقول
-===================================================== */
+            transform: translateY(-50%);
 
-.field {
+            border: none;
 
-    text-align: right;
+            background: transparent;
 
-    margin-bottom: 17px;
-}
+            cursor: pointer;
 
+            font-size: 19px;
 
-.field label {
+            color: #718096;
+        }
 
-    display: block;
+        .login-btn {
+            width: 100%;
 
-    margin-bottom: 7px;
+            border: none;
 
-    color: #344054;
+            border-radius: 13px;
 
-    font-size: 14px;
+            padding: 16px;
 
-    font-weight: bold;
-}
+            background:
+                linear-gradient(
+                    135deg,
+                    #087f8c,
+                    #0b6efd
+                );
 
+            color: white;
 
-.input-wrapper {
+            font-size: 16px;
 
-    position: relative;
-}
+            font-weight: bold;
 
+            cursor: pointer;
 
-.input-icon {
+            transition: .25s;
 
-    position: absolute;
+            box-shadow:
+                0 10px 25px rgba(8,127,140,.20);
+        }
 
-    right: 14px;
+        .login-btn:hover {
+            transform: translateY(-2px);
 
-    top: 50%;
+            box-shadow:
+                0 14px 30px rgba(8,127,140,.28);
+        }
 
-    transform: translateY(-50%);
+        .login-btn:disabled {
+            opacity: .65;
 
-    font-size: 18px;
+            cursor: not-allowed;
 
-    color: #0d6efd;
+            transform: none;
+        }
 
-    pointer-events: none;
-}
+        .forgot {
+            text-align: center;
 
+            margin-top: 20px;
+        }
 
-input {
+        .forgot button {
+            border: none;
 
-    width: 100%;
+            background: none;
 
-    height: 52px;
+            color: #087f8c;
 
-    padding: 0 45px 0 14px;
+            cursor: pointer;
 
-    border: 1px solid #d9e2ec;
+            font-size: 14px;
 
-    border-radius: 13px;
+            font-weight: bold;
+        }
 
-    background: #f8fafc;
+        .message {
+            display: none;
 
-    color: #172b4d;
+            margin-bottom: 20px;
 
-    font-size: 15px;
+            padding: 13px 15px;
 
-    outline: none;
+            border-radius: 12px;
 
-    transition: 0.25s;
+            font-size: 14px;
 
-}
+            line-height: 1.7;
+        }
 
+        .message.error {
+            display: block;
 
-input::placeholder {
-    color: #98a2b3;
-}
+            background: #fff1f2;
 
+            color: #b42318;
 
-input:focus {
+            border: 1px solid #fecdd3;
+        }
 
-    background: white;
+        .message.success {
+            display: block;
 
-    border-color: #0d6efd;
+            background: #ecfdf3;
 
-    box-shadow:
-        0 0 0 4px rgba(13,110,253,0.10);
-}
+            color: #027a48;
 
+            border: 1px solid #abefc6;
+        }
 
-/* =====================================================
-   زر الدخول
-===================================================== */
+        .footer {
+            text-align: center;
 
-.login-btn {
+            margin-top: 35px;
 
-    width: 100%;
+            padding-top: 20px;
 
-    height: 54px;
+            border-top: 1px solid #edf1f4;
 
-    margin-top: 8px;
+            color: #8795a1;
 
-    border: none;
+            font-size: 12px;
 
-    border-radius: 14px;
+            line-height: 1.8;
+        }
 
-    background:
-        linear-gradient(
-            135deg,
-            #073b78,
-            #0d6efd,
-            #159f9f
-        );
+        /* =========================
+           الهاتف
+        ========================== */
 
-    color: white;
+        @media (max-width: 800px) {
 
-    font-size: 16px;
+            body {
+                padding: 12px;
+            }
 
-    font-weight: bold;
+            .container {
+                grid-template-columns: 1fr;
 
-    cursor: pointer;
+                max-width: 500px;
+            }
 
-    box-shadow:
-        0 8px 20px rgba(13,110,253,0.25);
+            .info {
+                padding: 35px 25px;
 
-    transition: 0.3s;
-}
+                text-align: center;
 
+                align-items: center;
+            }
 
-.login-btn:hover {
+            .info h1 {
+                font-size: 23px;
+            }
 
-    transform: translateY(-2px);
+            .info p {
+                font-size: 14px;
+            }
 
-    box-shadow:
-        0 12px 28px rgba(13,110,253,0.35);
-}
+            .logo {
+                width: 80px;
+                height: 80px;
+            }
 
+            .login-box {
+                padding: 35px 25px;
+            }
 
-.login-btn:active {
-    transform: translateY(0);
-}
+            .login-box h2 {
+                font-size: 25px;
+            }
+        }
 
-
-/* =====================================================
-   نسيت كلمة المرور
-===================================================== */
-
-.forgot {
-
-    display: inline-block;
-
-    margin-top: 19px;
-
-    color: #0d6efd;
-
-    font-size: 14px;
-
-    cursor: pointer;
-
-    text-decoration: none;
-
-    transition: 0.2s;
-}
-
-
-.forgot:hover {
-
-    color: #073b78;
-
-    text-decoration: underline;
-}
-
-
-/* =====================================================
-   الرسائل
-===================================================== */
-
-#message {
-
-    min-height: 25px;
-
-    margin-top: 18px;
-
-    margin-bottom: 0;
-
-    font-size: 14px;
-
-    font-weight: bold;
-
-    line-height: 1.7;
-}
-
-
-/* =====================================================
-   الخط السفلي
-===================================================== */
-
-.platform-info {
-
-    margin-top: 25px;
-
-    padding-top: 18px;
-
-    border-top: 1px solid #edf0f5;
-
-    color: #98a2b3;
-
-    font-size: 12px;
-
-    line-height: 1.7;
-}
-
-
-/* =====================================================
-   الهاتف
-===================================================== */
-
-@media (max-width: 600px) {
-
-    body {
-        padding: 20px;
-    }
-
-    .home-btn {
-
-        top: 15px;
-
-        right: 15px;
-
-        padding: 9px 14px;
-
-        font-size: 13px;
-    }
-
-
-    .login-box {
-
-        padding: 30px 22px 25px;
-
-        border-radius: 22px;
-    }
-
-
-    .logo-container {
-
-        width: 90px;
-
-        height: 90px;
-    }
-
-
-    .logo-container img {
-
-        width: 70px;
-
-        height: 70px;
-    }
-
-
-    h1 {
-
-        font-size: 21px;
-    }
-
-}
-
-</style>
-
+    </style>
 </head>
 
 
 <body>
 
+<div class="container">
 
-<!-- =====================================================
-     زر العودة للرئيسية
-===================================================== -->
+    <!-- =========================
+         معلومات المؤسسة
+    ========================== -->
 
-<a href="index.html" class="home-btn">
-    🏠 الرئيسية
-</a>
+    <div class="info">
 
+        <img src="logo.png"
+             class="logo"
+             alt="شعار المؤسسة">
 
-<!-- =====================================================
-     بطاقة الدخول
-===================================================== -->
+        <h1>
+            منصة التكوين المتواصل
+        </h1>
 
-<div class="login-box">
+        <p>
+            فضاء رقمي لتسيير ومتابعة عمليات
+            التكوين المتواصل لفائدة مستخدمي المؤسسة.
+        </p>
 
+        <div class="institution">
 
-    <div class="logo-container">
+            <strong>
+                المؤسسة العمومية الإستشفائية بأولف
+            </strong>
 
-        <img
-            src="logo.png"
-            alt="شعار منصة التكوين المتواصل"
-        >
+            <br>
+
+            ولاية أدرار
+
+            <br><br>
+
+            مكتب التكوين المتواصل
+
+            <br>
+
+            رئيس مكتب التكوين:
+            <strong>بن صغير منير</strong>
+
+            <br>
+
+            الهاتف:
+            <strong>0660.48.43.73</strong>
+
+        </div>
 
     </div>
 
 
-    <h1>
-        منصة التكوين المتواصل
-    </h1>
+    <!-- =========================
+         تسجيل الدخول
+    ========================== -->
+
+    <div class="login-box">
+
+        <h2>
+            تسجيل الدخول
+        </h2>
+
+        <div class="subtitle">
+            أدخل بيانات حسابك للوصول إلى فضائك الشخصي
+        </div>
 
 
-    <p class="subtitle">
-        مرحبًا بك، قم بتسجيل الدخول للوصول إلى حسابك
-    </p>
+        <div id="message"
+             class="message">
+        </div>
 
 
-    <!-- البريد الإلكتروني -->
+        <div class="form-group">
 
-    <div class="field">
-
-        <label for="email">
-            البريد الإلكتروني
-        </label>
-
-        <div class="input-wrapper">
-
-            <span class="input-icon">
-                ✉️
-            </span>
+            <label for="email">
+                البريد الإلكتروني
+            </label>
 
             <input
                 type="email"
@@ -571,76 +521,76 @@ input:focus {
 
         </div>
 
-    </div>
+
+        <div class="form-group">
+
+            <label for="password">
+                كلمة المرور
+            </label>
+
+            <div class="password-box">
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="أدخل كلمة المرور"
+                    autocomplete="current-password"
+                >
+
+                <button
+                    type="button"
+                    class="show-password"
+                    onclick="togglePassword()"
+                    aria-label="إظهار كلمة المرور">
+
+                    👁️
+
+                </button>
+
+            </div>
+
+        </div>
 
 
-    <!-- كلمة المرور -->
+        <button
+            id="loginBtn"
+            class="login-btn"
+            onclick="login()">
 
-    <div class="field">
+            🔐 تسجيل الدخول
 
-        <label for="password">
-            كلمة المرور
-        </label>
+        </button>
 
-        <div class="input-wrapper">
 
-            <span class="input-icon">
-                🔒
-            </span>
+        <div class="forgot">
 
-            <input
-                type="password"
-                id="password"
-                placeholder="أدخل كلمة المرور"
-                autocomplete="current-password"
-            >
+            <button onclick="resetPassword()">
+
+                نسيت كلمة المرور؟
+
+            </button>
+
+        </div>
+
+
+        <div class="footer">
+
+            منصة التكوين المتواصل
+
+            <br>
+
+            المؤسسة العمومية الإستشفائية بأولف - ولاية أدرار
 
         </div>
 
     </div>
 
-
-    <!-- زر تسجيل الدخول -->
-
-    <button
-        type="button"
-        class="login-btn"
-        onclick="login()"
-    >
-        🔐 تسجيل الدخول
-    </button>
-
-
-    <!-- استعادة كلمة المرور -->
-
-    <span
-        class="forgot"
-        onclick="resetPassword()"
-    >
-        نسيت كلمة المرور؟
-    </span>
-
-
-    <!-- الرسائل -->
-
-    <p id="message"></p>
-
-
-    <div class="platform-info">
-
-        منصة التكوين المتواصل<br>
-
-        المؤسسة العمومية الاستشفائية بأولف
-
-    </div>
-
-
 </div>
 
 
-<!-- =====================================================
+<!-- =========================
      Supabase
-===================================================== -->
+========================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -649,331 +599,353 @@ input:focus {
 
 <script>
 
-/* =====================================================
-   تسجيل الدخول
-===================================================== */
+    /* =====================================
+       إظهار / إخفاء كلمة المرور
+    ====================================== */
 
-async function login() {
+    function togglePassword() {
 
-    const email =
-        document.getElementById("email")
-        .value
-        .trim();
+        const password =
+            document.getElementById("password");
 
-    const password =
-        document.getElementById("password")
-        .value;
+        if (password.type === "password") {
 
-    const message =
-        document.getElementById("message");
+            password.type = "text";
 
+        } else {
 
-    if (
-        email === "" ||
-        password === ""
-    ) {
+            password.type = "password";
 
-        message.textContent =
-            "يرجى إدخال البريد الإلكتروني وكلمة المرور.";
-
-        message.style.color = "#dc3545";
-
-        return;
+        }
     }
 
 
-    message.textContent =
-        "جاري التحقق من بيانات الدخول...";
+    /* =====================================
+       عرض الرسائل
+    ====================================== */
 
-    message.style.color =
-        "#0d6efd";
+    function showMessage(text, type = "error") {
 
+        const message =
+            document.getElementById("message");
 
-    try {
+        message.textContent = text;
 
-        const {
-            data,
-            error
-        } =
-        await supabaseClient.auth
-            .signInWithPassword({
+        message.className =
+            "message " + type;
 
-                email: email,
-
-                password: password
-
-            });
+    }
 
 
-        if (error) {
+    /* =====================================
+       تسجيل الدخول
+    ====================================== */
 
-            console.error(
-                "خطأ تسجيل الدخول:",
+    async function login() {
+
+        const email =
+            document.getElementById("email")
+                .value
+                .trim();
+
+        const password =
+            document.getElementById("password")
+                .value;
+
+
+        if (!email || !password) {
+
+            showMessage(
+                "يرجى إدخال البريد الإلكتروني وكلمة المرور."
+            );
+
+            return;
+        }
+
+
+        const button =
+            document.getElementById("loginBtn");
+
+        button.disabled = true;
+
+        button.textContent =
+            "جاري تسجيل الدخول...";
+
+
+        try {
+
+            /* تسجيل الدخول عبر Supabase */
+
+            const {
+                data,
                 error
-            );
-
-            message.textContent =
-                "فشل تسجيل الدخول: " +
-                error.message;
-
-            message.style.color =
-                "#dc3545";
-
-            return;
-        }
+            } =
+                await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
 
 
-        const user =
-            data.user;
+            if (error) {
+
+                throw error;
+
+            }
 
 
-        if (!user) {
+            if (!data.user) {
 
-            message.textContent =
-                "تعذر العثور على بيانات المستخدم.";
+                throw new Error(
+                    "تعذر الحصول على بيانات المستخدم."
+                );
 
-            message.style.color =
-                "#dc3545";
-
-            return;
-        }
+            }
 
 
-        /* البحث عن صلاحية المستخدم */
-
-        const {
-            data: roleData,
-            error: roleError
-        } =
-        await supabaseClient
-            .from("user_roles")
-            .select("role")
-            .eq(
-                "user_id",
-                user.id
-            )
-            .maybeSingle();
+            const userId =
+                data.user.id;
 
 
-        if (roleError) {
+            /*
+             * قراءة صلاحية المستخدم
+             *
+             * الجدول المستخدم:
+             * user_roles
+             */
 
-            console.error(
-                "خطأ قراءة الصلاحية:",
-                roleError
-            );
-
-
-            await supabaseClient.auth
-                .signOut();
-
-
-            message.textContent =
-                "تعذر التحقق من صلاحيات الحساب.";
-
-            message.style.color =
-                "#dc3545";
-
-            return;
-        }
+            const {
+                data: roleData,
+                error: roleError
+            } =
+                await supabaseClient
+                    .from("user_roles")
+                    .select("role")
+                    .eq("user_id", userId)
+                    .maybeSingle();
 
 
-        /* المسؤول */
+            if (roleError) {
 
-        if (
-            roleData &&
-            roleData.role === "admin"
-        ) {
+                console.error(
+                    "Role error:",
+                    roleError
+                );
 
-            message.textContent =
-                "مرحبًا بك، تم التعرف على حساب المسؤول ✅";
+                await supabaseClient.auth.signOut();
 
-            message.style.color =
-                "#198754";
+                throw new Error(
+                    "تعذر التحقق من صلاحيات الحساب."
+                );
+            }
 
 
-            setTimeout(
-                function() {
+            if (!roleData || !roleData.role) {
+
+                await supabaseClient.auth.signOut();
+
+                throw new Error(
+                    "لا توجد صلاحية مرتبطة بهذا الحساب."
+                );
+            }
+
+
+            const role =
+                String(roleData.role)
+                    .toLowerCase()
+                    .trim();
+
+
+            /* =================================
+               المسؤول
+            ================================== */
+
+            if (role === "admin") {
+
+                showMessage(
+                    "تم تسجيل الدخول بنجاح، جاري فتح لوحة المسؤول...",
+                    "success"
+                );
+
+                setTimeout(() => {
 
                     window.location.href =
                         "admin.html";
 
-                },
-                500
-            );
+                }, 500);
+
+                return;
+            }
 
 
-            return;
-        }
+            /* =================================
+               المتربص
+            ================================== */
 
+            if (role === "trainee") {
 
-        /* المتربص */
+                showMessage(
+                    "تم تسجيل الدخول بنجاح، جاري فتح فضاء المتربص...",
+                    "success"
+                );
 
-        if (
-            roleData &&
-            roleData.role === "trainee"
-        ) {
+                setTimeout(() => {
 
-            message.textContent =
-                "تم تسجيل الدخول بنجاح ✅";
-
-            message.style.color =
-                "#198754";
-
-
-            setTimeout(
-                function() {
+                    /*
+                     * مهم جداً:
+                     * اسم الملف الحقيقي هو Trainee.html
+                     * بحرف T كبير.
+                     */
 
                     window.location.href =
-                        "trainee.html";
+                        "Trainee.html";
 
-                },
-                500
+                }, 500);
+
+                return;
+            }
+
+
+            /* =================================
+               المدرب
+            ================================== */
+
+            if (role === "trainer") {
+
+                showMessage(
+                    "تم تسجيل الدخول بنجاح، جاري فتح فضاء المدرب...",
+                    "success"
+                );
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        "Trainer.html";
+
+                }, 500);
+
+                return;
+            }
+
+
+            /* =================================
+               صلاحية غير معروفة
+            ================================== */
+
+            await supabaseClient.auth.signOut();
+
+            throw new Error(
+                "صلاحية الحساب غير معروفة: " + role
             );
 
 
-            return;
-        }
-
-
-        /* مستخدم بدون صلاحية */
-
-        await supabaseClient.auth
-            .signOut();
-
-
-        message.textContent =
-            "تم تسجيل الدخول، لكن لم يتم العثور على صلاحية لهذا الحساب.";
-
-        message.style.color =
-            "#dc3545";
-
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "خطأ غير متوقع:",
-            error
-        );
-
-
-        message.textContent =
-            "حدث خطأ غير متوقع: " +
-            error.message;
-
-        message.style.color =
-            "#dc3545";
-
-    }
-
-}
-
-
-/* =====================================================
-   إعادة تعيين كلمة المرور
-===================================================== */
-
-async function resetPassword() {
-
-    const email =
-        document.getElementById("email")
-        .value
-        .trim();
-
-
-    const message =
-        document.getElementById("message");
-
-
-    if (email === "") {
-
-        message.textContent =
-            "أدخل البريد الإلكتروني أولًا.";
-
-        message.style.color =
-            "#dc3545";
-
-        return;
-    }
-
-
-    message.textContent =
-        "جاري إرسال رابط إعادة تعيين كلمة المرور...";
-
-    message.style.color =
-        "#0d6efd";
-
-
-    try {
-
-        const redirectUrl =
-            window.location.origin +
-            window.location.pathname;
-
-
-        const {
-            error
-        } =
-        await supabaseClient.auth
-            .resetPasswordForEmail(
-
-                email,
-
-                {
-                    redirectTo:
-                        redirectUrl
-                }
-
-            );
-
-
-        if (error) {
+        } catch (error) {
 
             console.error(
-                "خطأ إعادة التعيين:",
+                "Login error:",
                 error
             );
 
+            showMessage(
+                error.message ||
+                "حدث خطأ أثناء تسجيل الدخول."
+            );
 
-            message.textContent =
-                "تعذر إرسال رابط إعادة التعيين: " +
-                error.message;
+            button.disabled = false;
 
-            message.style.color =
-                "#dc3545";
+            button.textContent =
+                "🔐 تسجيل الدخول";
+        }
+
+    }
+
+
+    /* =====================================
+       استعادة كلمة المرور
+    ====================================== */
+
+    async function resetPassword() {
+
+        const email =
+            document.getElementById("email")
+                .value
+                .trim();
+
+
+        if (!email) {
+
+            showMessage(
+                "أدخل بريدك الإلكتروني أولاً ثم اضغط على نسيت كلمة المرور."
+            );
 
             return;
         }
 
 
-        message.textContent =
-            "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.";
+        try {
 
-        message.style.color =
-            "#198754";
+            const {
+                error
+            } =
+                await supabaseClient
+                    .auth
+                    .resetPasswordForEmail(
+                        email,
+                        {
+                            redirectTo:
+                                window.location.origin +
+                                "/login.html"
+                        }
+                    );
 
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            showMessage(
+                "تم إرسال رابط استعادة كلمة المرور إلى بريدك الإلكتروني.",
+                "success"
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Reset password error:",
+                error
+            );
+
+            showMessage(
+                error.message ||
+                "تعذر إرسال رابط استعادة كلمة المرور."
+            );
+
+        }
 
     }
 
-    catch (error) {
 
-        console.error(
-            "خطأ:",
-            error
+    /* =====================================
+       الضغط على Enter
+    ====================================== */
+
+    document
+        .getElementById("password")
+        .addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Enter") {
+
+                    login();
+
+                }
+
+            }
         );
-
-
-        message.textContent =
-            "حدث خطأ: " +
-            error.message;
-
-        message.style.color =
-            "#dc3545";
-
-    }
-
-}
 
 </script>
 
