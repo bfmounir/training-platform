@@ -1770,6 +1770,174 @@ footer strong{
 
 }
 
+
+
+/* =========================================================
+   التكوينات الخارجية
+========================================================= */
+
+.external-section{
+    margin-top:28px;
+}
+
+.external-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+    gap:20px;
+    margin-top:18px;
+}
+
+.external-card{
+    position:relative;
+    overflow:hidden;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:22px;
+    box-shadow:var(--shadow);
+    transition:transform .25s ease,box-shadow .25s ease;
+}
+
+.external-card:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow-hover);
+}
+
+.external-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    right:0;
+    left:0;
+    height:4px;
+    background:linear-gradient(90deg,var(--primary),var(--secondary));
+}
+
+.external-card-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:14px;
+}
+
+.external-icon{
+    width:50px;
+    height:50px;
+    flex:0 0 50px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:15px;
+    background:linear-gradient(135deg,#e7f8fa,#edf4ff);
+    font-size:25px;
+}
+
+.external-title{
+    margin:0;
+    color:var(--dark);
+    font-size:19px;
+    line-height:1.55;
+}
+
+.external-status{
+    display:inline-flex;
+    align-items:center;
+    white-space:nowrap;
+    border-radius:999px;
+    padding:6px 10px;
+    font-size:12px;
+    font-weight:700;
+    background:#eef7f1;
+    color:#16824b;
+}
+
+.external-status.soon{background:#fff7e8;color:#b76b00;}
+.external-status.closed{background:#fff0f1;color:#c52f3f;}
+.external-status.finished{background:#eef1f5;color:#64748b;}
+
+.external-description{
+    margin:0 0 16px;
+    color:var(--text);
+    line-height:1.8;
+    white-space:pre-line;
+}
+
+.external-info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:17px;
+}
+
+.external-info-item{
+    padding:11px 12px;
+    border-radius:13px;
+    background:var(--light);
+    color:var(--text);
+    font-size:13px;
+    line-height:1.6;
+}
+
+.external-info-item strong{
+    display:block;
+    color:var(--dark);
+    margin-bottom:3px;
+}
+
+.external-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+}
+
+.external-action{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    min-height:42px;
+    padding:9px 14px;
+    border-radius:12px;
+    border:0;
+    text-decoration:none;
+    font-weight:700;
+    font-family:inherit;
+    cursor:pointer;
+    transition:transform .2s ease,opacity .2s ease;
+}
+
+.external-action:hover{
+    transform:translateY(-1px);
+    opacity:.92;
+}
+
+.external-action.primary{
+    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    color:#fff;
+}
+
+.external-action.secondary{
+    background:#edf4ff;
+    color:#1559a6;
+}
+
+.external-empty,.external-error,.external-loading{
+    padding:28px 20px;
+    text-align:center;
+    border:1px dashed var(--border);
+    border-radius:18px;
+    background:#fff;
+    color:var(--muted);
+}
+
+@media(max-width:650px){
+    .external-info{grid-template-columns:1fr;}
+    .external-card{padding:18px;}
+    .external-card-head{gap:8px;}
+    .external-title{font-size:17px;}
+}
+
 </style>
 </head>
 
@@ -2070,6 +2238,32 @@ footer strong{
 
             <div id="coursesList"></div>
 
+        </section>
+
+
+
+
+        <!-- =================================================
+             التكوينات الخارجية
+        ================================================= -->
+        <section id="externalTrainings" class="external-section">
+            <div class="section-head">
+                <div class="section-title">
+                    <div class="section-title-icon">
+                        🌐
+                    </div>
+                    <div>
+                        <h2>التكوينات الخارجية</h2>
+                        <p>دورات وتكوينات تنظمها جهات خارج المؤسسة</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="externalTrainingsList">
+                <div class="external-loading">
+                    ⏳ جاري تحميل التكوينات الخارجية...
+                </div>
+            </div>
         </section>
 
 
@@ -4039,6 +4233,201 @@ async function sendAIMessage(){
 }
 
 
+
+
+/* =========================================================
+   التكوينات الخارجية
+========================================================= */
+
+function escapeExternal(value){
+    const div = document.createElement("div");
+    div.textContent = value ?? "";
+    return div.innerHTML;
+}
+
+function safeExternalUrl(value){
+    if(!value) return "";
+
+    try{
+        const url = new URL(value, window.location.href);
+        if(url.protocol === "http:" || url.protocol === "https:"){
+            return url.href;
+        }
+    }catch(error){
+        console.warn("Invalid external URL:", error);
+    }
+
+    return "";
+}
+
+function formatExternalDate(value){
+    if(!value) return "غير محدد";
+
+    try{
+        return new Intl.DateTimeFormat("ar-DZ", {
+            year:"numeric",
+            month:"long",
+            day:"numeric"
+        }).format(new Date(value + "T00:00:00"));
+    }catch(error){
+        return value;
+    }
+}
+
+function formatExternalTime(start,end){
+    if(!start && !end) return "غير محدد";
+
+    const clean = value => value ? String(value).slice(0,5) : "";
+    const a = clean(start);
+    const b = clean(end);
+
+    if(a && b) return a + " — " + b;
+    return a || b;
+}
+
+function externalStatusClass(status){
+    const value = String(status || "مفتوح").trim();
+    if(value === "قريبًا") return "soon";
+    if(value === "مغلق") return "closed";
+    if(value === "منتهي") return "finished";
+    return "";
+}
+
+async function loadExternalTrainings(){
+    const container = document.getElementById("externalTrainingsList");
+    if(!container) return;
+
+    container.innerHTML =
+        '<div class="external-loading">⏳ جاري تحميل التكوينات الخارجية...</div>';
+
+    const { data, error } = await supabaseClient
+        .from("external_trainings")
+        .select("id,title,description,organizer,platform,meeting_url,training_date,start_time,end_time,target_audience,registration_url,status,created_at")
+        .order("training_date", { ascending:true, nullsFirst:false })
+        .order("start_time", { ascending:true, nullsFirst:false });
+
+    if(error){
+        console.error("External trainings error:", error);
+        container.innerHTML =
+            '<div class="external-error">❌ تعذر تحميل التكوينات الخارجية حاليًا.</div>';
+        return;
+    }
+
+    if(!data || !data.length){
+        container.innerHTML =
+            '<div class="external-empty">📭 لا توجد تكوينات خارجية معلنة حاليًا.</div>';
+        return;
+    }
+
+    const visible = data.filter(item => String(item.status || "مفتوح") !== "منتهي");
+
+    if(!visible.length){
+        container.innerHTML =
+            '<div class="external-empty">📭 لا توجد تكوينات خارجية متاحة حاليًا.</div>';
+        return;
+    }
+
+    const list = document.createElement("div");
+    list.className = "external-list";
+
+    visible.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "external-card";
+
+        const head = document.createElement("div");
+        head.className = "external-card-head";
+
+        const icon = document.createElement("div");
+        icon.className = "external-icon";
+        icon.textContent = "🌐";
+
+        const titleWrap = document.createElement("div");
+        titleWrap.style.flex = "1";
+
+        const title = document.createElement("h3");
+        title.className = "external-title";
+        title.textContent = item.title || "تكوين خارجي";
+        titleWrap.appendChild(title);
+
+        const status = document.createElement("span");
+        status.className = "external-status " + externalStatusClass(item.status);
+        status.textContent = item.status || "مفتوح";
+
+        head.appendChild(icon);
+        head.appendChild(titleWrap);
+        head.appendChild(status);
+        card.appendChild(head);
+
+        if(item.description){
+            const desc = document.createElement("p");
+            desc.className = "external-description";
+            desc.textContent = item.description;
+            card.appendChild(desc);
+        }
+
+        const info = document.createElement("div");
+        info.className = "external-info";
+
+        const addInfo = (label,value) => {
+            const box = document.createElement("div");
+            box.className = "external-info-item";
+            const strong = document.createElement("strong");
+            strong.textContent = label;
+            box.appendChild(strong);
+            box.appendChild(document.createTextNode(value || "غير محدد"));
+            info.appendChild(box);
+        };
+
+        addInfo("🏢 الجهة المنظمة", item.organizer);
+        addInfo("💻 المنصة", item.platform);
+        addInfo("📅 تاريخ التكوين", formatExternalDate(item.training_date));
+        addInfo("🕘 التوقيت", formatExternalTime(item.start_time,item.end_time));
+        addInfo("👥 الفئة المستهدفة", item.target_audience);
+
+        card.appendChild(info);
+
+        const actions = document.createElement("div");
+        actions.className = "external-actions";
+
+        const registrationUrl = safeExternalUrl(item.registration_url);
+        if(registrationUrl && item.status !== "مغلق"){
+            const register = document.createElement("a");
+            register.className = "external-action primary";
+            register.href = registrationUrl;
+            register.target = "_blank";
+            register.rel = "noopener noreferrer";
+            register.textContent = "📝 التسجيل";
+            actions.appendChild(register);
+        }
+
+        const meetingUrl = safeExternalUrl(item.meeting_url);
+        if(meetingUrl && item.status !== "مغلق"){
+            const meeting = document.createElement("a");
+            meeting.className = "external-action secondary";
+            meeting.href = meetingUrl;
+            meeting.target = "_blank";
+            meeting.rel = "noopener noreferrer";
+            meeting.textContent = "🎥 رابط المشاركة";
+            actions.appendChild(meeting);
+        }
+
+        if(!actions.children.length){
+            const note = document.createElement("span");
+            note.className = "external-action secondary";
+            note.style.cursor = "default";
+            note.textContent = item.status === "مغلق" ? "🔒 التسجيل مغلق" : "ℹ️ لا يوجد رابط متاح";
+            actions.appendChild(note);
+        }
+
+        card.appendChild(actions);
+        list.appendChild(card);
+    });
+
+    container.innerHTML = "";
+    container.appendChild(list);
+}
+
+
 /* =========================================================
    Enter للإرسال
 ========================================================= */
@@ -4077,6 +4466,7 @@ document.addEventListener(
 
 
         loadCourses();
+        loadExternalTrainings();
 
     }
 );
