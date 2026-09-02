@@ -2,1538 +2,2028 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>فضاء المتربص | منصة التكوين المستمر</title>
+<title>فضاء المتربص | التكوين المستمر</title>
 
 <style>
 
-/* =====================================================
-   الإعدادات العامة
-===================================================== */
-
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-html {
-    scroll-behavior: smooth;
+:root{
+    --primary:#087f8c;
+    --primary-dark:#075c66;
+    --secondary:#0b6efd;
+    --success:#159957;
+    --warning:#f59e0b;
+    --danger:#dc3545;
+    --dark:#17324d;
+    --text:#526477;
+    --light:#f4f8fb;
+    --white:#ffffff;
+    --border:#e4edf3;
+    --shadow:0 10px 35px rgba(27,66,91,.08);
 }
 
-body {
-    margin: 0;
-    font-family: Tahoma, Arial, sans-serif;
+body{
+    margin:0;
+    font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    background:#f4f8fb;
+    color:var(--dark);
+}
+
+
+/* ================================
+   التخطيط الرئيسي
+================================ */
+
+.app{
+    min-height:100vh;
+    display:flex;
+}
+
+
+/* ================================
+   القائمة الجانبية
+================================ */
+
+.sidebar{
+
+    width:270px;
+
     background:
-        linear-gradient(180deg, #f4f8fc 0%, #eef4f9 100%);
-    color: #263238;
+        linear-gradient(
+            180deg,
+            #073b4c,
+            #075c66 55%,
+            #087f8c
+        );
+
+    color:white;
+
+    position:fixed;
+
+    right:0;
+    top:0;
+    bottom:0;
+
+    z-index:1000;
+
+    padding:25px 18px;
+
+    transition:.3s;
+
+    overflow-y:auto;
+}
+
+.logo-area{
+
+    text-align:center;
+
+    padding-bottom:25px;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.15);
+
+}
+
+.logo{
+
+    width:72px;
+    height:72px;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:7px;
+
+    object-fit:contain;
+
+    margin-bottom:12px;
+}
+
+.logo-area h2{
+
+    font-size:18px;
+
+    margin:4px 0;
+
+}
+
+.logo-area p{
+
+    font-size:11px;
+
+    opacity:.75;
+
+    line-height:1.7;
+
+    margin:0;
 }
 
 
-/* =====================================================
+.nav{
+
+    margin-top:25px;
+}
+
+.nav-title{
+
+    font-size:11px;
+
+    color:
+        rgba(255,255,255,.55);
+
+    margin:
+        0 12px 10px;
+}
+
+.nav-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+    color:
+        rgba(255,255,255,.82);
+
+    text-decoration:none;
+
+    padding:13px 15px;
+
+    margin-bottom:7px;
+
+    border-radius:13px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    font-size:14px;
+}
+
+.nav-item:hover,
+.nav-item.active{
+
+    background:
+        rgba(255,255,255,.14);
+
+    color:white;
+
+    transform:
+        translateX(-3px);
+}
+
+.nav-icon{
+
+    width:32px;
+    height:32px;
+
+    border-radius:10px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:
+        rgba(255,255,255,.10);
+
+    font-size:17px;
+}
+
+
+.sidebar-footer{
+
+    margin-top:35px;
+
+    padding:
+        16px 12px;
+
+    border-radius:15px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    font-size:11px;
+
+    line-height:1.8;
+
+    color:
+        rgba(255,255,255,.75);
+
+}
+
+
+/* ================================
+   المحتوى
+================================ */
+
+.main{
+
+    width:
+        calc(100% - 270px);
+
+    margin-right:270px;
+
+    min-height:100vh;
+}
+
+
+/* ================================
    الشريط العلوي
-===================================================== */
+================================ */
 
-.topbar {
+.topbar{
+
+    height:75px;
+
+    background:white;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:
+        0 30px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:900;
+}
+
+.page-title h1{
+
+    margin:0;
+
+    font-size:21px;
+
+    color:var(--dark);
+}
+
+.page-title span{
+
+    display:block;
+
+    color:#8998a8;
+
+    font-size:11px;
+
+    margin-top:5px;
+}
+
+
+.top-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.top-button{
+
+    width:42px;
+    height:42px;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:#f8fafc;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.2s;
+}
+
+.top-button:hover{
+
+    background:#edf7f8;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* ================================
+   المحتوى الداخلي
+================================ */
+
+.content{
+
+    padding:30px;
+
+    max-width:1400px;
+
+    margin:auto;
+}
+
+
+/* ================================
+   Hero
+================================ */
+
+.hero{
+
+    min-height:230px;
+
+    border-radius:25px;
+
+    padding:35px;
+
+    color:white;
+
+    position:relative;
+
+    overflow:hidden;
+
     background:
-        linear-gradient(135deg, #073b78, #0d6efd, #18a6a6);
-    color: white;
-    padding: 18px 25px;
-    box-shadow: 0 8px 30px rgba(13, 71, 161, 0.20);
-}
-
-.topbar-inner {
-    max-width: 1150px;
-    margin: auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.brand-logo {
-    width: 58px;
-    height: 58px;
-    object-fit: contain;
-    background: white;
-    border-radius: 15px;
-    padding: 5px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-}
-
-.brand-text h1 {
-    margin: 0;
-    font-size: 22px;
-}
-
-.brand-text p {
-    margin: 5px 0 0;
-    font-size: 13px;
-    opacity: .9;
-}
-
-.home-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-
-    color: white;
-    text-decoration: none;
-
-    padding: 11px 18px;
-
-    border-radius: 12px;
-
-    background: rgba(255,255,255,.15);
-
-    border: 1px solid rgba(255,255,255,.25);
-
-    transition: .25s;
-}
-
-.home-button:hover {
-    background: rgba(255,255,255,.25);
-    transform: translateY(-2px);
-}
-
-
-/* =====================================================
-   الحاوية
-===================================================== */
-
-.container {
-    max-width: 1150px;
-    margin: 30px auto;
-    padding: 0 18px;
-}
-
-
-/* =====================================================
-   الترحيب
-===================================================== */
-
-.welcome {
-    position: relative;
-    overflow: hidden;
-
-    background:
-        linear-gradient(135deg, #ffffff, #f5fbff);
-
-    border-radius: 25px;
-
-    padding: 30px;
-
-    margin-bottom: 25px;
-
-    border: 1px solid #e3edf5;
+        linear-gradient(
+            115deg,
+            #073b4c,
+            #087f8c 52%,
+            #0b6efd
+        );
 
     box-shadow:
-        0 12px 35px rgba(30, 80, 120, .08);
+        0 15px 40px
+        rgba(7,59,76,.18);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:30px;
 }
 
-.welcome::before {
-    content: "";
-    position: absolute;
+.hero::before{
 
-    width: 180px;
-    height: 180px;
+    content:"";
 
-    left: -70px;
-    top: -70px;
+    position:absolute;
 
-    background: rgba(24,166,166,.08);
+    width:280px;
+    height:280px;
 
-    border-radius: 50%;
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.06);
+
+    left:-80px;
+    top:-100px;
 }
 
-.welcome-content {
-    position: relative;
-    z-index: 1;
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:190px;
+    height:190px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.05);
+
+    right:35%;
+
+    bottom:-120px;
 }
 
-.welcome h2 {
-    margin: 0;
+.hero-content{
 
-    color: #0d47a1;
+    position:relative;
 
-    font-size: 27px;
+    z-index:2;
+
+    max-width:720px;
 }
 
-.welcome p {
-    margin: 10px 0 0;
+.hero-label{
 
-    color: #607d8b;
+    display:inline-block;
 
-    line-height: 1.8;
+    padding:
+        7px 13px;
+
+    border-radius:30px;
+
+    background:
+        rgba(255,255,255,.13);
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    font-size:12px;
+
+    margin-bottom:14px;
+}
+
+.hero h2{
+
+    margin:0;
+
+    font-size:31px;
+
+    line-height:1.5;
+}
+
+.hero p{
+
+    margin:
+        10px 0 0;
+
+    line-height:1.9;
+
+    color:
+        rgba(255,255,255,.82);
+
+    font-size:14px;
+}
+
+.hero-icon{
+
+    position:relative;
+
+    z-index:2;
+
+    width:145px;
+    height:145px;
+
+    border-radius:35px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        rgba(255,255,255,.10);
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    font-size:70px;
+
+    backdrop-filter:
+        blur(5px);
 }
 
 
-/* =====================================================
+/* ================================
    الإحصائيات
-===================================================== */
+================================ */
 
-.stats {
-    display: grid;
+.stats{
+
+    display:grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3,1fr);
 
-    gap: 18px;
+    gap:18px;
 
-    margin-bottom: 30px;
+    margin:
+        25px 0;
 }
 
-.stat-card {
-    background: white;
+.stat{
 
-    border-radius: 20px;
+    background:white;
 
-    padding: 22px;
+    border:
+        1px solid
+        var(--border);
 
-    border: 1px solid #e5edf4;
+    border-radius:20px;
+
+    padding:20px;
+
+    box-shadow:var(--shadow);
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    transition:.25s;
+}
+
+.stat:hover{
+
+    transform:
+        translateY(-4px);
 
     box-shadow:
-        0 8px 25px rgba(0,0,0,.06);
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 16px;
-
-    transition: .25s;
+        0 15px 35px
+        rgba(27,66,91,.12);
 }
 
-.stat-card:hover {
-    transform: translateY(-4px);
+.stat-icon{
 
-    box-shadow:
-        0 14px 30px rgba(0,0,0,.09);
+    width:57px;
+    height:57px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:17px;
+
+    font-size:25px;
+
+    background:#e9f7f8;
 }
 
-.stat-icon {
-    width: 55px;
-    height: 55px;
+.stat:nth-child(2)
+.stat-icon{
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 16px;
-
-    font-size: 27px;
-
-    background: #eaf4ff;
+    background:#edf4ff;
 }
 
-.stat-info strong {
-    display: block;
+.stat-info strong{
 
-    font-size: 25px;
+    display:block;
 
-    color: #0d47a1;
+    font-size:27px;
+
+    color:var(--dark);
 }
 
-.stat-info span {
-    color: #78909c;
+.stat-info span{
 
-    font-size: 13px;
+    font-size:12px;
+
+    color:#8998a8;
 }
 
 
-/* =====================================================
-   رسالة النظام
-===================================================== */
-
-#message {
-    background: white;
-
-    border-radius: 18px;
-
-    padding: 18px 22px;
-
-    margin-bottom: 25px;
-
-    border-right: 5px solid #1976d2;
-
-    box-shadow:
-        0 6px 20px rgba(0,0,0,.05);
-
-    font-weight: bold;
-
-    color: #455a64;
-}
-
-
-/* =====================================================
+/* ================================
    عنوان القسم
-===================================================== */
+================================ */
 
-.main-section-title {
-    display: flex;
+.section-head{
 
-    align-items: center;
+    display:flex;
 
-    gap: 12px;
+    align-items:end;
 
-    margin: 30px 0 18px;
+    justify-content:space-between;
+
+    margin:
+        35px 0 18px;
 }
 
-.main-section-title .icon {
-    width: 45px;
-    height: 45px;
+.section-title{
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display:flex;
 
-    background:
-        linear-gradient(135deg,#0d6efd,#18a6a6);
+    align-items:center;
 
-    color: white;
-
-    border-radius: 13px;
-
-    font-size: 21px;
+    gap:12px;
 }
 
-.main-section-title h2 {
-    margin: 0;
+.section-title-icon{
 
-    color: #263238;
+    width:45px;
+    height:45px;
 
-    font-size: 24px;
+    border-radius:14px;
+
+    background:#e7f7f8;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:21px;
 }
 
-.main-section-title p {
-    margin: 4px 0 0;
+.section-title h2{
 
-    color: #78909c;
+    margin:0;
 
-    font-size: 13px;
+    font-size:21px;
+}
+
+.section-title p{
+
+    margin:4px 0 0;
+
+    color:#8a99a7;
+
+    font-size:12px;
 }
 
 
-/* =====================================================
+/* ================================
+   الرسالة
+================================ */
+
+#message{
+
+    background:white;
+
+    padding:
+        14px 18px;
+
+    border-radius:14px;
+
+    border-right:
+        4px solid
+        var(--primary);
+
+    color:var(--text);
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.04);
+
+    font-size:13px;
+
+    margin-bottom:20px;
+}
+
+
+/* ================================
+   شبكة الدورات
+================================ */
+
+#coursesList{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:20px;
+}
+
+
+/* ================================
    بطاقة الدورة
-===================================================== */
+================================ */
 
-.course {
-    background: white;
+.course{
 
-    padding: 0;
+    background:white;
 
-    margin-bottom: 25px;
+    border:
+        1px solid
+        var(--border);
 
-    border-radius: 24px;
+    border-radius:23px;
 
-    border: 1px solid #e1eaf1;
+    overflow:hidden;
 
-    box-shadow:
-        0 10px 30px rgba(30,70,100,.07);
+    box-shadow:var(--shadow);
 
-    overflow: hidden;
-
-    transition: .3s;
+    transition:.3s;
 }
 
-.course:hover {
-    transform: translateY(-3px);
+.course:hover{
+
+    transform:
+        translateY(-5px);
 
     box-shadow:
-        0 16px 38px rgba(30,70,100,.11);
+        0 18px 40px
+        rgba(27,66,91,.13);
 }
 
-.course-header {
-    padding: 25px;
+.course-header{
+
+    padding:25px;
+
+    position:relative;
 
     background:
         linear-gradient(
             135deg,
-            #f5faff,
-            #eefbfb
+            #f0fbfc,
+            #f5f9ff
         );
 
-    border-bottom: 1px solid #e5eef5;
+    border-bottom:
+        1px solid
+        var(--border);
 }
 
-.course-number {
-    display: inline-block;
+.course-number{
 
-    background: #e2f0ff;
+    position:absolute;
 
-    color: #1565c0;
+    top:18px;
+    left:18px;
 
-    padding: 6px 11px;
+    width:38px;
+    height:38px;
 
-    border-radius: 20px;
+    border-radius:12px;
 
-    font-size: 12px;
+    display:flex;
 
-    font-weight: bold;
+    align-items:center;
+    justify-content:center;
 
-    margin-bottom: 10px;
+    background:white;
+
+    color:var(--primary);
+
+    font-weight:bold;
+
+    box-shadow:
+        0 4px 12px
+        rgba(0,0,0,.06);
 }
 
-.course h2 {
-    color: #0d47a1;
+.course-header h2{
 
-    margin: 0;
+    margin:0;
 
-    font-size: 23px;
+    padding-left:45px;
 
-    line-height: 1.5;
+    font-size:19px;
+
+    line-height:1.6;
+
+    color:var(--dark);
 }
 
-.course-description {
-    color: #607d8b;
+.course-description{
 
-    line-height: 1.9;
+    margin:
+        12px 0 0;
 
-    margin: 10px 0 0;
+    color:var(--text);
+
+    font-size:13px;
+
+    line-height:1.8;
 }
 
-.course-body {
-    padding: 25px;
+.course-body{
+
+    padding:22px;
 }
 
 
-/* =====================================================
+/* ================================
    حالة التسجيل
-===================================================== */
+================================ */
 
-.enrolled {
-    display: inline-flex;
+.enrolled{
 
-    align-items: center;
+    display:inline-flex;
 
-    gap: 7px;
+    align-items:center;
 
-    background: #e8f7ed;
+    gap:7px;
 
-    color: #237a3b;
+    padding:
+        8px 13px;
 
-    padding: 10px 16px;
+    background:#e9f8ef;
 
-    border-radius: 30px;
+    color:#168348;
 
-    font-weight: bold;
+    border-radius:30px;
 
-    font-size: 14px;
+    font-size:12px;
+
+    font-weight:bold;
 }
 
 
-/* =====================================================
+/* ================================
    الأزرار
-===================================================== */
-
-button,
-a {
-    font-family: inherit;
-}
+================================ */
 
 .enroll-button,
 .pdf-button,
 .complete-button,
-.certificate-button {
+.certificate-button{
 
-    display: inline-flex;
+    border:none;
 
-    align-items: center;
+    border-radius:11px;
 
-    justify-content: center;
+    padding:
+        10px 15px;
 
-    gap: 7px;
+    color:white;
 
-    color: white;
+    font-family:inherit;
 
-    border: none;
+    font-size:12px;
 
-    padding: 11px 18px;
+    font-weight:bold;
 
-    border-radius: 11px;
+    cursor:pointer;
 
-    text-decoration: none;
+    text-decoration:none;
 
-    margin-top: 12px;
+    display:inline-flex;
 
-    cursor: pointer;
+    align-items:center;
 
-    font-size: 14px;
+    justify-content:center;
 
-    font-weight: bold;
+    gap:6px;
 
-    transition: .25s;
+    margin-top:10px;
 
-    box-shadow:
-        0 5px 12px rgba(0,0,0,.08);
+    transition:.2s;
+}
+
+.enroll-button{
+
+    background:
+        linear-gradient(
+            135deg,
+            #159957,
+            #20b86b
+        );
+}
+
+.pdf-button{
+
+    background:
+        linear-gradient(
+            135deg,
+            #0b6efd,
+            #338cff
+        );
+}
+
+.complete-button{
+
+    background:
+        linear-gradient(
+            135deg,
+            #087f8c,
+            #0b9ca8
+        );
+}
+
+.certificate-button{
+
+    background:
+        linear-gradient(
+            135deg,
+            #7952b3,
+            #9b6bd0
+        );
 }
 
 .enroll-button:hover,
 .pdf-button:hover,
 .complete-button:hover,
-.certificate-button:hover {
-    transform: translateY(-2px);
+.certificate-button:hover{
 
-    box-shadow:
-        0 8px 17px rgba(0,0,0,.12);
+    transform:
+        translateY(-2px);
+
+    filter:brightness(1.04);
 }
 
-.enroll-button {
-    background:
-        linear-gradient(135deg,#198754,#20b15a);
-}
-
-.pdf-button {
-    background:
-        linear-gradient(135deg,#0d6efd,#168cff);
-}
-
-.complete-button {
-    background:
-        linear-gradient(135deg,#00897b,#20b5a5);
-
-    margin-right: 8px;
-}
-
-.certificate-button {
-    background:
-        linear-gradient(135deg,#6f42c1,#9b59d0);
-}
-
-
-/* =====================================================
-   الدروس
-===================================================== */
-
-.lessons-heading {
-    display: flex;
-
-    align-items: center;
-
-    gap: 9px;
-
-    margin: 28px 0 15px;
-
-    color: #37474f;
-
-    font-size: 20px;
-
-    font-weight: bold;
-}
-
-.lessons-heading span {
-    width: 38px;
-    height: 38px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    background: #e8f3ff;
-
-    border-radius: 11px;
-}
-
-.lesson {
+.completed{
 
     background:
-        linear-gradient(
-            135deg,
-            #fbfdff,
-            #f5f9fc
-        );
+        #8a99a7 !important;
 
-    padding: 20px;
-
-    margin-top: 14px;
-
-    border-radius: 17px;
-
-    border-right: 5px solid #1976d2;
-
-    border: 1px solid #e4edf4;
-
-    border-right-width: 5px;
-
-    box-shadow:
-        0 4px 15px rgba(0,0,0,.035);
-
-    transition: .2s;
-}
-
-.lesson:hover {
-    transform: translateX(-2px);
-
-    box-shadow:
-        0 7px 18px rgba(0,0,0,.07);
-}
-
-.lesson h3 {
-    margin: 0 0 10px;
-
-    color: #263238;
-
-    font-size: 18px;
-
-    line-height: 1.6;
-}
-
-.lesson p {
-    line-height: 1.9;
-
-    color: #546e7a;
-
-    white-space: pre-line;
-
-    margin-bottom: 5px;
+    cursor:default !important;
 }
 
 
-/* =====================================================
-   الدرس المكتمل
-===================================================== */
-
-.completed {
-
-    background:
-        linear-gradient(
-            135deg,
-            #78909c,
-            #90a4ae
-        ) !important;
-
-    cursor: default !important;
-
-    opacity: .9;
-
-    box-shadow: none !important;
-}
-
-
-/* =====================================================
+/* ================================
    التقدم
-===================================================== */
+================================ */
 
-.progress-area {
+.progress-area{
 
-    margin-top: 22px;
+    margin-top:18px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #f5f9fd,
-            #f1f8f8
-        );
+    padding:15px;
 
-    padding: 18px;
+    border-radius:15px;
 
-    border-radius: 17px;
+    background:#f7fafc;
 
-    border: 1px solid #e4edf2;
+    border:
+        1px solid
+        var(--border);
 }
 
-.progress-text {
+.progress-text{
 
-    font-weight: bold;
+    font-size:12px;
 
-    margin-bottom: 11px;
+    font-weight:bold;
 
-    color: #37474f;
+    color:var(--text);
 
-    font-size: 14px;
+    margin-bottom:9px;
 }
 
-.progress {
+.progress{
 
-    background: #dfe7ec;
+    height:9px;
 
-    border-radius: 20px;
+    background:#e4edf1;
 
-    height: 15px;
+    border-radius:20px;
 
-    overflow: hidden;
+    overflow:hidden;
 }
 
-.progress-bar {
+.progress-bar{
+
+    height:100%;
+
+    width:0;
 
     background:
         linear-gradient(
             90deg,
-            #198754,
-            #20b98a
+            #159957,
+            #0b9ca8
         );
 
-    height: 100%;
-
-    width: 0%;
-
-    border-radius: 20px;
+    border-radius:20px;
 
     transition:
         width .6s ease;
 }
 
+.finished{
 
-/* =====================================================
-   اكتملت الدورة
-===================================================== */
+    margin-top:13px;
 
-.finished {
+    padding:11px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #fff9e6,
-            #fff3c4
-        );
+    border-radius:12px;
 
-    color: #765600;
+    background:#fff7df;
 
-    padding: 16px;
+    color:#876000;
 
-    border-radius: 15px;
+    border-right:
+        3px solid
+        #f59e0b;
 
-    margin-top: 18px;
+    font-size:12px;
 
-    font-weight: bold;
-
-    border-right: 5px solid #ffb300;
-
-    box-shadow:
-        0 5px 15px rgba(255,179,0,.08);
+    font-weight:bold;
 }
 
 
-/* =====================================================
+/* ================================
+   الدروس
+================================ */
+
+.lessons-heading{
+
+    margin-top:22px;
+
+    padding-top:18px;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    color:var(--dark);
+}
+
+.lesson{
+
+    margin-top:10px;
+
+    padding:15px;
+
+    background:#fafcfd;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:14px;
+
+}
+
+.lesson h3{
+
+    margin:0 0 8px;
+
+    font-size:14px;
+
+    color:var(--dark);
+
+    line-height:1.6;
+}
+
+.lesson p{
+
+    margin:0;
+
+    color:var(--text);
+
+    font-size:12px;
+
+    line-height:1.9;
+
+    white-space:pre-line;
+}
+
+
+/* ================================
    الشهادات
-===================================================== */
+================================ */
 
-.certificates-title {
+#certificateArea{
+
+    margin-top:35px;
+}
+
+.certificates-title{
+
+    padding:27px;
+
+    border-radius:22px;
+
+    color:white;
 
     background:
         linear-gradient(
             135deg,
-            #5b21b6,
-            #8b5cf6
+            #5b3ca4,
+            #8c62cf
         );
 
-    color: white;
-
-    padding: 27px;
-
-    border-radius: 22px;
-
-    margin-top: 40px;
-
-    margin-bottom: 20px;
-
     box-shadow:
-        0 10px 30px rgba(91,33,182,.18);
+        0 12px 35px
+        rgba(91,60,164,.15);
+
+    margin-bottom:18px;
 }
 
-.certificates-title h2 {
-    margin: 0 0 8px;
+.certificates-title h2{
 
-    font-size: 24px;
+    margin:0 0 7px;
+
+    font-size:22px;
 }
 
-.certificates-title p {
-    margin: 0;
+.certificates-title p{
 
-    opacity: .9;
+    margin:0;
 
-    line-height: 1.7;
+    font-size:12px;
+
+    opacity:.85;
 }
 
-.certificate-card {
+.certificate-card{
 
-    background: white;
+    background:white;
 
-    padding: 23px;
+    border:
+        1px solid
+        var(--border);
 
-    border-radius: 19px;
+    border-radius:19px;
 
-    margin-bottom: 18px;
+    padding:22px;
 
-    border: 1px solid #ebe5f5;
+    margin-bottom:15px;
 
-    box-shadow:
-        0 7px 23px rgba(0,0,0,.06);
-
-    transition: .25s;
+    box-shadow:var(--shadow);
 }
 
-.certificate-card:hover {
-    transform: translateY(-3px);
+.certificate-card h3{
+
+    margin:0 0 14px;
+
+    color:#6f42c1;
+
+    font-size:17px;
 }
 
-.certificate-card h3 {
+.certificate-card p{
 
-    color: #6f42c1;
+    color:var(--text);
 
-    margin-top: 0;
+    font-size:12px;
 
-    font-size: 20px;
-}
-
-.certificate-card p {
-    color: #546e7a;
-
-    line-height: 1.8;
-}
-
-
-/* =====================================================
-   قالب الشهادة
-===================================================== */
-
-#certificateTemplate {
-
-    position: absolute;
-
-    left: -10000px;
-
-    top: 0;
-
-    width: 1123px;
-
-    height: 794px;
-
-    background: white;
-
-    padding: 50px;
-
-    box-sizing: border-box;
-
-    text-align: center;
-
-    font-family: Arial, sans-serif;
-
-    direction: rtl;
-}
-
-.certificate-border {
-
-    width: 100%;
-
-    height: 100%;
-
-    border: 8px double #1565c0;
-
-    box-sizing: border-box;
-
-    padding: 45px;
-}
-
-.certificate-title {
-
-    font-size: 42px;
-
-    font-weight: bold;
-
-    color: #1565c0;
-
-    margin: 20px 0;
-}
-
-.certificate-subtitle {
-
-    font-size: 24px;
-
-    margin: 15px 0;
-}
-
-.certificate-name {
-
-    font-size: 38px;
-
-    font-weight: bold;
-
-    margin: 25px 0;
-}
-
-.certificate-course {
-
-    font-size: 28px;
-
-    font-weight: bold;
-
-    color: #333;
-
-    margin: 20px 0;
-}
-
-.certificate-number {
-
-    font-size: 18px;
-
-    margin-top: 25px;
-}
-
-#qrCode {
-    margin-top: 15px;
+    line-height:1.8;
 }
 
 
-/* =====================================================
+/* ================================
    المساعد الذكي
-===================================================== */
+================================ */
 
-.ai-button {
+.ai-button{
 
-    position: fixed;
+    position:fixed;
 
-    left: 22px;
-    bottom: 22px;
+    left:25px;
+    bottom:25px;
 
-    z-index: 9999;
+    z-index:2000;
 
-    border: none;
+    border:none;
 
-    border-radius: 50px;
-
-    padding: 14px 20px;
+    color:white;
 
     background:
         linear-gradient(
             135deg,
-            #0d6efd,
-            #18a6a6
+            #075c66,
+            #0b6efd
         );
 
-    color: white;
+    padding:
+        14px 20px;
 
-    font-family: inherit;
+    border-radius:50px;
 
-    font-size: 15px;
+    font-family:inherit;
 
-    font-weight: bold;
+    font-weight:bold;
 
-    cursor: pointer;
-
-    box-shadow:
-        0 8px 25px rgba(13,110,253,.30);
-
-    transition: .25s;
-}
-
-.ai-button:hover {
-
-    transform: translateY(-3px);
+    cursor:pointer;
 
     box-shadow:
-        0 12px 30px rgba(13,110,253,.40);
+        0 10px 30px
+        rgba(7,92,102,.3);
+
+    transition:.25s;
+}
+
+.ai-button:hover{
+
+    transform:
+        translateY(-4px);
 }
 
 
-/* نافذة المساعد */
+/* ================================
+   نافذة AI
+================================ */
 
-.ai-panel {
+.ai-panel{
 
-    position: fixed;
+    position:fixed;
 
-    left: 22px;
-    bottom: 85px;
+    left:25px;
+    bottom:85px;
 
-    width: 390px;
+    width:400px;
 
     max-width:
         calc(100vw - 30px);
 
-    height: 560px;
+    height:570px;
 
-    max-height:
-        calc(100vh - 120px);
+    background:white;
 
-    background: white;
-
-    border-radius: 22px;
+    border-radius:24px;
 
     box-shadow:
-        0 15px 50px rgba(0,0,0,.20);
+        0 20px 60px
+        rgba(15,40,60,.25);
 
-    overflow: hidden;
+    overflow:hidden;
 
-    z-index: 9998;
+    z-index:1999;
 
-    display: none;
+    display:none;
 
-    flex-direction: column;
+    flex-direction:column;
 
-    border: 1px solid #e2eaf1;
+    border:
+        1px solid
+        var(--border);
 }
 
-.ai-panel.open {
-    display: flex;
+.ai-panel.open{
+
+    display:flex;
 }
 
+.ai-header{
 
-/* رأس المساعد */
+    padding:18px;
 
-.ai-header {
+    color:white;
 
     background:
         linear-gradient(
             135deg,
-            #073b78,
-            #0d6efd,
-            #18a6a6
+            #073b4c,
+            #087f8c,
+            #0b6efd
         );
 
-    color: white;
+    display:flex;
 
-    padding: 17px;
+    align-items:center;
 
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
+    justify-content:space-between;
 }
 
-.ai-header-info {
+.ai-header-info{
 
-    display: flex;
+    display:flex;
 
-    align-items: center;
+    align-items:center;
 
-    gap: 10px;
+    gap:11px;
 }
 
-.ai-header-icon {
+.ai-header-icon{
 
-    width: 42px;
-    height: 42px;
+    width:43px;
+    height:43px;
 
-    border-radius: 13px;
+    border-radius:14px;
 
     background:
-        rgba(255,255,255,.18);
+        rgba(255,255,255,.14);
 
-    display: flex;
+    display:flex;
 
-    align-items: center;
+    align-items:center;
+    justify-content:center;
 
-    justify-content: center;
-
-    font-size: 22px;
+    font-size:22px;
 }
 
-.ai-header h3 {
+.ai-header h3{
 
-    margin: 0;
+    margin:0;
 
-    font-size: 17px;
+    font-size:16px;
 }
 
-.ai-header small {
+.ai-header small{
 
-    display: block;
+    display:block;
 
-    margin-top: 3px;
+    margin-top:4px;
 
-    opacity: .85;
+    font-size:10px;
+
+    opacity:.8;
 }
 
-.ai-close {
+.ai-close{
 
-    border: none;
+    border:none;
 
-    background: transparent;
+    background:transparent;
 
-    color: white;
+    color:white;
 
-    font-size: 23px;
+    font-size:25px;
 
-    cursor: pointer;
+    cursor:pointer;
 }
 
+.ai-messages{
 
-/* رسائل المساعد */
+    flex:1;
 
-.ai-messages {
+    overflow-y:auto;
 
-    flex: 1;
+    padding:16px;
 
-    padding: 15px;
-
-    overflow-y: auto;
-
-    background:
-        linear-gradient(
-            180deg,
-            #f7fafc,
-            #eef5f9
-        );
+    background:#f4f8fb;
 }
 
-.ai-message {
+.ai-message{
 
-    max-width: 85%;
+    max-width:88%;
 
-    padding: 11px 14px;
+    padding:
+        11px 14px;
 
-    margin-bottom: 11px;
+    margin-bottom:11px;
 
-    border-radius: 15px;
+    border-radius:15px;
 
-    line-height: 1.7;
+    font-size:13px;
 
-    font-size: 14px;
+    line-height:1.8;
 
-    white-space: pre-line;
+    white-space:pre-line;
 }
 
-.ai-message.user {
+.ai-message.bot{
 
-    margin-right: auto;
+    background:white;
+
+    border:
+        1px solid
+        var(--border);
+
+    margin-left:auto;
+
+    color:var(--text);
+
+    border-bottom-left-radius:5px;
+}
+
+.ai-message.user{
 
     background:
         linear-gradient(
             135deg,
-            #0d6efd,
-            #168cff
+            #087f8c,
+            #0b6efd
         );
 
-    color: white;
+    color:white;
 
-    border-bottom-right-radius: 4px;
+    margin-right:auto;
+
+    border-bottom-right-radius:5px;
 }
 
-.ai-message.bot {
+.ai-message.error{
 
-    margin-left: auto;
+    background:#fff2f2;
 
-    background: white;
+    color:#a61b1b;
 
-    color: #37474f;
-
-    border: 1px solid #e1e9ef;
-
-    border-bottom-left-radius: 4px;
-}
-
-
-/* =====================================================
-   حالة الخطأ داخل المساعد
-===================================================== */
-
-.ai-message.error {
-
-    background: #fff5f5;
-
-    color: #b42318;
-
-    border: 1px solid #f5c2c0;
+    border:
+        1px solid
+        #f1c2c2;
 }
 
 
-/* =====================================================
-   الأسئلة المقترحة
-===================================================== */
+/* ================================
+   الاقتراحات
+================================ */
 
-.ai-suggestions {
+.ai-suggestions{
 
-    padding: 8px 12px;
+    display:flex;
 
-    display: flex;
+    gap:7px;
 
-    gap: 7px;
+    padding:
+        9px 12px;
 
-    overflow-x: auto;
+    overflow-x:auto;
 
-    background: white;
+    background:white;
 
-    border-top: 1px solid #edf1f4;
+    border-top:
+        1px solid
+        var(--border);
 }
 
-.ai-suggestion {
+.ai-suggestion{
 
-    flex-shrink: 0;
+    white-space:nowrap;
 
-    border: 1px solid #d8e5ef;
+    border:
+        1px solid
+        #dce7ed;
 
-    background: #f5f9fc;
+    background:#f7fafc;
 
-    color: #1565c0;
+    color:var(--primary);
 
-    border-radius: 20px;
+    padding:
+        8px 11px;
 
-    padding: 8px 12px;
+    border-radius:20px;
 
-    font-family: inherit;
+    font-family:inherit;
 
-    font-size: 12px;
+    font-size:11px;
 
-    cursor: pointer;
-
-    transition: .2s;
-}
-
-.ai-suggestion:hover {
-
-    background: #e8f3ff;
-
-    transform: translateY(-1px);
-}
-
-.ai-suggestion:disabled {
-
-    opacity: .6;
-
-    cursor: not-allowed;
-
-    transform: none;
+    cursor:pointer;
 }
 
 
-/* =====================================================
-   منطقة الكتابة
-===================================================== */
+/* ================================
+   إدخال AI
+================================ */
 
-.ai-input-area {
+.ai-input-area{
 
-    display: flex;
+    display:flex;
 
-    gap: 8px;
+    gap:8px;
 
-    padding: 12px;
+    padding:12px;
 
-    background: white;
+    background:white;
 
-    border-top: 1px solid #e4ebf0;
+    border-top:
+        1px solid
+        var(--border);
 }
 
-.ai-input {
+.ai-input{
 
-    flex: 1;
+    flex:1;
 
-    resize: none;
+    resize:none;
 
-    border: 1px solid #d7e2ea;
+    min-height:44px;
 
-    border-radius: 13px;
+    max-height:100px;
 
-    padding: 11px;
+    border:
+        1px solid
+        #d8e3ea;
 
-    font-family: inherit;
+    border-radius:13px;
 
-    font-size: 14px;
+    padding:10px;
 
-    outline: none;
+    font-family:inherit;
 
-    min-height: 43px;
+    font-size:13px;
 
-    max-height: 100px;
+    outline:none;
 }
 
-.ai-input:focus {
+.ai-input:focus{
 
-    border-color: #0d6efd;
+    border-color:
+        var(--primary);
 
     box-shadow:
-        0 0 0 3px rgba(13,110,253,.08);
+        0 0 0 3px
+        rgba(8,127,140,.08);
 }
 
-.ai-send {
+.ai-send{
 
-    width: 45px;
-    height: 45px;
+    width:45px;
+    height:45px;
 
-    border: none;
+    border:none;
 
-    border-radius: 13px;
+    border-radius:13px;
 
     background:
         linear-gradient(
             135deg,
-            #0d6efd,
-            #18a6a6
+            #087f8c,
+            #0b6efd
         );
 
-    color: white;
+    color:white;
 
-    font-size: 19px;
+    font-size:18px;
 
-    cursor: pointer;
-
-    transition: .2s;
+    cursor:pointer;
 }
 
-.ai-send:hover {
+.ai-send:disabled{
 
-    transform: translateY(-1px);
-}
+    opacity:.55;
 
-.ai-send:disabled {
-
-    opacity: .6;
-
-    cursor: not-allowed;
-
-    transform: none;
+    cursor:not-allowed;
 }
 
 
-/* =====================================================
-   مؤشر التفكير
-===================================================== */
+/* ================================
+   الشهادة
+================================ */
 
-.ai-thinking {
+#certificateTemplate{
 
-    display: inline-flex;
+    position:absolute;
 
-    align-items: center;
+    left:-10000px;
 
-    gap: 5px;
+    top:0;
+
+    width:1123px;
+
+    height:794px;
+
+    background:white;
+
+    padding:50px;
+
+    text-align:center;
+
+    direction:rtl;
 }
 
-.ai-thinking span {
+.certificate-border{
 
-    width: 6px;
-    height: 6px;
+    width:100%;
 
-    background: #78909c;
+    height:100%;
 
-    border-radius: 50%;
+    border:
+        8px double
+        #087f8c;
 
-    animation: aiDot 1.2s infinite;
+    padding:45px;
 }
 
-.ai-thinking span:nth-child(2) {
-    animation-delay: .2s;
+.certificate-title{
+
+    font-size:42px;
+
+    color:#087f8c;
+
+    font-weight:bold;
+
+    margin:25px;
 }
 
-.ai-thinking span:nth-child(3) {
-    animation-delay: .4s;
+.certificate-subtitle{
+
+    font-size:23px;
+
+    margin:15px;
 }
 
-@keyframes aiDot {
+.certificate-name{
 
-    0%, 60%, 100% {
-        transform: translateY(0);
-        opacity: .4;
-    }
+    font-size:38px;
 
-    30% {
-        transform: translateY(-4px);
-        opacity: 1;
-    }
+    font-weight:bold;
+
+    margin:25px;
+}
+
+.certificate-course{
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    margin:20px;
 
 }
 
+.certificate-number{
 
-/* =====================================================
+    margin-top:25px;
+
+    font-size:18px;
+}
+
+
+/* ================================
    الفوتر
-===================================================== */
+================================ */
 
-footer {
+footer{
 
-    text-align: center;
+    text-align:center;
 
-    padding: 30px 20px;
+    padding:30px;
 
-    margin-top: 45px;
+    margin-top:40px;
 
-    background: #ffffff;
+    color:#8a99a7;
 
-    border-top: 1px solid #e3ebf2;
+    font-size:11px;
 
-    color: #78909c;
+    background:white;
 
-    font-size: 13px;
+    border-top:
+        1px solid
+        var(--border);
 }
 
-footer strong {
-    color: #1565c0;
+footer strong{
+
+    display:block;
+
+    margin-top:5px;
+
+    color:var(--primary);
 }
 
 
-/* =====================================================
+/* ================================
    الهاتف
-===================================================== */
+================================ */
 
-@media (max-width: 750px) {
+@media(max-width:900px){
 
-    .topbar {
-        padding: 15px;
+    .sidebar{
+
+        width:75px;
+
+        padding:
+            18px 10px;
     }
 
-    .topbar-inner {
-        flex-direction: column;
-        align-items: stretch;
+    .logo{
+
+        width:48px;
+        height:48px;
+
+        border-radius:14px;
     }
 
-    .brand {
-        justify-content: center;
+    .logo-area h2,
+    .logo-area p,
+    .nav-title,
+    .nav-item span:not(.nav-icon),
+    .sidebar-footer{
+
+        display:none;
     }
 
-    .brand-text h1 {
-        font-size: 18px;
+    .nav-item{
+
+        justify-content:center;
+
+        padding:11px;
     }
 
-    .home-button {
-        justify-content: center;
+    .nav-icon{
+
+        width:40px;
+        height:40px;
     }
 
-    .stats {
-        grid-template-columns: 1fr;
+    .main{
+
+        width:
+            calc(100% - 75px);
+
+        margin-right:75px;
     }
 
-    .welcome {
-        padding: 23px;
+    #coursesList{
+
+        grid-template-columns:1fr;
     }
 
-    .welcome h2 {
-        font-size: 22px;
+}
+
+@media(max-width:600px){
+
+    .topbar{
+
+        height:65px;
+
+        padding:
+            0 15px;
     }
 
-    .course-header,
-    .course-body {
-        padding: 20px;
+    .page-title h1{
+
+        font-size:16px;
     }
 
-    .course h2 {
-        font-size: 20px;
+    .content{
+
+        padding:15px;
     }
 
-    .lesson {
-        padding: 16px;
+    .hero{
+
+        min-height:250px;
+
+        padding:25px;
+
+        align-items:flex-start;
     }
 
-    .enroll-button,
-    .pdf-button,
-    .complete-button,
-    .certificate-button {
+    .hero h2{
 
-        width: 100%;
-
-        margin-right: 0;
-
-        text-align: center;
+        font-size:23px;
     }
 
-    .main-section-title h2 {
-        font-size: 21px;
+    .hero p{
+
+        font-size:12px;
     }
 
-    .ai-button {
+    .hero-icon{
 
-        left: 15px;
-        bottom: 15px;
+        position:absolute;
 
-        padding: 13px 17px;
+        left:20px;
+        bottom:15px;
+
+        width:70px;
+        height:70px;
+
+        font-size:34px;
     }
 
-    .ai-panel {
+    .stats{
 
-        left: 10px;
-        right: 10px;
+        grid-template-columns:1fr;
 
-        bottom: 75px;
+    }
 
-        width: auto;
+    .ai-button{
 
-        max-width: none;
+        left:15px;
+        bottom:15px;
 
-        height: 520px;
+        padding:
+            12px 16px;
+    }
+
+    .ai-panel{
+
+        left:10px;
+        bottom:70px;
+
+        width:
+            calc(100vw - 20px);
+
+        height:
+            calc(100vh - 100px);
     }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
+<div class="app">
+
+
 <!-- =====================================================
-     الشريط العلوي
+     القائمة الجانبية
 ===================================================== -->
 
-<header class="topbar">
+<aside class="sidebar">
 
-<div class="topbar-inner">
-
-    <div class="brand">
+    <div class="logo-area">
 
         <img
             src="logo.png"
-            class="brand-logo"
-            alt="شعار منصة التكوين">
+            class="logo"
+            alt="شعار المؤسسة">
 
-        <div class="brand-text">
+        <h2>
+            منصة التكوين
+        </h2>
 
-            <h1>
-                منصة التكوين المستمر
-            </h1>
-
-            <p>
-                لوحة المتربص التعليمية
-            </p>
-
-        </div>
+        <p>
+            المؤسسة العمومية الاستشفائية بأولف
+            <br>
+            ولاية أدرار
+        </p>
 
     </div>
 
 
-    <a
-        href="index.html"
-        class="home-button">
+    <nav class="nav">
 
-        🏠 الصفحة الرئيسية
+        <div class="nav-title">
+            القائمة الرئيسية
+        </div>
 
-    </a>
 
-</div>
+        <a
+            class="nav-item active"
+            href="#top">
+
+            <span class="nav-icon">
+                🏠
+            </span>
+
+            <span>
+                الرئيسية
+            </span>
+
+        </a>
+
+
+        <a
+            class="nav-item"
+            href="#courses">
+
+            <span class="nav-icon">
+                📚
+            </span>
+
+            <span>
+                الدورات
+            </span>
+
+        </a>
+
+
+        <a
+            class="nav-item"
+            href="#certificates">
+
+            <span class="nav-icon">
+                🏆
+            </span>
+
+            <span>
+                شهاداتي
+            </span>
+
+        </a>
+
+
+        <a
+            class="nav-item"
+            href="#assistant"
+            onclick="toggleAIAssistant(); return false;">
+
+            <span class="nav-icon">
+                🤖
+            </span>
+
+            <span>
+                المساعد الذكي
+            </span>
+
+        </a>
+
+
+        <a
+            class="nav-item"
+            href="index.html">
+
+            <span class="nav-icon">
+                ↩️
+            </span>
+
+            <span>
+                الصفحة الرئيسية
+            </span>
+
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+
+        <strong>
+            مكتب التكوين المتواصل
+        </strong>
+
+        <br>
+
+        منصة رقمية لمتابعة التكوينات
+        والدروس والشهادات.
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     المحتوى الرئيسي
+===================================================== -->
+
+<main class="main" id="top">
+
+
+<!-- الشريط العلوي -->
+
+<header class="topbar">
+
+    <div class="page-title">
+
+        <h1>
+            فضاء المتربص
+        </h1>
+
+        <span>
+            منصة التكوين المستمر
+        </span>
+
+    </div>
+
+
+    <div class="top-actions">
+
+        <button
+            class="top-button"
+            onclick="window.location.reload()"
+            title="تحديث">
+
+            🔄
+
+        </button>
+
+        <button
+            class="top-button"
+            onclick="toggleAIAssistant()"
+            title="المساعد الذكي">
+
+            🤖
+
+        </button>
+
+    </div>
 
 </header>
 
 
+
+<div class="content">
+
+
 <!-- =====================================================
-     المحتوى
+     الترحيب
 ===================================================== -->
 
-<div class="container">
+<section class="hero">
 
+    <div class="hero-content">
 
-<section class="welcome">
-
-    <div class="welcome-content">
+        <span class="hero-label">
+            🎓 مرحبًا بك في منصة التكوين
+        </span>
 
         <h2>
-            🎓 مرحبًا بك في فضاء المتربص
+            طوّر مهاراتك...
+            وواصل مسارك المهني
         </h2>
 
         <p>
-            تابع تكويناتك، اطلع على الدروس،
-            سجّل تقدمك واحصل على شهادات إتمام التكوين.
+            تابع دوراتك التكوينية،
+            اقرأ الدروس، سجّل تقدمك،
+            واحصل على شهاداتك إلكترونيًا.
         </p>
 
+    </div>
+
+
+    <div class="hero-icon">
+        🏥
     </div>
 
 </section>
 
 
-<!-- الإحصائيات -->
 
-<div class="stats">
+<!-- =====================================================
+     الإحصائيات
+===================================================== -->
 
-    <div class="stat-card">
+<section class="stats">
+
+
+    <div class="stat">
 
         <div class="stat-icon">
             📚
@@ -1554,10 +2044,10 @@ footer strong {
     </div>
 
 
-    <div class="stat-card">
+    <div class="stat">
 
         <div class="stat-icon">
-            📖
+            🎓
         </div>
 
         <div class="stat-info">
@@ -1567,7 +2057,7 @@ footer strong {
             </strong>
 
             <span>
-                دورات مسجل فيها
+                دوراتي المسجل فيها
             </span>
 
         </div>
@@ -1575,7 +2065,7 @@ footer strong {
     </div>
 
 
-    <div class="stat-card">
+    <div class="stat">
 
         <div class="stat-icon">
             🏆
@@ -1595,52 +2085,90 @@ footer strong {
 
     </div>
 
-</div>
+
+</section>
 
 
-<!-- الرسالة -->
 
-<div id="message">
-    ⏳ جاري تحميل الدورات...
-</div>
+<!-- =====================================================
+     الدورات
+===================================================== -->
 
+<section id="courses">
 
-<!-- الدورات -->
+    <div class="section-head">
 
-<div class="main-section-title">
+        <div class="section-title">
 
-    <div class="icon">
-        📚
+            <div class="section-title-icon">
+                📚
+            </div>
+
+            <div>
+
+                <h2>
+                    الدورات التكوينية
+                </h2>
+
+                <p>
+                    اختر الدورة المناسبة وابدأ التعلم
+                </p>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div>
 
-        <h2>
-            الدورات التكوينية
-        </h2>
-
-        <p>
-            استعرض الدورات وسجّل في التكوينات المتاحة
-        </p>
-
+    <div id="message">
+        ⏳ جاري تحميل الدورات...
     </div>
 
-</div>
+
+    <div id="coursesList"></div>
+
+</section>
 
 
-<div id="coursesList"></div>
 
+<!-- =====================================================
+     الشهادات
+===================================================== -->
 
-<!-- الشهادات -->
+<section id="certificates">
 
-<div id="certificateArea"></div>
+    <div id="certificateArea"></div>
+
+</section>
 
 
 </div>
 
 
 <!-- =====================================================
-     المساعد الذكي
+     الفوتر
+===================================================== -->
+
+<footer>
+
+    منصة التكوين المستمر © 2026
+
+    <strong>
+        المؤسسة العمومية الاستشفائية بأولف - ولاية أدرار
+    </strong>
+
+</footer>
+
+
+</main>
+
+</div>
+
+
+
+<!-- =====================================================
+     زر المساعد
 ===================================================== -->
 
 <button
@@ -1653,10 +2181,16 @@ footer strong {
 </button>
 
 
+
+<!-- =====================================================
+     نافذة المساعد
+===================================================== -->
+
 <div
     id="aiPanel"
     class="ai-panel"
     dir="rtl">
+
 
     <div class="ai-header">
 
@@ -1673,7 +2207,7 @@ footer strong {
                 </h3>
 
                 <small>
-                    مساعدك في التكوين والتعلم
+                    مساعدك في التعلم والتكوين
                 </small>
 
             </div>
@@ -1683,8 +2217,7 @@ footer strong {
 
         <button
             class="ai-close"
-            onclick="toggleAIAssistant()"
-            aria-label="إغلاق">
+            onclick="toggleAIAssistant()">
 
             ×
 
@@ -1703,8 +2236,8 @@ footer strong {
 
             أنا المساعد الذكي لمنصة التكوين المستمر.
 
-            يمكنني مساعدتك في فهم الدروس،
-            تلخيص المحتوى، وإعداد أسئلة للمراجعة.
+            يمكنك سؤالي عن الدروس،
+            طلب تلخيص، أو إعداد أسئلة للمراجعة.
 
         </div>
 
@@ -1714,7 +2247,6 @@ footer strong {
     <div class="ai-suggestions">
 
         <button
-            type="button"
             class="ai-suggestion"
             onclick="useAISuggestion('اشرح لي أهمية التكوين المتواصل للموظفين')">
 
@@ -1724,7 +2256,6 @@ footer strong {
 
 
         <button
-            type="button"
             class="ai-suggestion"
             onclick="useAISuggestion('لخص لي هذا الدرس بطريقة سهلة')">
 
@@ -1734,7 +2265,6 @@ footer strong {
 
 
         <button
-            type="button"
             class="ai-suggestion"
             onclick="useAISuggestion('أنشئ لي أسئلة للمراجعة')">
 
@@ -1755,7 +2285,6 @@ footer strong {
 
 
         <button
-            type="button"
             id="aiSend"
             class="ai-send"
             onclick="sendAIMessage()">
@@ -1769,35 +2298,74 @@ footer strong {
 </div>
 
 
+
 <!-- =====================================================
-     الفوتر
+     قالب الشهادة
 ===================================================== -->
 
-<footer>
+<div id="certificateTemplate">
 
-    منصة التكوين المستمر © 2026
+    <div class="certificate-border">
 
-    <br>
+        <div style="font-size:22px;font-weight:bold;">
+            الجمهورية الجزائرية الديمقراطية الشعبية
+        </div>
 
-    <strong>
-        المؤسسة العمومية الاستشفائية بأولف
-    </strong>
+        <div style="font-size:20px;margin-top:10px;">
+            وزارة الصحة
+        </div>
 
-</footer>
+        <div style="font-size:19px;margin-top:8px;">
+            المؤسسة العمومية الاستشفائية بأولف
+        </div>
+
+        <div class="certificate-title">
+            شهادة إتمام تكوين
+        </div>
+
+        <div class="certificate-subtitle">
+            تشهد المؤسسة بأن المتربص:
+        </div>
+
+        <div
+            id="certificateTraineeName"
+            class="certificate-name">
+        </div>
+
+        <div class="certificate-subtitle">
+            قد أتم بنجاح التكوين في:
+        </div>
+
+        <div
+            id="certificateCourseName"
+            class="certificate-course">
+        </div>
+
+        <div
+            id="certificateDate"
+            style="font-size:20px;margin-top:20px;">
+        </div>
+
+        <div
+            id="certificateNumber"
+            class="certificate-number">
+        </div>
+
+        <div id="qrCode"></div>
+
+    </div>
+
+</div>
+
 
 
 <!-- =====================================================
-     Supabase
+     المكتبات
 ===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase-config.js"></script>
-
-
-<!-- =====================================================
-     مكتبات الشهادة
-===================================================== -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -1806,106 +2374,46 @@ footer strong {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 
-<!-- =====================================================
-     قالب الشهادة
-===================================================== -->
-
-<div id="certificateTemplate">
-
-<div class="certificate-border">
-
-<div style="font-size:22px;font-weight:bold;">
-الجمهورية الجزائرية الديمقراطية الشعبية
-</div>
-
-<div style="font-size:20px;margin-top:10px;">
-وزارة الصحة
-</div>
-
-<div style="font-size:19px;margin-top:8px;">
-المؤسسة العمومية الاستشفائية بأولف
-</div>
-
-<div class="certificate-title">
-شهادة إتمام تكوين
-</div>
-
-<div class="certificate-subtitle">
-تشهد المؤسسة بأن المتربص:
-</div>
-
-<div id="certificateTraineeName"
-     class="certificate-name">
-</div>
-
-<div class="certificate-subtitle">
-قد أتم بنجاح التكوين في:
-</div>
-
-<div id="certificateCourseName"
-     class="certificate-course">
-</div>
-
-<div id="certificateDate"
-     style="font-size:20px;margin-top:20px;">
-</div>
-
-<div id="certificateNumber"
-     class="certificate-number">
-</div>
-
-<div id="qrCode"></div>
-
-</div>
-
-</div>
-
 
 <script>
 
 /* =====================================================
-   المتغيرات العامة
+   المستخدم
 ===================================================== */
 
 let currentUser = null;
 
 
 /* =====================================================
-   الحصول على المستخدم الحالي
+   الحصول على المستخدم
 ===================================================== */
 
-async function getCurrentUser() {
+async function getCurrentUser(){
 
-    try {
+    try{
 
-        const { data, error } =
-            await supabaseClient.auth.getUser();
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth.getUser();
 
-        if (error) {
 
-            console.error(
-                "خطأ في getUser:",
-                error
-            );
+        if(error){
 
-            return null;
-        }
-
-        if (!data || !data.user) {
+            console.error(error);
 
             return null;
         }
 
-        return data.user;
+
+        return data?.user || null;
 
     }
 
-    catch (error) {
+    catch(error){
 
-        console.error(
-            "خطأ أثناء الحصول على المستخدم:",
-            error
-        );
+        console.error(error);
 
         return null;
     }
@@ -1917,53 +2425,78 @@ async function getCurrentUser() {
    التحقق من التسجيل
 ===================================================== */
 
-async function isEnrolled(courseId) {
+async function isEnrolled(courseId){
 
-    const { data, error } =
-        await supabaseClient
-        .from("enrollments")
-        .select("id")
-        .eq("trainee_id", currentUser.id)
-        .eq("course_id", courseId)
-        .maybeSingle();
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("enrollments")
+    .select("id")
+    .eq(
+        "trainee_id",
+        currentUser.id
+    )
+    .eq(
+        "course_id",
+        courseId
+    )
+    .maybeSingle();
 
-    if (error) {
+
+    if(error){
 
         console.error(error);
 
         return false;
     }
 
+
     return !!data;
+
 }
 
 
 /* =====================================================
-   الحصول على تقدم الدروس
+   التقدم
 ===================================================== */
 
-async function getProgress(lessonIds) {
+async function getProgress(lessonIds){
 
-    if (!lessonIds.length) {
+    if(!lessonIds.length){
 
         return [];
     }
 
-    const { data, error } =
-        await supabaseClient
-        .from("lesson_progress")
-        .select("lesson_id")
-        .eq("trainee_id", currentUser.id)
-        .in("lesson_id", lessonIds);
 
-    if (error) {
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("lesson_progress")
+    .select("lesson_id")
+    .eq(
+        "trainee_id",
+        currentUser.id
+    )
+    .in(
+        "lesson_id",
+        lessonIds
+    );
+
+
+    if(error){
 
         console.error(error);
 
         return [];
     }
 
+
     return data || [];
+
 }
 
 
@@ -1975,7 +2508,7 @@ async function completeLesson(
     lessonId,
     button,
     courseId
-) {
+){
 
     button.disabled = true;
 
@@ -1983,23 +2516,25 @@ async function completeLesson(
         "⏳ جاري الحفظ...";
 
 
-    const { error } =
-        await supabaseClient
-        .from("lesson_progress")
-        .insert({
+    const {
+        error
+    } =
+    await supabaseClient
+    .from("lesson_progress")
+    .insert({
 
-            trainee_id:
-                currentUser.id,
+        trainee_id:
+            currentUser.id,
 
-            lesson_id:
-                lessonId
+        lesson_id:
+            lessonId
 
-        });
+    });
 
 
-    if (error) {
+    if(error){
 
-        if (error.code === "23505") {
+        if(error.code === "23505"){
 
             button.textContent =
                 "✅ تم إكمال الدرس";
@@ -2008,7 +2543,8 @@ async function completeLesson(
                 "completed"
             );
 
-        } else {
+        }
+        else{
 
             console.error(error);
 
@@ -2042,74 +2578,82 @@ async function completeLesson(
 
 
 /* =====================================================
-   حساب تقدم الدورة
+   تحديث التقدم
 ===================================================== */
 
 async function updateCourseProgress(
     courseId
-) {
+){
 
-    const { data: lessons, error } =
-        await supabaseClient
-        .from("lessons")
-        .select("id")
-        .eq("course_id", courseId);
+    const {
+        data: lessons,
+        error
+    } =
+    await supabaseClient
+    .from("lessons")
+    .select("id")
+    .eq(
+        "course_id",
+        courseId
+    );
 
 
-    if (error || !lessons) {
+    if(error || !lessons){
 
         return;
     }
 
 
-    const lessonIds =
+    const ids =
         lessons.map(
-            lesson => lesson.id
+            x => x.id
         );
 
 
     const progress =
-        await getProgress(
-            lessonIds
-        );
+        await getProgress(ids);
 
 
     const total =
-        lessonIds.length;
+        ids.length;
 
     const completed =
         progress.length;
 
 
-    const percentage =
+    const percent =
         total === 0
         ? 0
         : Math.round(
-            (completed / total) * 100
+            completed /
+            total *
+            100
         );
 
 
     const bar =
         document.getElementById(
-            "progress-" + courseId
+            "progress-" +
+            courseId
         );
 
 
     const text =
         document.getElementById(
-            "progress-text-" + courseId
+            "progress-text-" +
+            courseId
         );
 
 
-    if (bar) {
+    if(bar){
 
         bar.style.width =
-            percentage + "%";
+            percent + "%";
 
     }
 
 
-    if (text) {
+    if(text){
 
         text.textContent =
             "📊 التقدم: " +
@@ -2117,30 +2661,31 @@ async function updateCourseProgress(
             " من " +
             total +
             " دروس — " +
-            percentage +
+            percent +
             "%";
 
     }
 
 
-    if (
+    if(
         total > 0 &&
         completed === total
-    ) {
+    ){
 
         const finished =
             document.getElementById(
-                "finished-" + courseId
+                "finished-" +
+                courseId
             );
 
 
-        if (finished) {
+        if(finished){
 
             finished.style.display =
                 "block";
 
             finished.textContent =
-                "🏆 ممتاز! لقد أكملت جميع دروس هذه الدورة بنجاح.";
+                "🏆 ممتاز! لقد أكملت جميع دروس هذه الدورة.";
 
         }
 
@@ -2150,41 +2695,47 @@ async function updateCourseProgress(
 
 
 /* =====================================================
-   التسجيل في الدورة
+   التسجيل
 ===================================================== */
 
 async function enrollInCourse(
     courseId
-) {
+){
 
-    const { error } =
-        await supabaseClient
-        .from("enrollments")
-        .insert({
+    const {
+        error
+    } =
+    await supabaseClient
+    .from("enrollments")
+    .insert({
 
-            trainee_id:
-                currentUser.id,
+        trainee_id:
+            currentUser.id,
 
-            course_id:
-                courseId
+        course_id:
+            courseId
 
-        });
+    });
 
 
-    if (error) {
+    if(error){
 
-        if (error.code === "23505") {
+        if(
+            error.code ===
+            "23505"
+        ){
 
             alert(
-                "أنت مسجل بالفعل في هذه الدورة ✅"
+                "أنت مسجل بالفعل في هذه الدورة."
             );
 
-        } else {
+        }
+        else{
 
             console.error(error);
 
             alert(
-                "حدث خطأ أثناء التسجيل"
+                "حدث خطأ أثناء التسجيل."
             );
 
         }
@@ -2210,58 +2761,65 @@ async function enrollInCourse(
 async function loadLessons(
     courseId,
     container
-) {
+){
 
-    const { data: lessons, error } =
-        await supabaseClient
-        .from("lessons")
-        .select(
-            "id,title,content,pdf_url"
-        )
-        .eq("course_id", courseId)
-        .order(
-            "title",
-            {
-                ascending: true
-            }
-        );
+    const {
+        data: lessons,
+        error
+    } =
+    await supabaseClient
+    .from("lessons")
+    .select(
+        "id,title,content,pdf_url"
+    )
+    .eq(
+        "course_id",
+        courseId
+    )
+    .order(
+        "title",
+        {
+            ascending:true
+        }
+    );
 
 
-    if (error) {
+    if(error){
 
         console.error(error);
 
-        container.innerHTML =
-            "❌ تعذر تحميل الدروس";
+        container.textContent =
+            "❌ تعذر تحميل الدروس.";
 
         return;
     }
 
 
-    if (!lessons || !lessons.length) {
+    if(
+        !lessons ||
+        !lessons.length
+    ){
 
-        container.innerHTML =
+        container.textContent =
             "📭 لا توجد دروس لهذه الدورة حاليًا.";
 
         return;
     }
 
 
-    const lessonIds =
+    const ids =
         lessons.map(
-            lesson => lesson.id
+            x => x.id
         );
 
 
     const progress =
-        await getProgress(
-            lessonIds
-        );
+        await getProgress(ids);
 
 
     const completedIds =
         progress.map(
-            item => item.lesson_id
+            x => x.lesson_id
         );
 
 
@@ -2269,7 +2827,7 @@ async function loadLessons(
 
 
     lessons.forEach(
-        function(lesson) {
+        lesson => {
 
             const box =
                 document.createElement(
@@ -2293,22 +2851,22 @@ async function loadLessons(
             box.appendChild(title);
 
 
-            if (lesson.content) {
+            if(lesson.content){
 
-                const content =
+                const p =
                     document.createElement(
                         "p"
                     );
 
-                content.textContent =
+                p.textContent =
                     lesson.content;
 
-                box.appendChild(content);
+                box.appendChild(p);
 
             }
 
 
-            if (lesson.pdf_url) {
+            if(lesson.pdf_url){
 
                 const link =
                     document.createElement(
@@ -2335,43 +2893,43 @@ async function loadLessons(
             }
 
 
-            const completeButton =
+            const button =
                 document.createElement(
                     "button"
                 );
 
-
-            completeButton.className =
+            button.className =
                 "complete-button";
 
 
-            if (
+            if(
                 completedIds.includes(
                     lesson.id
                 )
-            ) {
+            ){
 
-                completeButton.textContent =
+                button.textContent =
                     "✅ تم إكمال الدرس";
 
-                completeButton.classList.add(
+                button.classList.add(
                     "completed"
                 );
 
-                completeButton.disabled =
+                button.disabled =
                     true;
 
-            } else {
+            }
+            else{
 
-                completeButton.textContent =
+                button.textContent =
                     "☑️ تم إكمال الدرس";
 
-                completeButton.onclick =
-                    function() {
+                button.onclick =
+                    () => {
 
                         completeLesson(
                             lesson.id,
-                            completeButton,
+                            button,
                             courseId
                         );
 
@@ -2380,10 +2938,7 @@ async function loadLessons(
             }
 
 
-            box.appendChild(
-                completeButton
-            );
-
+            box.appendChild(button);
 
             container.appendChild(box);
 
@@ -2399,51 +2954,493 @@ async function loadLessons(
 
 
 /* =====================================================
+   تحميل الشهادات
+===================================================== */
+
+async function loadMyCertificates(){
+
+    const area =
+        document.getElementById(
+            "certificateArea"
+        );
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("certificates")
+    .select(
+        "id,course_id,certificate_number,issue_date,pdf_url,trainee_id"
+    )
+    .eq(
+        "trainee_id",
+        currentUser.id
+    )
+    .order(
+        "issue_date",
+        {
+            ascending:false
+        }
+    );
+
+
+    if(error){
+
+        console.error(error);
+
+        return;
+    }
+
+
+    document.getElementById(
+        "certificatesCount"
+    ).textContent =
+        data?.length || 0;
+
+
+    if(
+        !data ||
+        !data.length
+    ){
+
+        area.innerHTML = "";
+
+        return;
+    }
+
+
+    area.innerHTML = `
+        <div class="certificates-title">
+            <h2>🏆 شهاداتي</h2>
+            <p>
+                الشهادات التي حصلت عليها بعد إتمام التكوين.
+            </p>
+        </div>
+    `;
+
+
+    for(
+        const certificate of data
+    ){
+
+        const {
+            data: course
+        } =
+        await supabaseClient
+        .from("courses")
+        .select("name")
+        .eq(
+            "id",
+            certificate.course_id
+        )
+        .maybeSingle();
+
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+        card.className =
+            "certificate-card";
+
+
+        card.innerHTML = `
+            <h3>
+                🏆 شهادة إتمام التكوين
+            </h3>
+
+            <p>
+                <strong>📚 الدورة:</strong>
+                ${course?.name || "دورة تكوينية"}
+            </p>
+
+            <p>
+                <strong>🔢 رقم الشهادة:</strong>
+                ${certificate.certificate_number}
+            </p>
+
+            <p>
+                <strong>📅 تاريخ الإصدار:</strong>
+                ${certificate.issue_date}
+            </p>
+        `;
+
+
+        if(certificate.pdf_url){
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+            link.href =
+                certificate.pdf_url;
+
+            link.target =
+                "_blank";
+
+            link.rel =
+                "noopener noreferrer";
+
+            link.className =
+                "pdf-button";
+
+            link.textContent =
+                "📄 عرض الشهادة";
+
+            card.appendChild(link);
+
+        }
+        else{
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.className =
+                "certificate-button";
+
+            button.textContent =
+                "🎓 إنشاء الشهادة";
+
+            button.onclick =
+                () => {
+
+                    generateCertificatePDF(
+                        certificate
+                    );
+
+                };
+
+            card.appendChild(button);
+
+        }
+
+
+        area.appendChild(card);
+
+    }
+
+}
+
+
+/* =====================================================
+   تحميل الدورات
+===================================================== */
+
+async function loadCourses(){
+
+    const list =
+        document.getElementById(
+            "coursesList"
+        );
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    list.innerHTML = "";
+
+    message.textContent =
+        "⏳ جاري تحميل الدورات...";
+
+
+    currentUser =
+        await getCurrentUser();
+
+
+    if(!currentUser){
+
+        message.textContent =
+            "🔐 يجب تسجيل الدخول أولًا.";
+
+        return;
+    }
+
+
+    const {
+        data: courses,
+        error
+    } =
+    await supabaseClient
+    .from("courses")
+    .select(
+        "id,name,description"
+    )
+    .order(
+        "name",
+        {
+            ascending:true
+        }
+    );
+
+
+    if(error){
+
+        console.error(error);
+
+        message.textContent =
+            "❌ حدث خطأ أثناء تحميل الدورات.";
+
+        return;
+    }
+
+
+    if(
+        !courses ||
+        !courses.length
+    ){
+
+        message.textContent =
+            "📭 لا توجد دورات حاليًا.";
+
+        return;
+    }
+
+
+    document.getElementById(
+        "coursesCount"
+    ).textContent =
+        courses.length;
+
+
+    message.textContent =
+        "📚 الدورات التكوينية المتاحة";
+
+
+    let enrolledTotal = 0;
+
+
+    for(
+        let i = 0;
+        i < courses.length;
+        i++
+    ){
+
+        const course =
+            courses[i];
+
+
+        const enrolled =
+            await isEnrolled(
+                course.id
+            );
+
+
+        if(enrolled){
+
+            enrolledTotal++;
+
+        }
+
+
+        const card =
+            document.createElement(
+                "article"
+            );
+
+        card.className =
+            "course";
+
+
+        card.innerHTML = `
+
+            <div class="course-header">
+
+                <div class="course-number">
+                    ${i + 1}
+                </div>
+
+                <h2>
+                    📚 ${course.name}
+                </h2>
+
+                <p class="course-description">
+                    ${
+                        course.description ||
+                        "لا يوجد وصف للدورة."
+                    }
+                </p>
+
+            </div>
+
+            <div class="course-body">
+
+                <div id="course-status-${course.id}"></div>
+
+                <div class="progress-area">
+
+                    <div
+                        class="progress-text"
+                        id="progress-text-${course.id}">
+
+                        📊 جاري حساب التقدم...
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-bar"
+                            id="progress-${course.id}">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div
+                    id="finished-${course.id}"
+                    class="finished"
+                    style="display:none;">
+                </div>
+
+                <div class="lessons-heading">
+                    📖 دروس الدورة
+                </div>
+
+                <div
+                    id="lessons-${course.id}"
+                    style="margin-top:10px;">
+
+                    ⏳ جاري تحميل الدروس...
+
+                </div>
+
+            </div>
+        `;
+
+
+        list.appendChild(card);
+
+
+        const status =
+            document.getElementById(
+                "course-status-" +
+                course.id
+            );
+
+
+        if(enrolled){
+
+            const badge =
+                document.createElement(
+                    "div"
+                );
+
+            badge.className =
+                "enrolled";
+
+            badge.textContent =
+                "✅ أنت مسجل في هذه الدورة";
+
+            status.appendChild(badge);
+
+        }
+        else{
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.className =
+                "enroll-button";
+
+            button.textContent =
+                "📝 التسجيل في الدورة";
+
+            button.onclick =
+                () => {
+
+                    enrollInCourse(
+                        course.id
+                    );
+
+                };
+
+            status.appendChild(button);
+
+        }
+
+
+        await loadLessons(
+            course.id,
+            document.getElementById(
+                "lessons-" +
+                course.id
+            )
+        );
+
+    }
+
+
+    document.getElementById(
+        "enrolledCount"
+    ).textContent =
+        enrolledTotal;
+
+
+    await loadMyCertificates();
+
+}
+
+
+/* =====================================================
    إنشاء الشهادة
 ===================================================== */
 
 async function generateCertificatePDF(
     certificate
-) {
+){
 
-    try {
+    try{
 
-        const { data: course } =
-            await supabaseClient
-            .from("courses")
-            .select("name,course_date")
-            .eq("id", certificate.course_id)
-            .maybeSingle();
-
-
-        const { data: trainee } =
-            await supabaseClient
-            .from("trainees")
-            .select("full_name")
-            .eq("id", certificate.trainee_id)
-            .maybeSingle();
+        const {
+            data: course
+        } =
+        await supabaseClient
+        .from("courses")
+        .select("name")
+        .eq(
+            "id",
+            certificate.course_id
+        )
+        .maybeSingle();
 
 
-        if (!course || !trainee) {
-
-            alert(
-                "تعذر العثور على بيانات الشهادة."
-            );
-
-            return;
-        }
+        const {
+            data: trainee
+        } =
+        await supabaseClient
+        .from("trainees")
+        .select("full_name")
+        .eq(
+            "id",
+            certificate.trainee_id
+        )
+        .maybeSingle();
 
 
         document.getElementById(
             "certificateTraineeName"
         ).textContent =
-            trainee.full_name || "المتربص";
+            trainee?.full_name ||
+            "المتربص";
 
 
         document.getElementById(
             "certificateCourseName"
         ).textContent =
-            course.name || "الدورة التكوينية";
+            course?.name ||
+            "الدورة التكوينية";
 
 
         document.getElementById(
@@ -2469,25 +3466,19 @@ async function generateCertificatePDF(
         qr.innerHTML = "";
 
 
-        const verificationText =
-            window.location.origin +
-            "/verify.html?certificate=" +
-            encodeURIComponent(
-                certificate.certificate_number
-            );
-
-
         new QRCode(
             qr,
             {
                 text:
-                    verificationText,
+                    window.location.origin +
+                    "/verify.html?certificate=" +
+                    encodeURIComponent(
+                        certificate.certificate_number
+                    ),
 
-                width:
-                    110,
+                width:110,
 
-                height:
-                    110
+                height:110
             }
         );
 
@@ -2507,12 +3498,10 @@ async function generateCertificatePDF(
                     "certificateTemplate"
                 ),
                 {
-                    scale: 2,
+                    scale:2,
 
                     backgroundColor:
-                        "#ffffff",
-
-                    useCORS: true
+                        "#ffffff"
                 }
             );
 
@@ -2520,24 +3509,26 @@ async function generateCertificatePDF(
         const image =
             canvas.toDataURL(
                 "image/jpeg",
-                0.95
+                .95
             );
 
 
-        const { jsPDF } =
-            window.jspdf;
+        const {
+            jsPDF
+        } =
+        window.jspdf;
 
 
         const pdf =
             new jsPDF({
+
                 orientation:
                     "landscape",
 
-                unit:
-                    "mm",
+                unit:"mm",
 
-                format:
-                    "a4"
+                format:"a4"
+
             });
 
 
@@ -2557,13 +3548,8 @@ async function generateCertificatePDF(
         );
 
 
-        alert(
-            "تم إنشاء الشهادة وتحميلها بنجاح ✅"
-        );
-
     }
-
-    catch (error) {
+    catch(error){
 
         console.error(error);
 
@@ -2577,596 +3563,16 @@ async function generateCertificatePDF(
 
 
 /* =====================================================
-   تحميل الشهادات
+   فتح المساعد
 ===================================================== */
 
-async function loadMyCertificates() {
-
-    const area =
-        document.getElementById(
-            "certificateArea"
-        );
-
-
-    const { data, error } =
-        await supabaseClient
-        .from("certificates")
-        .select(
-            "id,course_id,certificate_number,issue_date,pdf_url,trainee_id"
-        )
-        .eq(
-            "trainee_id",
-            currentUser.id
-        )
-        .order(
-            "issue_date",
-            {
-                ascending: false
-            }
-        );
-
-
-    if (error) {
-
-        console.error(error);
-
-        return;
-    }
-
-
-    area.innerHTML = "";
-
-
-    document.getElementById(
-        "certificatesCount"
-    ).textContent =
-        data ? data.length : 0;
-
-
-    if (!data || !data.length) {
-
-        return;
-    }
-
-
-    const title =
-        document.createElement(
-            "div"
-        );
-
-    title.className =
-        "certificates-title";
-
-    title.innerHTML = `
-        <h2>🏆 شهاداتي</h2>
-        <p>هنا تجد الشهادات التي حصلت عليها بعد إتمام التكوين.</p>
-    `;
-
-    area.appendChild(title);
-
-
-    for (
-        const certificate of data
-    ) {
-
-        const box =
-            document.createElement(
-                "div"
-            );
-
-        box.className =
-            "certificate-card";
-
-
-        let courseName =
-            "الدورة التكوينية";
-
-
-        const { data: course } =
-            await supabaseClient
-            .from("courses")
-            .select("name")
-            .eq(
-                "id",
-                certificate.course_id
-            )
-            .maybeSingle();
-
-
-        if (course) {
-
-            courseName =
-                course.name;
-
-        }
-
-
-        box.innerHTML = `
-            <h3>🏆 شهادة إتمام التكوين</h3>
-
-            <p>
-                <strong>📚 الدورة:</strong>
-                ${courseName}
-            </p>
-
-            <p>
-                <strong>🔢 رقم الشهادة:</strong>
-                ${certificate.certificate_number}
-            </p>
-
-            <p>
-                <strong>📅 تاريخ الإصدار:</strong>
-                ${certificate.issue_date}
-            </p>
-        `;
-
-
-        if (certificate.pdf_url) {
-
-            const link =
-                document.createElement(
-                    "a"
-                );
-
-            link.href =
-                certificate.pdf_url;
-
-            link.target =
-                "_blank";
-
-            link.rel =
-                "noopener noreferrer";
-
-            link.className =
-                "pdf-button";
-
-            link.textContent =
-                "📄 عرض الشهادة";
-
-            box.appendChild(link);
-
-        } else {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-            button.className =
-                "certificate-button";
-
-            button.textContent =
-                "🎓 إنشاء وتحميل الشهادة";
-
-            button.onclick =
-                function() {
-
-                    generateCertificatePDF(
-                        certificate
-                    );
-
-                };
-
-            box.appendChild(button);
-
-        }
-
-
-        area.appendChild(box);
-
-    }
-
-}
-
-
-/* =====================================================
-   تحميل الدورات
-===================================================== */
-
-async function loadCourses() {
-
-    const message =
-        document.getElementById(
-            "message"
-        );
-
-
-    const list =
-        document.getElementById(
-            "coursesList"
-        );
-
-
-    message.textContent =
-        "⏳ جاري تحميل الدورات...";
-
-
-    list.innerHTML = "";
-
-
-    currentUser =
-        await getCurrentUser();
-
-
-    if (!currentUser) {
-
-        message.textContent =
-            "🔐 يجب تسجيل الدخول أولًا.";
-
-        return;
-    }
-
-
-    const { data: courses, error } =
-        await supabaseClient
-        .from("courses")
-        .select(
-            "id,name,description"
-        )
-        .order(
-            "name",
-            {
-                ascending: true
-            }
-        );
-
-
-    if (error) {
-
-        console.error(error);
-
-        message.textContent =
-            "❌ حدث خطأ أثناء تحميل الدورات.";
-
-        return;
-    }
-
-
-    if (!courses || !courses.length) {
-
-        message.textContent =
-            "📭 لا توجد دورات حاليًا.";
-
-        return;
-    }
-
-
-    message.textContent =
-        "📚 الدورات التكوينية المتاحة";
-
-
-    document.getElementById(
-        "coursesCount"
-    ).textContent =
-        courses.length;
-
-
-    let enrolledTotal = 0;
-
-    let courseNumber = 0;
-
-
-    for (
-        const course of courses
-    ) {
-
-        courseNumber++;
-
-
-        const box =
-            document.createElement(
-                "div"
-            );
-
-        box.className =
-            "course";
-
-
-        /* رأس الدورة */
-
-        const courseHeader =
-            document.createElement(
-                "div"
-            );
-
-        courseHeader.className =
-            "course-header";
-
-
-        const number =
-            document.createElement(
-                "div"
-            );
-
-        number.className =
-            "course-number";
-
-        number.textContent =
-            "الدورة رقم " +
-            courseNumber;
-
-
-        courseHeader.appendChild(
-            number
-        );
-
-
-        const title =
-            document.createElement(
-                "h2"
-            );
-
-        title.textContent =
-            "📚 " +
-            course.name;
-
-
-        courseHeader.appendChild(
-            title
-        );
-
-
-        const description =
-            document.createElement(
-                "p"
-            );
-
-        description.className =
-            "course-description";
-
-        description.textContent =
-            course.description ||
-            "لا يوجد وصف للدورة.";
-
-
-        courseHeader.appendChild(
-            description
-        );
-
-
-        box.appendChild(
-            courseHeader
-        );
-
-
-        /* جسم الدورة */
-
-        const courseBody =
-            document.createElement(
-                "div"
-            );
-
-        courseBody.className =
-            "course-body";
-
-
-        const enrolled =
-            await isEnrolled(
-                course.id
-            );
-
-
-        if (enrolled) {
-
-            enrolledTotal++;
-
-
-            const badge =
-                document.createElement(
-                    "div"
-                );
-
-            badge.className =
-                "enrolled";
-
-            badge.textContent =
-                "✅ أنت مسجل في هذه الدورة";
-
-
-            courseBody.appendChild(
-                badge
-            );
-
-        } else {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-            button.className =
-                "enroll-button";
-
-            button.textContent =
-                "📝 التسجيل في الدورة";
-
-            button.onclick =
-                function() {
-
-                    enrollInCourse(
-                        course.id
-                    );
-
-                };
-
-
-            courseBody.appendChild(
-                button
-            );
-
-        }
-
-
-        /* التقدم */
-
-        const progressArea =
-            document.createElement(
-                "div"
-            );
-
-        progressArea.className =
-            "progress-area";
-
-
-        const progressText =
-            document.createElement(
-                "div"
-            );
-
-        progressText.className =
-            "progress-text";
-
-        progressText.id =
-            "progress-text-" +
-            course.id;
-
-        progressText.textContent =
-            "📊 جاري حساب التقدم...";
-
-
-        progressArea.appendChild(
-            progressText
-        );
-
-
-        const progress =
-            document.createElement(
-                "div"
-            );
-
-        progress.className =
-            "progress";
-
-
-        const bar =
-            document.createElement(
-                "div"
-            );
-
-        bar.className =
-            "progress-bar";
-
-        bar.id =
-            "progress-" +
-            course.id;
-
-
-        progress.appendChild(
-            bar
-        );
-
-
-        progressArea.appendChild(
-            progress
-        );
-
-
-        courseBody.appendChild(
-            progressArea
-        );
-
-
-        /* اكتمال الدورة */
-
-        const finished =
-            document.createElement(
-                "div"
-            );
-
-        finished.id =
-            "finished-" +
-            course.id;
-
-        finished.className =
-            "finished";
-
-        finished.style.display =
-            "none";
-
-
-        courseBody.appendChild(
-            finished
-        );
-
-
-        /* عنوان الدروس */
-
-        const lessonTitle =
-            document.createElement(
-                "div"
-            );
-
-        lessonTitle.className =
-            "lessons-heading";
-
-        lessonTitle.innerHTML = `
-            <span>📖</span>
-            دروس الدورة
-        `;
-
-
-        courseBody.appendChild(
-            lessonTitle
-        );
-
-
-        const lessonsBox =
-            document.createElement(
-                "div"
-            );
-
-        lessonsBox.textContent =
-            "⏳ جاري تحميل الدروس...";
-
-
-        courseBody.appendChild(
-            lessonsBox
-        );
-
-
-        box.appendChild(
-            courseBody
-        );
-
-
-        list.appendChild(
-            box
-        );
-
-
-        await loadLessons(
-            course.id,
-            lessonsBox
-        );
-
-
-        document.getElementById(
-            "enrolledCount"
-        ).textContent =
-            enrolledTotal;
-
-    }
-
-
-    await loadMyCertificates();
-
-}
-
-
-/* =====================================================
-   فتح وإغلاق المساعد
-===================================================== */
-
-function toggleAIAssistant() {
+function toggleAIAssistant(){
 
     const panel =
         document.getElementById(
             "aiPanel"
         );
 
-    if (!panel) {
-        return;
-    }
 
     panel.classList.toggle(
         "open"
@@ -3176,13 +3582,13 @@ function toggleAIAssistant() {
 
 
 /* =====================================================
-   إضافة رسالة
+   إضافة رسالة AI
 ===================================================== */
 
 function addAIMessage(
     text,
     type
-) {
+){
 
     const messages =
         document.getElementById(
@@ -3190,76 +3596,22 @@ function addAIMessage(
         );
 
 
-    if (!messages) {
-        return;
-    }
-
-
-    const message =
+    const div =
         document.createElement(
             "div"
         );
 
 
-    message.className =
+    div.className =
         "ai-message " +
         type;
 
 
-    message.textContent =
+    div.textContent =
         text;
 
 
-    messages.appendChild(
-        message
-    );
-
-
-    messages.scrollTop =
-        messages.scrollHeight;
-
-}
-
-
-/* =====================================================
-   رسالة خطأ مفصلة
-===================================================== */
-
-function addAIError(
-    title,
-    details
-) {
-
-    const messages =
-        document.getElementById(
-            "aiMessages"
-        );
-
-
-    if (!messages) {
-        return;
-    }
-
-
-    const message =
-        document.createElement(
-            "div"
-        );
-
-
-    message.className =
-        "ai-message error";
-
-
-    message.textContent =
-        title +
-        "\n\n" +
-        details;
-
-
-    messages.appendChild(
-        message
-    );
+    messages.appendChild(div);
 
 
     messages.scrollTop =
@@ -3270,22 +3622,16 @@ function addAIError(
 
 /* =====================================================
    السؤال المقترح
-   الآن يتم الإرسال مباشرة
 ===================================================== */
 
 function useAISuggestion(
     text
-) {
+){
 
     const input =
         document.getElementById(
             "aiInput"
         );
-
-
-    if (!input) {
-        return;
-    }
 
 
     input.value =
@@ -3293,18 +3639,19 @@ function useAISuggestion(
 
 
     /*
-     * إرسال السؤال مباشرة
-     */
+       الإرسال مباشرة
+    */
+
     sendAIMessage();
 
 }
 
 
 /* =====================================================
-   إرسال السؤال إلى Edge Function
+   إرسال AI
 ===================================================== */
 
-async function sendAIMessage() {
+async function sendAIMessage(){
 
     const input =
         document.getElementById(
@@ -3312,106 +3659,69 @@ async function sendAIMessage() {
         );
 
 
-    const sendButton =
+    const button =
         document.getElementById(
             "aiSend"
         );
-
-
-    if (!input || !sendButton) {
-
-        return;
-
-    }
 
 
     const message =
         input.value.trim();
 
 
-    if (!message) {
+    if(!message){
 
         return;
-
     }
 
 
-    /* =================================================
-       التأكد من وجود جلسة تسجيل الدخول
-    ================================================= */
+    /* ===========================
+       التحقق من الجلسة
+    =========================== */
 
-    try {
+    try{
 
         const {
-            data: sessionData,
-            error: sessionError
+            data,
+            error
         } =
-            await supabaseClient.auth.getSession();
+        await supabaseClient.auth.getSession();
 
 
-        if (sessionError) {
+        if(
+            error ||
+            !data?.session?.user
+        ){
 
-            console.error(
-                "Session error:",
-                sessionError
-            );
-
-            addAIError(
-                "❌ تعذر التحقق من تسجيل الدخول.",
-                sessionError.message ||
-                "حدث خطأ أثناء التحقق من جلسة Supabase."
+            addAIMessage(
+                "🔐 يجب تسجيل الدخول إلى المنصة أولًا لاستخدام المساعد الذكي.",
+                "error"
             );
 
             return;
-
-        }
-
-
-        if (
-            !sessionData ||
-            !sessionData.session ||
-            !sessionData.session.user
-        ) {
-
-            currentUser = null;
-
-            addAIError(
-                "🔐 يجب تسجيل الدخول أولًا.",
-                "لا توجد جلسة Supabase نشطة في هذه الصفحة."
-            );
-
-            return;
-
         }
 
 
         currentUser =
-            sessionData.session.user;
-
+            data.session.user;
 
     }
+    catch(error){
 
-    catch (sessionException) {
+        console.error(error);
 
-        console.error(
-            "Session exception:",
-            sessionException
-        );
-
-        addAIError(
-            "❌ حدث خطأ أثناء التحقق من الجلسة.",
-            sessionException.message ||
-            String(sessionException)
+        addAIMessage(
+            "❌ تعذر التحقق من جلسة تسجيل الدخول.",
+            "error"
         );
 
         return;
-
     }
 
 
-    /* =================================================
-       إظهار رسالة المستخدم
-    ================================================= */
+    /* ===========================
+       عرض السؤال
+    =========================== */
 
     addAIMessage(
         message,
@@ -3422,42 +3732,11 @@ async function sendAIMessage() {
     input.value = "";
 
 
-    /* =================================================
-       تعطيل الإرسال
-    ================================================= */
-
-    sendButton.disabled =
+    button.disabled =
         true;
 
-    sendButton.textContent =
+    button.textContent =
         "⏳";
-
-
-    /*
-     * تعطيل أزرار الاقتراحات أثناء الطلب
-     */
-
-    const suggestionButtons =
-        document.querySelectorAll(
-            ".ai-suggestion"
-        );
-
-
-    suggestionButtons.forEach(
-        button => {
-            button.disabled = true;
-        }
-    );
-
-
-    /* =================================================
-       إضافة حالة التفكير
-    ================================================= */
-
-    const messages =
-        document.getElementById(
-            "aiMessages"
-        );
 
 
     const thinking =
@@ -3466,22 +3745,20 @@ async function sendAIMessage() {
         );
 
 
-    thinking.className =
-        "ai-message bot";
-
-
     thinking.id =
         "aiThinking";
 
+    thinking.className =
+        "ai-message bot";
 
-    thinking.innerHTML = `
-        🤔 جاري التفكير
-        <span class="ai-thinking">
-            <span></span>
-            <span></span>
-            <span></span>
-        </span>
-    `;
+    thinking.textContent =
+        "🤔 جاري التفكير...";
+
+
+    const messages =
+        document.getElementById(
+            "aiMessages"
+        );
 
 
     messages.appendChild(
@@ -3493,14 +3770,14 @@ async function sendAIMessage() {
         messages.scrollHeight;
 
 
-    /* =================================================
-       الاتصال بـ Edge Function
-    ================================================= */
+    /* ===========================
+       الاتصال بالدالة
+    =========================== */
 
-    try {
+    try{
 
         console.log(
-            "إرسال الطلب إلى swift-processor..."
+            "الاتصال بـ swift-processor..."
         );
 
 
@@ -3508,30 +3785,27 @@ async function sendAIMessage() {
             data,
             error
         } =
-            await supabaseClient.functions.invoke(
-                "swift-processor",
-                {
-                    body: {
-                        message:
-                            message
-                    }
+        await supabaseClient.functions.invoke(
+            "swift-processor",
+            {
+                body:{
+                    message:message
                 }
-            );
+            }
+        );
 
 
         console.log(
-            "نتيجة المساعد:",
+            "AI DATA:",
             data
         );
 
 
         console.log(
-            "خطأ المساعد:",
+            "AI ERROR:",
             error
         );
 
-
-        /* إزالة جاري التفكير */
 
         const thinkingElement =
             document.getElementById(
@@ -3539,138 +3813,65 @@ async function sendAIMessage() {
             );
 
 
-        if (thinkingElement) {
+        if(thinkingElement){
 
             thinkingElement.remove();
 
         }
 
 
-        /* =================================================
-           معالجة خطأ Edge Function
-        ================================================= */
-
-        if (error) {
+        if(error){
 
             console.error(
-                "AI Function Error:",
+                "Function error:",
                 error
             );
 
 
-            let details =
-                error.message ||
-                "تعذر الاتصال بـ Edge Function.";
-
-
-            /*
-             * محاولة استخراج تفاصيل إضافية
-             */
-
-            if (
-                error.context &&
-                typeof error.context === "object"
-            ) {
-
-                try {
-
-                    const response =
-                        error.context;
-
-
-                    if (
-                        response &&
-                        typeof response.text ===
-                        "function"
-                    ) {
-
-                        const errorText =
-                            await response.text();
-
-                        if (errorText) {
-
-                            details +=
-                                "\n\nتفاصيل الخادم:\n" +
-                                errorText;
-
-                        }
-
-                    }
-
-                }
-
-                catch (detailsError) {
-
-                    console.error(
-                        "Error reading function details:",
-                        detailsError
-                    );
-
-                }
-
-            }
-
-
-            addAIError(
-                "❌ حدث خطأ أثناء الاتصال بالمساعد الذكي.",
-                details
+            addAIMessage(
+                "❌ تعذر الاتصال بالمساعد الذكي.\n\n" +
+                (
+                    error.message ||
+                    "تحقق من Edge Function المسماة swift-processor."
+                ),
+                "error"
             );
 
 
             return;
-
         }
 
 
-        /* =================================================
-           التأكد من وجود البيانات
-        ================================================= */
+        if(
+            !data ||
+            !data.success
+        ){
 
-        if (!data) {
-
-            addAIError(
-                "❌ لم تصل أي استجابة من المساعد.",
-                "Edge Function لم تُرجع بيانات."
+            addAIMessage(
+                "❌ لم يتم الحصول على إجابة.\n\n" +
+                (
+                    data?.error ||
+                    "حدث خطأ داخل خدمة المساعد الذكي."
+                ),
+                "error"
             );
 
-            return;
-
-        }
-
-
-        /* =================================================
-           معالجة خطأ مرسل من Edge Function
-        ================================================= */
-
-        if (!data.success) {
-
-            addAIError(
-                "❌ المساعد الذكي أرجع خطأ.",
-                data.error ||
-                "حدث خطأ غير معروف داخل Edge Function."
-            );
 
             return;
-
         }
 
-
-        /* =================================================
-           عرض الإجابة
-        ================================================= */
 
         addAIMessage(
             data.answer ||
-            "لم يتم الحصول على إجابة.",
+            "لم تصل إجابة.",
             "bot"
         );
 
     }
-
-    catch (error) {
+    catch(error){
 
         console.error(
-            "AI Error:",
+            "AI exception:",
             error
         );
 
@@ -3681,36 +3882,30 @@ async function sendAIMessage() {
             );
 
 
-        if (thinkingElement) {
+        if(thinkingElement){
 
             thinkingElement.remove();
 
         }
 
 
-        addAIError(
-            "❌ حدث خطأ غير متوقع.",
-            error.message ||
-            String(error)
+        addAIMessage(
+            "❌ حدث خطأ أثناء الاتصال بالمساعد.\n\n" +
+            (
+                error.message ||
+                String(error)
+            ),
+            "error"
         );
 
     }
+    finally{
 
-    finally {
-
-        sendButton.disabled =
+        button.disabled =
             false;
 
-
-        sendButton.textContent =
+        button.textContent =
             "➤";
-
-
-        suggestionButtons.forEach(
-            button => {
-                button.disabled = false;
-            }
-        );
 
     }
 
@@ -3718,12 +3913,12 @@ async function sendAIMessage() {
 
 
 /* =====================================================
-   زر Enter لإرسال السؤال
+   Enter للإرسال
 ===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
-    function() {
+    function(){
 
         const input =
             document.getElementById(
@@ -3731,21 +3926,14 @@ document.addEventListener(
             );
 
 
-        if (!input) {
-
-            return;
-
-        }
-
-
         input.addEventListener(
             "keydown",
-            function(event) {
+            function(event){
 
-                if (
+                if(
                     event.key === "Enter" &&
                     !event.shiftKey
-                ) {
+                ){
 
                     event.preventDefault();
 
@@ -3756,18 +3944,17 @@ document.addEventListener(
             }
         );
 
+
+        /*
+         * تشغيل الصفحة
+         */
+
+        loadCourses();
+
     }
 );
-
-
-/* =====================================================
-   تشغيل الصفحة
-===================================================== */
-
-loadCourses();
 
 </script>
 
 </body>
-
 </html>
