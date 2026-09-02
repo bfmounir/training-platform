@@ -8,7 +8,7 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>لوحة المتربص | منصة التكوين المستمر</title>
+<title>فضاء المتربص | منصة التكوين المستمر</title>
 
 <style>
 
@@ -354,9 +354,6 @@ body {
         0 16px 38px rgba(30,70,100,.11);
 }
 
-
-/* رأس الدورة */
-
 .course-header {
     padding: 25px;
 
@@ -405,9 +402,6 @@ body {
 
     margin: 10px 0 0;
 }
-
-
-/* محتوى الدورة */
 
 .course-body {
     padding: 25px;
@@ -552,11 +546,6 @@ a {
     border-radius: 11px;
 }
 
-
-/* =====================================================
-   بطاقة الدرس
-===================================================== */
-
 .lesson {
 
     background:
@@ -592,7 +581,6 @@ a {
 }
 
 .lesson h3 {
-
     margin: 0 0 10px;
 
     color: #263238;
@@ -603,7 +591,6 @@ a {
 }
 
 .lesson p {
-
     line-height: 1.9;
 
     color: #546e7a;
@@ -770,9 +757,6 @@ a {
     line-height: 1.7;
 }
 
-
-/* بطاقة الشهادة */
-
 .certificate-card {
 
     background: white;
@@ -904,6 +888,359 @@ a {
 
 
 /* =====================================================
+   المساعد الذكي
+===================================================== */
+
+.ai-button {
+
+    position: fixed;
+
+    left: 22px;
+    bottom: 22px;
+
+    z-index: 9999;
+
+    border: none;
+
+    border-radius: 50px;
+
+    padding: 14px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #18a6a6
+        );
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px rgba(13,110,253,.30);
+
+    transition: .25s;
+}
+
+.ai-button:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(13,110,253,.40);
+}
+
+
+/* نافذة المساعد */
+
+.ai-panel {
+
+    position: fixed;
+
+    left: 22px;
+    bottom: 85px;
+
+    width: 390px;
+
+    max-width:
+        calc(100vw - 30px);
+
+    height: 560px;
+
+    max-height:
+        calc(100vh - 120px);
+
+    background: white;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.20);
+
+    overflow: hidden;
+
+    z-index: 9998;
+
+    display: none;
+
+    flex-direction: column;
+
+    border: 1px solid #e2eaf1;
+}
+
+.ai-panel.open {
+    display: flex;
+}
+
+
+/* رأس المساعد */
+
+.ai-header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #073b78,
+            #0d6efd,
+            #18a6a6
+        );
+
+    color: white;
+
+    padding: 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.ai-header-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.ai-header-icon {
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.18);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 22px;
+}
+
+.ai-header h3 {
+
+    margin: 0;
+
+    font-size: 17px;
+}
+
+.ai-header small {
+
+    display: block;
+
+    margin-top: 3px;
+
+    opacity: .85;
+}
+
+.ai-close {
+
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 23px;
+
+    cursor: pointer;
+}
+
+
+/* رسائل المساعد */
+
+.ai-messages {
+
+    flex: 1;
+
+    padding: 15px;
+
+    overflow-y: auto;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f7fafc,
+            #eef5f9
+        );
+}
+
+.ai-message {
+
+    max-width: 85%;
+
+    padding: 11px 14px;
+
+    margin-bottom: 11px;
+
+    border-radius: 15px;
+
+    line-height: 1.7;
+
+    font-size: 14px;
+
+    white-space: pre-line;
+}
+
+.ai-message.user {
+
+    margin-right: auto;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #168cff
+        );
+
+    color: white;
+
+    border-bottom-right-radius: 4px;
+}
+
+.ai-message.bot {
+
+    margin-left: auto;
+
+    background: white;
+
+    color: #37474f;
+
+    border: 1px solid #e1e9ef;
+
+    border-bottom-left-radius: 4px;
+}
+
+
+/* الأسئلة المقترحة */
+
+.ai-suggestions {
+
+    padding: 8px 12px;
+
+    display: flex;
+
+    gap: 7px;
+
+    overflow-x: auto;
+
+    background: white;
+
+    border-top: 1px solid #edf1f4;
+}
+
+.ai-suggestion {
+
+    flex-shrink: 0;
+
+    border: 1px solid #d8e5ef;
+
+    background: #f5f9fc;
+
+    color: #1565c0;
+
+    border-radius: 20px;
+
+    padding: 7px 11px;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+
+/* منطقة الكتابة */
+
+.ai-input-area {
+
+    display: flex;
+
+    gap: 8px;
+
+    padding: 12px;
+
+    background: white;
+
+    border-top: 1px solid #e4ebf0;
+}
+
+.ai-input {
+
+    flex: 1;
+
+    resize: none;
+
+    border: 1px solid #d7e2ea;
+
+    border-radius: 13px;
+
+    padding: 11px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    outline: none;
+
+    min-height: 43px;
+}
+
+.ai-input:focus {
+
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 3px rgba(13,110,253,.08);
+}
+
+.ai-send {
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #18a6a6
+        );
+
+    color: white;
+
+    font-size: 19px;
+
+    cursor: pointer;
+}
+
+.ai-send:disabled {
+
+    opacity: .6;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
    الفوتر
 ===================================================== */
 
@@ -997,6 +1334,28 @@ footer strong {
         font-size: 21px;
     }
 
+    .ai-button {
+
+        left: 15px;
+        bottom: 15px;
+
+        padding: 13px 17px;
+    }
+
+    .ai-panel {
+
+        left: 10px;
+        right: 10px;
+
+        bottom: 75px;
+
+        width: auto;
+
+        max-width: none;
+
+        height: 520px;
+    }
+
 }
 
 </style>
@@ -1056,8 +1415,6 @@ footer strong {
 
 <div class="container">
 
-
-<!-- الترحيب -->
 
 <section class="welcome">
 
@@ -1188,6 +1545,132 @@ footer strong {
 
 
 <!-- =====================================================
+     المساعد الذكي
+===================================================== -->
+
+<button
+    id="aiButton"
+    class="ai-button"
+    onclick="toggleAIAssistant()">
+
+    🤖 المساعد الذكي
+
+</button>
+
+
+<div
+    id="aiPanel"
+    class="ai-panel"
+    dir="rtl">
+
+    <div class="ai-header">
+
+        <div class="ai-header-info">
+
+            <div class="ai-header-icon">
+                🤖
+            </div>
+
+            <div>
+
+                <h3>
+                    المساعد الذكي
+                </h3>
+
+                <small>
+                    مساعدك في التكوين والتعلم
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="ai-close"
+            onclick="toggleAIAssistant()"
+            aria-label="إغلاق">
+
+            ×
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="aiMessages"
+        class="ai-messages">
+
+        <div class="ai-message bot">
+
+            👋 مرحبًا بك.
+
+            أنا المساعد الذكي لمنصة التكوين المستمر.
+
+            يمكنني مساعدتك في فهم الدروس،
+            تلخيص المحتوى، وإعداد أسئلة للمراجعة.
+
+        </div>
+
+    </div>
+
+
+    <div class="ai-suggestions">
+
+        <button
+            class="ai-suggestion"
+            onclick="useAISuggestion('اشرح لي أهمية التكوين المتواصل للموظفين')">
+
+            📚 اشرح لي
+
+        </button>
+
+
+        <button
+            class="ai-suggestion"
+            onclick="useAISuggestion('لخص لي هذا الدرس بطريقة سهلة')">
+
+            📝 لخص لي
+
+        </button>
+
+
+        <button
+            class="ai-suggestion"
+            onclick="useAISuggestion('أنشئ لي أسئلة للمراجعة')">
+
+            ❓ أسئلة مراجعة
+
+        </button>
+
+    </div>
+
+
+    <div class="ai-input-area">
+
+        <textarea
+            id="aiInput"
+            class="ai-input"
+            placeholder="اكتب سؤالك هنا..."
+            rows="1"></textarea>
+
+
+        <button
+            id="aiSend"
+            class="ai-send"
+            onclick="sendAIMessage()">
+
+            ➤
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
      الفوتر
 ===================================================== -->
 
@@ -1214,7 +1697,7 @@ footer strong {
 
 
 <!-- =====================================================
-     المكتبات الخاصة بالشهادة
+     مكتبات الشهادة
 ===================================================== -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -1282,14 +1765,14 @@ footer strong {
 <script>
 
 /* =====================================================
-   المستخدم الحالي
+   المتغيرات العامة
 ===================================================== */
 
 let currentUser = null;
 
 
 /* =====================================================
-   الحصول على المستخدم
+   الحصول على المستخدم الحالي
 ===================================================== */
 
 async function getCurrentUser() {
@@ -1334,12 +1817,13 @@ async function isEnrolled(courseId) {
 
 
 /* =====================================================
-   التقدم
+   الحصول على تقدم الدروس
 ===================================================== */
 
 async function getProgress(lessonIds) {
 
     if (!lessonIds.length) {
+
         return [];
     }
 
@@ -1451,6 +1935,7 @@ async function updateCourseProgress(
 
 
     if (error || !lessons) {
+
         return;
     }
 
@@ -1543,7 +2028,7 @@ async function updateCourseProgress(
 
 
 /* =====================================================
-   التسجيل في دورة
+   التسجيل في الدورة
 ===================================================== */
 
 async function enrollInCourse(
@@ -2017,6 +2502,7 @@ async function loadMyCertificates() {
 
 
     if (!data || !data.length) {
+
         return;
     }
 
@@ -2066,8 +2552,10 @@ async function loadMyCertificates() {
 
 
         if (course) {
+
             courseName =
                 course.name;
+
         }
 
 
@@ -2232,7 +2720,6 @@ async function loadCourses() {
 
 
     let enrolledTotal = 0;
-
 
     let courseNumber = 0;
 
@@ -2542,6 +3029,367 @@ async function loadCourses() {
     await loadMyCertificates();
 
 }
+
+
+/* =====================================================
+   المساعد الذكي
+===================================================== */
+
+function toggleAIAssistant() {
+
+    const panel =
+        document.getElementById(
+            "aiPanel"
+        );
+
+    panel.classList.toggle(
+        "open"
+    );
+
+}
+
+
+/* =====================================================
+   إضافة رسالة
+===================================================== */
+
+function addAIMessage(
+    text,
+    type
+) {
+
+    const messages =
+        document.getElementById(
+            "aiMessages"
+        );
+
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+
+    message.className =
+        "ai-message " +
+        type;
+
+
+    message.textContent =
+        text;
+
+
+    messages.appendChild(
+        message
+    );
+
+
+    messages.scrollTop =
+        messages.scrollHeight;
+
+}
+
+
+/* =====================================================
+   السؤال المقترح
+===================================================== */
+
+function useAISuggestion(
+    text
+) {
+
+    const input =
+        document.getElementById(
+            "aiInput"
+        );
+
+
+    input.value =
+        text;
+
+
+    input.focus();
+
+}
+
+
+/* =====================================================
+   إرسال السؤال إلى Edge Function
+===================================================== */
+
+async function sendAIMessage() {
+
+    const input =
+        document.getElementById(
+            "aiInput"
+        );
+
+
+    const sendButton =
+        document.getElementById(
+            "aiSend"
+        );
+
+
+    const message =
+        input.value.trim();
+
+
+    if (!message) {
+
+        return;
+
+    }
+
+
+    /* التأكد من تسجيل الدخول */
+
+    if (!currentUser) {
+
+        currentUser =
+            await getCurrentUser();
+
+    }
+
+
+    if (!currentUser) {
+
+        addAIMessage(
+            "🔐 يجب تسجيل الدخول إلى المنصة أولًا لاستخدام المساعد الذكي.",
+            "bot"
+        );
+
+        return;
+
+    }
+
+
+    /* إظهار رسالة المستخدم */
+
+    addAIMessage(
+        message,
+        "user"
+    );
+
+
+    input.value = "";
+
+
+    /* تعطيل زر الإرسال */
+
+    sendButton.disabled =
+        true;
+
+
+    sendButton.textContent =
+        "⏳";
+
+
+    /* جاري التفكير */
+
+    const thinking =
+        document.createElement(
+            "div"
+        );
+
+
+    thinking.className =
+        "ai-message bot";
+
+
+    thinking.id =
+        "aiThinking";
+
+
+    thinking.textContent =
+        "🤔 جاري التفكير...";
+
+
+    const messages =
+        document.getElementById(
+            "aiMessages"
+        );
+
+
+    messages.appendChild(
+        thinking
+    );
+
+
+    messages.scrollTop =
+        messages.scrollHeight;
+
+
+    try {
+
+        /*
+         * مهم:
+         *
+         * لا نضع OPENAI_API_KEY هنا.
+         *
+         * supabaseClient.functions.invoke
+         * يستخدم جلسة Supabase الحالية.
+         */
+
+        const { data, error } =
+            await supabaseClient.functions.invoke(
+                "swift-processor",
+                {
+                    body: {
+                        message: message
+                    }
+                }
+            );
+
+
+        /* إزالة جاري التفكير */
+
+        const thinkingElement =
+            document.getElementById(
+                "aiThinking"
+            );
+
+
+        if (thinkingElement) {
+
+            thinkingElement.remove();
+
+        }
+
+
+        /* معالجة الخطأ */
+
+        if (error) {
+
+            console.error(
+                "AI Function Error:",
+                error
+            );
+
+
+            addAIMessage(
+                "❌ تعذر الاتصال بالمساعد الذكي. تأكد من تسجيل الدخول ثم حاول مرة أخرى.",
+                "bot"
+            );
+
+
+            return;
+
+        }
+
+
+        /* التأكد من وجود الإجابة */
+
+        if (
+            !data ||
+            !data.success
+        ) {
+
+            addAIMessage(
+                data?.error ||
+                "❌ لم يتم الحصول على إجابة من المساعد.",
+                "bot"
+            );
+
+
+            return;
+
+        }
+
+
+        /* عرض الإجابة */
+
+        addAIMessage(
+            data.answer ||
+            "لم يتم الحصول على إجابة.",
+            "bot"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "AI Error:",
+            error
+        );
+
+
+        const thinkingElement =
+            document.getElementById(
+                "aiThinking"
+            );
+
+
+        if (thinkingElement) {
+
+            thinkingElement.remove();
+
+        }
+
+
+        addAIMessage(
+            "❌ حدث خطأ أثناء الاتصال بالمساعد الذكي.",
+            "bot"
+        );
+
+    }
+
+    finally {
+
+        sendButton.disabled =
+            false;
+
+
+        sendButton.textContent =
+            "➤";
+
+    }
+
+}
+
+
+/* =====================================================
+   زر Enter لإرسال السؤال
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const input =
+            document.getElementById(
+                "aiInput"
+            );
+
+
+        if (!input) {
+
+            return;
+
+        }
+
+
+        input.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Enter" &&
+                    !event.shiftKey
+                ) {
+
+                    event.preventDefault();
+
+                    sendAIMessage();
+
+                }
+
+            }
+        );
+
+    }
+);
 
 
 /* =====================================================
