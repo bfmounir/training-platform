@@ -551,6 +551,15 @@ body{
     color:#b86b00;
 }
 
+.trainee-info{
+    line-height:1.7;
+}
+
+.trainee-info small{
+    color:var(--text);
+    font-size:10px;
+}
+
 /* =========================
    MESSAGE
 ========================= */
@@ -1240,7 +1249,7 @@ body{
                 </h2>
 
                 <span>
-                    آخر المسجلين في التكوين
+                    المتربصون المقبولون في المنصة
                 </span>
 
             </div>
@@ -1642,15 +1651,34 @@ async function loadTrainees(){
 
     try{
 
+        /*
+         * المتربصون المقبولون يتم جلبهم
+         * من جدول trainee_requests
+         *
+         * جدول enrollments فارغ حاليًا،
+         * لذلك لا نعتمد عليه في هذه المرحلة.
+         */
+
         const {
             data,
             error
         } =
         await supabaseClient
-        .from("enrollments")
-        .select("*")
-        .order("created_at",{ascending:false})
-        .limit(10);
+        .from("trainee_requests")
+        .select(`
+            id,
+            user_id,
+            full_name,
+            email,
+            phone,
+            position,
+            department,
+            status,
+            created_at
+        `)
+        .eq("status","approved")
+        .order("created_at",{ascending:false});
+
 
         if(error)
             throw error;
@@ -1669,7 +1697,9 @@ async function loadTrainees(){
                 <div class="trainee-row">
 
                     <div>
-                        لا توجد تسجيلات حالياً
+
+                        لا توجد طلبات متربصين مقبولة حالياً
+
                     </div>
 
                     <div>
@@ -1697,30 +1727,48 @@ async function loadTrainees(){
 
                 <div class="trainee-row">
 
-                    <div>
-                        ${escapeHTML(
-                            item.trainee_id ||
-                            "متربص"
-                        )}
+                    <div class="trainee-info">
+
+                        <strong>
+
+                            ${escapeHTML(
+                                item.full_name ||
+                                "متربص"
+                            )}
+
+                        </strong>
+
+                        <br>
+
+                        <small>
+
+                            ${escapeHTML(
+                                item.email || ""
+                            )}
+
+                        </small>
+
                     </div>
 
+
                     <div>
-                        ${escapeHTML(
-                            item.course_id ||
-                            "دورة"
-                        )}
+
+                        لم يتم ربط الدورة بعد
+
                     </div>
+
 
                     <div>
 
                         <span
                             class="badge badge-success">
 
-                            مسجل
+                            مقبول
 
                         </span>
 
                     </div>
+
 
                     <div>
 
@@ -1740,14 +1788,25 @@ async function loadTrainees(){
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "خطأ تحميل المتربصين:",
+            error
+        );
 
         list.innerHTML = `
 
             <div class="trainee-row">
 
                 <div>
+
                     تعذر تحميل بيانات المتربصين.
+
+                    <br><br>
+
+                    ${escapeHTML(
+                        error.message
+                    )}
+
                 </div>
 
             </div>
