@@ -3,292 +3,350 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>لوحة تحكم المسؤول</title>
+<title>لوحة تحكم المسؤول</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 
-    <style>
+<style>
 
-        * {
-            box-sizing: border-box;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            font-family: Arial, Tahoma, sans-serif;
-            background: #f4f6f8;
-            color: #1f2937;
-        }
+body {
+    margin: 0;
+    font-family: Arial, Tahoma, sans-serif;
+    background: #f4f6f8;
+    color: #1f2937;
+}
 
-        /* القائمة الجانبية */
+/* القائمة الجانبية */
 
-        .sidebar {
-            position: fixed;
-            right: 0;
-            top: 0;
-            width: 270px;
-            height: 100vh;
-            background: linear-gradient(180deg, #0f766e, #115e59);
-            color: white;
-            padding: 22px 15px;
-            box-shadow: -4px 0 18px rgba(0,0,0,.12);
-            overflow-y: auto;
-            z-index: 1000;
-        }
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 270px;
+    height: 100vh;
+    background: linear-gradient(180deg, #0f766e, #115e59);
+    color: white;
+    padding: 22px 15px;
+    box-shadow: -4px 0 18px rgba(0,0,0,.12);
+    overflow-y: auto;
+    z-index: 1000;
+}
 
-        .logo-box {
-            text-align: center;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255,255,255,.20);
-            margin-bottom: 18px;
-        }
+.logo-box {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,.20);
+    margin-bottom: 18px;
+}
 
-        .logo-box img {
-            width: 78px;
-            height: 78px;
-            object-fit: contain;
-            background: white;
-            border-radius: 50%;
-            padding: 5px;
-        }
+.logo-box img {
+    width: 78px;
+    height: 78px;
+    object-fit: contain;
+    background: white;
+    border-radius: 50%;
+    padding: 5px;
+}
 
-        .logo-box h2 {
-            font-size: 16px;
-            line-height: 1.6;
-            margin: 12px 0 0;
-        }
+.logo-box h2 {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 12px 0 0;
+}
 
-        .menu a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 12px 14px;
-            margin: 5px 0;
-            border-radius: 10px;
-            font-size: 14px;
-            transition: .2s;
-        }
+.menu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 12px 14px;
+    margin: 5px 0;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: .2s;
+}
 
-        .menu a:hover {
-            background: rgba(255,255,255,.15);
-            transform: translateX(-2px);
-        }
+.menu a:hover {
+    background: rgba(255,255,255,.15);
+    transform: translateX(-2px);
+}
 
-        .menu a.active {
-            background: rgba(255,255,255,.20);
-        }
+.menu a.active {
+    background: rgba(255,255,255,.20);
+}
 
-        .logout {
-            width: 100%;
-            border: none;
-            background: #dc2626;
-            color: white;
-            padding: 12px;
-            margin-top: 18px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+.logout {
+    width: 100%;
+    border: none;
+    background: #dc2626;
+    color: white;
+    padding: 12px;
+    margin-top: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
 
-        .logout:hover {
-            background: #b91c1c;
-        }
+.logout:hover {
+    background: #b91c1c;
+}
 
-        /* المحتوى */
+/* المحتوى */
 
-        .main {
-            margin-right: 270px;
-            padding: 30px;
-        }
+.main {
+    margin-right: 270px;
+    padding: 30px;
+}
 
-        .top-header {
-            background: white;
-            border-radius: 18px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,.06);
-            margin-bottom: 25px;
-        }
+.top-header {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.06);
+    margin-bottom: 25px;
+}
 
-        .top-header h1 {
-            margin: 0 0 8px;
-            color: #115e59;
-            font-size: 27px;
-        }
+.top-header h1 {
+    margin: 0 0 8px;
+    color: #115e59;
+    font-size: 27px;
+}
 
-        .top-header p {
-            margin: 0;
-            color: #64748b;
-            line-height: 1.8;
-        }
+.top-header p {
+    margin: 0;
+    color: #64748b;
+    line-height: 1.8;
+}
 
-        .institution {
-            margin-top: 12px;
-            font-size: 14px;
-            color: #475569;
-            font-weight: bold;
-        }
+.institution {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #475569;
+    font-weight: bold;
+}
 
-        /* البطاقات */
+/* الإحصائيات */
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
 
-        .card {
-            background: white;
-            border-radius: 18px;
-            padding: 23px;
-            box-shadow: 0 5px 20px rgba(0,0,0,.06);
-            transition: .2s;
-            border: 1px solid #eef2f7;
-        }
+.stat-card {
+    background: white;
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.06);
+    border: 1px solid #eef2f7;
+    text-align: center;
+}
 
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 9px 25px rgba(0,0,0,.09);
-        }
+.stat-icon {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
 
-        .card-icon {
-            width: 55px;
-            height: 55px;
-            border-radius: 14px;
-            background: #ecfdf5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            margin-bottom: 15px;
-        }
+.stat-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #0f766e;
+}
 
-        .card h3 {
-            margin: 0 0 8px;
-            color: #1f2937;
-            font-size: 18px;
-        }
+.stat-title {
+    margin-top: 6px;
+    color: #64748b;
+    font-size: 14px;
+}
 
-        .card p {
-            color: #64748b;
-            font-size: 14px;
-            line-height: 1.7;
-            min-height: 48px;
-        }
+/* البطاقات */
 
-        .card a {
-            display: inline-block;
-            margin-top: 10px;
-            text-decoration: none;
-            background: #0f766e;
-            color: white;
-            padding: 9px 15px;
-            border-radius: 9px;
-            font-size: 13px;
-        }
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
 
-        .card a:hover {
-            background: #115e59;
-        }
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 23px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.06);
+    transition: .2s;
+    border: 1px solid #eef2f7;
+}
 
-        /* بطاقة طلبات المتربصين */
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 25px rgba(0,0,0,.09);
+}
 
-        .trainee-request-card {
-            border: 2px solid #ccfbf1;
-            position: relative;
-        }
+.card-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 14px;
+    background: #ecfdf5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 15px;
+}
 
-        .new-label {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: #f59e0b;
-            color: white;
-            padding: 5px 9px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: bold;
-        }
+.card h3 {
+    margin: 0 0 8px;
+    color: #1f2937;
+    font-size: 18px;
+}
 
-        /* معلومات المسؤول */
+.card p {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 48px;
+}
 
-        .admin-info {
-            margin-top: 28px;
-            background: linear-gradient(135deg, #ffffff, #f0fdfa);
-            border-radius: 18px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,.06);
-        }
+.card a {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    background: #0f766e;
+    color: white;
+    padding: 9px 15px;
+    border-radius: 9px;
+    font-size: 13px;
+}
 
-        .admin-info h2 {
-            margin-top: 0;
-            color: #115e59;
-            font-size: 20px;
-        }
+.card a:hover {
+    background: #115e59;
+}
 
-        .admin-info p {
-            margin: 8px 0;
-            color: #475569;
-        }
+/* بطاقة طلبات المتربصين */
 
-        .footer {
-            text-align: center;
-            color: #94a3b8;
-            font-size: 13px;
-            margin-top: 30px;
-            padding-bottom: 15px;
-        }
+.trainee-request-card {
+    border: 2px solid #ccfbf1;
+    position: relative;
+}
 
-        /* الهاتف */
+.new-label {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #f59e0b;
+    color: white;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
 
-        @media (max-width: 1100px) {
+/* معلومات المسؤول */
 
-            .cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
+.admin-info {
+    margin-top: 28px;
+    background: linear-gradient(135deg, #ffffff, #f0fdfa);
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.06);
+}
 
-        }
+.admin-info h2 {
+    margin-top: 0;
+    color: #115e59;
+    font-size: 20px;
+}
 
-        @media (max-width: 800px) {
+.admin-info p {
+    margin: 8px 0;
+    color: #475569;
+}
 
-            .sidebar {
-                position: relative;
-                width: 100%;
-                height: auto;
-                overflow: visible;
-            }
+.footer {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 13px;
+    margin-top: 30px;
+    padding-bottom: 15px;
+}
 
-            .main {
-                margin-right: 0;
-                padding: 15px;
-            }
+/* رسائل */
 
-            .menu {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 5px;
-            }
+.loading {
+    opacity: .65;
+}
 
-            .menu a {
-                margin: 2px 0;
-            }
+/* الهاتف */
 
-            .cards {
-                grid-template-columns: 1fr;
-            }
+@media (max-width: 1100px) {
 
-            .top-header h1 {
-                font-size: 22px;
-            }
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-        }
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-    </style>
+}
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+    }
+
+    .main {
+        margin-right: 0;
+        padding: 15px;
+    }
+
+    .menu {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+    }
+
+    .menu a {
+        margin: 2px 0;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .top-header h1 {
+        font-size: 22px;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -321,8 +379,6 @@
         <a href="admin-users.html">
             👥 المستخدمون
         </a>
-
-        <!-- الرابط الجديد -->
 
         <a href="admin-trainee-requests.html">
             📝 طلبات تسجيل المتربصين
@@ -388,6 +444,100 @@
             المؤسسة العمومية الإستشفائية بأولف – ولاية أدرار
 
         </div>
+
+    </section>
+
+
+
+    <!-- ================================
+         الإحصائيات
+    ================================= -->
+
+    <section class="stats">
+
+
+        <!-- إجمالي الحسابات -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                👥
+            </div>
+
+            <div id="totalUsers"
+                 class="stat-number loading">
+                ...
+            </div>
+
+            <div class="stat-title">
+                إجمالي الحسابات
+            </div>
+
+        </div>
+
+
+
+        <!-- المشاركون المقبولون -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🧑‍🎓
+            </div>
+
+            <div id="approvedTrainees"
+                 class="stat-number loading">
+                ...
+            </div>
+
+            <div class="stat-title">
+                المشاركون المقبولون
+            </div>
+
+        </div>
+
+
+
+        <!-- طلبات التسجيل -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📝
+            </div>
+
+            <div id="traineeRequests"
+                 class="stat-number loading">
+                ...
+            </div>
+
+            <div class="stat-title">
+                طلبات التسجيل
+            </div>
+
+        </div>
+
+
+
+        <!-- الدورات -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📚
+            </div>
+
+            <div id="totalCourses"
+                 class="stat-number loading">
+                ...
+            </div>
+
+            <div class="stat-title">
+                إجمالي الدورات
+            </div>
+
+        </div>
+
 
     </section>
 
@@ -657,8 +807,9 @@
 
 <script>
 
-
-/* التحقق من أن المستخدم مسؤول */
+/* ==================================================
+   التحقق من أن المستخدم مسؤول
+================================================== */
 
 async function checkAdmin() {
 
@@ -672,7 +823,7 @@ async function checkAdmin() {
 
         window.location.href = "login.html";
 
-        return;
+        return null;
 
     }
 
@@ -699,14 +850,18 @@ async function checkAdmin() {
 
         window.location.href = "login.html";
 
-        return;
+        return null;
 
     }
+
+    return user;
 
 }
 
 
-/* تسجيل الخروج */
+/* ==================================================
+   تسجيل الخروج
+================================================== */
 
 async function logout() {
 
@@ -717,10 +872,237 @@ async function logout() {
 }
 
 
-/* تشغيل التحقق */
+/* ==================================================
+   إجمالي الحسابات
+   من جدول user_roles
+================================================== */
 
-checkAdmin();
+async function loadTotalUsers() {
 
+    const {
+        count,
+        error
+    } = await supabaseClient
+        .from("user_roles")
+        .select("*", {
+            count: "exact",
+            head: true
+        });
+
+
+    const element =
+        document.getElementById("totalUsers");
+
+
+    if (error) {
+
+        console.error(
+            "Total users error:",
+            error
+        );
+
+        element.textContent = "—";
+
+        return;
+
+    }
+
+
+    element.textContent =
+        count ?? 0;
+
+    element.classList.remove("loading");
+
+}
+
+
+/* ==================================================
+   المشاركون المقبولون
+   من trainee_requests
+   status = approved
+================================================== */
+
+async function loadApprovedTrainees() {
+
+    const {
+        count,
+        error
+    } = await supabaseClient
+        .from("trainee_requests")
+        .select("*", {
+            count: "exact",
+            head: true
+        })
+        .eq(
+            "status",
+            "approved"
+        );
+
+
+    const element =
+        document.getElementById("approvedTrainees");
+
+
+    if (error) {
+
+        console.error(
+            "Approved trainees error:",
+            error
+        );
+
+        element.textContent = "—";
+
+        return;
+
+    }
+
+
+    element.textContent =
+        count ?? 0;
+
+    element.classList.remove("loading");
+
+}
+
+
+/* ==================================================
+   طلبات التسجيل
+   جميع السجلات الموجودة في trainee_requests
+================================================== */
+
+async function loadTraineeRequests() {
+
+    const {
+        count,
+        error
+    } = await supabaseClient
+        .from("trainee_requests")
+        .select("*", {
+            count: "exact",
+            head: true
+        });
+
+
+    const element =
+        document.getElementById("traineeRequests");
+
+
+    if (error) {
+
+        console.error(
+            "Trainee requests error:",
+            error
+        );
+
+        element.textContent = "—";
+
+        return;
+
+    }
+
+
+    element.textContent =
+        count ?? 0;
+
+    element.classList.remove("loading");
+
+}
+
+
+/* ==================================================
+   إجمالي الدورات
+================================================== */
+
+async function loadTotalCourses() {
+
+    const element =
+        document.getElementById("totalCourses");
+
+
+    /*
+       نحاول قراءة جدول courses.
+       إذا كان الجدول موجودًا سيتم عرض العدد.
+    */
+
+    const {
+        count,
+        error
+    } = await supabaseClient
+        .from("courses")
+        .select("*", {
+            count: "exact",
+            head: true
+        });
+
+
+    if (error) {
+
+        console.error(
+            "Courses error:",
+            error
+        );
+
+        element.textContent = "—";
+
+        return;
+
+    }
+
+
+    element.textContent =
+        count ?? 0;
+
+    element.classList.remove("loading");
+
+}
+
+
+/* ==================================================
+   تحميل جميع الإحصائيات
+================================================== */
+
+async function loadDashboardStats() {
+
+    await Promise.all([
+
+        loadTotalUsers(),
+
+        loadApprovedTrainees(),
+
+        loadTraineeRequests(),
+
+        loadTotalCourses()
+
+    ]);
+
+}
+
+
+/* ==================================================
+   تشغيل لوحة التحكم
+================================================== */
+
+async function initDashboard() {
+
+    const admin =
+        await checkAdmin();
+
+
+    if (!admin) {
+
+        return;
+
+    }
+
+
+    await loadDashboardStats();
+
+}
+
+
+/* تشغيل */
+
+initDashboard();
 
 </script>
 
@@ -728,4 +1110,3 @@ checkAdmin();
 </body>
 
 </html>
-```
