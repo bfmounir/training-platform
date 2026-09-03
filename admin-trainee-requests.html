@@ -1,0 +1,800 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>طلبات تسجيل المتربصين</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Tahoma, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            background: linear-gradient(180deg, #0f766e, #115e59);
+            color: white;
+            padding: 25px 15px;
+            box-shadow: -4px 0 15px rgba(0,0,0,.12);
+            z-index: 10;
+        }
+
+        .logo-box {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,.2);
+            margin-bottom: 20px;
+        }
+
+        .logo-box img {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            background: white;
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .logo-box h2 {
+            font-size: 17px;
+            line-height: 1.6;
+            margin: 12px 0 0;
+        }
+
+        .menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 13px 15px;
+            margin: 6px 0;
+            border-radius: 10px;
+            transition: .2s;
+            font-size: 15px;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: rgba(255,255,255,.16);
+        }
+
+        .logout {
+            margin-top: 25px;
+            width: 100%;
+            border: none;
+            background: #dc2626;
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .main {
+            margin-right: 270px;
+            padding: 30px;
+        }
+
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 22px 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.06);
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            margin: 0 0 8px;
+            color: #115e59;
+            font-size: 25px;
+        }
+
+        .header p {
+            margin: 0;
+            color: #64748b;
+        }
+
+        .message {
+            display: none;
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .loading {
+            background: white;
+            border-radius: 14px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,.05);
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.06);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        th {
+            background: #f0fdfa;
+            color: #115e59;
+            padding: 15px;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 15px;
+            border-top: 1px solid #e5e7eb;
+            vertical-align: middle;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .approved {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .actions {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .approve {
+            background: #16a34a;
+            color: white;
+        }
+
+        .approve:hover {
+            background: #15803d;
+        }
+
+        .reject {
+            background: #dc2626;
+            color: white;
+        }
+
+        .reject:hover {
+            background: #b91c1c;
+        }
+
+        .disabled {
+            background: #cbd5e1;
+            color: #475569;
+            cursor: default;
+        }
+
+        .empty {
+            padding: 40px;
+            text-align: center;
+            color: #64748b;
+        }
+
+        .count-box {
+            display: inline-block;
+            background: #0f766e;
+            color: white;
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 800px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-right: 0;
+                padding: 15px;
+            }
+
+            .menu {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 5px;
+            }
+
+            .menu a {
+                margin: 2px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="logo-box">
+        <img src="logo.png" alt="شعار المؤسسة">
+
+        <h2>
+            المؤسسة العمومية الإستشفائية بأولف
+        </h2>
+    </div>
+
+    <nav class="menu">
+
+        <a href="admin.html">
+            🏠 لوحة التحكم
+        </a>
+
+        <a href="admin-users.html">
+            👥 المستخدمون
+        </a>
+
+        <a href="admin-courses.html">
+            📚 الدورات
+        </a>
+
+        <a href="admin-lessons.html">
+            📖 الدروس
+        </a>
+
+        <a href="admin-certificates.html">
+            🎓 الشهادات
+        </a>
+
+        <a href="admin-statistics.html">
+            📊 الإحصائيات
+        </a>
+
+        <a href="external-training.html">
+            🌐 التكوينات الخارجية
+        </a>
+
+        <a href="admin-announcements.html">
+            📢 الإعلانات
+        </a>
+
+        <a href="admin-trainee-requests.html" class="active">
+            📝 طلبات تسجيل المتربصين
+        </a>
+
+    </nav>
+
+    <button class="logout" onclick="logout()">
+        تسجيل الخروج
+    </button>
+
+</aside>
+
+
+<main class="main">
+
+    <section class="header">
+
+        <h1>
+            📝 طلبات تسجيل المتربصين
+        </h1>
+
+        <p>
+            مراجعة طلبات التسجيل والموافقة عليها أو رفضها.
+        </p>
+
+        <div id="countBox" class="count-box">
+            جاري التحميل...
+        </div>
+
+    </section>
+
+
+    <div id="successMessage" class="message success"></div>
+    <div id="errorMessage" class="message error"></div>
+
+
+    <div id="loading" class="loading">
+        جاري تحميل طلبات التسجيل...
+    </div>
+
+
+    <div id="tableContainer" class="table-container" style="display:none;">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>الاسم الكامل</th>
+                    <th>البريد الإلكتروني</th>
+                    <th>الهاتف</th>
+                    <th>الوظيفة</th>
+                    <th>المصلحة</th>
+                    <th>تاريخ الطلب</th>
+                    <th>الحالة</th>
+                    <th>الإجراء</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="requestsBody"></tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+
+<script>
+
+async function checkAdmin() {
+
+    const {
+        data: { user },
+        error
+    } = await supabaseClient.auth.getUser();
+
+    if (error || !user) {
+        window.location.href = "login.html";
+        return false;
+    }
+
+    const { data: roleData, error: roleError } =
+        await supabaseClient
+            .from("user_roles")
+            .select("role")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+    if (roleError || !roleData || roleData.role !== "admin") {
+
+        alert("ليس لديك صلاحية الدخول إلى هذه الصفحة.");
+        window.location.href = "login.html";
+        return false;
+    }
+
+    return true;
+}
+
+
+function showSuccess(message) {
+
+    const box = document.getElementById("successMessage");
+
+    box.textContent = message;
+    box.style.display = "block";
+
+    document.getElementById("errorMessage").style.display = "none";
+
+    setTimeout(() => {
+        box.style.display = "none";
+    }, 4000);
+}
+
+
+function showError(message) {
+
+    const box = document.getElementById("errorMessage");
+
+    box.textContent = message;
+    box.style.display = "block";
+
+    document.getElementById("successMessage").style.display = "none";
+}
+
+
+function formatDate(date) {
+
+    if (!date) return "-";
+
+    return new Date(date).toLocaleDateString("ar-DZ", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    });
+}
+
+
+function statusLabel(status) {
+
+    if (status === "pending") return "قيد المراجعة";
+    if (status === "approved") return "مقبول";
+    if (status === "rejected") return "مرفوض";
+
+    return status || "-";
+}
+
+
+async function loadRequests() {
+
+    document.getElementById("loading").style.display = "block";
+    document.getElementById("tableContainer").style.display = "none";
+
+    const { data, error } =
+        await supabaseClient
+            .from("trainee_requests")
+            .select("*")
+            .order("created_at", { ascending: false });
+
+    document.getElementById("loading").style.display = "none";
+
+    if (error) {
+
+        showError(
+            "تعذر تحميل طلبات التسجيل: " + error.message
+        );
+
+        return;
+    }
+
+    const body = document.getElementById("requestsBody");
+
+    body.innerHTML = "";
+
+    const pendingCount =
+        data.filter(item => item.status === "pending").length;
+
+    document.getElementById("countBox").textContent =
+        "عدد الطلبات قيد المراجعة: " + pendingCount;
+
+
+    if (!data || data.length === 0) {
+
+        document.getElementById("tableContainer").style.display = "block";
+
+        body.innerHTML = `
+            <tr>
+                <td colspan="8" class="empty">
+                    لا توجد طلبات تسجيل حاليًا.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    data.forEach(request => {
+
+        const row = document.createElement("tr");
+
+        let actions = "";
+
+        if (request.status === "pending") {
+
+            actions = `
+                <div class="actions">
+
+                    <button
+                        class="btn approve"
+                        onclick="approveRequest('${request.id}', '${request.user_id}')">
+                        ✅ قبول
+                    </button>
+
+                    <button
+                        class="btn reject"
+                        onclick="rejectRequest('${request.id}')">
+                        ❌ رفض
+                    </button>
+
+                </div>
+            `;
+
+        } else if (request.status === "approved") {
+
+            actions = `
+                <span class="status approved">
+                    تمت الموافقة
+                </span>
+            `;
+
+        } else {
+
+            actions = `
+                <span class="status rejected">
+                    تم الرفض
+                </span>
+            `;
+        }
+
+
+        row.innerHTML = `
+
+            <td>
+                <strong>${escapeHtml(request.full_name || "-")}</strong>
+            </td>
+
+            <td>
+                ${escapeHtml(request.email || "-")}
+            </td>
+
+            <td>
+                ${escapeHtml(request.phone || "-")}
+            </td>
+
+            <td>
+                ${escapeHtml(request.position || "-")}
+            </td>
+
+            <td>
+                ${escapeHtml(request.department || "-")}
+            </td>
+
+            <td>
+                ${formatDate(request.created_at)}
+            </td>
+
+            <td>
+                <span class="status ${request.status}">
+                    ${statusLabel(request.status)}
+                </span>
+            </td>
+
+            <td>
+                ${actions}
+            </td>
+        `;
+
+        body.appendChild(row);
+
+    });
+
+
+    document.getElementById("tableContainer").style.display = "block";
+}
+
+
+async function approveRequest(requestId, userId) {
+
+    const confirmed = confirm(
+        "هل أنت متأكد من قبول طلب تسجيل هذا المتربص؟"
+    );
+
+    if (!confirmed) return;
+
+
+    try {
+
+        /*
+         * أولًا: نتأكد هل للمستخدم دور موجود أصلًا.
+         */
+
+        const { data: existingRole, error: roleCheckError } =
+            await supabaseClient
+                .from("user_roles")
+                .select("id, role")
+                .eq("user_id", userId)
+                .maybeSingle();
+
+
+        if (roleCheckError) {
+
+            throw new Error(
+                "تعذر التحقق من صلاحية المستخدم: " +
+                roleCheckError.message
+            );
+        }
+
+
+        /*
+         * إذا لم يكن لديه دور، نضيف trainee.
+         */
+
+        if (!existingRole) {
+
+            const { error: insertRoleError } =
+                await supabaseClient
+                    .from("user_roles")
+                    .insert({
+                        user_id: userId,
+                        role: "trainee"
+                    });
+
+            if (insertRoleError) {
+
+                throw new Error(
+                    "تعذر منح صلاحية المتربص: " +
+                    insertRoleError.message
+                );
+            }
+
+        } else if (existingRole.role !== "trainee") {
+
+            throw new Error(
+                "هذا الحساب لديه صلاحية مختلفة بالفعل: " +
+                existingRole.role
+            );
+        }
+
+
+        /*
+         * ثانيًا: تحديث حالة الطلب.
+         */
+
+        const {
+            data: { user: adminUser }
+        } = await supabaseClient.auth.getUser();
+
+
+        const { error: updateError } =
+            await supabaseClient
+                .from("trainee_requests")
+                .update({
+                    status: "approved",
+                    reviewed_at: new Date().toISOString(),
+                    reviewed_by: adminUser.id
+                })
+                .eq("id", requestId);
+
+
+        if (updateError) {
+
+            throw new Error(
+                "تم منح الصلاحية، لكن تعذر تحديث حالة الطلب: " +
+                updateError.message
+            );
+        }
+
+
+        showSuccess(
+            "تم قبول طلب المتربص ومنحه صلاحية الدخول بنجاح."
+        );
+
+        await loadRequests();
+
+    } catch (error) {
+
+        console.error(error);
+
+        showError(error.message);
+    }
+}
+
+
+async function rejectRequest(requestId) {
+
+    const reason = prompt(
+        "اكتب سبب رفض طلب التسجيل:"
+    );
+
+    if (reason === null) return;
+
+
+    try {
+
+        const {
+            data: { user: adminUser }
+        } = await supabaseClient.auth.getUser();
+
+
+        const { error } =
+            await supabaseClient
+                .from("trainee_requests")
+                .update({
+                    status: "rejected",
+                    rejection_reason: reason.trim(),
+                    reviewed_at: new Date().toISOString(),
+                    reviewed_by: adminUser.id
+                })
+                .eq("id", requestId);
+
+
+        if (error) {
+
+            throw new Error(
+                "تعذر رفض الطلب: " + error.message
+            );
+        }
+
+
+        showSuccess(
+            "تم رفض طلب التسجيل."
+        );
+
+        await loadRequests();
+
+    } catch (error) {
+
+        console.error(error);
+
+        showError(error.message);
+    }
+}
+
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href = "login.html";
+}
+
+
+async function startPage() {
+
+    const isAdmin = await checkAdmin();
+
+    if (!isAdmin) return;
+
+    await loadRequests();
+}
+
+
+startPage();
+
+</script>
+
+</body>
+</html>
+```
