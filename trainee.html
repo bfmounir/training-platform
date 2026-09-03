@@ -1,1618 +1,1835 @@
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>فضاء المتربص | منصة التكوين المستمر</title>
-
-<style>
-
-*{
-    box-sizing:border-box;
-}
-
-:root{
-    --primary:#087f8c;
-    --primary-dark:#075c66;
-    --secondary:#0b6efd;
-    --success:#159957;
-    --warning:#f59e0b;
-    --danger:#dc3545;
-    --purple:#7952b3;
-
-    --dark:#17324d;
-    --text:#526477;
-    --muted:#8998a8;
-
-    --light:#f4f8fb;
-    --white:#ffffff;
-    --border:#e4edf3;
-
-    --shadow:0 10px 35px rgba(27,66,91,.08);
-    --shadow-hover:0 18px 45px rgba(27,66,91,.14);
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    margin:0;
-    font-family:Tahoma,Arial,sans-serif;
-    background:linear-gradient(180deg,#f7fafc 0%,#f1f6f9 100%);
-    color:var(--dark);
-}
-
-button,
-textarea{
-    font-family:inherit;
-}
-
-.app{
-    min-height:100vh;
-}
-
-/* =========================
-   SIDEBAR
-========================= */
-
-.sidebar{
-    width:270px;
-    position:fixed;
-    top:0;
-    right:0;
-    bottom:0;
-    z-index:1000;
-    padding:22px 16px;
-    color:white;
-    background:linear-gradient(180deg,#073b4c 0%,#075c66 55%,#087f8c 100%);
-    box-shadow:-8px 0 30px rgba(7,59,76,.12);
-    overflow-y:auto;
-    transition:.3s ease;
-}
-
-.logo-area{
-    text-align:center;
-    padding:4px 5px 24px;
-    border-bottom:1px solid rgba(255,255,255,.14);
-}
-
-.logo{
-    width:72px;
-    height:72px;
-    object-fit:contain;
-    padding:7px;
-    background:white;
-    border-radius:20px;
-    box-shadow:0 8px 25px rgba(0,0,0,.12);
-    margin-bottom:11px;
-}
-
-.logo-area h2{
-    margin:3px 0 5px;
-    font-size:18px;
-}
-
-.logo-area p{
-    margin:0;
-    font-size:11px;
-    line-height:1.8;
-    color:rgba(255,255,255,.72);
-}
-
-.nav{
-    margin-top:24px;
-}
-
-.nav-title{
-    margin:0 11px 10px;
-    font-size:11px;
-    color:rgba(255,255,255,.52);
-}
-
-.nav-item{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:12px 13px;
-    margin-bottom:7px;
-    border-radius:14px;
-    color:rgba(255,255,255,.80);
-    text-decoration:none;
-    font-size:13px;
-    cursor:pointer;
-    transition:.2s ease;
-}
-
-.nav-item:hover,
-.nav-item.active{
-    color:white;
-    background:rgba(255,255,255,.13);
-    transform:translateX(-3px);
-}
-
-.nav-icon{
-    width:37px;
-    height:37px;
-    flex:0 0 37px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:11px;
-    background:rgba(255,255,255,.10);
-    font-size:17px;
-}
-
-.sidebar-footer{
-    margin-top:30px;
-    padding:15px 12px;
-    border-radius:15px;
-    background:rgba(255,255,255,.08);
-    color:rgba(255,255,255,.70);
-    font-size:11px;
-    line-height:1.9;
-}
-
-.sidebar-footer strong{
-    color:white;
-}
-
-/* =========================
-   MAIN
-========================= */
-
-.main{
-    width:calc(100% - 270px);
-    margin-right:270px;
-    min-height:100vh;
-}
-
-.topbar{
-    height:76px;
-    position:sticky;
-    top:0;
-    z-index:900;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 30px;
-    background:rgba(255,255,255,.94);
-    border-bottom:1px solid var(--border);
-    backdrop-filter:blur(12px);
-}
-
-.page-title h1{
-    margin:0;
-    font-size:21px;
-    color:var(--dark);
-}
-
-.page-title span{
-    display:block;
-    margin-top:4px;
-    color:var(--muted);
-    font-size:11px;
-}
-
-.top-actions{
-    display:flex;
-    align-items:center;
-    gap:9px;
-}
-
-.top-button{
-    width:42px;
-    height:42px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border:1px solid var(--border);
-    border-radius:12px;
-    background:#f8fafc;
-    color:var(--dark);
-    font-size:17px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.top-button:hover{
-    background:#edf7f8;
-    border-color:#cde6e9;
-    transform:translateY(-2px);
-}
-
-/* =========================
-   CONTENT
-========================= */
-
-.content{
-    width:100%;
-    max-width:1450px;
-    margin:auto;
-    padding:30px;
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-    min-height:235px;
-    position:relative;
-    overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:30px;
-    padding:36px;
-    border-radius:27px;
-    color:white;
-    background:linear-gradient(115deg,#073b4c 0%,#087f8c 52%,#0b6efd 100%);
-    box-shadow:0 17px 45px rgba(7,59,76,.18);
-}
-
-.hero::before{
-    content:"";
-    position:absolute;
-    width:300px;
-    height:300px;
-    left:-100px;
-    top:-120px;
-    border-radius:50%;
-    background:rgba(255,255,255,.06);
-}
-
-.hero::after{
-    content:"";
-    position:absolute;
-    width:230px;
-    height:230px;
-    right:38%;
-    bottom:-160px;
-    border-radius:50%;
-    background:rgba(255,255,255,.05);
-}
-
-.hero-content{
-    position:relative;
-    z-index:2;
-    max-width:760px;
-}
-
-.hero-label{
-    display:inline-block;
-    padding:7px 14px;
-    margin-bottom:13px;
-    border:1px solid rgba(255,255,255,.15);
-    border-radius:30px;
-    background:rgba(255,255,255,.12);
-    font-size:12px;
-}
-
-.hero h2{
-    margin:0;
-    font-size:31px;
-    line-height:1.55;
-}
-
-.hero p{
-    margin:9px 0 0;
-    max-width:690px;
-    color:rgba(255,255,255,.82);
-    font-size:14px;
-    line-height:1.9;
-}
-
-.hero-user{
-    margin-top:15px;
-    font-size:13px;
-    color:rgba(255,255,255,.90);
-}
-
-.hero-icon{
-    width:145px;
-    height:145px;
-    position:relative;
-    z-index:2;
-    flex:0 0 145px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border:1px solid rgba(255,255,255,.15);
-    border-radius:38px;
-    background:rgba(255,255,255,.10);
-    font-size:68px;
-    backdrop-filter:blur(6px);
-}
-
-/* =========================
-   STATS
-========================= */
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-    margin:25px 0;
-}
-
-.stat{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    padding:20px;
-    border:1px solid var(--border);
-    border-radius:20px;
-    background:white;
-    box-shadow:var(--shadow);
-    transition:.25s ease;
-}
-
-.stat:hover{
-    transform:translateY(-4px);
-    box-shadow:var(--shadow-hover);
-}
-
-.stat-icon{
-    width:58px;
-    height:58px;
-    flex:0 0 58px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:17px;
-    background:#e9f7f8;
-    font-size:25px;
-}
-
-.stat:nth-child(2) .stat-icon{
-    background:#edf4ff;
-}
-
-.stat:nth-child(3) .stat-icon{
-    background:#f4edff;
-}
-
-.stat-info strong{
-    display:block;
-    font-size:27px;
-    color:var(--dark);
-}
-
-.stat-info span{
-    color:var(--muted);
-    font-size:12px;
-}
-
-/* =========================
-   QUICK CARDS
-========================= */
-
-.quick-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-    margin:20px 0 32px;
-}
-
-.quick-card{
-    padding:18px;
-    border:1px solid var(--border);
-    border-radius:18px;
-    background:#fff;
-    box-shadow:var(--shadow);
-    cursor:pointer;
-    transition:.25s ease;
-}
-
-.quick-card:hover{
-    transform:translateY(-4px);
-    box-shadow:var(--shadow-hover);
-}
-
-.quick-icon{
-    width:45px;
-    height:45px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:14px;
-    background:#edf7f8;
-    font-size:21px;
-    margin-bottom:12px;
-}
-
-.quick-card:nth-child(2) .quick-icon{
-    background:#f2edff;
-}
-
-.quick-card:nth-child(3) .quick-icon{
-    background:#edf4ff;
-}
-
-.quick-card:nth-child(4) .quick-icon{
-    background:#fff7e5;
-}
-
-.quick-card strong{
-    display:block;
-    font-size:14px;
-    margin-bottom:5px;
-}
-
-.quick-card span{
-    color:var(--muted);
-    font-size:11px;
-}
-
-/* =========================
-   SECTION HEAD
-========================= */
-
-.section-head{
-    display:flex;
-    align-items:end;
-    justify-content:space-between;
-    margin:36px 0 18px;
-}
-
-.section-title{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.section-title-icon{
-    width:46px;
-    height:46px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:14px;
-    background:#e7f7f8;
-    font-size:21px;
-}
-
-.section-title h2{
-    margin:0;
-    font-size:21px;
-}
-
-.section-title p{
-    margin:4px 0 0;
-    color:#8a99a7;
-    font-size:12px;
-}
-
-/* =========================
-   PROFILE
-========================= */
-
-.profile-card{
-    display:grid;
-    grid-template-columns:100px 1fr;
-    gap:22px;
-    align-items:center;
-    padding:24px;
-    margin-bottom:25px;
-    border:1px solid var(--border);
-    border-radius:22px;
-    background:white;
-    box-shadow:var(--shadow);
-}
-
-.profile-avatar{
-    width:90px;
-    height:90px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:25px;
-    color:white;
-    background:linear-gradient(135deg,#075c66,#0b6efd);
-    font-size:38px;
-    font-weight:bold;
-}
-
-.profile-main h2{
-    margin:0 0 6px;
-    font-size:20px;
-}
-
-.profile-main .email{
-    color:var(--muted);
-    font-size:12px;
-    margin-bottom:15px;
-}
-
-.profile-details{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-}
-
-.profile-detail{
-    padding:11px 13px;
-    border-radius:13px;
-    background:#f6f9fb;
-    color:var(--text);
-    font-size:11px;
-}
-
-.profile-detail strong{
-    display:block;
-    color:var(--dark);
-    margin-bottom:4px;
-    font-size:12px;
-}
-
-/* =========================
-   MESSAGE
-========================= */
-
-#message{
-    margin-bottom:20px;
-    padding:14px 18px;
-    border-right:4px solid var(--primary);
-    border-radius:14px;
-    background:white;
-    color:var(--text);
-    box-shadow:0 5px 20px rgba(0,0,0,.04);
-    font-size:13px;
-}
-
-/* =========================
-   COURSES
-========================= */
-
-#coursesList{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:20px;
-}
-
-.course{
-    overflow:hidden;
-    border:1px solid var(--border);
-    border-radius:23px;
-    background:white;
-    box-shadow:var(--shadow);
-    transition:.3s ease;
-}
-
-.course:hover{
-    transform:translateY(-5px);
-    box-shadow:var(--shadow-hover);
-}
-
-.course-header{
-    position:relative;
-    padding:25px;
-    border-bottom:1px solid var(--border);
-    background:linear-gradient(135deg,#f0fbfc,#f5f9ff);
-}
-
-.course-number{
-    position:absolute;
-    top:18px;
-    left:18px;
-    width:39px;
-    height:39px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:12px;
-    background:white;
-    color:var(--primary);
-    font-weight:bold;
-    box-shadow:0 4px 12px rgba(0,0,0,.06);
-}
-
-.course-header h2{
-    margin:0;
-    padding-left:48px;
-    font-size:19px;
-    line-height:1.6;
-    color:var(--dark);
-}
-
-.course-description{
-    margin:12px 0 0;
-    color:var(--text);
-    font-size:13px;
-    line-height:1.8;
-}
-
-.course-body{
-    padding:22px;
-}
-
-.enrolled{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    padding:8px 13px;
-    border-radius:30px;
-    background:#e9f8ef;
-    color:#168348;
-    font-size:12px;
-    font-weight:bold;
-}
-
-.enroll-button,
-.pdf-button,
-.complete-button,
-.certificate-button{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    margin-top:10px;
-    padding:10px 15px;
-    border:none;
-    border-radius:11px;
-    color:white;
-    font-family:inherit;
-    font-size:12px;
-    font-weight:bold;
-    text-decoration:none;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.enroll-button{
-    background:linear-gradient(135deg,#159957,#20b86b);
-}
-
-.pdf-button{
-    background:linear-gradient(135deg,#0b6efd,#338cff);
-}
-
-.complete-button{
-    background:linear-gradient(135deg,#087f8c,#0b9ca8);
-}
-
-.certificate-button{
-    background:linear-gradient(135deg,#7952b3,#9b6bd0);
-}
-
-.enroll-button:hover,
-.pdf-button:hover,
-.complete-button:hover,
-.certificate-button:hover{
-    transform:translateY(-2px);
-    filter:brightness(1.05);
-}
-
-.completed{
-    background:#8a99a7 !important;
-    cursor:default !important;
-}
-
-/* =========================
-   PROGRESS
-========================= */
-
-.progress-area{
-    margin-top:18px;
-    padding:15px;
-    border:1px solid var(--border);
-    border-radius:15px;
-    background:#f7fafc;
-}
-
-.progress-text{
-    margin-bottom:9px;
-    color:var(--text);
-    font-size:12px;
-    font-weight:bold;
-}
-
-.progress{
-    height:9px;
-    overflow:hidden;
-    border-radius:20px;
-    background:#e4edf1;
-}
-
-.progress-bar{
-    width:0;
-    height:100%;
-    border-radius:20px;
-    background:linear-gradient(90deg,#159957,#0b9ca8);
-    transition:width .6s ease;
-}
-
-.finished{
-    display:none;
-    margin-top:13px;
-    padding:11px;
-    border-right:3px solid var(--warning);
-    border-radius:12px;
-    background:#fff7df;
-    color:#876000;
-    font-size:12px;
-    font-weight:bold;
-}
-
-/* =========================
-   LESSONS
-========================= */
-
-.lessons-heading{
-    margin-top:22px;
-    padding-top:18px;
-    border-top:1px solid var(--border);
-    color:var(--dark);
-    font-size:15px;
-    font-weight:bold;
-}
-
-.lesson{
-    margin-top:10px;
-    padding:15px;
-    border:1px solid var(--border);
-    border-radius:14px;
-    background:#fafcfd;
-}
-
-.lesson h3{
-    margin:0 0 8px;
-    color:var(--dark);
-    font-size:14px;
-    line-height:1.6;
-}
-
-.lesson p{
-    margin:0;
-    color:var(--text);
-    font-size:12px;
-    line-height:1.9;
-    white-space:pre-line;
-}
-
-/* =========================
-   CERTIFICATES
-========================= */
-
-#certificateArea{
-    margin-top:38px;
-}
-
-.certificates-title{
-    margin-bottom:18px;
-    padding:27px;
-    border-radius:22px;
-    color:white;
-    background:linear-gradient(135deg,#5b3ca4,#8c62cf);
-    box-shadow:0 12px 35px rgba(91,60,164,.15);
-}
-
-.certificates-title h2{
-    margin:0 0 7px;
-    font-size:22px;
-}
-
-.certificates-title p{
-    margin:0;
-    opacity:.85;
-    font-size:12px;
-}
-
-.certificate-card{
-    margin-bottom:15px;
-    padding:22px;
-    border:1px solid var(--border);
-    border-radius:19px;
-    background:white;
-    box-shadow:var(--shadow);
-}
-
-.certificate-card h3{
-    margin:0 0 14px;
-    color:#6f42c1;
-    font-size:17px;
-}
-
-.certificate-card p{
-    color:var(--text);
-    font-size:12px;
-    line-height:1.8;
-}
-
-/* =========================
-   ANNOUNCEMENTS
-========================= */
-
-.announcement-box{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
-}
-
-.announcement-card{
-    padding:20px;
-    border:1px solid var(--border);
-    border-radius:18px;
-    background:white;
-    box-shadow:var(--shadow);
-}
-
-.announcement-icon{
-    width:46px;
-    height:46px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:14px;
-    background:#fff7e5;
-    font-size:22px;
-    margin-bottom:12px;
-}
-
-.announcement-card h3{
-    margin:0 0 7px;
-    font-size:15px;
-}
-
-.announcement-card p{
-    margin:0;
-    color:var(--text);
-    font-size:12px;
-    line-height:1.8;
-}
-
-.announcement-empty{
-    grid-column:1/-1;
-    padding:25px;
-    text-align:center;
-    border:1px dashed var(--border);
-    border-radius:18px;
-    background:white;
-    color:var(--muted);
-}
-
-/* =========================
-   ATTENDANCE
-========================= */
-
-.attendance-card{
-    padding:25px;
-    border:1px solid var(--border);
-    border-radius:22px;
-    background:white;
-    box-shadow:var(--shadow);
-}
-
-.attendance-status{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-.attendance-icon{
-    width:60px;
-    height:60px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:17px;
-    background:#edf7f8;
-    font-size:27px;
-}
-
-.attendance-status h3{
-    margin:0 0 5px;
-    font-size:17px;
-}
-
-.attendance-status p{
-    margin:0;
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.7;
-}
-
-/* =========================
-   EXTERNAL TRAININGS
-========================= */
-
-.external-section{
-    margin-top:28px;
-}
-
-.external-list{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
-    gap:20px;
-    margin-top:18px;
-}
-
-.external-card{
-    position:relative;
-    overflow:hidden;
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:22px;
-    padding:22px;
-    box-shadow:var(--shadow);
-    transition:transform .25s ease,box-shadow .25s ease;
-}
-
-.external-card:hover{
-    transform:translateY(-4px);
-    box-shadow:var(--shadow-hover);
-}
-
-.external-card::before{
-    content:"";
-    position:absolute;
-    top:0;
-    right:0;
-    left:0;
-    height:4px;
-    background:linear-gradient(90deg,var(--primary),var(--secondary));
-}
-
-.external-card-head{
-    display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    gap:12px;
-    margin-bottom:14px;
-}
-
-.external-icon{
-    width:50px;
-    height:50px;
-    flex:0 0 50px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:15px;
-    background:linear-gradient(135deg,#e7f8fa,#edf4ff);
-    font-size:25px;
-}
-
-.external-title{
-    margin:0;
-    color:var(--dark);
-    font-size:19px;
-    line-height:1.55;
-}
-
-.external-status{
-    display:inline-flex;
-    align-items:center;
-    white-space:nowrap;
-    border-radius:999px;
-    padding:6px 10px;
-    font-size:12px;
-    font-weight:700;
-    background:#eef7f1;
-    color:#16824b;
-}
-
-.external-status.soon{
-    background:#fff7e8;
-    color:#b76b00;
-}
-
-.external-status.closed{
-    background:#fff0f1;
-    color:#c52f3f;
-}
-
-.external-status.finished{
-    background:#eef1f5;
-    color:#64748b;
-}
-
-.external-description{
-    margin:0 0 16px;
-    color:var(--text);
-    line-height:1.8;
-    white-space:pre-line;
-}
-
-.external-info{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-bottom:17px;
-}
-
-.external-info-item{
-    padding:11px 12px;
-    border-radius:13px;
-    background:var(--light);
-    color:var(--text);
-    font-size:13px;
-    line-height:1.6;
-}
-
-.external-info-item strong{
-    display:block;
-    color:var(--dark);
-    margin-bottom:3px;
-}
-
-.external-actions{
-    display:flex;
-    flex-wrap:wrap;
-    gap:9px;
-}
-
-.external-action{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    min-height:42px;
-    padding:9px 14px;
-    border-radius:12px;
-    border:0;
-    text-decoration:none;
-    font-weight:700;
-    font-family:inherit;
-    cursor:pointer;
-    transition:transform .2s ease,opacity .2s ease;
-}
-
-.external-action:hover{
-    transform:translateY(-1px);
-    opacity:.92;
-}
-
-.external-action.primary{
-    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
-    color:#fff;
-}
-
-.external-action.secondary{
-    background:#edf4ff;
-    color:#1559a6;
-}
-
-.external-empty,
-.external-error,
-.external-loading{
-    padding:28px 20px;
-    text-align:center;
-    border:1px dashed var(--border);
-    border-radius:18px;
-    background:#fff;
-    color:var(--muted);
-}
-
-/* =========================
-   AI
-========================= */
-
-.ai-button{
-    position:fixed;
-    left:25px;
-    bottom:25px;
-    z-index:2000;
-    padding:14px 20px;
-    border:none;
-    border-radius:50px;
-    color:white;
-    background:linear-gradient(135deg,#075c66,#0b6efd);
-    font-family:inherit;
-    font-weight:bold;
-    cursor:pointer;
-    box-shadow:0 10px 30px rgba(7,92,102,.30);
-    transition:.25s;
-}
-
-.ai-button:hover{
-    transform:translateY(-4px);
-}
-
-.ai-panel{
-    position:fixed;
-    left:25px;
-    bottom:85px;
-    z-index:1999;
-    width:400px;
-    height:570px;
-    max-width:calc(100vw - 30px);
-    display:none;
-    flex-direction:column;
-    overflow:hidden;
-    border:1px solid var(--border);
-    border-radius:24px;
-    background:white;
-    box-shadow:0 20px 60px rgba(15,40,60,.25);
-}
-
-.ai-panel.open{
-    display:flex;
-}
-
-.ai-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:18px;
-    color:white;
-    background:linear-gradient(135deg,#073b4c,#087f8c,#0b6efd);
-}
-
-.ai-header-info{
-    display:flex;
-    align-items:center;
-    gap:11px;
-}
-
-.ai-header-icon{
-    width:43px;
-    height:43px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:14px;
-    background:rgba(255,255,255,.14);
-    font-size:22px;
-}
-
-.ai-header h3{
-    margin:0;
-    font-size:16px;
-}
-
-.ai-header small{
-    display:block;
-    margin-top:4px;
-    opacity:.8;
-    font-size:10px;
-}
-
-.ai-close{
-    border:none;
-    background:transparent;
-    color:white;
-    font-size:25px;
-    cursor:pointer;
-}
-
-.ai-messages{
-    flex:1;
-    overflow-y:auto;
-    padding:16px;
-    background:#f4f8fb;
-}
-
-.ai-message{
-    max-width:88%;
-    margin-bottom:11px;
-    padding:11px 14px;
-    border-radius:15px;
-    font-size:13px;
-    line-height:1.8;
-    white-space:pre-line;
-}
-
-.ai-message.bot{
-    margin-left:auto;
-    border:1px solid var(--border);
-    border-bottom-left-radius:5px;
-    background:white;
-    color:var(--text);
-}
-
-.ai-message.user{
-    margin-right:auto;
-    border-bottom-right-radius:5px;
-    background:linear-gradient(135deg,#087f8c,#0b6efd);
-    color:white;
-}
-
-.ai-message.error{
-    border:1px solid #f1c2c2;
-    background:#fff2f2;
-    color:#a61b1b;
-}
-
-.ai-suggestions{
-    display:flex;
-    gap:7px;
-    overflow-x:auto;
-    padding:9px 12px;
-    background:white;
-    border-top:1px solid var(--border);
-}
-
-.ai-suggestion{
-    white-space:nowrap;
-    padding:8px 11px;
-    border:1px solid #dce7ed;
-    border-radius:20px;
-    background:#f7fafc;
-    color:var(--primary);
-    font-family:inherit;
-    font-size:11px;
-    cursor:pointer;
-}
-
-.ai-input-area{
-    display:flex;
-    gap:8px;
-    padding:12px;
-    background:white;
-    border-top:1px solid var(--border);
-}
-
-.ai-input{
-    flex:1;
-    min-height:44px;
-    max-height:100px;
-    resize:none;
-    padding:10px;
-    border:1px solid #d8e3ea;
-    border-radius:13px;
-    outline:none;
-    font-family:inherit;
-    font-size:13px;
-}
-
-.ai-input:focus{
-    border-color:var(--primary);
-    box-shadow:0 0 0 3px rgba(8,127,140,.08);
-}
-
-.ai-send{
-    width:45px;
-    height:45px;
-    border:none;
-    border-radius:13px;
-    background:linear-gradient(135deg,#087f8c,#0b6efd);
-    color:white;
-    font-size:18px;
-    cursor:pointer;
-}
-
-.ai-send:disabled{
-    opacity:.55;
-    cursor:not-allowed;
-}
-
-/* =========================
-   CERTIFICATE TEMPLATE
-========================= */
-
-#certificateTemplate{
-    position:absolute;
-    left:-10000px;
-    top:0;
-    width:1123px;
-    height:794px;
-    padding:50px;
-    background:white;
-    text-align:center;
-    direction:rtl;
-}
-
-.certificate-border{
-    width:100%;
-    height:100%;
-    padding:45px;
-    border:8px double #087f8c;
-}
-
-.certificate-title{
-    margin:25px;
-    color:#087f8c;
-    font-size:42px;
-    font-weight:bold;
-}
-
-.certificate-subtitle{
-    margin:15px;
-    font-size:23px;
-}
-
-.certificate-name{
-    margin:25px;
-    font-size:38px;
-    font-weight:bold;
-}
-
-.certificate-course{
-    margin:20px;
-    font-size:28px;
-    font-weight:bold;
-}
-
-.certificate-number{
-    margin-top:25px;
-    font-size:18px;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-    margin-top:40px;
-    padding:30px;
-    border-top:1px solid var(--border);
-    background:white;
-    color:#8a99a7;
-    text-align:center;
-    font-size:11px;
-}
-
-footer strong{
-    display:block;
-    margin-top:5px;
-    color:var(--primary);
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:1100px){
-
-    #coursesList{
-        grid-template-columns:1fr;
-    }
-
-    .quick-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-}
-
-@media(max-width:900px){
-
-    .sidebar{
-        width:75px;
-        padding:18px 10px;
-    }
-
-    .logo{
-        width:48px;
-        height:48px;
-        border-radius:14px;
-    }
-
-    .logo-area h2,
-    .logo-area p,
-    .nav-title,
-    .nav-item span:not(.nav-icon),
-    .sidebar-footer{
-        display:none;
-    }
-
-    .nav-item{
-        justify-content:center;
-        padding:10px;
-    }
-
-    .nav-icon{
-        width:40px;
-        height:40px;
-        flex-basis:40px;
-    }
-
-    .main{
-        width:calc(100% - 75px);
-        margin-right:75px;
-    }
-
-    .content{
-        padding:20px;
-    }
-
-    .hero{
-        padding:28px;
-    }
-
-    .stats{
-        grid-template-columns:1fr;
-    }
-
-    .profile-details{
-        grid-template-columns:1fr 1fr;
-    }
-
-}
-
-@media(max-width:600px){
-
-    .topbar{
-        height:65px;
-        padding:0 13px;
-    }
-
-    .page-title h1{
-        font-size:16px;
-    }
-
-    .page-title span{
-        font-size:10px;
-    }
-
-    .top-button{
-        width:38px;
-        height:38px;
-    }
-
-    .content{
-        padding:13px;
-    }
-
-    .hero{
-        min-height:300px;
-        align-items:flex-start;
-        padding:23px;
-        border-radius:21px;
-    }
-
-    .hero h2{
-        font-size:22px;
-    }
-
-    .hero p{
-        font-size:12px;
-    }
-
-    .hero-icon{
-        position:absolute;
-        left:18px;
-        bottom:16px;
-        width:68px;
-        height:68px;
-        flex:none;
-        border-radius:20px;
-        font-size:33px;
-    }
-
-    .section-head{
-        margin-top:28px;
-    }
-
-    .section-title h2{
-        font-size:18px;
-    }
-
-    .course-header{
-        padding:20px;
-    }
-
-    .course-header h2{
-        font-size:17px;
-    }
-
-    .course-body{
-        padding:17px;
-    }
-
-    .quick-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .profile-card{
-        grid-template-columns:1fr;
-        text-align:center;
-    }
-
-    .profile-avatar{
-        margin:auto;
-    }
-
-    .profile-details{
-        grid-template-columns:1fr;
-        text-align:right;
-    }
-
-    .announcement-box{
-        grid-template-columns:1fr;
-    }
-
-    .external-info{
-        grid-template-columns:1fr;
-    }
-
-    .external-card{
-        padding:18px;
-    }
-
-    .external-card-head{
-        gap:8px;
-    }
-
-    .external-title{
-        font-size:17px;
-    }
-
-    .ai-button{
-        left:14px;
-        bottom:14px;
-        padding:12px 15px;
-        font-size:12px;
-    }
-
-    .ai-panel{
-        left:10px;
-        bottom:68px;
-        width:calc(100vw - 20px);
-        height:calc(100vh - 90px);
-        border-radius:20px;
-    }
-
-    #certificateTemplate{
-        left:-15000px;
-    }
-
-}
-
-@media(max-width:380px){
-
-    .sidebar{
-        width:65px;
-    }
-
-    .main{
-        width:calc(100% - 65px);
-        margin-right:65px;
-    }
-
-    .nav-icon{
-        width:36px;
-        height:36px;
-        flex-basis:36px;
-    }
-
-    .hero{
-        padding:19px;
-    }
-
-    .hero h2{
-        font-size:20px;
-    }
-
-    .quick-grid{
-        grid-template-columns:1fr;
-    }
-
-}
-
-</style>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#087f8c">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <meta name="apple-mobile-web-app-title" content="منصة التكوين المستمر">
+
+    <title>فضاء المتربص - منصة التكوين المستمر</title>
+
+    <link rel="icon" href="logo.png">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 85px;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, "Tahoma", sans-serif;
+            background: #f4f8fb;
+            color: #17324d;
+            overflow-x: hidden;
+        }
+
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        :root {
+            --primary: #087f8c;
+            --primary-dark: #075c66;
+            --secondary: #0b6efd;
+            --success: #159957;
+            --warning: #f59e0b;
+            --danger: #dc3545;
+            --purple: #7952b3;
+            --dark: #17324d;
+            --text: #526477;
+            --muted: #8998a8;
+            --light: #f4f8fb;
+            --white: #ffffff;
+            --border: #e4edf3;
+            --shadow: 0 8px 25px rgba(30, 70, 90, 0.08);
+            --shadow-hover: 0 14px 35px rgba(30, 70, 90, 0.14);
+            --radius: 18px;
+        }
+
+        /* =====================================================
+           SIDEBAR
+        ====================================================== */
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 270px;
+            height: 100vh;
+            background: linear-gradient(180deg, #ffffff 0%, #f7fbfd 100%);
+            border-left: 1px solid var(--border);
+            box-shadow: -5px 0 25px rgba(20, 60, 80, 0.06);
+            z-index: 1000;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 24px 18px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-box {
+            width: 78px;
+            height: 78px;
+            margin: 0 auto 12px;
+            border-radius: 20px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 6px;
+        }
+
+        .institution-title {
+            color: var(--dark);
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.7;
+        }
+
+        .institution-subtitle {
+            color: var(--primary);
+            font-size: 12px;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        .nav {
+            padding: 16px 12px 30px;
+        }
+
+        .nav-title {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: bold;
+            padding: 8px 12px;
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            min-height: 46px;
+            padding: 9px 14px;
+            margin-bottom: 5px;
+            border-radius: 13px;
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s ease;
+            border: none;
+            background: transparent;
+            text-align: right;
+        }
+
+        .nav-link:hover {
+            background: #eaf7f8;
+            color: var(--primary);
+            transform: translateX(-2px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, var(--primary), #0b98a7);
+            color: white;
+            box-shadow: 0 8px 18px rgba(8, 127, 140, 0.2);
+        }
+
+        .nav-icon {
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+            border-radius: 10px;
+            background: #eef7f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .nav-link.active .nav-icon {
+            background: rgba(255,255,255,0.18);
+        }
+
+        .logout-link {
+            color: var(--danger);
+        }
+
+        .logout-link:hover {
+            background: #fff0f1;
+            color: var(--danger);
+        }
+
+        /* =====================================================
+           MOBILE MENU
+        ====================================================== */
+
+        .mobile-menu-btn {
+            display: none;
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 13px;
+            background: #eef7f9;
+            color: var(--primary);
+            font-size: 22px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-btn:active {
+            transform: scale(0.94);
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 35, 50, 0.48);
+            backdrop-filter: blur(2px);
+            z-index: 999;
+        }
+
+        .sidebar-overlay.open {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+
+        /* =====================================================
+           MAIN
+        ====================================================== */
+
+        .main {
+            margin-right: 270px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            height: 74px;
+            background: rgba(255,255,255,0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+        .topbar-right,
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .topbar-btn {
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--text);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            font-size: 17px;
+            transition: 0.2s;
+        }
+
+        .topbar-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .topbar-btn:active {
+            transform: scale(0.94);
+        }
+
+        .topbar-ai {
+            background: #f1ecfb;
+            color: var(--purple);
+            border-color: #e3d9f5;
+        }
+
+        /* =====================================================
+           CONTENT
+        ====================================================== */
+
+        .content {
+            padding: 28px;
+            max-width: 1500px;
+            margin: auto;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #087f8c 0%, #0b6efd 100%);
+            border-radius: 24px;
+            padding: 30px;
+            color: white;
+            box-shadow: 0 14px 35px rgba(8, 127, 140, 0.2);
+            margin-bottom: 24px;
+            animation: slideUp 0.45s ease;
+        }
+
+        .hero::before,
+        .hero::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .hero::before {
+            width: 220px;
+            height: 220px;
+            left: -70px;
+            top: -90px;
+        }
+
+        .hero::after {
+            width: 300px;
+            height: 300px;
+            right: -130px;
+            bottom: -190px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .hero-text h1 {
+            margin: 0 0 8px;
+            font-size: 28px;
+        }
+
+        .hero-text p {
+            margin: 0;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .hero-user {
+            font-weight: bold;
+            margin-top: 6px !important;
+        }
+
+        .hero-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            flex-shrink: 0;
+            animation: floatIcon 4s ease-in-out infinite;
+        }
+
+        /* =====================================================
+           STATS
+        ====================================================== */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.25s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-icon {
+            width: 54px;
+            height: 54px;
+            min-width: 54px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+        }
+
+        .stat-icon.blue {
+            background: #eaf2ff;
+            color: var(--secondary);
+        }
+
+        .stat-icon.green {
+            background: #e8f8ef;
+            color: var(--success);
+        }
+
+        .stat-icon.gold {
+            background: #fff5df;
+            color: #d88a00;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 25px;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        /* =====================================================
+           SECTION TITLES
+        ====================================================== */
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 30px 0 15px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 20px;
+            color: var(--dark);
+        }
+
+        .section-title p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           QUICK CARDS
+        ====================================================== */
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .quick-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            box-shadow: var(--shadow);
+            transition: 0.25s ease;
+            cursor: pointer;
+        }
+
+        .quick-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .quick-card:active {
+            transform: scale(0.98);
+        }
+
+        .quick-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 14px;
+        }
+
+        .quick-card h3 {
+            margin: 0 0 7px;
+            color: var(--dark);
+            font-size: 15px;
+        }
+
+        .quick-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        /* =====================================================
+           PANELS
+        ====================================================== */
+
+        .panel {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 22px;
+            margin-bottom: 25px;
+        }
+
+        /* =====================================================
+           PROFILE
+        ====================================================== */
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, #087f8c, #0b6efd);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            font-weight: bold;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(8,127,140,0.2);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .profile-email {
+            color: var(--muted);
+            margin-bottom: 16px;
+            font-size: 13px;
+            word-break: break-word;
+        }
+
+        .profile-info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .profile-info {
+            background: #f7fafc;
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 12px;
+        }
+
+        .profile-info small {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
+
+        .profile-info strong {
+            color: var(--dark);
+            font-size: 13px;
+            word-break: break-word;
+        }
+
+        /* =====================================================
+           ANNOUNCEMENTS
+        ====================================================== */
+
+        .announcements-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .announcement {
+            border: 1px solid var(--border);
+            border-right: 5px solid var(--primary);
+            background: #fbfdfe;
+            border-radius: 15px;
+            padding: 18px;
+        }
+
+        .announcement.warning {
+            border-right-color: var(--warning);
+        }
+
+        .announcement h3 {
+            margin: 0 0 8px;
+            font-size: 15px;
+            color: var(--dark);
+        }
+
+        .announcement p {
+            margin: 0;
+            color: var(--text);
+            line-height: 1.8;
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           COURSES
+        ====================================================== */
+
+        #coursesList {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .course-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: 0.25s ease;
+        }
+
+        .course-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+        }
+
+        .course-card h3 {
+            color: var(--dark);
+            margin: 0 0 8px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .course-card p {
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.8;
+            margin: 0 0 16px;
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .course-badge {
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #e8f8ef;
+            color: var(--success);
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .course-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 11px;
+            padding: 11px 16px;
+            min-height: 44px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: #eef3f7;
+            color: var(--dark);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .progress-wrapper {
+            margin-top: 15px;
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .progress-bar {
+            height: 9px;
+            background: #e9eff3;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #0b6efd);
+            border-radius: inherit;
+            transition: width 0.4s ease;
+        }
+
+        .lessons-container {
+            margin-top: 18px;
+            display: none;
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+        }
+
+        .lesson-card {
+            background: #f8fbfc;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .lesson-card h4 {
+            margin: 0 0 8px;
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        .lesson-content {
+            color: var(--text);
+            line-height: 1.9;
+            font-size: 13px;
+            white-space: pre-wrap;
+        }
+
+        .lesson-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .completed {
+            color: var(--success);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* =====================================================
+           EXTERNAL TRAININGS
+        ====================================================== */
+
+        #externalTrainingsList {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .external-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .external-card h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .external-description {
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .external-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .meta-item {
+            background: #f7fafc;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .meta-item span {
+            display: block;
+            color: var(--muted);
+            font-size: 10px;
+            margin-bottom: 4px;
+        }
+
+        .meta-item strong {
+            font-size: 12px;
+            color: var(--dark);
+            word-break: break-word;
+        }
+
+        .external-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .status-active {
+            background: #e8f8ef;
+            color: var(--success);
+        }
+
+        .status-pending {
+            background: #fff5df;
+            color: #b86d00;
+        }
+
+        .status-default {
+            background: #eef3f7;
+            color: var(--text);
+        }
+
+        /* =====================================================
+           CERTIFICATES
+        ====================================================== */
+
+        .certificate-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .certificate-card {
+            border: 1px solid var(--border);
+            background: #fbfdfe;
+            border-radius: 16px;
+            padding: 18px;
+        }
+
+        .certificate-card h3 {
+            margin: 0 0 10px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .certificate-card p {
+            color: var(--text);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .certificate-card .btn {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        /* =====================================================
+           EMPTY / MESSAGE
+        ====================================================== */
+
+        .empty-state {
+            text-align: center;
+            padding: 35px 20px;
+            color: var(--muted);
+            background: #fafcfd;
+            border: 1px dashed var(--border);
+            border-radius: 15px;
+            grid-column: 1 / -1;
+            line-height: 1.8;
+        }
+
+        .empty-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        #message {
+            margin-bottom: 15px;
+        }
+
+        .message {
+            padding: 12px 15px;
+            border-radius: 12px;
+            font-size: 13px;
+        }
+
+        .message.error {
+            background: #fff0f1;
+            color: var(--danger);
+        }
+
+        .message.success {
+            background: #eaf8ef;
+            color: var(--success);
+        }
+
+        .message.info {
+            background: #edf6ff;
+            color: var(--secondary);
+        }
+
+        /* =====================================================
+           AI
+        ====================================================== */
+
+        .ai-floating {
+            position: fixed;
+            left: 25px;
+            bottom: 25px;
+            width: 58px;
+            height: 58px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--purple), #9a70d0);
+            color: white;
+            font-size: 25px;
+            box-shadow: 0 10px 25px rgba(121,82,179,0.3);
+            z-index: 1100;
+            transition: 0.2s;
+        }
+
+        .ai-floating:hover {
+            transform: translateY(-3px) scale(1.03);
+        }
+
+        .ai-floating:active {
+            transform: scale(0.94);
+        }
+
+        .ai-panel {
+            position: fixed;
+            left: 25px;
+            bottom: 95px;
+            width: 380px;
+            max-width: calc(100vw - 35px);
+            height: 530px;
+            max-height: calc(100vh - 120px);
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(20,50,70,0.2);
+            z-index: 1099;
+            display: none;
+            overflow: hidden;
+        }
+
+        .ai-panel.open {
+            display: flex;
+            flex-direction: column;
+            animation: aiOpen 0.25s ease;
+        }
+
+        .ai-header {
+            background: linear-gradient(135deg, var(--purple), #9a70d0);
+            color: white;
+            padding: 17px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-header h3 {
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .ai-close {
+            border: none;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            font-size: 15px;
+        }
+
+        .ai-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background: #fafbfd;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .ai-message {
+            max-width: 88%;
+            padding: 11px 13px;
+            border-radius: 13px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            line-height: 1.8;
+            word-break: break-word;
+        }
+
+        .ai-message.user {
+            margin-right: auto;
+            background: #e9f5f7;
+            color: var(--dark);
+        }
+
+        .ai-message.bot {
+            margin-left: auto;
+            background: #f0ebfa;
+            color: var(--dark);
+        }
+
+        .ai-suggestions {
+            padding: 10px;
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            border-top: 1px solid var(--border);
+            scrollbar-width: none;
+        }
+
+        .ai-suggestions::-webkit-scrollbar {
+            display: none;
+        }
+
+        .ai-suggestion {
+            border: 1px solid #ded5ef;
+            background: #f7f3fc;
+            color: var(--purple);
+            border-radius: 20px;
+            padding: 9px 12px;
+            min-height: 38px;
+            white-space: nowrap;
+            font-size: 10px;
+        }
+
+        .ai-input-area {
+            display: flex;
+            gap: 7px;
+            padding: 10px;
+            border-top: 1px solid var(--border);
+            background: white;
+        }
+
+        #aiInput {
+            flex: 1;
+            min-width: 0;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            padding: 12px;
+            outline: none;
+            font-size: 13px;
+            min-height: 44px;
+        }
+
+        #aiInput:focus {
+            border-color: var(--purple);
+        }
+
+        #aiSend {
+            width: 48px;
+            min-width: 48px;
+            min-height: 44px;
+            border: none;
+            border-radius: 11px;
+            background: var(--purple);
+            color: white;
+            font-size: 16px;
+        }
+
+        /* =====================================================
+           MOBILE BOTTOM NAVIGATION
+        ====================================================== */
+
+        .mobile-bottom-nav {
+            display: none;
+        }
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        footer {
+            margin-top: 35px;
+            padding: 25px;
+            background: white;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        footer strong {
+            color: var(--primary);
+        }
+
+        /* =====================================================
+           CERTIFICATE TEMPLATE
+        ====================================================== */
+
+        #certificateTemplate {
+            position: absolute;
+            left: -10000px;
+            top: 0;
+            width: 1100px;
+            min-height: 780px;
+            background: white;
+            padding: 55px;
+            border: 10px solid #087f8c;
+            color: #17324d;
+            text-align: center;
+        }
+
+        #certificateTemplate h1 {
+            font-size: 34px;
+            margin: 15px 0;
+        }
+
+        #certificateTemplate h2 {
+            font-size: 25px;
+            color: #087f8c;
+        }
+
+        #certificateTemplate .cert-name {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 30px 0;
+        }
+
+        #certificateTemplate .cert-course {
+            font-size: 25px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        /* =====================================================
+           ANIMATIONS
+        ====================================================== */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes aiOpen {
+            from {
+                opacity: 0;
+                transform: translateY(15px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes floatIcon {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* =====================================================
+           TABLET
+        ====================================================== */
+
+        @media (max-width: 1100px) {
+
+            .quick-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .profile-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 800px) {
+
+            body {
+                background: #f4f8fb;
+            }
+
+            .sidebar {
+                transform: translateX(100%);
+                width: min(300px, 86vw);
+                box-shadow: -15px 0 35px rgba(10,40,55,0.16);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-right: 0;
+                padding-bottom: 82px;
+            }
+
+            .topbar {
+                height: 64px;
+                padding: 0 12px;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .page-title {
+                font-size: 15px;
+            }
+
+            .topbar-left {
+                gap: 6px;
+            }
+
+            .topbar-btn {
+                width: 40px;
+                height: 40px;
+                border-radius: 11px;
+            }
+
+            .content {
+                padding: 14px;
+            }
+
+            .hero {
+                border-radius: 20px;
+                padding: 22px 18px;
+                margin-bottom: 16px;
+            }
+
+            .hero-content {
+                align-items: flex-start;
+            }
+
+            .hero-text h1 {
+                font-size: 22px;
+            }
+
+            .hero-text p {
+                font-size: 12px;
+            }
+
+            .hero-icon {
+                width: 65px;
+                height: 65px;
+                border-radius: 18px;
+                font-size: 30px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+                margin-bottom: 22px;
+            }
+
+            .stat-card {
+                padding: 13px 8px;
+                border-radius: 15px;
+                flex-direction: column;
+                text-align: center;
+                gap: 7px;
+                min-width: 0;
+            }
+
+            .stat-icon {
+                width: 43px;
+                height: 43px;
+                min-width: 43px;
+                border-radius: 13px;
+                font-size: 19px;
+            }
+
+            .stat-label {
+                font-size: 9px;
+                line-height: 1.5;
+                margin-bottom: 2px;
+            }
+
+            .stat-value {
+                font-size: 20px;
+            }
+
+            .section-title {
+                margin: 24px 0 12px;
+            }
+
+            .section-title h2 {
+                font-size: 17px;
+            }
+
+            .section-title p {
+                font-size: 11px;
+            }
+
+            .quick-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .quick-card {
+                padding: 15px;
+                border-radius: 15px;
+                min-height: 145px;
+            }
+
+            .quick-icon {
+                width: 44px;
+                height: 44px;
+                margin-bottom: 10px;
+                font-size: 19px;
+            }
+
+            .quick-card h3 {
+                font-size: 13px;
+            }
+
+            .quick-card p {
+                font-size: 10px;
+            }
+
+            .panel {
+                padding: 15px;
+                border-radius: 16px;
+                margin-bottom: 18px;
+            }
+
+            .announcements-grid,
+            #coursesList,
+            #externalTrainingsList,
+            .certificate-list {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .profile-avatar {
+                margin: auto;
+                width: 92px;
+                height: 92px;
+            }
+
+            .profile-name {
+                font-size: 19px;
+            }
+
+            .profile-info-grid {
+                grid-template-columns: 1fr 1fr;
+                text-align: right;
+                gap: 8px;
+            }
+
+            .profile-info {
+                padding: 11px;
+            }
+
+            .course-card,
+            .external-card {
+                padding: 17px;
+                border-radius: 17px;
+            }
+
+            .course-card h3,
+            .external-card h3 {
+                font-size: 17px;
+            }
+
+            .course-card p,
+            .external-description {
+                font-size: 12px;
+            }
+
+            .external-meta {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .course-actions .btn,
+            .external-actions .btn {
+                min-height: 46px;
+            }
+
+            /* AI on phone */
+
+            .ai-floating {
+                left: 15px;
+                bottom: 88px;
+                width: 54px;
+                height: 54px;
+                font-size: 22px;
+                z-index: 1100;
+            }
+
+            .ai-panel {
+                left: 8px;
+                right: 8px;
+                bottom: 78px;
+                width: auto;
+                max-width: none;
+                height: calc(100vh - 100px);
+                max-height: none;
+                border-radius: 18px;
+                z-index: 1099;
+            }
+
+            .ai-message {
+                max-width: 92%;
+                font-size: 12px;
+            }
+
+            /* Bottom navigation */
+
+            .mobile-bottom-nav {
+                position: fixed;
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                align-items: stretch;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 70px;
+                padding: 5px 5px calc(5px + env(safe-area-inset-bottom));
+                background: rgba(255,255,255,0.97);
+                backdrop-filter: blur(15px);
+                border-top: 1px solid var(--border);
+                box-shadow: 0 -8px 25px rgba(20,60,80,0.10);
+                z-index: 1080;
+            }
+
+            .mobile-nav-item {
+                border: none;
+                background: transparent;
+                color: var(--muted);
+                border-radius: 13px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2px;
+                min-width: 0;
+                min-height: 58px;
+                padding: 4px 2px;
+                transition: 0.2s ease;
+                font-size: 9px;
+                font-weight: 700;
+            }
+
+            .mobile-nav-item .mobile-nav-icon {
+                width: 31px;
+                height: 31px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 17px;
+                transition: 0.2s;
+            }
+
+            .mobile-nav-item.active {
+                color: var(--primary);
+                background: #edf8f9;
+            }
+
+            .mobile-nav-item.active .mobile-nav-icon {
+                background: var(--primary);
+                color: white;
+                transform: translateY(-2px);
+            }
+
+            .mobile-nav-item:active {
+                transform: scale(0.94);
+            }
+
+            footer {
+                padding: 20px 14px 95px;
+            }
+
+        }
+
+        /* =====================================================
+           SMALL PHONES
+        ====================================================== */
+
+        @media (max-width: 480px) {
+
+            .topbar .topbar-ai {
+                display: none;
+            }
+
+            .topbar-btn {
+                width: 38px;
+                height: 38px;
+            }
+
+            .page-title {
+                max-width: 145px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .hero-content {
+                gap: 8px;
+            }
+
+            .hero-icon {
+                width: 55px;
+                height: 55px;
+                min-width: 55px;
+                font-size: 25px;
+            }
+
+            .hero-text h1 {
+                font-size: 20px;
+            }
+
+            .hero-text p {
+                font-size: 11px;
+            }
+
+            .stats-grid {
+                gap: 6px;
+            }
+
+            .stat-card {
+                padding: 10px 4px;
+            }
+
+            .stat-icon {
+                width: 39px;
+                height: 39px;
+                min-width: 39px;
+                font-size: 17px;
+            }
+
+            .stat-label {
+                font-size: 8px;
+            }
+
+            .stat-value {
+                font-size: 18px;
+            }
+
+            .quick-grid {
+                gap: 8px;
+            }
+
+            .quick-card {
+                padding: 13px;
+                min-height: 140px;
+            }
+
+            .profile-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .course-header {
+                flex-direction: column;
+            }
+
+            .course-badge {
+                align-self: flex-start;
+            }
+
+            .course-actions,
+            .external-actions {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .course-actions .btn,
+            .external-actions .btn {
+                width: 100%;
+            }
+
+            .lesson-footer {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .lesson-footer > div:last-child {
+                width: 100%;
+                display: grid !important;
+                grid-template-columns: 1fr;
+            }
+
+            .lesson-footer .btn {
+                width: 100%;
+            }
+
+            .external-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-panel {
+                left: 5px;
+                right: 5px;
+                bottom: 75px;
+                height: calc(100vh - 85px);
+                border-radius: 16px;
+            }
+
+            .mobile-bottom-nav {
+                height: 68px;
+            }
+
+            .mobile-nav-item {
+                font-size: 8px;
+            }
+
+        }
+
+        @media (max-width: 360px) {
+
+            .content {
+                padding: 10px;
+            }
+
+            .hero {
+                padding: 18px 14px;
+            }
+
+            .hero-icon {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                flex-direction: row;
+                text-align: right;
+                padding: 11px 13px;
+            }
+
+            .stat-label {
+                font-size: 10px;
+            }
+
+            .stat-value {
+                font-size: 19px;
+            }
+
+            .quick-card {
+                min-height: 130px;
+            }
+
+            .mobile-nav-item .mobile-nav-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 15px;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
-<div class="app">
+<!-- =====================================================
+     SIDEBAR OVERLAY
+====================================================== -->
+
+<div class="sidebar-overlay"
+     id="sidebarOverlay"
+     onclick="closeSidebar()"></div>
+
 
 <!-- =====================================================
-     القائمة الجانبية
-===================================================== -->
+     SIDEBAR
+====================================================== -->
 
-<aside class="sidebar">
+<aside class="sidebar" id="sidebar">
 
-    <div class="logo-area">
+    <div class="sidebar-header">
 
-        <img
-            src="logo.png"
-            class="logo"
-            alt="شعار المؤسسة">
+        <div class="logo-box">
 
-        <h2>منصة التكوين</h2>
+            <img src="logo.png"
+                 alt="شعار المؤسسة"
+                 onerror="this.style.display='none'">
 
-        <p>
-            المؤسسة العمومية الاستشفائية بأولف
+        </div>
+
+        <div class="institution-title">
+
+            المؤسسة العمومية الإستشفائية بأولف
             <br>
             ولاية أدرار
-        </p>
+
+        </div>
+
+        <div class="institution-subtitle">
+
+            منصة التكوين المستمر
+
+        </div>
 
     </div>
+
 
     <nav class="nav">
 
@@ -1620,747 +1837,919 @@ footer strong{
             القائمة الرئيسية
         </div>
 
-        <a class="nav-item active" href="#top">
+
+        <button class="nav-link active"
+                data-section="top"
+                onclick="goToSection('top'); closeSidebar();">
+
             <span class="nav-icon">🏠</span>
             <span>الرئيسية</span>
-        </a>
 
-        <a class="nav-item" href="#profile">
+        </button>
+
+
+        <button class="nav-link"
+                data-section="profile"
+                onclick="goToSection('profile'); closeSidebar();">
+
             <span class="nav-icon">👤</span>
-            <span>ملفي</span>
-        </a>
+            <span>ملفي الشخصي</span>
 
-        <a class="nav-item" href="#courses">
+        </button>
+
+
+        <button class="nav-link"
+                data-section="courses"
+                onclick="goToSection('courses'); closeSidebar();">
+
             <span class="nav-icon">📚</span>
-            <span>الدورات</span>
-        </a>
+            <span>الدورات التكوينية</span>
 
-        <a class="nav-item" href="#externalTrainings">
+        </button>
+
+
+        <button class="nav-link"
+                data-section="externalTrainings"
+                onclick="goToSection('externalTrainings'); closeSidebar();">
+
             <span class="nav-icon">🌐</span>
             <span>التكوينات الخارجية</span>
-        </a>
 
-        <a class="nav-item" href="#attendance">
-            <span class="nav-icon">🕘</span>
+        </button>
+
+
+        <button class="nav-link"
+                data-section="attendance"
+                onclick="goToSection('attendance'); closeSidebar();">
+
+            <span class="nav-icon">🕒</span>
             <span>الحضور</span>
-        </a>
 
-        <a class="nav-item" href="#certificates">
+        </button>
+
+
+        <button class="nav-link"
+                data-section="certificates"
+                onclick="goToSection('certificates'); closeSidebar();">
+
             <span class="nav-icon">🏆</span>
-            <span>شهاداتي</span>
-        </a>
+            <span>الشهادات</span>
 
-        <a
-            class="nav-item"
-            href="#assistant"
-            onclick="toggleAIAssistant();return false;">
+        </button>
+
+
+        <button class="nav-link"
+                onclick="toggleAIAssistant(); closeSidebar();">
 
             <span class="nav-icon">🤖</span>
             <span>المساعد الذكي</span>
 
-        </a>
+        </button>
 
-        <a class="nav-item" href="index.html">
+
+        <div class="nav-title" style="margin-top:15px;">
+            الحساب
+        </div>
+
+
+        <button class="nav-link"
+                onclick="window.location.href='index.html'">
+
             <span class="nav-icon">↩️</span>
             <span>الصفحة الرئيسية</span>
-        </a>
 
-        <a
-            class="nav-item"
-            href="#"
-            onclick="logout();return false;">
+        </button>
+
+
+        <button class="nav-link logout-link"
+                onclick="logout()">
 
             <span class="nav-icon">🚪</span>
             <span>تسجيل الخروج</span>
 
-        </a>
+        </button>
 
     </nav>
-
-    <div class="sidebar-footer">
-
-        <strong>
-            مكتب التكوين المتواصل
-        </strong>
-
-        <br>
-
-        منصة رقمية لمتابعة التكوينات
-        والدروس والشهادات.
-
-    </div>
 
 </aside>
 
 
 <!-- =====================================================
      MAIN
-===================================================== -->
+====================================================== -->
 
 <main class="main" id="top">
 
-<header class="topbar">
 
-    <div class="page-title">
+    <!-- TOPBAR -->
 
-        <h1>
-            فضاء المتربص
-        </h1>
+    <header class="topbar">
 
-        <span>
-            منصة التكوين المستمر
-        </span>
+        <div class="topbar-right">
 
-    </div>
+            <button class="mobile-menu-btn"
+                    onclick="openSidebar()"
+                    aria-label="فتح القائمة">
 
-    <div class="top-actions">
+                ☰
 
-        <button
-            class="top-button"
-            onclick="window.location.reload()"
-            title="تحديث">
+            </button>
 
-            🔄
 
-        </button>
-
-        <button
-            class="top-button"
-            onclick="toggleAIAssistant()"
-            title="المساعد الذكي">
-
-            🤖
-
-        </button>
-
-        <button
-            class="top-button"
-            onclick="logout()"
-            title="تسجيل الخروج">
-
-            🚪
-
-        </button>
-
-    </div>
-
-</header>
-
-
-<div class="content">
-
-<!-- =====================================================
-     HERO
-===================================================== -->
-
-<section class="hero">
-
-    <div class="hero-content">
-
-        <span class="hero-label">
-            🎓 مرحبًا بك في منصة التكوين
-        </span>
-
-        <h2>
-            طوّر مهاراتك...
-            <br>
-            وواصل مسارك المهني
-        </h2>
-
-        <p>
-            تابع دوراتك التكوينية، اقرأ الدروس،
-            سجّل تقدمك، واطّلع على شهاداتك إلكترونيًا.
-        </p>
-
-        <div class="hero-user">
-            👋 مرحبًا بك،
-            <strong id="heroUserName">المتربص</strong>
-        </div>
-
-    </div>
-
-    <div class="hero-icon">
-        🏥
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     STATS
-===================================================== -->
-
-<section class="stats">
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            📚
-        </div>
-
-        <div class="stat-info">
-
-            <strong id="coursesCount">
-                0
-            </strong>
-
-            <span>
-                الدورات المتاحة
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            🎓
-        </div>
-
-        <div class="stat-info">
-
-            <strong id="enrolledCount">
-                0
-            </strong>
-
-            <span>
-                دوراتي المسجل فيها
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            🏆
-        </div>
-
-        <div class="stat-info">
-
-            <strong id="certificatesCount">
-                0
-            </strong>
-
-            <span>
-                الشهادات المحصل عليها
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     QUICK ACCESS
-===================================================== -->
-
-<section class="quick-grid">
-
-    <div class="quick-card" onclick="goToSection('courses')">
-
-        <div class="quick-icon">
-            📚
-        </div>
-
-        <strong>
-            دوراتي
-        </strong>
-
-        <span>
-            متابعة الدورات والدروس
-        </span>
-
-    </div>
-
-
-    <div class="quick-card" onclick="goToSection('certificates')">
-
-        <div class="quick-icon">
-            🏆
-        </div>
-
-        <strong>
-            شهاداتي
-        </strong>
-
-        <span>
-            عرض وتحميل الشهادات
-        </span>
-
-    </div>
-
-
-    <div class="quick-card" onclick="goToSection('externalTrainings')">
-
-        <div class="quick-icon">
-            🌐
-        </div>
-
-        <strong>
-            تكوينات خارجية
-        </strong>
-
-        <span>
-            تكوينات تنظمها جهات أخرى
-        </span>
-
-    </div>
-
-
-    <div class="quick-card" onclick="toggleAIAssistant()">
-
-        <div class="quick-icon">
-            🤖
-        </div>
-
-        <strong>
-            المساعد الذكي
-        </strong>
-
-        <span>
-            اسأل عن التعلم والتكوين
-        </span>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     PROFILE
-===================================================== -->
-
-<section id="profile">
-
-    <div class="section-head">
-
-        <div class="section-title">
-
-            <div class="section-title-icon">
-                👤
-            </div>
-
-            <div>
-
-                <h2>
-                    ملفي الشخصي
-                </h2>
-
-                <p>
-                    بيانات الحساب المسجل في المنصة
-                </p>
-
+            <div class="page-title">
+                فضاء المتربص
             </div>
 
         </div>
 
-    </div>
+
+        <div class="topbar-left">
+
+            <button class="topbar-btn topbar-ai"
+                    onclick="toggleAIAssistant()"
+                    title="المساعد الذكي">
+
+                🤖
+
+            </button>
 
 
-    <div class="profile-card">
+            <button class="topbar-btn"
+                    onclick="location.reload()"
+                    title="تحديث">
 
-        <div
-            id="profileAvatar"
-            class="profile-avatar">
+                🔄
 
-            م
+            </button>
+
+
+            <button class="topbar-btn"
+                    onclick="logout()"
+                    title="تسجيل الخروج">
+
+                🚪
+
+            </button>
 
         </div>
 
-
-        <div class="profile-main">
-
-            <h2 id="profileName">
-                جاري التحميل...
-            </h2>
-
-            <div
-                id="profileEmail"
-                class="email">
-
-                -
-
-            </div>
+    </header>
 
 
-            <div class="profile-details">
+    <div class="content">
 
-                <div class="profile-detail">
 
-                    <strong>
-                        📱 الهاتف
-                    </strong>
+        <!-- =================================================
+             HERO
+        ================================================== -->
 
-                    <span id="profilePhone">
-                        غير محدد
-                    </span>
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="hero-text">
+
+                    <h1>
+                        مرحبًا بك 👋
+                    </h1>
+
+                    <p>
+                        أهلاً بك في فضاء المتربص ضمن منصة التكوين المستمر.
+                    </p>
+
+                    <p class="hero-user">
+                        المتربص:
+                        <span id="heroUserName">
+                            جاري التحميل...
+                        </span>
+                    </p>
 
                 </div>
 
 
-                <div class="profile-detail">
-
-                    <strong>
-                        💼 الرتبة / الوظيفة
-                    </strong>
-
-                    <span id="profilePosition">
-                        غير محدد
-                    </span>
-
+                <div class="hero-icon">
+                    🏥
                 </div>
 
+            </div>
 
-                <div class="profile-detail">
+        </section>
 
-                    <strong>
-                        🏢 المصلحة
-                    </strong>
 
-                    <span id="profileDepartment">
-                        غير محدد
-                    </span>
+        <!-- =================================================
+             STATS
+        ================================================== -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    📚
+                </div>
+
+                <div>
+
+                    <div class="stat-label">
+                        الدورات المتاحة
+                    </div>
+
+                    <div class="stat-value"
+                         id="coursesCount">
+                        0
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
 
-    </div>
+            <div class="stat-card">
 
-</section>
+                <div class="stat-icon green">
+                    ✅
+                </div>
+
+                <div>
+
+                    <div class="stat-label">
+                        الدورات المسجل بها
+                    </div>
+
+                    <div class="stat-value"
+                         id="enrolledCount">
+                        0
+                    </div>
+
+                </div>
+
+            </div>
 
 
-<!-- =====================================================
-     ANNOUNCEMENTS
-===================================================== -->
+            <div class="stat-card">
 
-<section id="announcements">
+                <div class="stat-icon gold">
+                    🏆
+                </div>
 
-    <div class="section-head">
+                <div>
+
+                    <div class="stat-label">
+                        الشهادات
+                    </div>
+
+                    <div class="stat-value"
+                         id="certificatesCount">
+                        0
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             QUICK ACCESS
+        ================================================== -->
 
         <div class="section-title">
-
-            <div class="section-title-icon">
-                📢
-            </div>
 
             <div>
 
                 <h2>
-                    الإعلانات والتنبيهات
+                    الوصول السريع
                 </h2>
 
                 <p>
-                    آخر المعلومات المتعلقة بالتكوين
+                    انتقل مباشرة إلى أهم أقسام المنصة
                 </p>
 
             </div>
 
         </div>
 
-    </div>
 
+        <section class="quick-grid">
 
-    <div class="announcement-box">
 
-        <div class="announcement-card">
+            <div class="quick-card"
+                 onclick="goToSection('courses')">
 
-            <div class="announcement-icon">
-                📚
-            </div>
+                <div class="quick-icon"
+                     style="background:#eaf2ff;color:#0b6efd;">
 
-            <h3>
-                منصة التكوين المستمر
-            </h3>
+                    📚
 
-            <p>
-                تابع الدورات المتاحة، أكمل الدروس،
-                وراقب تقدمك التكويني من فضائك الخاص.
-            </p>
-
-        </div>
-
-
-        <div class="announcement-card">
-
-            <div class="announcement-icon">
-                🔔
-            </div>
-
-            <h3>
-                تنبيه مهم
-            </h3>
-
-            <p>
-                سيتم عرض الإعلانات الرسمية الجديدة
-                هنا عند تفعيل نظام الإعلانات للمسؤول.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     COURSES
-===================================================== -->
-
-<section id="courses">
-
-    <div class="section-head">
-
-        <div class="section-title">
-
-            <div class="section-title-icon">
-                📚
-            </div>
-
-            <div>
-
-                <h2>
-                    الدورات التكوينية
-                </h2>
-
-                <p>
-                    اختر الدورة المناسبة وابدأ التعلم
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div id="message">
-        ⏳ جاري تحميل الدورات...
-    </div>
-
-
-    <div id="coursesList"></div>
-
-</section>
-
-
-<!-- =====================================================
-     EXTERNAL TRAININGS
-===================================================== -->
-
-<section
-    id="externalTrainings"
-    class="external-section">
-
-    <div class="section-head">
-
-        <div class="section-title">
-
-            <div class="section-title-icon">
-                🌐
-            </div>
-
-            <div>
-
-                <h2>
-                    التكوينات الخارجية
-                </h2>
-
-                <p>
-                    دورات وتكوينات تنظمها جهات خارج المؤسسة
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div id="externalTrainingsList">
-
-        <div class="external-loading">
-            ⏳ جاري تحميل التكوينات الخارجية...
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     ATTENDANCE
-===================================================== -->
-
-<section id="attendance">
-
-    <div class="section-head">
-
-        <div class="section-title">
-
-            <div class="section-title-icon">
-                🕘
-            </div>
-
-            <div>
-
-                <h2>
-                    متابعة الحضور
-                </h2>
-
-                <p>
-                    متابعة حضورك في الدورات التكوينية
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="attendance-card">
-
-        <div class="attendance-status">
-
-            <div class="attendance-icon">
-                🕘
-            </div>
-
-            <div>
+                </div>
 
                 <h3>
-                    سجل الحضور
+                    الدورات التكوينية
                 </h3>
 
                 <p>
-                    سيتم عرض سجل حضورك في الدورات
-                    عند تفعيل نظام متابعة الحضور من طرف مكتب التكوين.
+                    استعرض الدورات وسجل في التكوينات المتاحة.
                 </p>
 
             </div>
 
-        </div>
+
+            <div class="quick-card"
+                 onclick="goToSection('certificates')">
+
+                <div class="quick-icon"
+                     style="background:#fff5df;color:#d88a00;">
+
+                    🏆
+
+                </div>
+
+                <h3>
+                    شهاداتي
+                </h3>
+
+                <p>
+                    استعرض شهادات التكوين الخاصة بك.
+                </p>
+
+            </div>
+
+
+            <div class="quick-card"
+                 onclick="goToSection('externalTrainings')">
+
+                <div class="quick-icon"
+                     style="background:#e8f8ef;color:#159957;">
+
+                    🌐
+
+                </div>
+
+                <h3>
+                    التكوينات الخارجية
+                </h3>
+
+                <p>
+                    تعرف على التكوينات المنظمة خارج المؤسسة.
+                </p>
+
+            </div>
+
+
+            <div class="quick-card"
+                 onclick="toggleAIAssistant()">
+
+                <div class="quick-icon"
+                     style="background:#f1ecfb;color:#7952b3;">
+
+                    🤖
+
+                </div>
+
+                <h3>
+                    المساعد الذكي
+                </h3>
+
+                <p>
+                    احصل على المساعدة والإرشادات المتعلقة بالتكوين.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             PROFILE
+        ================================================== -->
+
+        <section id="profile">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>
+                        ملفي الشخصي
+                    </h2>
+
+                    <p>
+                        معلومات حسابك في منصة التكوين المستمر
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="profile-grid">
+
+
+                    <div class="profile-avatar"
+                         id="profileAvatar">
+
+                        👤
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="profile-name"
+                             id="profileName">
+
+                            جاري التحميل...
+
+                        </div>
+
+
+                        <div class="profile-email"
+                             id="profileEmail">
+
+                            -
+
+                        </div>
+
+
+                        <div class="profile-info-grid">
+
+
+                            <div class="profile-info">
+
+                                <small>
+                                    رقم الهاتف
+                                </small>
+
+                                <strong id="profilePhone">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div class="profile-info">
+
+                                <small>
+                                    الرتبة / الوظيفة
+                                </small>
+
+                                <strong id="profilePosition">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div class="profile-info">
+
+                                <small>
+                                    المصلحة
+                                </small>
+
+                                <strong id="profileDepartment">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div class="profile-info">
+
+                                <small>
+                                    المؤسسة
+                                </small>
+
+                                <strong>
+                                    EPH أولف
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ANNOUNCEMENTS
+        ================================================== -->
+
+        <section id="announcements">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>
+                        الإعلانات والتنبيهات
+                    </h2>
+
+                    <p>
+                        آخر المعلومات المهمة الخاصة بالتكوين
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="announcements-grid">
+
+
+                    <div class="announcement">
+
+                        <h3>
+                            📢 منصة التكوين المستمر
+                        </h3>
+
+                        <p>
+                            مرحبًا بكم في منصة التكوين المستمر للمؤسسة العمومية
+                            الإستشفائية بأولف. يمكنكم متابعة الدورات والدروس
+                            والتقدم والحصول على الشهادات.
+                        </p>
+
+                    </div>
+
+
+                    <div class="announcement warning">
+
+                        <h3>
+                            ⚠️ تنبيه مهم
+                        </h3>
+
+                        <p>
+                            يرجى متابعة فضاء المتربص باستمرار للاطلاع على
+                            الدورات والإعلانات والتكوينات الخارجية الجديدة.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             COURSES
+        ================================================== -->
+
+        <section id="courses">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>
+                        الدورات التكوينية
+                    </h2>
+
+                    <p>
+                        الدورات المتاحة والتكوينات المسجل بها
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div id="message"></div>
+
+
+            <div class="panel">
+
+                <div id="coursesList">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ⏳
+                        </div>
+
+                        <div>
+                            جاري تحميل الدورات...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             EXTERNAL TRAININGS
+        ================================================== -->
+
+        <section id="externalTrainings">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>
+                        التكوينات الخارجية
+                    </h2>
+
+                    <p>
+                        دورات تنظمها جهات أو مؤسسات خارجية
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div id="externalTrainingsList">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            🌐
+                        </div>
+
+                        <div>
+                            جاري تحميل التكوينات الخارجية...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ATTENDANCE
+        ================================================== -->
+
+        <section id="attendance">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>
+                        متابعة الحضور
+                    </h2>
+
+                    <p>
+                        متابعة حضورك في التكوينات
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        🕒
+                    </div>
+
+                    <p>
+                        سيتم عرض سجل الحضور هنا عند تفعيل نظام متابعة الحضور.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CERTIFICATES
+        ================================================== -->
+
+        <section id="certificates">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>
+                        شهاداتي
+                    </h2>
+
+                    <p>
+                        شهادات إتمام الدورات التكوينية
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div id="certificateArea">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            🏆
+                        </div>
+
+                        <div>
+                            جاري تحميل الشهادات...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
 
     </div>
 
-</section>
 
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
 
-<!-- =====================================================
-     CERTIFICATES
-===================================================== -->
+    <footer>
 
-<section id="certificates">
+        <strong>
+            المؤسسة العمومية الإستشفائية بأولف ولاية أدرار
+        </strong>
 
-    <div id="certificateArea"></div>
+        <br>
 
-</section>
+        منصة التكوين المستمر
 
-</div>
+        <br>
 
+        رئيس مكتب التكوين المتواصل:
+        <strong>بن صغير منير</strong>
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
+        <br>
 
-<footer>
+        الهاتف:
+        <strong>0660.48.43.73</strong>
 
-    منصة التكوين المستمر © 2026
+    </footer>
 
-    <strong>
-        المؤسسة العمومية الاستشفائية بأولف - ولاية أدرار
-    </strong>
-
-    <div style="margin-top:8px;">
-        رئيس مكتب التكوين المتواصل: بن صغير منير
-    </div>
-
-</footer>
 
 </main>
 
-</div>
+
+<!-- =====================================================
+     MOBILE BOTTOM NAVIGATION
+====================================================== -->
+
+<nav class="mobile-bottom-nav"
+     aria-label="التنقل السريع">
+
+    <button class="mobile-nav-item active"
+            data-mobile-section="top"
+            onclick="mobileNavigate('top')">
+
+        <span class="mobile-nav-icon">
+            🏠
+        </span>
+
+        <span>
+            الرئيسية
+        </span>
+
+    </button>
+
+
+    <button class="mobile-nav-item"
+            data-mobile-section="courses"
+            onclick="mobileNavigate('courses')">
+
+        <span class="mobile-nav-icon">
+            📚
+        </span>
+
+        <span>
+            الدورات
+        </span>
+
+    </button>
+
+
+    <button class="mobile-nav-item"
+            data-mobile-section="externalTrainings"
+            onclick="mobileNavigate('externalTrainings')">
+
+        <span class="mobile-nav-icon">
+            🌐
+        </span>
+
+        <span>
+            الخارجية
+        </span>
+
+    </button>
+
+
+    <button class="mobile-nav-item"
+            data-mobile-section="certificates"
+            onclick="mobileNavigate('certificates')">
+
+        <span class="mobile-nav-icon">
+            🏆
+        </span>
+
+        <span>
+            الشهادات
+        </span>
+
+    </button>
+
+
+    <button class="mobile-nav-item"
+            data-mobile-section="profile"
+            onclick="mobileNavigate('profile')">
+
+        <span class="mobile-nav-icon">
+            👤
+        </span>
+
+        <span>
+            ملفي
+        </span>
+
+    </button>
+
+</nav>
 
 
 <!-- =====================================================
      AI BUTTON
-===================================================== -->
+====================================================== -->
 
-<button
-    id="aiButton"
-    class="ai-button"
-    onclick="toggleAIAssistant()">
+<button class="ai-floating"
+        onclick="toggleAIAssistant()"
+        aria-label="المساعد الذكي">
 
-    🤖 المساعد الذكي
+    🤖
 
 </button>
 
 
 <!-- =====================================================
      AI PANEL
-===================================================== -->
+====================================================== -->
 
-<div
-    id="aiPanel"
-    class="ai-panel"
-    dir="rtl">
+<div class="ai-panel"
+     id="aiPanel">
 
     <div class="ai-header">
 
-        <div class="ai-header-info">
+        <h3>
+            🤖 المساعد الذكي
+        </h3>
 
-            <div class="ai-header-icon">
-                🤖
-            </div>
+        <button class="ai-close"
+                onclick="toggleAIAssistant()">
 
-            <div>
-
-                <h3>
-                    المساعد الذكي
-                </h3>
-
-                <small>
-                    مساعدك في التعلم والتكوين
-                </small>
-
-            </div>
-
-        </div>
-
-
-        <button
-            class="ai-close"
-            onclick="toggleAIAssistant()">
-
-            ×
+            ✕
 
         </button>
 
     </div>
 
 
-    <div
-        id="aiMessages"
-        class="ai-messages">
+    <div class="ai-messages"
+         id="aiMessages">
 
         <div class="ai-message bot">
 
-            👋 مرحبًا بك.
-
+            مرحبًا بك 👋
+            <br>
             أنا المساعد الذكي لمنصة التكوين المستمر.
-
-            يمكنك سؤالي عن الدروس،
-            طلب تلخيص، أو إعداد أسئلة للمراجعة.
+            يمكنك طرح أي سؤال يتعلق بالتكوين أو الدورات.
 
         </div>
 
@@ -2369,29 +2758,26 @@ footer strong{
 
     <div class="ai-suggestions">
 
-        <button
-            class="ai-suggestion"
-            onclick="useAISuggestion('اشرح لي أهمية التكوين المتواصل للموظفين')">
+        <button class="ai-suggestion"
+                onclick="useAISuggestion('ما هي الدورات المتاحة؟')">
 
-            📚 اشرح لي
-
-        </button>
-
-
-        <button
-            class="ai-suggestion"
-            onclick="useAISuggestion('لخص لي هذا الدرس بطريقة سهلة')">
-
-            📝 لخص لي
+            الدورات المتاحة
 
         </button>
 
 
-        <button
-            class="ai-suggestion"
-            onclick="useAISuggestion('أنشئ لي أسئلة للمراجعة')">
+        <button class="ai-suggestion"
+                onclick="useAISuggestion('كيف أتابع تقدمي؟')">
 
-            ❓ أسئلة مراجعة
+            متابعة التقدم
+
+        </button>
+
+
+        <button class="ai-suggestion"
+                onclick="useAISuggestion('كيف أحصل على الشهادة؟')">
+
+            الشهادة
 
         </button>
 
@@ -2400,17 +2786,13 @@ footer strong{
 
     <div class="ai-input-area">
 
-        <textarea
-            id="aiInput"
-            class="ai-input"
-            placeholder="اكتب سؤالك هنا..."
-            rows="1"></textarea>
+        <input type="text"
+               id="aiInput"
+               placeholder="اكتب سؤالك هنا..."
+               autocomplete="off">
 
-
-        <button
-            id="aiSend"
-            class="ai-send"
-            onclick="sendAIMessage()">
+        <button id="aiSend"
+                onclick="sendAIMessage()">
 
             ➤
 
@@ -2423,57 +2805,68 @@ footer strong{
 
 <!-- =====================================================
      CERTIFICATE TEMPLATE
-===================================================== -->
+====================================================== -->
 
 <div id="certificateTemplate">
 
-    <div class="certificate-border">
+    <div style="font-size:18px;font-weight:bold;">
+        الجمهورية الجزائرية الديمقراطية الشعبية
+    </div>
 
-        <div style="font-size:22px;font-weight:bold;">
-            الجمهورية الجزائرية الديمقراطية الشعبية
-        </div>
+    <div style="font-size:15px;margin-top:8px;">
+        وزارة الصحة
+    </div>
 
-        <div style="font-size:20px;margin-top:10px;">
-            وزارة الصحة
-        </div>
+    <div style="font-size:16px;font-weight:bold;margin-top:10px;">
 
-        <div style="font-size:19px;margin-top:8px;">
-            المؤسسة العمومية الاستشفائية بأولف
-        </div>
+        المؤسسة العمومية الإستشفائية بأولف
+        <br>
+        ولاية أدرار
 
-        <div class="certificate-title">
-            شهادة إتمام تكوين
-        </div>
+    </div>
 
-        <div class="certificate-subtitle">
-            تشهد المؤسسة بأن المتربص:
-        </div>
+    <h1>
+        شهادة مشاركة وإتمام تكوين
+    </h1>
 
-        <div
-            id="certificateTraineeName"
-            class="certificate-name">
-        </div>
+    <div>
+        يشهد مدير المؤسسة أن المتربص:
+    </div>
 
-        <div class="certificate-subtitle">
-            قد أتم بنجاح التكوين في:
-        </div>
+    <div class="cert-name"
+         id="certTraineeName">
 
-        <div
-            id="certificateCourseName"
-            class="certificate-course">
-        </div>
+        -
 
-        <div
-            id="certificateDate"
-            style="font-size:20px;margin-top:20px;">
-        </div>
+    </div>
 
-        <div
-            id="certificateNumber"
-            class="certificate-number">
-        </div>
+    <div>
+        قد أتم بنجاح التكوين المتعلق بـ:
+    </div>
 
-        <div id="qrCode"></div>
+    <div class="cert-course"
+         id="certCourseName">
+
+        -
+
+    </div>
+
+    <div style="margin-top:40px;">
+
+        تاريخ التكوين:
+        <strong id="certDate">-</strong>
+
+    </div>
+
+    <div style="margin-top:15px;">
+
+        رقم الشهادة:
+        <strong id="certNumber">-</strong>
+
+    </div>
+
+    <div id="qrcode"
+         style="margin:30px auto 0;">
 
     </div>
 
@@ -2482,7 +2875,7 @@ footer strong{
 
 <!-- =====================================================
      LIBRARIES
-===================================================== -->
+====================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -2498,44 +2891,169 @@ footer strong{
 <script>
 
 /* =========================================================
-   GLOBAL
+   CURRENT USER
 ========================================================= */
 
 let currentUser = null;
 
 
 /* =========================================================
-   GET CURRENT USER
+   MOBILE SIDEBAR
 ========================================================= */
 
-async function getCurrentUser(){
+function openSidebar() {
 
-    try{
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const overlay =
+        document.getElementById("sidebarOverlay");
+
+    if (sidebar) {
+        sidebar.classList.add("open");
+    }
+
+    if (overlay) {
+        overlay.classList.add("open");
+    }
+
+    document.body.classList.add("menu-open");
+
+}
+
+
+function closeSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const overlay =
+        document.getElementById("sidebarOverlay");
+
+    if (sidebar) {
+        sidebar.classList.remove("open");
+    }
+
+    if (overlay) {
+        overlay.classList.remove("open");
+    }
+
+    document.body.classList.remove("menu-open");
+
+}
+
+
+/* =========================================================
+   MOBILE BOTTOM NAVIGATION
+   واجهة فقط - لا علاقة لها بـ Supabase
+========================================================= */
+
+function mobileNavigate(id) {
+
+    closeSidebar();
+
+    goToSection(id);
+
+    document
+        .querySelectorAll(".mobile-nav-item")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
+
+    const activeButton =
+        document.querySelector(
+            `.mobile-nav-item[data-mobile-section="${id}"]`
+        );
+
+    if (activeButton) {
+
+        activeButton.classList.add("active");
+
+    }
+
+}
+
+
+/* =========================================================
+   UPDATE NAVIGATION ACTIVE STATE
+   واجهة فقط
+========================================================= */
+
+function updateNavigationState(id) {
+
+    document
+        .querySelectorAll(".mobile-nav-item")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
+
+    const mobileButton =
+        document.querySelector(
+            `.mobile-nav-item[data-mobile-section="${id}"]`
+        );
+
+    if (mobileButton) {
+
+        mobileButton.classList.add("active");
+
+    }
+
+
+    document
+        .querySelectorAll(".nav-link[data-section]")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
+
+    const sidebarButton =
+        document.querySelector(
+            `.nav-link[data-section="${id}"]`
+        );
+
+    if (sidebarButton) {
+
+        sidebarButton.classList.add("active");
+
+    }
+
+}
+
+
+/* =========================================================
+   CURRENT USER
+========================================================= */
+
+async function getCurrentUser() {
+
+    try {
 
         const {
             data,
             error
         } = await supabaseClient.auth.getUser();
 
-        if(error){
+        if (error) {
 
-            console.error(
-                "Auth error:",
-                error
-            );
+            console.error(error);
 
             return null;
+
         }
 
-        return data?.user || null;
+        return data.user;
 
-    }
-
-    catch(error){
+    } catch (error) {
 
         console.error(error);
 
         return null;
+
     }
 
 }
@@ -2545,86 +3063,141 @@ async function getCurrentUser(){
    PROFILE
 ========================================================= */
 
-function loadProfile(){
+async function loadProfile() {
 
-    if(!currentUser){
+    if (!currentUser) {
         return;
     }
 
     const metadata =
         currentUser.user_metadata || {};
 
-    const fullName =
+    const name =
         metadata.full_name ||
         metadata.name ||
+        currentUser.email ||
         "المتربص";
 
     const phone =
         metadata.phone ||
-        "غير محدد";
+        "-";
 
     const position =
         metadata.position ||
-        "غير محدد";
+        "-";
 
     const department =
         metadata.department ||
-        "غير محدد";
-
-    const email =
-        currentUser.email ||
         "-";
 
 
-    document.getElementById(
-        "heroUserName"
-    ).textContent =
-        fullName;
+    const heroUserName =
+        document.getElementById(
+            "heroUserName"
+        );
 
+    const profileName =
+        document.getElementById(
+            "profileName"
+        );
 
-    document.getElementById(
-        "profileName"
-    ).textContent =
-        fullName;
+    const profileEmail =
+        document.getElementById(
+            "profileEmail"
+        );
 
+    const profilePhone =
+        document.getElementById(
+            "profilePhone"
+        );
 
-    document.getElementById(
-        "profileEmail"
-    ).textContent =
-        email;
+    const profilePosition =
+        document.getElementById(
+            "profilePosition"
+        );
 
+    const profileDepartment =
+        document.getElementById(
+            "profileDepartment"
+        );
 
-    document.getElementById(
-        "profilePhone"
-    ).textContent =
-        phone;
-
-
-    document.getElementById(
-        "profilePosition"
-    ).textContent =
-        position;
-
-
-    document.getElementById(
-        "profileDepartment"
-    ).textContent =
-        department;
-
-
-    const avatar =
+    const profileAvatar =
         document.getElementById(
             "profileAvatar"
         );
 
 
-    if(avatar){
+    if (heroUserName) {
 
-        avatar.textContent =
-            fullName
-                .trim()
-                .charAt(0)
-                .toUpperCase();
+        heroUserName.textContent =
+            name;
+
+    }
+
+
+    if (profileName) {
+
+        profileName.textContent =
+            name;
+
+    }
+
+
+    if (profileEmail) {
+
+        profileEmail.textContent =
+            currentUser.email || "-";
+
+    }
+
+
+    if (profilePhone) {
+
+        profilePhone.textContent =
+            phone;
+
+    }
+
+
+    if (profilePosition) {
+
+        profilePosition.textContent =
+            position;
+
+    }
+
+
+    if (profileDepartment) {
+
+        profileDepartment.textContent =
+            department;
+
+    }
+
+
+    if (profileAvatar) {
+
+        const avatarUrl =
+            metadata.avatar_url ||
+            metadata.avatar ||
+            "";
+
+
+        if (avatarUrl) {
+
+            profileAvatar.innerHTML =
+                `<img src="${avatarUrl}" alt="الصورة الشخصية">`;
+
+        } else {
+
+            const firstLetter =
+                name.trim().charAt(0) ||
+                "👤";
+
+            profileAvatar.textContent =
+                firstLetter;
+
+        }
 
     }
 
@@ -2635,19 +3208,24 @@ function loadProfile(){
    NAVIGATION
 ========================================================= */
 
-function goToSection(id){
+function goToSection(id) {
 
     const element =
         document.getElementById(id);
 
-    if(element){
-
-        element.scrollIntoView({
-            behavior:"smooth",
-            block:"start"
-        });
-
+    if (!element) {
+        return;
     }
+
+    element.scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "start"
+
+    });
+
+    updateNavigationState(id);
 
 }
 
@@ -2656,99 +3234,57 @@ function goToSection(id){
    LOGOUT
 ========================================================= */
 
-async function logout(){
+async function logout() {
 
-    const confirmed =
-        confirm(
-            "هل تريد تسجيل الخروج من المنصة؟"
-        );
+    try {
 
-    if(!confirmed){
-        return;
-    }
-
-
-    try{
-
-        const {
-            error
-        } =
         await supabaseClient.auth.signOut();
 
-
-        if(error){
-
-            console.error(
-                "Logout error:",
-                error
-            );
-
-            alert(
-                "تعذر تسجيل الخروج."
-            );
-
-            return;
-        }
-
-
-        window.location.href =
-            "login.html";
-
-    }
-
-    catch(error){
+    } catch (error) {
 
         console.error(error);
 
-        window.location.href =
-            "login.html";
-
     }
+
+    window.location.href =
+        "login.html";
 
 }
 
 
 /* =========================================================
-   ENROLLMENT
+   ENROLLMENT CHECK
 ========================================================= */
 
-async function isEnrolled(courseId){
+async function isEnrolled(courseId) {
 
-    if(!currentUser){
+    if (!currentUser) {
         return false;
     }
-
 
     const {
         data,
         error
-    } =
-    await supabaseClient
-    .from("enrollments")
-    .select("id")
-    .eq(
-        "trainee_id",
-        currentUser.id
-    )
-    .eq(
-        "course_id",
-        courseId
-    )
-    .maybeSingle();
+    } = await supabaseClient
+        .from("enrollments")
+        .select("id")
+        .eq("trainee_id", currentUser.id)
+        .eq("course_id", courseId)
+        .limit(1);
 
-
-    if(error){
+    if (error) {
 
         console.error(
-            "Enrollment error:",
+            "Enrollment check error:",
             error
         );
 
         return false;
+
     }
 
-
-    return !!data;
+    return data &&
+           data.length > 0;
 
 }
 
@@ -2757,36 +3293,25 @@ async function isEnrolled(courseId){
    PROGRESS
 ========================================================= */
 
-async function getProgress(lessonIds){
+async function getProgress(lessonIds) {
 
-    if(
-        !currentUser ||
-        !lessonIds.length
-    ){
+    if (!currentUser ||
+        !lessonIds.length) {
 
         return [];
 
     }
 
-
     const {
         data,
         error
-    } =
-    await supabaseClient
-    .from("lesson_progress")
-    .select("lesson_id")
-    .eq(
-        "trainee_id",
-        currentUser.id
-    )
-    .in(
-        "lesson_id",
-        lessonIds
-    );
+    } = await supabaseClient
+        .from("lesson_progress")
+        .select("lesson_id")
+        .eq("trainee_id", currentUser.id)
+        .in("lesson_id", lessonIds);
 
-
-    if(error){
+    if (error) {
 
         console.error(
             "Progress error:",
@@ -2794,8 +3319,8 @@ async function getProgress(lessonIds){
         );
 
         return [];
-    }
 
+    }
 
     return data || [];
 
@@ -2810,68 +3335,56 @@ async function completeLesson(
     lessonId,
     button,
     courseId
-){
+) {
 
-    if(!currentUser){
-
-        alert(
-            "يجب تسجيل الدخول أولًا."
-        );
-
+    if (!currentUser) {
         return;
     }
-
 
     button.disabled = true;
 
-    button.textContent =
-        "⏳ جاري الحفظ...";
-
-
     const {
         error
-    } =
-    await supabaseClient
-    .from("lesson_progress")
-    .insert({
+    } = await supabaseClient
+        .from("lesson_progress")
+        .insert({
 
-        trainee_id:
-            currentUser.id,
+            trainee_id:
+                currentUser.id,
 
-        lesson_id:
-            lessonId
+            lesson_id:
+                lessonId,
 
-    });
+            completed_at:
+                new Date().toISOString()
 
-
-    if(error){
-
-        console.error(
-            "Save progress error:",
-            error
-        );
+        });
 
 
-        if(error.code === "23505"){
+    if (error) {
+
+        if (error.code === "23505") {
 
             button.textContent =
-                "✅ تم إكمال الدرس";
+                "✓ مكتمل";
+
+            button.classList.remove(
+                "btn-primary"
+            );
 
             button.classList.add(
-                "completed"
+                "btn-success"
             );
 
-        }
-        else{
+        } else {
 
-            alert(
-                "حدث خطأ أثناء حفظ التقدم."
-            );
+            console.error(error);
 
             button.disabled = false;
 
-            button.textContent =
-                "☑️ تم إكمال الدرس";
+            alert(
+                "تعذر تسجيل إتمام الدرس."
+            );
 
         }
 
@@ -2881,13 +3394,15 @@ async function completeLesson(
 
 
     button.textContent =
-        "✅ تم إكمال الدرس";
+        "✓ مكتمل";
 
-
-    button.classList.add(
-        "completed"
+    button.classList.remove(
+        "btn-primary"
     );
 
+    button.classList.add(
+        "btn-success"
+    );
 
     await updateCourseProgress(
         courseId
@@ -2897,120 +3412,119 @@ async function completeLesson(
 
 
 /* =========================================================
-   COURSE PROGRESS
+   UPDATE COURSE PROGRESS
 ========================================================= */
 
-async function updateCourseProgress(
-    courseId
-){
+async function updateCourseProgress(courseId) {
 
-    if(!currentUser){
+    if (!currentUser) {
         return;
     }
-
 
     const {
         data: lessons,
         error
-    } =
-    await supabaseClient
-    .from("lessons")
-    .select("id")
-    .eq(
-        "course_id",
-        courseId
-    );
+    } = await supabaseClient
+        .from("lessons")
+        .select("id")
+        .eq("course_id", courseId);
 
 
-    if(error || !lessons){
+    if (error) {
 
         console.error(error);
 
         return;
+
     }
 
 
-    const ids =
-        lessons.map(
-            lesson => lesson.id
-        );
+    const lessonIds =
+        (lessons || [])
+            .map(
+                lesson => lesson.id
+            );
+
+
+    if (!lessonIds.length) {
+        return;
+    }
 
 
     const progress =
-        await getProgress(ids);
+        await getProgress(
+            lessonIds
+        );
 
 
-    const total =
-        ids.length;
-
-    const completed =
-        progress.length;
+    const completedIds =
+        new Set(
+            progress.map(
+                item =>
+                    item.lesson_id
+            )
+        );
 
 
     const percent =
-        total === 0
-        ? 0
-        : Math.round(
-            completed /
-            total *
-            100
+        Math.round(
+            (
+                completedIds.size /
+                lessonIds.length
+            ) * 100
         );
 
 
-    const bar =
+    const progressFill =
         document.getElementById(
-            "progress-" +
-            courseId
+            `progress-fill-${courseId}`
         );
 
 
-    const text =
+    const progressText =
         document.getElementById(
-            "progress-text-" +
-            courseId
+            `progress-text-${courseId}`
         );
 
 
-    if(bar){
+    if (progressFill) {
 
-        bar.style.width =
-            percent + "%";
+        progressFill.style.width =
+            `${percent}%`;
 
     }
 
 
-    if(text){
+    if (progressText) {
 
-        text.textContent =
-            "📊 التقدم: " +
-            completed +
-            " من " +
-            total +
-            " دروس — " +
-            percent +
-            "%";
+        progressText.textContent =
+            `${percent}%`;
 
     }
 
 
-    const finished =
+    const finishedMessage =
         document.getElementById(
-            "finished-" +
-            courseId
+            `finished-${courseId}`
         );
 
 
-    if(
-        finished &&
-        total > 0 &&
-        completed === total
-    ){
+    if (finishedMessage) {
 
-        finished.style.display =
-            "block";
+        if (percent === 100) {
 
-        finished.textContent =
-            "🏆 ممتاز! لقد أكملت جميع دروس هذه الدورة.";
+            finishedMessage.style.display =
+                "block";
+
+            finishedMessage.innerHTML =
+                "🎉 <strong>مبروك!</strong> لقد أتممت جميع دروس هذه الدورة.";
+
+        } else {
+
+            finishedMessage.style.display =
+                "none";
+
+        }
 
     }
 
@@ -3021,59 +3535,63 @@ async function updateCourseProgress(
    ENROLL
 ========================================================= */
 
-async function enrollInCourse(
-    courseId
-){
+async function enrollInCourse(courseId) {
 
-    if(!currentUser){
+    if (!currentUser) {
+        return;
+    }
 
-        alert(
-            "يجب تسجيل الدخول أولًا."
+
+    const button =
+        document.querySelector(
+            `[data-enroll-course="${courseId}"]`
         );
 
-        return;
+
+    if (button) {
+
+        button.disabled = true;
+
     }
 
 
     const {
         error
-    } =
-    await supabaseClient
-    .from("enrollments")
-    .insert({
+    } = await supabaseClient
+        .from("enrollments")
+        .insert({
 
-        trainee_id:
-            currentUser.id,
+            trainee_id:
+                currentUser.id,
 
-        course_id:
-            courseId
+            course_id:
+                courseId
 
-    });
-
-
-    if(error){
-
-        console.error(
-            "Enrollment insert error:",
-            error
-        );
+        });
 
 
-        if(
-            error.code ===
-            "23505"
-        ){
+    if (error) {
+
+        if (error.code === "23505") {
 
             alert(
                 "أنت مسجل بالفعل في هذه الدورة."
             );
 
-        }
-        else{
+        } else {
+
+            console.error(error);
 
             alert(
-                "حدث خطأ أثناء التسجيل."
+                "تعذر التسجيل في الدورة."
             );
+
+        }
+
+
+        if (button) {
+
+            button.disabled = false;
 
         }
 
@@ -3083,7 +3601,7 @@ async function enrollInCourse(
 
 
     alert(
-        "تم التسجيل في الدورة بنجاح 🎉"
+        "تم التسجيل في الدورة بنجاح."
     );
 
 
@@ -3099,197 +3617,207 @@ async function enrollInCourse(
 async function loadLessons(
     courseId,
     container
-){
+) {
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    container.innerHTML =
+        `<div class="empty-state">
+
+            <div class="empty-icon">
+                ⏳
+            </div>
+
+            جاري تحميل الدروس...
+
+        </div>`;
+
 
     const {
         data: lessons,
         error
-    } =
-    await supabaseClient
-    .from("lessons")
-    .select(
-        "id,title,content,pdf_url"
-    )
-    .eq(
-        "course_id",
-        courseId
-    )
-    .order(
-        "title",
-        {
-            ascending:true
-        }
-    );
-
-
-    if(error){
-
-        console.error(
-            "Lessons error:",
-            error
+    } = await supabaseClient
+        .from("lessons")
+        .select(
+            "id,title,content,pdf_url"
+        )
+        .eq(
+            "course_id",
+            courseId
+        )
+        .order(
+            "id",
+            {
+                ascending: true
+            }
         );
 
-        container.textContent =
-            "❌ تعذر تحميل الدروس.";
+
+    if (error) {
+
+        console.error(error);
+
+        container.innerHTML =
+            `<div class="message error">
+                تعذر تحميل الدروس.
+            </div>`;
 
         return;
 
     }
 
 
-    if(
+    if (
         !lessons ||
-        !lessons.length
-    ){
+        lessons.length === 0
+    ) {
 
-        container.textContent =
-            "📭 لا توجد دروس لهذه الدورة حاليًا.";
+        container.innerHTML =
+            `<div class="empty-state">
+
+                <div class="empty-icon">
+                    📖
+                </div>
+
+                لا توجد دروس مضافة لهذه الدورة حاليًا.
+
+            </div>`;
 
         return;
 
     }
 
 
-    const ids =
+    const lessonIds =
         lessons.map(
-            lesson => lesson.id
+            lesson =>
+                lesson.id
         );
 
 
     const progress =
-        await getProgress(ids);
-
-
-    const completedIds =
-        progress.map(
-            item => item.lesson_id
+        await getProgress(
+            lessonIds
         );
 
 
-    container.innerHTML = "";
+    const completedIds =
+        new Set(
+            progress.map(
+                item =>
+                    item.lesson_id
+            )
+        );
 
 
-    lessons.forEach(
-        lesson => {
+    container.innerHTML =
+        lessons.map(
+            (lesson, index) => {
 
-            const box =
-                document.createElement(
-                    "div"
-                );
-
-            box.className =
-                "lesson";
+                const completed =
+                    completedIds.has(
+                        lesson.id
+                    );
 
 
-            const title =
-                document.createElement(
-                    "h3"
-                );
-
-            title.textContent =
-                "📖 " +
-                (
+                const safeTitle =
                     lesson.title ||
-                    "درس تكويني"
-                );
+                    `الدرس ${index + 1}`;
 
 
-            box.appendChild(title);
+                const content =
+                    lesson.content ||
+                    "لا يوجد محتوى لهذا الدرس.";
 
 
-            if(lesson.content){
+                const pdf =
+                    lesson.pdf_url
+                    ? `
 
-                const p =
-                    document.createElement(
-                        "p"
-                    );
+                        <a
+                            href="${safeExternalUrl(lesson.pdf_url)}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-secondary">
 
-                p.textContent =
-                    lesson.content;
+                            📄 فتح PDF
 
-                box.appendChild(p);
+                        </a>
+
+                    `
+                    : "";
+
+
+                return `
+
+                    <div class="lesson-card">
+
+                        <h4>
+                            📖 ${escapeHtml(safeTitle)}
+                        </h4>
+
+                        <div class="lesson-content">
+                            ${escapeHtml(content)}
+                        </div>
+
+                        <div class="lesson-footer">
+
+                            <div>
+
+                                ${
+                                    completed
+                                    ? `<span class="completed">
+                                        ✓ تم إتمام الدرس
+                                      </span>`
+                                    : ""
+                                }
+
+                            </div>
+
+
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+
+                                ${pdf}
+
+
+                                <button
+                                    class="btn ${
+                                        completed
+                                        ? "btn-success"
+                                        : "btn-primary"
+                                    }"
+                                    ${
+                                        completed
+                                        ? "disabled"
+                                        : ""
+                                    }
+                                    onclick="completeLesson(
+                                        ${lesson.id},
+                                        this,
+                                        ${courseId}
+                                    )">
+
+                                    ${
+                                        completed
+                                        ? "✓ مكتمل"
+                                        : "✓ إتمام الدرس"
+                                    }
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
 
             }
-
-
-            if(lesson.pdf_url){
-
-                const link =
-                    document.createElement(
-                        "a"
-                    );
-
-                link.href =
-                    lesson.pdf_url;
-
-                link.target =
-                    "_blank";
-
-                link.rel =
-                    "noopener noreferrer";
-
-                link.className =
-                    "pdf-button";
-
-                link.textContent =
-                    "📄 فتح ملف PDF";
-
-                box.appendChild(link);
-
-            }
-
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-            button.className =
-                "complete-button";
-
-
-            if(
-                completedIds.includes(
-                    lesson.id
-                )
-            ){
-
-                button.textContent =
-                    "✅ تم إكمال الدرس";
-
-                button.classList.add(
-                    "completed"
-                );
-
-                button.disabled =
-                    true;
-
-            }
-            else{
-
-                button.textContent =
-                    "☑️ تم إكمال الدرس";
-
-                button.onclick =
-                    function(){
-
-                        completeLesson(
-                            lesson.id,
-                            button,
-                            courseId
-                        );
-
-                    };
-
-            }
-
-
-            box.appendChild(button);
-
-            container.appendChild(box);
-
-        }
-    );
+        ).join("");
 
 
     await updateCourseProgress(
@@ -3300,12 +3828,425 @@ async function loadLessons(
 
 
 /* =========================================================
-   LOAD CERTIFICATES
+   LOAD COURSES
 ========================================================= */
 
-async function loadMyCertificates(){
+async function loadCourses() {
 
-    if(!currentUser){
+    currentUser =
+        await getCurrentUser();
+
+
+    if (!currentUser) {
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    await loadProfile();
+
+
+    const list =
+        document.getElementById(
+            "coursesList"
+        );
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    if (!list) {
+        return;
+    }
+
+
+    list.innerHTML =
+        `<div class="empty-state">
+
+            <div class="empty-icon">
+                ⏳
+            </div>
+
+            جاري تحميل الدورات...
+
+        </div>`;
+
+
+    const {
+        data: courses,
+        error
+    } = await supabaseClient
+        .from("courses")
+        .select(
+            "id,name,description"
+        )
+        .order(
+            "id",
+            {
+                ascending: false
+            }
+        );
+
+
+    if (error) {
+
+        console.error(error);
+
+
+        list.innerHTML =
+            `<div class="empty-state">
+
+                <div class="empty-icon">
+                    ⚠️
+                </div>
+
+                تعذر تحميل الدورات.
+
+            </div>`;
+
+
+        if (message) {
+
+            message.innerHTML =
+                `<div class="message error">
+
+                    حدث خطأ أثناء تحميل الدورات.
+
+                </div>`;
+
+        }
+
+        return;
+
+    }
+
+
+    const allCourses =
+        courses || [];
+
+
+    let enrolledCount = 0;
+
+
+    const courseStates =
+        await Promise.all(
+
+            allCourses.map(
+                async course => {
+
+                    const enrolled =
+                        await isEnrolled(
+                            course.id
+                        );
+
+
+                    if (enrolled) {
+
+                        enrolledCount++;
+
+                    }
+
+
+                    return {
+
+                        course,
+
+                        enrolled
+
+                    };
+
+                }
+            )
+
+        );
+
+
+    const coursesCount =
+        document.getElementById(
+            "coursesCount"
+        );
+
+
+    const enrolledCounter =
+        document.getElementById(
+            "enrolledCount"
+        );
+
+
+    if (coursesCount) {
+
+        coursesCount.textContent =
+            allCourses.length;
+
+    }
+
+
+    if (enrolledCounter) {
+
+        enrolledCounter.textContent =
+            enrolledCount;
+
+    }
+
+
+    if (!allCourses.length) {
+
+        list.innerHTML =
+            `<div class="empty-state">
+
+                <div class="empty-icon">
+                    📚
+                </div>
+
+                <p>
+                    لا توجد دورات متاحة حاليًا.
+                </p>
+
+            </div>`;
+
+
+        await loadMyCertificates();
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        courseStates.map(
+            ({
+                course,
+                enrolled
+            }) => {
+
+                return `
+
+                    <div class="course-card">
+
+                        <div class="course-header">
+
+                            <div>
+
+                                <h3>
+                                    📚 ${
+                                        escapeHtml(
+                                            course.name ||
+                                            "دورة تكوينية"
+                                        )
+                                    }
+                                </h3>
+
+                            </div>
+
+
+                            <span class="course-badge">
+
+                                ${
+                                    enrolled
+                                    ? "مسجل"
+                                    : "متاحة"
+                                }
+
+                            </span>
+
+                        </div>
+
+
+                        <p>
+
+                            ${
+                                escapeHtml(
+                                    course.description ||
+                                    "لا يوجد وصف لهذه الدورة."
+                                )
+                            }
+
+                        </p>
+
+
+                        ${
+                            enrolled
+                            ? `
+
+                                <div class="progress-wrapper">
+
+                                    <div class="progress-top">
+
+                                        <span>
+                                            نسبة التقدم
+                                        </span>
+
+                                        <strong
+                                            id="progress-text-${course.id}">
+
+                                            0%
+
+                                        </strong>
+
+                                    </div>
+
+
+                                    <div class="progress-bar">
+
+                                        <div
+                                            class="progress-fill"
+                                            id="progress-fill-${course.id}"
+                                            style="width:0%;">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div
+                                    id="finished-${course.id}"
+                                    style="
+                                        display:none;
+                                        margin-top:12px;
+                                        padding:10px;
+                                        border-radius:10px;
+                                        background:#eaf8ef;
+                                        color:#159957;
+                                        font-size:12px;
+                                    ">
+
+                                </div>
+
+
+                                <div class="course-actions">
+
+                                    <button
+                                        class="btn btn-primary"
+                                        onclick="toggleLessons(
+                                            ${course.id}
+                                        )">
+
+                                        📖 عرض الدروس
+
+                                    </button>
+
+                                </div>
+
+
+                                <div
+                                    class="lessons-container"
+                                    id="lessons-${course.id}">
+
+                                </div>
+
+                            `
+                            : `
+
+                                <div class="course-actions">
+
+                                    <button
+                                        class="btn btn-primary"
+                                        data-enroll-course="${course.id}"
+                                        onclick="enrollInCourse(
+                                            ${course.id}
+                                        )">
+
+                                        📝 التسجيل في الدورة
+
+                                    </button>
+
+                                </div>
+
+                            `
+                        }
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+
+    for (const item of courseStates) {
+
+        if (item.enrolled) {
+
+            await updateCourseProgress(
+                item.course.id
+            );
+
+        }
+
+    }
+
+
+    await loadMyCertificates();
+
+}
+
+
+/* =========================================================
+   TOGGLE LESSONS
+========================================================= */
+
+async function toggleLessons(courseId) {
+
+    const container =
+        document.getElementById(
+            `lessons-${courseId}`
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    if (
+        container.style.display ===
+        "block"
+    ) {
+
+        container.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    container.style.display =
+        "block";
+
+
+    if (!container.dataset.loaded) {
+
+        await loadLessons(
+            courseId,
+            container
+        );
+
+
+        container.dataset.loaded =
+            "true";
+
+    }
+
+}
+
+
+/* =========================================================
+   CERTIFICATES
+========================================================= */
+
+async function loadMyCertificates() {
+
+    if (!currentUser) {
         return;
     }
 
@@ -3316,828 +4257,462 @@ async function loadMyCertificates(){
         );
 
 
+    if (!area) {
+        return;
+    }
+
+
     const {
-        data,
+        data: certificates,
         error
-    } =
-    await supabaseClient
-    .from("certificates")
-    .select(
-        "id,course_id,certificate_number,issue_date,pdf_url,trainee_id"
-    )
-    .eq(
-        "trainee_id",
-        currentUser.id
-    )
-    .order(
-        "issue_date",
-        {
-            ascending:false
-        }
-    );
-
-
-    if(error){
-
-        console.error(
-            "Certificates error:",
-            error
+    } = await supabaseClient
+        .from("certificates")
+        .select("*")
+        .eq(
+            "trainee_id",
+            currentUser.id
+        )
+        .order(
+            "id",
+            {
+                ascending: false
+            }
         );
 
-        document.getElementById(
-            "certificatesCount"
-        ).textContent =
-            "0";
 
-        area.innerHTML = `
-            <div class="certificates-title">
-                <h2>🏆 شهاداتي</h2>
-                <p>
-                    لا يمكن تحميل الشهادات حاليًا.
-                </p>
-            </div>
-        `;
+    if (error) {
 
-        return;
-
-    }
+        console.error(error);
 
 
-    document.getElementById(
-        "certificatesCount"
-    ).textContent =
-        data?.length || 0;
+        area.innerHTML =
+            `<div class="empty-state">
 
+                <div class="empty-icon">
+                    ⚠️
+                </div>
 
-    if(
-        !data ||
-        !data.length
-    ){
+                تعذر تحميل الشهادات.
 
-        area.innerHTML = `
-            <div class="certificates-title">
-                <h2>🏆 شهاداتي</h2>
-                <p>
-                    ستظهر شهاداتك هنا بعد إتمام التكوين واعتمادها.
-                </p>
-            </div>
-        `;
+            </div>`;
 
         return;
 
     }
 
-
-    area.innerHTML = `
-        <div class="certificates-title">
-            <h2>🏆 شهاداتي</h2>
-            <p>
-                الشهادات التي حصلت عليها بعد إتمام التكوين.
-            </p>
-        </div>
-    `;
-
-
-    for(
-        const certificate of data
-    ){
-
-        const {
-            data: course
-        } =
-        await supabaseClient
-        .from("courses")
-        .select("name")
-        .eq(
-            "id",
-            certificate.course_id
-        )
-        .maybeSingle();
-
-
-        const card =
-            document.createElement(
-                "div"
-            );
-
-        card.className =
-            "certificate-card";
-
-
-        const title =
-            document.createElement(
-                "h3"
-            );
-
-        title.textContent =
-            "🏆 شهادة إتمام التكوين";
-
-
-        card.appendChild(title);
-
-
-        const courseP =
-            document.createElement(
-                "p"
-            );
-
-        courseP.innerHTML =
-            "<strong>📚 الدورة:</strong> " +
-            (
-                course?.name ||
-                "دورة تكوينية"
-            );
-
-
-        card.appendChild(courseP);
-
-
-        const numberP =
-            document.createElement(
-                "p"
-            );
-
-        numberP.innerHTML =
-            "<strong>🔢 رقم الشهادة:</strong> " +
-            (
-                certificate.certificate_number ||
-                "-"
-            );
-
-
-        card.appendChild(numberP);
-
-
-        const dateP =
-            document.createElement(
-                "p"
-            );
-
-        dateP.innerHTML =
-            "<strong>📅 تاريخ الإصدار:</strong> " +
-            (
-                certificate.issue_date ||
-                "-"
-            );
-
-
-        card.appendChild(dateP);
-
-
-        if(certificate.pdf_url){
-
-            const link =
-                document.createElement(
-                    "a"
-                );
-
-            link.href =
-                certificate.pdf_url;
-
-            link.target =
-                "_blank";
-
-            link.rel =
-                "noopener noreferrer";
-
-            link.className =
-                "pdf-button";
-
-            link.textContent =
-                "📄 عرض الشهادة";
-
-            card.appendChild(link);
-
-        }
-        else{
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-            button.className =
-                "certificate-button";
-
-            button.textContent =
-                "🎓 إنشاء الشهادة";
-
-            button.onclick =
-                function(){
-
-                    generateCertificatePDF(
-                        certificate
-                    );
-
-                };
-
-            card.appendChild(button);
-
-        }
-
-
-        area.appendChild(card);
-
-    }
-
-}
-
-
-/* =========================================================
-   LOAD COURSES
-========================================================= */
-
-async function loadCourses(){
 
     const list =
+        certificates || [];
+
+
+    const counter =
         document.getElementById(
-            "coursesList"
+            "certificatesCount"
         );
 
-    const message =
-        document.getElementById(
-            "message"
-        );
+
+    if (counter) {
+
+        counter.textContent =
+            list.length;
+
+    }
 
 
-    list.innerHTML = "";
+    if (!list.length) {
 
-    message.textContent =
-        "⏳ جاري تحميل الدورات...";
+        area.innerHTML =
+            `<div class="empty-state">
 
+                <div class="empty-icon">
+                    🏆
+                </div>
 
-    currentUser =
-        await getCurrentUser();
+                <p>
+                    لا توجد شهادات متاحة لك حاليًا.
+                </p>
 
-
-    if(!currentUser){
-
-        message.textContent =
-            "🔐 يجب تسجيل الدخول أولًا.";
+            </div>`;
 
         return;
 
     }
 
 
-    loadProfile();
+    const cards = [];
 
 
-    const {
-        data: courses,
-        error
-    } =
-    await supabaseClient
-    .from("courses")
-    .select(
-        "id,name,description"
-    )
-    .order(
-        "name",
-        {
-            ascending:true
+    for (const certificate of list) {
+
+        let courseName =
+            certificate.course_name ||
+            "دورة تكوينية";
+
+
+        if (certificate.course_id) {
+
+            const {
+                data: course
+            } = await supabaseClient
+                .from("courses")
+                .select("name")
+                .eq(
+                    "id",
+                    certificate.course_id
+                )
+                .maybeSingle();
+
+
+            if (
+                course &&
+                course.name
+            ) {
+
+                courseName =
+                    course.name;
+
+            }
+
         }
-    );
 
 
-    if(error){
+        cards.push(`
 
-        console.error(
-            "Courses error:",
-            error
-        );
+            <div class="certificate-card">
 
-        message.textContent =
-            "❌ حدث خطأ أثناء تحميل الدورات.";
+                <h3>
+                    🏆 ${escapeHtml(courseName)}
+                </h3>
 
-        return;
+
+                <p>
+
+                    رقم الشهادة:
+
+                    <strong>
+
+                        ${escapeHtml(
+                            certificate.certificate_number ||
+                            certificate.id ||
+                            "-"
+                        )}
+
+                    </strong>
+
+                </p>
+
+
+                ${
+                    certificate.pdf_url
+                    ? `
+
+                        <a
+                            href="${safeExternalUrl(certificate.pdf_url)}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-primary">
+
+                            📄 فتح الشهادة
+
+                        </a>
+
+                    `
+                    : `
+
+                        <button
+                            class="btn btn-primary"
+                            onclick='generateCertificatePDF(
+                                ${JSON.stringify(certificate).replace(/'/g, "&#39;")}
+                            )'>
+
+                            📥 إنشاء الشهادة
+
+                        </button>
+
+                    `
+                }
+
+            </div>
+
+        `);
 
     }
 
 
-    if(
-        !courses ||
-        !courses.length
-    ){
+    area.innerHTML =
+        `<div class="certificate-list">
 
-        message.textContent =
-            "📭 لا توجد دورات حاليًا.";
+            ${cards.join("")}
 
-        document.getElementById(
-            "coursesCount"
-        ).textContent =
-            "0";
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "coursesCount"
-    ).textContent =
-        courses.length;
-
-
-    message.textContent =
-        "📚 الدورات التكوينية المتاحة";
-
-
-    let enrolledTotal = 0;
-
-
-    for(
-        let i = 0;
-        i < courses.length;
-        i++
-    ){
-
-        const course =
-            courses[i];
-
-
-        const enrolled =
-            await isEnrolled(
-                course.id
-            );
-
-
-        if(enrolled){
-            enrolledTotal++;
-        }
-
-
-        const card =
-            document.createElement(
-                "article"
-            );
-
-        card.className =
-            "course";
-
-
-        const header =
-            document.createElement(
-                "div"
-            );
-
-        header.className =
-            "course-header";
-
-
-        const number =
-            document.createElement(
-                "div"
-            );
-
-        number.className =
-            "course-number";
-
-        number.textContent =
-            i + 1;
-
-
-        header.appendChild(number);
-
-
-        const title =
-            document.createElement(
-                "h2"
-            );
-
-        title.textContent =
-            "📚 " +
-            (
-                course.name ||
-                "دورة تكوينية"
-            );
-
-
-        header.appendChild(title);
-
-
-        const description =
-            document.createElement(
-                "p"
-            );
-
-        description.className =
-            "course-description";
-
-        description.textContent =
-            course.description ||
-            "لا يوجد وصف للدورة.";
-
-
-        header.appendChild(description);
-
-        card.appendChild(header);
-
-
-        const body =
-            document.createElement(
-                "div"
-            );
-
-        body.className =
-            "course-body";
-
-
-        const status =
-            document.createElement(
-                "div"
-            );
-
-
-        if(enrolled){
-
-            const badge =
-                document.createElement(
-                    "div"
-                );
-
-            badge.className =
-                "enrolled";
-
-            badge.textContent =
-                "✅ أنت مسجل في هذه الدورة";
-
-            status.appendChild(badge);
-
-        }
-        else{
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-            button.className =
-                "enroll-button";
-
-            button.textContent =
-                "📝 التسجيل في الدورة";
-
-            button.onclick =
-                function(){
-
-                    enrollInCourse(
-                        course.id
-                    );
-
-                };
-
-            status.appendChild(button);
-
-        }
-
-
-        body.appendChild(status);
-
-
-        const progressArea =
-            document.createElement(
-                "div"
-            );
-
-        progressArea.className =
-            "progress-area";
-
-
-        const progressText =
-            document.createElement(
-                "div"
-            );
-
-        progressText.className =
-            "progress-text";
-
-        progressText.id =
-            "progress-text-" +
-            course.id;
-
-        progressText.textContent =
-            enrolled
-            ? "📊 جاري حساب التقدم..."
-            : "📊 سجّل في الدورة لمتابعة التقدم";
-
-
-        progressArea.appendChild(
-            progressText
-        );
-
-
-        const progress =
-            document.createElement(
-                "div"
-            );
-
-        progress.className =
-            "progress";
-
-
-        const progressBar =
-            document.createElement(
-                "div"
-            );
-
-        progressBar.className =
-            "progress-bar";
-
-        progressBar.id =
-            "progress-" +
-            course.id;
-
-
-        progress.appendChild(
-            progressBar
-        );
-
-        progressArea.appendChild(
-            progress
-        );
-
-        body.appendChild(
-            progressArea
-        );
-
-
-        const finished =
-            document.createElement(
-                "div"
-            );
-
-        finished.className =
-            "finished";
-
-        finished.id =
-            "finished-" +
-            course.id;
-
-
-        body.appendChild(
-            finished
-        );
-
-
-        const lessonsHeading =
-            document.createElement(
-                "div"
-            );
-
-        lessonsHeading.className =
-            "lessons-heading";
-
-        lessonsHeading.textContent =
-            "📖 دروس الدورة";
-
-
-        body.appendChild(
-            lessonsHeading
-        );
-
-
-        const lessonsContainer =
-            document.createElement(
-                "div"
-            );
-
-        lessonsContainer.id =
-            "lessons-" +
-            course.id;
-
-        lessonsContainer.style.marginTop =
-            "10px";
-
-
-        if(enrolled){
-
-            lessonsContainer.textContent =
-                "⏳ جاري تحميل الدروس...";
-
-        }
-        else{
-
-            lessonsContainer.textContent =
-                "🔒 سجّل في الدورة للوصول إلى الدروس.";
-
-        }
-
-
-        body.appendChild(
-            lessonsContainer
-        );
-
-
-        card.appendChild(body);
-
-        list.appendChild(card);
-
-
-        if(enrolled){
-
-            await loadLessons(
-                course.id,
-                lessonsContainer
-            );
-
-        }
-
-    }
-
-
-    document.getElementById(
-        "enrolledCount"
-    ).textContent =
-        enrolledTotal;
-
-
-    await loadMyCertificates();
+        </div>`;
 
 }
 
 
 /* =========================================================
-   GENERATE CERTIFICATE
+   GENERATE CERTIFICATE PDF
 ========================================================= */
 
 async function generateCertificatePDF(
     certificate
-){
+) {
 
-    try{
+    try {
 
-        const {
-            data: course
-        } =
-        await supabaseClient
-        .from("courses")
-        .select("name")
-        .eq(
-            "id",
-            certificate.course_id
-        )
-        .maybeSingle();
+        let courseName =
+            certificate.course_name ||
+            "دورة تكوينية";
 
 
-        let traineeName =
-            currentUser?.user_metadata?.full_name ||
-            "المتربص";
+        if (certificate.course_id) {
+
+            const {
+                data: course
+            } = await supabaseClient
+                .from("courses")
+                .select("name")
+                .eq(
+                    "id",
+                    certificate.course_id
+                )
+                .maybeSingle();
 
 
-        const {
-            data: trainee
-        } =
-        await supabaseClient
-        .from("trainees")
-        .select("full_name")
-        .eq(
-            "id",
-            certificate.trainee_id
-        )
-        .maybeSingle();
+            if (
+                course &&
+                course.name
+            ) {
 
+                courseName =
+                    course.name;
 
-        if(trainee?.full_name){
-
-            traineeName =
-                trainee.full_name;
+            }
 
         }
 
 
+        let traineeName =
+            currentUser?.user_metadata?.full_name ||
+            currentUser?.user_metadata?.name ||
+            currentUser?.email ||
+            "المتربص";
+
+
+        if (certificate.trainee_id) {
+
+            const {
+                data: trainee
+            } = await supabaseClient
+                .from("trainees")
+                .select("full_name")
+                .eq(
+                    "id",
+                    certificate.trainee_id
+                )
+                .maybeSingle();
+
+
+            if (
+                trainee &&
+                trainee.full_name
+            ) {
+
+                traineeName =
+                    trainee.full_name;
+
+            }
+
+        }
+
+
+        const date =
+            certificate.issue_date ||
+            certificate.created_at ||
+            new Date().toISOString();
+
+
         document.getElementById(
-            "certificateTraineeName"
+            "certTraineeName"
         ).textContent =
             traineeName;
 
 
         document.getElementById(
-            "certificateCourseName"
+            "certCourseName"
         ).textContent =
-            course?.name ||
-            "الدورة التكوينية";
+            courseName;
 
 
         document.getElementById(
-            "certificateDate"
+            "certDate"
         ).textContent =
-            "تاريخ الإصدار: " +
-            (
-                certificate.issue_date ||
-                ""
-            );
+            new Date(date)
+                .toLocaleDateString(
+                    "ar-DZ"
+                );
 
 
         document.getElementById(
-            "certificateNumber"
+            "certNumber"
         ).textContent =
-            "رقم الشهادة: " +
-            (
-                certificate.certificate_number ||
-                ""
-            );
+            certificate.certificate_number ||
+            certificate.id ||
+            "-";
 
 
         const qr =
             document.getElementById(
-                "qrCode"
+                "qrcode"
             );
 
 
-        qr.innerHTML = "";
+        if (qr) {
+
+            qr.innerHTML = "";
 
 
-        new QRCode(
-            qr,
-            {
+            new QRCode(qr, {
+
                 text:
                     window.location.origin +
                     "/training-platform/verify.html?certificate=" +
                     encodeURIComponent(
                         certificate.certificate_number ||
+                        certificate.id ||
                         ""
                     ),
 
-                width:110,
+                width: 100,
 
-                height:110
-            }
-        );
+                height: 100
+
+            });
+
+        }
 
 
-        await new Promise(
-            resolve =>
-                setTimeout(
-                    resolve,
-                    500
-                )
-        );
+        const template =
+            document.getElementById(
+                "certificateTemplate"
+            );
 
 
         const canvas =
             await html2canvas(
-                document.getElementById(
-                    "certificateTemplate"
-                ),
+                template,
                 {
-                    scale:2,
-                    backgroundColor:"#ffffff"
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: "#ffffff"
                 }
             );
 
 
-        const image =
+        const imgData =
             canvas.toDataURL(
-                "image/jpeg",
-                .95
+                "image/png"
             );
 
 
         const {
             jsPDF
-        } =
-        window.jspdf;
+        } = window.jspdf;
 
 
         const pdf =
             new jsPDF({
 
-                orientation:"landscape",
-                unit:"mm",
-                format:"a4"
+                orientation:
+                    "landscape",
+
+                unit:
+                    "mm",
+
+                format:
+                    "a4"
 
             });
 
 
+        const pageWidth =
+            pdf.internal.pageSize
+                .getWidth();
+
+
+        const pageHeight =
+            pdf.internal.pageSize
+                .getHeight();
+
+
+        const imgRatio =
+            canvas.width /
+            canvas.height;
+
+
+        let imgWidth =
+            pageWidth - 20;
+
+
+        let imgHeight =
+            imgWidth /
+            imgRatio;
+
+
+        if (
+            imgHeight >
+            pageHeight - 20
+        ) {
+
+            imgHeight =
+                pageHeight - 20;
+
+
+            imgWidth =
+                imgHeight *
+                imgRatio;
+
+        }
+
+
+        const x =
+            (pageWidth -
+             imgWidth) / 2;
+
+
+        const y =
+            (pageHeight -
+             imgHeight) / 2;
+
+
         pdf.addImage(
-            image,
-            "JPEG",
-            0,
-            0,
-            297,
-            210
+            imgData,
+            "PNG",
+            x,
+            y,
+            imgWidth,
+            imgHeight
         );
 
 
         pdf.save(
-            (
+            `certificate-${
                 certificate.certificate_number ||
-                "certificate"
-            ) +
-            ".pdf"
+                certificate.id ||
+                "training"
+            }.pdf`
         );
 
-    }
-    catch(error){
+
+    } catch (error) {
 
         console.error(
-            "Certificate error:",
+            "Certificate generation error:",
             error
         );
 
+
         alert(
-            "حدث خطأ أثناء إنشاء الشهادة."
+            "تعذر إنشاء الشهادة."
         );
 
     }
@@ -4146,10 +4721,10 @@ async function generateCertificatePDF(
 
 
 /* =========================================================
-   AI
+   AI ASSISTANT
 ========================================================= */
 
-function toggleAIAssistant(){
+function toggleAIAssistant() {
 
     const panel =
         document.getElementById(
@@ -4157,22 +4732,43 @@ function toggleAIAssistant(){
         );
 
 
-    if(!panel){
+    if (!panel) {
         return;
     }
 
 
-    panel.classList.toggle(
-        "open"
-    );
+    panel.classList.toggle("open");
+
+
+    if (panel.classList.contains("open")) {
+
+        setTimeout(
+            function() {
+
+                const input =
+                    document.getElementById(
+                        "aiInput"
+                    );
+
+                if (input) {
+
+                    input.focus();
+
+                }
+
+            },
+            250
+        );
+
+    }
 
 }
 
 
 function addAIMessage(
-    text,
+    message,
     type
-){
+) {
 
     const messages =
         document.getElementById(
@@ -4180,7 +4776,7 @@ function addAIMessage(
         );
 
 
-    if(!messages){
+    if (!messages) {
         return;
     }
 
@@ -4192,12 +4788,11 @@ function addAIMessage(
 
 
     div.className =
-        "ai-message " +
-        type;
+        `ai-message ${type}`;
 
 
     div.textContent =
-        text;
+        message;
 
 
     messages.appendChild(div);
@@ -4211,7 +4806,7 @@ function addAIMessage(
 
 function useAISuggestion(
     text
-){
+) {
 
     const input =
         document.getElementById(
@@ -4219,7 +4814,7 @@ function useAISuggestion(
         );
 
 
-    if(!input){
+    if (!input) {
         return;
     }
 
@@ -4233,7 +4828,7 @@ function useAISuggestion(
 }
 
 
-async function sendAIMessage(){
+async function sendAIMessage() {
 
     const input =
         document.getElementById(
@@ -4241,61 +4836,21 @@ async function sendAIMessage(){
         );
 
 
-    const button =
-        document.getElementById(
-            "aiSend"
-        );
+    if (!input) {
+        return;
+    }
 
 
     const message =
         input.value.trim();
 
 
-    if(!message){
+    if (!message) {
         return;
     }
 
 
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient.auth.getSession();
-
-
-        if(
-            error ||
-            !data?.session?.user
-        ){
-
-            addAIMessage(
-                "🔐 يجب تسجيل الدخول إلى المنصة أولًا لاستخدام المساعد الذكي.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        currentUser =
-            data.session.user;
-
-    }
-    catch(error){
-
-        console.error(error);
-
-        addAIMessage(
-            "❌ تعذر التحقق من جلسة تسجيل الدخول.",
-            "error"
-        );
-
-        return;
-
-    }
+    input.value = "";
 
 
     addAIMessage(
@@ -4304,158 +4859,133 @@ async function sendAIMessage(){
     );
 
 
-    input.value = "";
+    try {
+
+        const {
+            data: sessionData
+        } =
+            await supabaseClient
+                .auth
+                .getSession();
 
 
-    button.disabled =
-        true;
-
-    button.textContent =
-        "⏳";
+        const session =
+            sessionData?.session;
 
 
-    const thinking =
-        document.createElement(
-            "div"
+        if (!session) {
+
+            addAIMessage(
+                "يرجى تسجيل الدخول لاستخدام المساعد الذكي.",
+                "bot"
+            );
+
+            return;
+
+        }
+
+
+        addAIMessage(
+            "جاري التفكير في الإجابة...",
+            "bot"
         );
 
-
-    thinking.id =
-        "aiThinking";
-
-    thinking.className =
-        "ai-message bot";
-
-    thinking.textContent =
-        "🤔 جاري التفكير...";
-
-
-    const messages =
-        document.getElementById(
-            "aiMessages"
-        );
-
-
-    messages.appendChild(
-        thinking
-    );
-
-
-    messages.scrollTop =
-        messages.scrollHeight;
-
-
-    try{
 
         const {
             data,
             error
         } =
-        await supabaseClient.functions.invoke(
-            "swift-processor",
-            {
-                body:{
-                    message:message
-                }
-            }
-        );
+            await supabaseClient
+                .functions
+                .invoke(
+                    "swift-processor",
+                    {
+                        body: {
+                            message:
+                                message
+                        }
+                    }
+                );
 
 
-        const thinkingElement =
+        const messages =
             document.getElementById(
-                "aiThinking"
+                "aiMessages"
             );
 
 
-        if(thinkingElement){
-            thinkingElement.remove();
+        if (messages) {
+
+            const last =
+                messages.lastElementChild;
+
+
+            if (
+                last &&
+                last.classList.contains(
+                    "bot"
+                ) &&
+                last.textContent ===
+                    "جاري التفكير في الإجابة..."
+            ) {
+
+                last.remove();
+
+            }
+
         }
 
 
-        if(error){
+        if (error) {
 
-            console.error(
-                "AI function error:",
-                error
-            );
+            console.error(error);
 
 
             addAIMessage(
-                "❌ تعذر الاتصال بالمساعد الذكي.\n\n" +
-                (
-                    error.message ||
-                    "تحقق من Edge Function المسماة swift-processor."
-                ),
-                "error"
+                "تعذر الاتصال بالمساعد الذكي حاليًا.",
+                "bot"
             );
+
 
             return;
 
         }
 
 
-        if(
-            !data ||
-            !data.success
-        ){
+        if (
+            data &&
+            data.success &&
+            data.answer
+        ) {
 
             addAIMessage(
-                "❌ لم يتم الحصول على إجابة.\n\n" +
-                (
-                    data?.error ||
-                    "حدث خطأ داخل خدمة المساعد الذكي."
-                ),
-                "error"
+                data.answer,
+                "bot"
             );
 
-            return;
+        } else {
+
+            addAIMessage(
+                data?.error ||
+                "لم أتمكن من الحصول على إجابة.",
+                "bot"
+            );
 
         }
 
 
-        addAIMessage(
-            data.answer ||
-            "لم تصل إجابة.",
-            "bot"
-        );
-
-    }
-    catch(error){
+    } catch (error) {
 
         console.error(
-            "AI exception:",
+            "AI error:",
             error
         );
 
 
-        const thinkingElement =
-            document.getElementById(
-                "aiThinking"
-            );
-
-
-        if(thinkingElement){
-            thinkingElement.remove();
-        }
-
-
         addAIMessage(
-            "❌ حدث خطأ أثناء الاتصال بالمساعد.\n\n" +
-            (
-                error.message ||
-                String(error)
-            ),
-            "error"
+            "حدث خطأ أثناء الاتصال بالمساعد الذكي.",
+            "bot"
         );
-
-    }
-    finally{
-
-        button.disabled =
-            false;
-
-        button.textContent =
-            "➤";
 
     }
 
@@ -4466,14 +4996,16 @@ async function sendAIMessage(){
    EXTERNAL TRAININGS
 ========================================================= */
 
-function safeExternalUrl(value){
+function safeExternalUrl(
+    value
+) {
 
-    if(!value){
-        return "";
+    if (!value) {
+        return "#";
     }
 
 
-    try{
+    try {
 
         const url =
             new URL(
@@ -4482,56 +5014,50 @@ function safeExternalUrl(value){
             );
 
 
-        if(
+        if (
             url.protocol === "http:" ||
             url.protocol === "https:"
-        ){
+        ) {
 
             return url.href;
 
         }
 
-    }
-    catch(error){
+    } catch (error) {
 
-        console.warn(
-            "Invalid external URL:",
-            error
-        );
+        console.error(error);
 
     }
 
 
-    return "";
+    return "#";
 
 }
 
 
-function formatExternalDate(value){
+function formatExternalDate(
+    value
+) {
 
-    if(!value){
-        return "غير محدد";
+    if (!value) {
+        return "-";
     }
 
 
-    try{
+    try {
 
-        return new Intl.DateTimeFormat(
+        return new Date(
+            value
+        ).toLocaleDateString(
             "ar-DZ",
             {
-                year:"numeric",
-                month:"long",
-                day:"numeric"
+                year: "numeric",
+                month: "long",
+                day: "numeric"
             }
-        ).format(
-            new Date(
-                value +
-                "T00:00:00"
-            )
         );
 
-    }
-    catch(error){
+    } catch (error) {
 
         return value;
 
@@ -4543,111 +5069,112 @@ function formatExternalDate(value){
 function formatExternalTime(
     start,
     end
-){
+) {
 
-    if(!start && !end){
-        return "غير محدد";
+    if (!start) {
+        return "-";
     }
 
 
-    const clean =
-        value =>
-            value
-            ? String(value).slice(0,5)
-            : "";
+    if (end) {
 
+        return `${start} - ${end}`;
 
-    const a =
-        clean(start);
-
-    const b =
-        clean(end);
-
-
-    if(a && b){
-        return a + " — " + b;
     }
 
 
-    return a || b;
+    return start;
 
 }
 
 
 function externalStatusClass(
     status
-){
+) {
 
     const value =
         String(
-            status ||
-            "مفتوح"
-        ).trim();
+            status || ""
+        ).toLowerCase();
 
 
-    if(value === "قريبًا"){
-        return "soon";
+    if (
+        value.includes("نشط") ||
+        value.includes("متاح") ||
+        value.includes("جاري")
+    ) {
+
+        return "status-active";
+
     }
 
 
-    if(value === "مغلق"){
-        return "closed";
+    if (
+        value.includes("انتظار") ||
+        value.includes("قريب")
+    ) {
+
+        return "status-pending";
+
     }
 
 
-    if(value === "منتهي"){
-        return "finished";
-    }
-
-
-    return "";
+    return "status-default";
 
 }
 
 
-async function loadExternalTrainings(){
+async function loadExternalTrainings() {
 
-    const container =
+    const list =
         document.getElementById(
             "externalTrainingsList"
         );
 
 
-    if(!container){
+    if (!list) {
         return;
     }
-
-
-    container.innerHTML =
-        '<div class="external-loading">⏳ جاري تحميل التكوينات الخارجية...</div>';
 
 
     const {
         data,
         error
     } =
-    await supabaseClient
-    .from("external_trainings")
-    .select(
-        "id,title,description,organizer,platform,meeting_url,training_date,start_time,end_time,target_audience,registration_url,status,created_at"
-    )
-    .order(
-        "training_date",
-        {
-            ascending:true,
-            nullsFirst:false
-        }
-    )
-    .order(
-        "start_time",
-        {
-            ascending:true,
-            nullsFirst:false
-        }
-    );
+        await supabaseClient
+            .from("external_trainings")
+            .select(
+                `
+                id,
+                title,
+                description,
+                organizer,
+                platform,
+                meeting_url,
+                training_date,
+                start_time,
+                end_time,
+                target_audience,
+                registration_url,
+                status,
+                created_at
+                `
+            )
+            .order(
+                "training_date",
+                {
+                    ascending: true
+                }
+            )
+            .order(
+                "start_time",
+                {
+                    ascending: true
+                }
+            );
 
 
-    if(error){
+    if (error) {
 
         console.error(
             "External trainings error:",
@@ -4655,440 +5182,340 @@ async function loadExternalTrainings(){
         );
 
 
-        container.innerHTML =
-            '<div class="external-error">❌ تعذر تحميل التكوينات الخارجية حاليًا.</div>';
+        list.innerHTML =
+            `<div class="empty-state">
+
+                <div class="empty-icon">
+                    ⚠️
+                </div>
+
+                تعذر تحميل التكوينات الخارجية.
+
+            </div>`;
+
 
         return;
 
     }
 
 
-    if(
-        !data ||
-        !data.length
-    ){
-
-        container.innerHTML =
-            '<div class="external-empty">📭 لا توجد تكوينات خارجية معلنة حاليًا.</div>';
-
-        return;
-
-    }
-
-
-    const visible =
-        data.filter(
+    const trainings =
+        (data || []).filter(
             item =>
                 String(
-                    item.status ||
-                    "مفتوح"
+                    item.status || ""
                 ) !== "منتهي"
         );
 
 
-    if(!visible.length){
+    if (!trainings.length) {
 
-        container.innerHTML =
-            '<div class="external-empty">📭 لا توجد تكوينات خارجية متاحة حاليًا.</div>';
+        list.innerHTML =
+            `<div class="empty-state">
+
+                <div class="empty-icon">
+                    🌐
+                </div>
+
+                لا توجد تكوينات خارجية متاحة حاليًا.
+
+            </div>`;
+
 
         return;
 
     }
 
 
-    const list =
-        document.createElement(
-            "div"
-        );
+    list.innerHTML =
+        trainings.map(
+            training => {
+
+                const status =
+                    training.status ||
+                    "متاح";
 
 
-    list.className =
-        "external-list";
-
-
-    visible.forEach(
-        item => {
-
-            const card =
-                document.createElement(
-                    "article"
-                );
-
-
-            card.className =
-                "external-card";
-
-
-            const head =
-                document.createElement(
-                    "div"
-                );
-
-
-            head.className =
-                "external-card-head";
-
-
-            const icon =
-                document.createElement(
-                    "div"
-                );
-
-
-            icon.className =
-                "external-icon";
-
-            icon.textContent =
-                "🌐";
-
-
-            const titleWrap =
-                document.createElement(
-                    "div"
-                );
-
-
-            titleWrap.style.flex =
-                "1";
-
-
-            const title =
-                document.createElement(
-                    "h3"
-                );
-
-
-            title.className =
-                "external-title";
-
-            title.textContent =
-                item.title ||
-                "تكوين خارجي";
-
-
-            titleWrap.appendChild(
-                title
-            );
-
-
-            const status =
-                document.createElement(
-                    "span"
-                );
-
-
-            status.className =
-                "external-status " +
-                externalStatusClass(
-                    item.status
-                );
-
-
-            status.textContent =
-                item.status ||
-                "مفتوح";
-
-
-            head.appendChild(icon);
-
-            head.appendChild(
-                titleWrap
-            );
-
-            head.appendChild(
-                status
-            );
-
-
-            card.appendChild(
-                head
-            );
-
-
-            if(item.description){
-
-                const desc =
-                    document.createElement(
-                        "p"
+                const registrationUrl =
+                    safeExternalUrl(
+                        training.registration_url
                     );
 
 
-                desc.className =
-                    "external-description";
+                const meetingUrl =
+                    safeExternalUrl(
+                        training.meeting_url
+                    );
 
-                desc.textContent =
-                    item.description;
+
+                return `
+
+                    <div class="external-card">
 
 
-                card.appendChild(
-                    desc
-                );
+                        <span class="status-badge ${
+                            externalStatusClass(
+                                status
+                            )
+                        }">
+
+                            ${escapeHtml(status)}
+
+                        </span>
+
+
+                        <h3>
+
+                            🌐 ${escapeHtml(
+                                training.title ||
+                                "تكوين خارجي"
+                            )}
+
+                        </h3>
+
+
+                        <div class="external-description">
+
+                            ${escapeHtml(
+                                training.description ||
+                                "لا يوجد وصف لهذا التكوين."
+                            )}
+
+                        </div>
+
+
+                        <div class="external-meta">
+
+
+                            <div class="meta-item">
+
+                                <span>
+                                    الجهة المنظمة
+                                </span>
+
+                                <strong>
+
+                                    ${
+                                        escapeHtml(
+                                            training.organizer ||
+                                            "-"
+                                        )
+                                    }
+
+                                </strong>
+
+                            </div>
+
+
+                            <div class="meta-item">
+
+                                <span>
+                                    المنصة
+                                </span>
+
+                                <strong>
+
+                                    ${
+                                        escapeHtml(
+                                            training.platform ||
+                                            "-"
+                                        )
+                                    }
+
+                                </strong>
+
+                            </div>
+
+
+                            <div class="meta-item">
+
+                                <span>
+                                    التاريخ
+                                </span>
+
+                                <strong>
+
+                                    ${
+                                        formatExternalDate(
+                                            training.training_date
+                                        )
+                                    }
+
+                                </strong>
+
+                            </div>
+
+
+                            <div class="meta-item">
+
+                                <span>
+                                    التوقيت
+                                </span>
+
+                                <strong>
+
+                                    ${
+                                        formatExternalTime(
+                                            training.start_time,
+                                            training.end_time
+                                        )
+                                    }
+
+                                </strong>
+
+                            </div>
+
+
+                            <div class="meta-item"
+                                 style="grid-column:1/-1;">
+
+                                <span>
+                                    الفئة المستهدفة
+                                </span>
+
+                                <strong>
+
+                                    ${
+                                        escapeHtml(
+                                            training.target_audience ||
+                                            "-"
+                                        )
+                                    }
+
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="external-actions">
+
+
+                            ${
+                                training.registration_url
+                                ? `
+
+                                    <a
+                                        href="${registrationUrl}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="btn btn-primary">
+
+                                        📝 التسجيل
+
+                                    </a>
+
+                                `
+                                : ""
+                            }
+
+
+                            ${
+                                training.meeting_url
+                                ? `
+
+                                    <a
+                                        href="${meetingUrl}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="btn btn-success">
+
+                                        🎥 رابط المشاركة
+
+                                    </a>
+
+                                `
+                                : ""
+                            }
+
+
+                        </div>
+
+
+                    </div>
+
+                `;
 
             }
-
-
-            const info =
-                document.createElement(
-                    "div"
-                );
-
-
-            info.className =
-                "external-info";
-
-
-            const addInfo =
-                (
-                    label,
-                    value
-                ) => {
-
-                    const box =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    box.className =
-                        "external-info-item";
-
-
-                    const strong =
-                        document.createElement(
-                            "strong"
-                        );
-
-
-                    strong.textContent =
-                        label;
-
-
-                    box.appendChild(
-                        strong
-                    );
-
-
-                    box.appendChild(
-                        document.createTextNode(
-                            value ||
-                            "غير محدد"
-                        )
-                    );
-
-
-                    info.appendChild(
-                        box
-                    );
-
-                };
-
-
-            addInfo(
-                "🏢 الجهة المنظمة",
-                item.organizer
-            );
-
-
-            addInfo(
-                "💻 المنصة",
-                item.platform
-            );
-
-
-            addInfo(
-                "📅 تاريخ التكوين",
-                formatExternalDate(
-                    item.training_date
-                )
-            );
-
-
-            addInfo(
-                "🕘 التوقيت",
-                formatExternalTime(
-                    item.start_time,
-                    item.end_time
-                )
-            );
-
-
-            addInfo(
-                "👥 الفئة المستهدفة",
-                item.target_audience
-            );
-
-
-            card.appendChild(
-                info
-            );
-
-
-            const actions =
-                document.createElement(
-                    "div"
-                );
-
-
-            actions.className =
-                "external-actions";
-
-
-            const registrationUrl =
-                safeExternalUrl(
-                    item.registration_url
-                );
-
-
-            if(
-                registrationUrl &&
-                item.status !== "مغلق"
-            ){
-
-                const register =
-                    document.createElement(
-                        "a"
-                    );
-
-
-                register.className =
-                    "external-action primary";
-
-                register.href =
-                    registrationUrl;
-
-                register.target =
-                    "_blank";
-
-                register.rel =
-                    "noopener noreferrer";
-
-                register.textContent =
-                    "📝 التسجيل";
-
-
-                actions.appendChild(
-                    register
-                );
-
-            }
-
-
-            const meetingUrl =
-                safeExternalUrl(
-                    item.meeting_url
-                );
-
-
-            if(
-                meetingUrl &&
-                item.status !== "مغلق"
-            ){
-
-                const meeting =
-                    document.createElement(
-                        "a"
-                    );
-
-
-                meeting.className =
-                    "external-action secondary";
-
-                meeting.href =
-                    meetingUrl;
-
-                meeting.target =
-                    "_blank";
-
-                meeting.rel =
-                    "noopener noreferrer";
-
-                meeting.textContent =
-                    "🎥 رابط المشاركة";
-
-
-                actions.appendChild(
-                    meeting
-                );
-
-            }
-
-
-            if(
-                !actions.children.length
-            ){
-
-                const note =
-                    document.createElement(
-                        "span"
-                    );
-
-
-                note.className =
-                    "external-action secondary";
-
-                note.style.cursor =
-                    "default";
-
-
-                note.textContent =
-                    item.status === "مغلق"
-                    ? "🔒 التسجيل مغلق"
-                    : "ℹ️ لا يوجد رابط متاح";
-
-
-                actions.appendChild(
-                    note
-                );
-
-            }
-
-
-            card.appendChild(
-                actions
-            );
-
-
-            list.appendChild(
-                card
-            );
-
-        }
-    );
-
-
-    container.innerHTML = "";
-
-    container.appendChild(
-        list
-    );
+        ).join("");
 
 }
 
 
 /* =========================================================
-   DOM READY
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   ENTER KEY FOR AI
 ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
-    function(){
+    function () {
 
-        const input =
+        const aiInput =
             document.getElementById(
                 "aiInput"
             );
 
 
-        if(input){
+        if (aiInput) {
 
-            input.addEventListener(
+            aiInput.addEventListener(
                 "keydown",
-                function(event){
+                function (event) {
 
-                    if(
-                        event.key === "Enter" &&
-                        !event.shiftKey
-                    ){
+                    if (
+                        event.key ===
+                        "Enter"
+                    ) {
 
                         event.preventDefault();
 
@@ -5106,11 +5533,143 @@ document.addEventListener(
 
         loadExternalTrainings();
 
+
+        /* =================================================
+           تحديث الشريط السفلي حسب القسم الظاهر
+        ================================================= */
+
+        const sections = [
+            "top",
+            "profile",
+            "courses",
+            "externalTrainings",
+            "certificates"
+        ];
+
+
+        const observer =
+            new IntersectionObserver(
+                function(entries) {
+
+                    entries.forEach(
+                        function(entry) {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                updateNavigationState(
+                                    entry.target.id
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: 0.25
+                }
+            );
+
+
+        sections.forEach(
+            function(id) {
+
+                const section =
+                    document.getElementById(
+                        id
+                    );
+
+                if (section) {
+
+                    observer.observe(
+                        section
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CLOSE MOBILE MENU WITH ESC
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeSidebar();
+
+
+            const panel =
+                document.getElementById(
+                    "aiPanel"
+                );
+
+
+            if (panel) {
+
+                panel.classList.remove(
+                    "open"
+                );
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CLOSE SIDEBAR WHEN CLICKING A LINK
+========================================================= */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const sidebar =
+            document.getElementById(
+                "sidebar"
+            );
+
+
+        const menuButton =
+            document.querySelector(
+                ".mobile-menu-btn"
+            );
+
+
+        if (
+            window.innerWidth <= 800 &&
+            sidebar &&
+            sidebar.classList.contains("open") &&
+            !sidebar.contains(event.target) &&
+            menuButton &&
+            !menuButton.contains(event.target)
+        ) {
+
+            closeSidebar();
+
+        }
+
     }
 );
 
 </script>
 
 </body>
+
 </html>
-```
