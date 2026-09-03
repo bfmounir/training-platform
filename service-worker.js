@@ -1,4 +1,4 @@
-const CACHE_NAME = "training-platform-v1";
+const CACHE_NAME = "training-platform-v2";
 
 const APP_FILES = [
 "./",
@@ -8,7 +8,16 @@ const APP_FILES = [
 "./trainee.html",
 "./trainer.html",
 "./admin.html",
+"./admin-users.html",
+"./admin-courses.html",
+"./admin-lessons.html",
+"./admin-certificates.html",
+"./admin-statistics.html",
+"./external-training.html",
+"./admin-announcements.html",
+"./admin-trainee-requests.html",
 "./supabase-config.js",
+"./manifest.json",
 "./logo.png"
 ];
 
@@ -16,6 +25,9 @@ self.addEventListener("install", event => {
 event.waitUntil(
 caches.open(CACHE_NAME)
 .then(cache => cache.addAll(APP_FILES))
+.catch(error => {
+console.error("خطأ في تخزين ملفات التطبيق:", error);
+})
 );
 
 ```
@@ -26,13 +38,13 @@ self.skipWaiting();
 
 self.addEventListener("activate", event => {
 event.waitUntil(
-caches.keys().then(keys =>
-Promise.all(
+caches.keys().then(keys => {
+return Promise.all(
 keys
 .filter(key => key !== CACHE_NAME)
 .map(key => caches.delete(key))
-)
-)
+);
+})
 );
 
 ```
@@ -67,8 +79,7 @@ event.respondWith(
                         return networkResponse;
                     }
 
-                    const responseClone =
-                        networkResponse.clone();
+                    const responseClone = networkResponse.clone();
 
                     caches.open(CACHE_NAME)
                         .then(cache => {
