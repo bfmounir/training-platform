@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 
 <head>
@@ -6,11 +7,12 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+   content="width=device-width, initial-scale=1.0">
 
 <title>لوحة تحكم المسؤول</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="supabase-config.js"></script>
 
 <style>
@@ -25,8 +27,6 @@ body {
     background: #f4f6f8;
     color: #1f2937;
 }
-
-/* القائمة الجانبية */
 
 .sidebar {
     position: fixed;
@@ -100,8 +100,6 @@ body {
     background: #b91c1c;
 }
 
-/* المحتوى */
-
 .main {
     margin-right: 270px;
     padding: 30px;
@@ -133,8 +131,6 @@ body {
     color: #475569;
     font-weight: bold;
 }
-
-/* الإحصائيات */
 
 .stats {
     display: grid;
@@ -168,8 +164,6 @@ body {
     color: #64748b;
     font-size: 14px;
 }
-
-/* البطاقات */
 
 .cards {
     display: grid;
@@ -231,8 +225,6 @@ body {
     background: #115e59;
 }
 
-/* بطاقة طلبات المتربصين */
-
 .trainee-request-card {
     border: 2px solid #ccfbf1;
     position: relative;
@@ -249,8 +241,6 @@ body {
     font-size: 11px;
     font-weight: bold;
 }
-
-/* معلومات المسؤول */
 
 .admin-info {
     margin-top: 28px;
@@ -279,13 +269,9 @@ body {
     padding-bottom: 15px;
 }
 
-/* رسائل */
-
 .loading {
     opacity: .65;
 }
-
-/* الهاتف */
 
 @media (max-width: 1100px) {
 
@@ -350,512 +336,402 @@ body {
 
 </head>
 
-
 <body>
-
-
-<!-- القائمة الجانبية -->
 
 <aside class="sidebar">
 
-    <div class="logo-box">
+```
+<div class="logo-box">
 
-        <img src="logo.png"
-             alt="شعار المؤسسة">
+    <img src="logo.png" alt="شعار المؤسسة">
 
-        <h2>
-            المؤسسة العمومية الإستشفائية بأولف
-        </h2>
+    <h2>
+        المؤسسة العمومية الإستشفائية بأولف
+    </h2>
 
-    </div>
+</div>
 
+<nav class="menu">
 
-    <nav class="menu">
+    <a href="admin.html" class="active">
+        🏠 لوحة التحكم
+    </a>
 
-        <a href="admin.html" class="active">
-            🏠 لوحة التحكم
-        </a>
+    <a href="admin-users.html">
+        👥 المستخدمون
+    </a>
 
-        <a href="admin-users.html">
-            👥 المستخدمون
-        </a>
+    <a href="admin-trainee-requests.html">
+        📝 طلبات تسجيل المتربصين
+    </a>
 
-        <a href="admin-trainee-requests.html">
-            📝 طلبات تسجيل المتربصين
-        </a>
+    <a href="admin-courses.html">
+        📚 الدورات
+    </a>
 
-        <a href="admin-courses.html">
-            📚 الدورات
-        </a>
+    <a href="admin-lessons.html">
+        📖 الدروس
+    </a>
 
-        <a href="admin-lessons.html">
-            📖 الدروس
-        </a>
+    <a href="admin-certificates.html">
+        🎓 الشهادات
+    </a>
 
-        <a href="admin-certificates.html">
-            🎓 الشهادات
-        </a>
+    <a href="admin-statistics.html">
+        📊 الإحصائيات
+    </a>
 
-        <a href="admin-statistics.html">
-            📊 الإحصائيات
-        </a>
+    <a href="external-training.html">
+        🌐 التكوينات الخارجية
+    </a>
 
-        <a href="external-training.html">
-            🌐 التكوينات الخارجية
-        </a>
+    <a href="admin-announcements.html">
+        📢 الإعلانات
+    </a>
 
-        <a href="admin-announcements.html">
-            📢 الإعلانات
-        </a>
+</nav>
 
-    </nav>
-
-
-    <button class="logout"
-            onclick="logout()">
-
-        🚪 تسجيل الخروج
-
-    </button>
+<button class="logout" onclick="logout()">
+    🚪 تسجيل الخروج
+</button>
+```
 
 </aside>
 
-
-
-<!-- المحتوى الرئيسي -->
-
 <main class="main">
 
+```
+<section class="top-header">
 
-    <section class="top-header">
+    <h1>
+        لوحة تحكم المسؤول
+    </h1>
 
-        <h1>
-            لوحة تحكم المسؤول
-        </h1>
+    <p>
+        مرحبًا بك في لوحة إدارة منصة التكوين المتواصل.
+        من هنا يمكنك إدارة الدورات والمتربصين والدروس والشهادات
+        ومختلف خدمات المنصة.
+    </p>
 
-        <p>
-            مرحبًا بك في لوحة إدارة منصة التكوين المتواصل.
-            من هنا يمكنك إدارة الدورات والمتربصين والدروس والشهادات
-            ومختلف خدمات المنصة.
-        </p>
+    <div class="institution">
+        المؤسسة العمومية الإستشفائية بأولف – ولاية أدرار
+    </div>
 
-        <div class="institution">
+</section>
 
-            المؤسسة العمومية الإستشفائية بأولف – ولاية أدرار
+<section class="stats">
 
+    <div class="stat-card">
+
+        <div class="stat-icon">👥</div>
+
+        <div id="totalUsers"
+             class="stat-number loading">
+            ...
         </div>
 
-    </section>
-
-
-
-    <!-- ================================
-         الإحصائيات
-    ================================= -->
-
-    <section class="stats">
-
-
-        <!-- إجمالي الحسابات -->
-
-        <div class="stat-card">
-
-            <div class="stat-icon">
-                👥
-            </div>
-
-            <div id="totalUsers"
-                 class="stat-number loading">
-                ...
-            </div>
-
-            <div class="stat-title">
-                إجمالي الحسابات
-            </div>
-
+        <div class="stat-title">
+            إجمالي الحسابات
         </div>
-
-
-
-        <!-- المشاركون المقبولون -->
-
-        <div class="stat-card">
-
-            <div class="stat-icon">
-                🧑‍🎓
-            </div>
-
-            <div id="approvedTrainees"
-                 class="stat-number loading">
-                ...
-            </div>
-
-            <div class="stat-title">
-                المشاركون المقبولون
-            </div>
-
-        </div>
-
-
-
-        <!-- طلبات التسجيل -->
-
-        <div class="stat-card">
-
-            <div class="stat-icon">
-                📝
-            </div>
-
-            <div id="traineeRequests"
-                 class="stat-number loading">
-                ...
-            </div>
-
-            <div class="stat-title">
-                طلبات التسجيل
-            </div>
-
-        </div>
-
-
-
-        <!-- الدورات -->
-
-        <div class="stat-card">
-
-            <div class="stat-icon">
-                📚
-            </div>
-
-            <div id="totalCourses"
-                 class="stat-number loading">
-                ...
-            </div>
-
-            <div class="stat-title">
-                إجمالي الدورات
-            </div>
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- البطاقات -->
-
-    <section class="cards">
-
-
-        <!-- المستخدمون -->
-
-        <div class="card">
-
-            <div class="card-icon">
-                👥
-            </div>
-
-            <h3>
-                المستخدمون
-            </h3>
-
-            <p>
-                إدارة حسابات المستخدمين والصلاحيات الخاصة بهم.
-            </p>
-
-            <a href="admin-users.html">
-                إدارة المستخدمين
-            </a>
-
-        </div>
-
-
-
-        <!-- طلبات المتربصين -->
-
-        <div class="card trainee-request-card">
-
-            <span class="new-label">
-                جديد
-            </span>
-
-            <div class="card-icon">
-                📝
-            </div>
-
-            <h3>
-                طلبات تسجيل المتربصين
-            </h3>
-
-            <p>
-                مراجعة طلبات التسجيل الجديدة وقبول أو رفض
-                المتربصين قبل السماح لهم بالدخول إلى المنصة.
-            </p>
-
-            <a href="admin-trainee-requests.html">
-                مراجعة الطلبات
-            </a>
-
-        </div>
-
-
-
-        <!-- الدورات -->
-
-        <div class="card">
-
-            <div class="card-icon">
-                📚
-            </div>
-
-            <h3>
-                إدارة الدورات
-            </h3>
-
-            <p>
-                إنشاء الدورات التكوينية وإدارتها ومتابعة بياناتها.
-            </p>
-
-            <a href="admin-courses.html">
-                إدارة الدورات
-            </a>
-
-        </div>
-
-
-
-        <!-- الدروس -->
-
-        <div class="card">
-
-            <div class="card-icon">
-                📖
-            </div>
-
-            <h3>
-                الدروس والمواد
-            </h3>
-
-            <p>
-                إدارة الدروس والوثائق والمواد التعليمية الخاصة بالدورات.
-            </p>
-
-            <a href="admin-lessons.html">
-                إدارة الدروس
-            </a>
-
-        </div>
-
-
-
-        <!-- الشهادات -->
-
-        <div class="card">
-
-            <div class="card-icon">
-                🎓
-            </div>
-
-            <h3>
-                الشهادات
-            </h3>
-
-            <p>
-                إدارة شهادات التكوين ومتابعة إصدارها للمتربصين.
-            </p>
-
-            <a href="admin-certificates.html">
-                إدارة الشهادات
-            </a>
-
-        </div>
-
-
-
-        <!-- الإحصائيات -->
-
-        <div class="card">
-
-            <div class="card-icon">
-                📊
-            </div>
-
-            <h3>
-                الإحصائيات
-            </h3>
-
-            <p>
-                متابعة الإحصائيات والتقارير المتعلقة بالتكوين.
-            </p>
-
-            <a href="admin-statistics.html">
-                عرض الإحصائيات
-            </a>
-
-        </div>
-
-
-
-        <!-- التكوينات الخارجية -->
-
-        <div class="card">
-
-            <div class="card-icon">
-                🌐
-            </div>
-
-            <h3>
-                التكوينات الخارجية
-            </h3>
-
-            <p>
-                إدارة التكوينات التي تنظمها جهات خارج المؤسسة
-                عبر Zoom أو Google Meet أو Teams وغيرها.
-            </p>
-
-            <a href="external-training.html">
-                إدارة التكوينات
-            </a>
-
-        </div>
-
-
-
-        <!-- الإعلانات -->
-
-        <div class="card">
-
-            <div class="card-icon">
-                📢
-            </div>
-
-            <h3>
-                الإعلانات
-            </h3>
-
-            <p>
-                نشر الإعلانات والتنبيهات الخاصة بالمنصة والتكوين.
-            </p>
-
-            <a href="admin-announcements.html">
-                إدارة الإعلانات
-            </a>
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- معلومات المسؤول -->
-
-    <section class="admin-info">
-
-        <h2>
-            👨‍💼 معلومات المسؤول
-        </h2>
-
-        <p>
-            <strong>
-                الصفة:
-            </strong>
-
-            رئيس مكتب التكوين المتواصل
-        </p>
-
-        <p>
-            <strong>
-                المسؤول:
-            </strong>
-
-            بن صغير منير
-        </p>
-
-        <p>
-            <strong>
-                المؤسسة:
-            </strong>
-
-            المؤسسة العمومية الإستشفائية بأولف – ولاية أدرار
-        </p>
-
-        <p>
-            <strong>
-                الهاتف:
-            </strong>
-
-            0660.48.43.73
-        </p>
-
-    </section>
-
-
-
-    <div class="footer">
-
-        © 2026 منصة التكوين المتواصل
-        – المؤسسة العمومية الإستشفائية بأولف
 
     </div>
 
+    <div class="stat-card">
+
+        <div class="stat-icon">🧑‍🎓</div>
+
+        <div id="approvedTrainees"
+             class="stat-number loading">
+            ...
+        </div>
+
+        <div class="stat-title">
+            المشاركون المقبولون
+        </div>
+
+    </div>
+
+    <div class="stat-card">
+
+        <div class="stat-icon">📝</div>
+
+        <div id="traineeRequests"
+             class="stat-number loading">
+            ...
+        </div>
+
+        <div class="stat-title">
+            طلبات التسجيل
+        </div>
+
+    </div>
+
+    <div class="stat-card">
+
+        <div class="stat-icon">📚</div>
+
+        <div id="totalCourses"
+             class="stat-number loading">
+            ...
+        </div>
+
+        <div class="stat-title">
+            إجمالي الدورات
+        </div>
+
+    </div>
+
+</section>
+
+<section class="cards">
+
+    <div class="card">
+
+        <div class="card-icon">👥</div>
+
+        <h3>المستخدمون</h3>
+
+        <p>
+            إدارة حسابات المستخدمين والصلاحيات الخاصة بهم.
+        </p>
+
+        <a href="admin-users.html">
+            إدارة المستخدمين
+        </a>
+
+    </div>
+
+    <div class="card trainee-request-card">
+
+        <span class="new-label">
+            جديد
+        </span>
+
+        <div class="card-icon">📝</div>
+
+        <h3>
+            طلبات تسجيل المتربصين
+        </h3>
+
+        <p>
+            مراجعة طلبات التسجيل الجديدة وقبول أو رفض
+            المتربصين قبل السماح لهم بالدخول إلى المنصة.
+        </p>
+
+        <a href="admin-trainee-requests.html">
+            مراجعة الطلبات
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-icon">📚</div>
+
+        <h3>إدارة الدورات</h3>
+
+        <p>
+            إنشاء الدورات التكوينية وإدارتها ومتابعة بياناتها.
+        </p>
+
+        <a href="admin-courses.html">
+            إدارة الدورات
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-icon">📖</div>
+
+        <h3>الدروس والمواد</h3>
+
+        <p>
+            إدارة الدروس والوثائق والمواد التعليمية الخاصة بالدورات.
+        </p>
+
+        <a href="admin-lessons.html">
+            إدارة الدروس
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-icon">🎓</div>
+
+        <h3>الشهادات</h3>
+
+        <p>
+            إدارة شهادات التكوين ومتابعة إصدارها للمتربصين.
+        </p>
+
+        <a href="admin-certificates.html">
+            إدارة الشهادات
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-icon">📊</div>
+
+        <h3>الإحصائيات</h3>
+
+        <p>
+            متابعة الإحصائيات والتقارير المتعلقة بالتكوين.
+        </p>
+
+        <a href="admin-statistics.html">
+            عرض الإحصائيات
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-icon">🌐</div>
+
+        <h3>التكوينات الخارجية</h3>
+
+        <p>
+            إدارة التكوينات التي تنظمها جهات خارج المؤسسة
+            عبر Zoom أو Google Meet أو Teams وغيرها.
+        </p>
+
+        <a href="external-training.html">
+            إدارة التكوينات
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-icon">📢</div>
+
+        <h3>الإعلانات</h3>
+
+        <p>
+            نشر الإعلانات والتنبيهات الخاصة بالمنصة والتكوين.
+        </p>
+
+        <a href="admin-announcements.html">
+            إدارة الإعلانات
+        </a>
+
+    </div>
+
+</section>
+
+<section class="admin-info">
+
+    <h2>
+        👨‍💼 معلومات المسؤول
+    </h2>
+
+    <p>
+        <strong>الصفة:</strong>
+        رئيس مكتب التكوين المتواصل
+    </p>
+
+    <p>
+        <strong>المسؤول:</strong>
+        بن صغير منير
+    </p>
+
+    <p>
+        <strong>المؤسسة:</strong>
+        المؤسسة العمومية الإستشفائية بأولف – ولاية أدرار
+    </p>
+
+    <p>
+        <strong>الهاتف:</strong>
+        0660.48.43.73
+    </p>
+
+</section>
+
+<div class="footer">
+
+    © 2026 منصة التكوين المتواصل
+    – المؤسسة العمومية الإستشفائية بأولف
+
+</div>
+```
 
 </main>
-
-
 
 <script>
 
 /* ==================================================
-   التحقق من أن المستخدم مسؤول
+   التحقق من تسجيل الدخول وصلاحية المسؤول
 ================================================== */
 
 async function checkAdmin() {
 
-    const {
-        data: { user },
-        error
-    } = await supabaseClient.auth.getUser();
+    try {
 
+        const {
+            data: { user },
+            error: userError
+        } = await supabaseClient.auth.getUser();
 
-    if (error || !user) {
+        if (userError || !user) {
 
-        window.location.href = "login.html";
+            window.location.href = "login.html";
 
-        return null;
+            return false;
+        }
 
-    }
+        const {
+            data: roleData,
+            error: roleError
+        } = await supabaseClient
+            .from("user_roles")
+            .select("role")
+            .eq("user_id", user.id)
+            .maybeSingle();
 
+        if (roleError) {
 
-    const {
-        data: roleData,
-        error: roleError
-    } = await supabaseClient
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id)
-        .maybeSingle();
+            console.error(
+                "خطأ في قراءة صلاحية المستخدم:",
+                roleError
+            );
 
+            alert(
+                "تعذر التحقق من صلاحية المسؤول. يرجى إعادة تسجيل الدخول."
+            );
 
-    if (
-        roleError ||
-        !roleData ||
-        roleData.role !== "admin"
-    ) {
+            return false;
+        }
 
-        alert(
-            "ليس لديك صلاحية الدخول إلى لوحة المسؤول."
+        if (!roleData || roleData.role !== "admin") {
+
+            alert(
+                "ليس لديك صلاحية الدخول إلى لوحة المسؤول."
+            );
+
+            window.location.href = "login.html";
+
+            return false;
+        }
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "Admin check error:",
+            error
         );
 
-        window.location.href = "login.html";
+        alert(
+            "حدث خطأ أثناء التحقق من صلاحية المسؤول."
+        );
 
-        return null;
-
+        return false;
     }
-
-    return user;
-
 }
 
 
@@ -865,147 +741,202 @@ async function checkAdmin() {
 
 async function logout() {
 
-    await supabaseClient.auth.signOut();
+    try {
+
+        await supabaseClient.auth.signOut();
+
+    } catch (error) {
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+    }
 
     window.location.href = "login.html";
+}
 
+
+/* ==================================================
+   دالة عامة لعرض الرقم
+================================================== */
+
+function setStat(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+    if (!element) return;
+
+    element.textContent =
+        value ?? 0;
+
+    element.classList.remove("loading");
 }
 
 
 /* ==================================================
    إجمالي الحسابات
-   من جدول user_roles
+   user_roles
 ================================================== */
 
 async function loadTotalUsers() {
 
-    const {
-        count,
-        error
-    } = await supabaseClient
-        .from("user_roles")
-        .select("*", {
-            count: "exact",
-            head: true
-        });
+    try {
 
+        const {
+            count,
+            error
+        } = await supabaseClient
+            .from("user_roles")
+            .select("id", {
+                count: "exact",
+                head: true
+            });
 
-    const element =
-        document.getElementById("totalUsers");
+        if (error) {
 
+            console.error(
+                "Total users error:",
+                error
+            );
 
-    if (error) {
+            setStat(
+                "totalUsers",
+                "—"
+            );
+
+            return;
+        }
+
+        setStat(
+            "totalUsers",
+            count
+        );
+
+    } catch (error) {
 
         console.error(
-            "Total users error:",
+            "Total users exception:",
             error
         );
 
-        element.textContent = "—";
-
-        return;
-
+        setStat(
+            "totalUsers",
+            "—"
+        );
     }
-
-
-    element.textContent =
-        count ?? 0;
-
-    element.classList.remove("loading");
-
 }
 
 
 /* ==================================================
    المشاركون المقبولون
-   من trainee_requests
-   status = approved
 ================================================== */
 
 async function loadApprovedTrainees() {
 
-    const {
-        count,
-        error
-    } = await supabaseClient
-        .from("trainee_requests")
-        .select("*", {
-            count: "exact",
-            head: true
-        })
-        .eq(
-            "status",
-            "approved"
+    try {
+
+        const {
+            count,
+            error
+        } = await supabaseClient
+            .from("trainee_requests")
+            .select("id", {
+                count: "exact",
+                head: true
+            })
+            .eq(
+                "status",
+                "approved"
+            );
+
+        if (error) {
+
+            console.error(
+                "Approved trainees error:",
+                error
+            );
+
+            setStat(
+                "approvedTrainees",
+                "—"
+            );
+
+            return;
+        }
+
+        setStat(
+            "approvedTrainees",
+            count
         );
 
-
-    const element =
-        document.getElementById("approvedTrainees");
-
-
-    if (error) {
+    } catch (error) {
 
         console.error(
-            "Approved trainees error:",
+            "Approved trainees exception:",
             error
         );
 
-        element.textContent = "—";
-
-        return;
-
+        setStat(
+            "approvedTrainees",
+            "—"
+        );
     }
-
-
-    element.textContent =
-        count ?? 0;
-
-    element.classList.remove("loading");
-
 }
 
 
 /* ==================================================
-   طلبات التسجيل
-   جميع السجلات الموجودة في trainee_requests
+   إجمالي طلبات التسجيل
 ================================================== */
 
 async function loadTraineeRequests() {
 
-    const {
-        count,
-        error
-    } = await supabaseClient
-        .from("trainee_requests")
-        .select("*", {
-            count: "exact",
-            head: true
-        });
+    try {
 
+        const {
+            count,
+            error
+        } = await supabaseClient
+            .from("trainee_requests")
+            .select("id", {
+                count: "exact",
+                head: true
+            });
 
-    const element =
-        document.getElementById("traineeRequests");
+        if (error) {
 
+            console.error(
+                "Trainee requests error:",
+                error
+            );
 
-    if (error) {
+            setStat(
+                "traineeRequests",
+                "—"
+            );
+
+            return;
+        }
+
+        setStat(
+            "traineeRequests",
+            count
+        );
+
+    } catch (error) {
 
         console.error(
-            "Trainee requests error:",
+            "Trainee requests exception:",
             error
         );
 
-        element.textContent = "—";
-
-        return;
-
+        setStat(
+            "traineeRequests",
+            "—"
+        );
     }
-
-
-    element.textContent =
-        count ?? 0;
-
-    element.classList.remove("loading");
-
 }
 
 
@@ -1015,55 +946,60 @@ async function loadTraineeRequests() {
 
 async function loadTotalCourses() {
 
-    const element =
-        document.getElementById("totalCourses");
+    try {
 
+        const {
+            count,
+            error
+        } = await supabaseClient
+            .from("courses")
+            .select("id", {
+                count: "exact",
+                head: true
+            });
 
-    /*
-       نحاول قراءة جدول courses.
-       إذا كان الجدول موجودًا سيتم عرض العدد.
-    */
+        if (error) {
 
-    const {
-        count,
-        error
-    } = await supabaseClient
-        .from("courses")
-        .select("*", {
-            count: "exact",
-            head: true
-        });
+            console.error(
+                "Courses error:",
+                error
+            );
 
+            setStat(
+                "totalCourses",
+                "—"
+            );
 
-    if (error) {
+            return;
+        }
+
+        setStat(
+            "totalCourses",
+            count
+        );
+
+    } catch (error) {
 
         console.error(
-            "Courses error:",
+            "Courses exception:",
             error
         );
 
-        element.textContent = "—";
-
-        return;
-
+        setStat(
+            "totalCourses",
+            "—"
+        );
     }
-
-
-    element.textContent =
-        count ?? 0;
-
-    element.classList.remove("loading");
-
 }
 
 
 /* ==================================================
-   تحميل جميع الإحصائيات
+   تحميل الإحصائيات
 ================================================== */
 
 async function loadDashboardStats() {
 
-    await Promise.all([
+    await Promise.allSettled([
 
         loadTotalUsers(),
 
@@ -1074,7 +1010,6 @@ async function loadDashboardStats() {
         loadTotalCourses()
 
     ]);
-
 }
 
 
@@ -1084,28 +1019,25 @@ async function loadDashboardStats() {
 
 async function initDashboard() {
 
-    const admin =
+    const isAdmin =
         await checkAdmin();
 
-
-    if (!admin) {
-
+    if (!isAdmin) {
         return;
-
     }
 
-
     await loadDashboardStats();
-
 }
 
 
-/* تشغيل */
+/* تشغيل اللوحة */
 
-initDashboard();
+document.addEventListener(
+    "DOMContentLoaded",
+    initDashboard
+);
 
 </script>
-
 
 </body>
 
