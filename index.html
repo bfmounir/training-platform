@@ -1,1804 +1,1257 @@
+```html
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-   content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<!-- =====================================================
-     إعدادات تطبيق الهاتف
-===================================================== -->
+    <title>منصة التكوين المتواصل - المؤسسة العمومية الإستشفائية بأولف</title>
 
-<link rel="manifest" href="manifest.json">
+    <!-- =========================
+         إعدادات تطبيق الهاتف PWA
+    ========================== -->
 
-<meta name="theme-color" content="#075985">
+    <link rel="manifest" href="manifest.json">
 
-<meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#075985">
 
-<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
 
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
-<meta name="apple-mobile-web-app-title" content="منصة التكوين">
+    <meta name="apple-mobile-web-app-status-bar-style"
+          content="default">
 
-<link rel="apple-touch-icon" href="logo.png">
+    <meta name="apple-mobile-web-app-title"
+          content="منصة التكوين">
 
-<title>
-منصة التكوين المتواصل | المؤسسة العمومية الإستشفائية بأولف
-</title>
+    <link rel="apple-touch-icon"
+          href="logo.png">
 
-<style>
 
-/* =====================================================
-   الإعدادات العامة
-===================================================== */
+    <style>
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-html {
-    scroll-behavior: smooth;
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-body {
-    font-family:
-        "Segoe UI",
-        Tahoma,
-        Arial,
-        sans-serif;
+        body {
+            font-family:
+                Arial,
+                Tahoma,
+                sans-serif;
 
-    background:
-        linear-gradient(
-            180deg,
-            #f7fbff 0%,
-            #eef6fa 100%
-        );
+            background:
+                linear-gradient(
+                    135deg,
+                    #f7fbff,
+                    #eef7fb
+                );
 
-    color: #172b3a;
+            color: #17324d;
 
-    min-height: 100vh;
+            line-height: 1.8;
+        }
 
-    line-height: 1.7;
-}
 
+        /* =========================
+           NAVBAR
+        ========================== */
 
-/* =====================================================
-   الشريط العلوي
-===================================================== */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
 
-.navbar {
+            background: rgba(255,255,255,0.97);
 
-    min-height: 88px;
+            backdrop-filter: blur(10px);
 
-    background:
-        rgba(255,255,255,0.97);
+            border-bottom:
+                1px solid #e4edf3;
 
-    backdrop-filter: blur(15px);
+            box-shadow:
+                0 4px 18px rgba(0,0,0,0.06);
+        }
 
-    display: flex;
+        .nav-container {
+            max-width: 1200px;
 
-    align-items: center;
+            margin: auto;
 
-    justify-content: space-between;
+            padding:
+                12px 20px;
 
-    padding: 10px 6%;
+            display: flex;
 
-    border-bottom:
-        1px solid rgba(7,89,133,0.10);
+            align-items: center;
 
-    box-shadow:
-        0 5px 25px rgba(15,55,75,0.08);
+            justify-content: space-between;
 
-    position: relative;
+            gap: 20px;
+        }
 
-    z-index: 20;
-}
 
+        .logo-area {
+            display: flex;
 
-.logo-area {
+            align-items: center;
 
-    display: flex;
+            gap: 12px;
 
-    align-items: center;
+            text-decoration: none;
 
-    gap: 14px;
-}
+            color: #075985;
+        }
 
+        .logo-area img {
+            width: 58px;
+            height: 58px;
 
-.small-logo {
+            object-fit: contain;
 
-    width: 58px;
+            border-radius: 50%;
+        }
 
-    height: 58px;
+        .logo-text {
+            display: flex;
 
-    object-fit: contain;
+            flex-direction: column;
+        }
 
-    border-radius: 50%;
+        .logo-title {
+            font-size: 20px;
 
-    background: white;
+            font-weight: bold;
+        }
 
-    padding: 3px;
+        .logo-subtitle {
+            font-size: 12px;
 
-    border:
-        2px solid #dceff3;
+            color: #6b7c8d;
+        }
 
-    box-shadow:
-        0 6px 18px rgba(0,90,110,0.14);
 
-    transition: .3s;
-}
+        .nav-links {
+            display: flex;
 
+            align-items: center;
 
-.small-logo:hover {
+            gap: 8px;
 
-    transform:
-        scale(1.05);
-}
+            list-style: none;
+        }
 
+        .nav-links a {
+            text-decoration: none;
 
-.brand-text {
+            color: #365268;
 
-    color: #075985;
+            padding:
+                9px 14px;
 
-    font-size: 19px;
+            border-radius: 10px;
 
-    font-weight: 800;
+            transition: 0.25s;
 
-    line-height: 1.35;
-}
+            font-weight: 600;
+        }
 
+        .nav-links a:hover {
+            background: #eef7fb;
 
-.brand-institution {
+            color: #075985;
+        }
 
-    color: #163b52;
 
-    font-size: 13px;
+        .login-button {
+            background:
+                linear-gradient(
+                    135deg,
+                    #075985,
+                    #087f8c
+                );
 
-    font-weight: 700;
+            color: white !important;
 
-    margin-top: 2px;
-}
+            box-shadow:
+                0 5px 15px rgba(7,89,133,0.20);
+        }
 
+        .login-button:hover {
+            transform: translateY(-2px);
 
-.brand-office {
+            box-shadow:
+                0 8px 20px rgba(7,89,133,0.28);
+        }
 
-    color: #718096;
 
-    font-size: 11px;
+        /* =========================
+           HERO
+        ========================== */
 
-    margin-top: 1px;
-}
+        .hero {
+            max-width: 1200px;
 
+            margin: 35px auto;
 
-.nav-status {
+            padding:
+                55px 35px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #e9f9f3,
-            #dff4ef
-        );
+            border-radius: 28px;
 
-    color: #08745d;
+            background:
+                linear-gradient(
+                    135deg,
+                    #075985,
+                    #087f8c,
+                    #0b6efd
+                );
 
-    padding: 8px 18px;
+            color: white;
 
-    border-radius: 30px;
+            position: relative;
 
-    font-size: 13px;
+            overflow: hidden;
 
-    font-weight: 700;
+            box-shadow:
+                0 15px 40px rgba(7,89,133,0.20);
+        }
 
-    border:
-        1px solid #ccece3;
+        .hero::before {
+            content: "";
 
-    box-shadow:
-        0 4px 12px rgba(0,100,80,0.06);
-}
+            position: absolute;
 
+            width: 300px;
+            height: 300px;
 
-/* =====================================================
-   الواجهة الرئيسية
-===================================================== */
+            border-radius: 50%;
 
-.hero {
+            background:
+                rgba(255,255,255,0.08);
 
-    min-height: 650px;
+            top: -120px;
+            left: -100px;
+        }
 
-    position: relative;
+        .hero::after {
+            content: "";
 
-    overflow: hidden;
+            position: absolute;
 
-    display: flex;
+            width: 250px;
+            height: 250px;
 
-    align-items: center;
+            border-radius: 50%;
 
-    background:
+            background:
+                rgba(255,255,255,0.07);
 
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(255,255,255,0.13),
-            transparent 25%
-        ),
+            bottom: -120px;
+            right: -70px;
+        }
 
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(71,214,190,0.18),
-            transparent 28%
-        ),
+        .hero-content {
+            position: relative;
 
-        linear-gradient(
-            135deg,
-            #032f46 0%,
-            #075985 48%,
-            #00796b 100%
-        );
-}
+            z-index: 2;
 
+            max-width: 850px;
+        }
 
-.hero::before {
+        .hero h1 {
+            font-size: 38px;
 
-    content: "";
+            margin-bottom: 15px;
 
-    position: absolute;
+            line-height: 1.4;
+        }
 
-    width: 520px;
+        .hero p {
+            font-size: 18px;
 
-    height: 520px;
+            opacity: 0.95;
 
-    border-radius: 50%;
+            margin-bottom: 25px;
+        }
 
-    border:
-        1px solid rgba(255,255,255,0.08);
+        .hero-buttons {
+            display: flex;
 
-    top: -270px;
+            gap: 12px;
 
-    left: -130px;
+            flex-wrap: wrap;
+        }
 
-    box-shadow:
-        0 0 0 80px rgba(255,255,255,0.025),
-        0 0 0 160px rgba(255,255,255,0.015);
-}
+        .hero-button {
+            display: inline-block;
 
+            padding:
+                12px 22px;
 
-.hero::after {
+            border-radius: 12px;
 
-    content: "";
+            text-decoration: none;
 
-    position: absolute;
+            font-weight: bold;
 
-    width: 430px;
+            transition: 0.25s;
+        }
 
-    height: 430px;
+        .hero-button.primary {
+            background: white;
 
-    border-radius: 50%;
+            color: #075985;
+        }
 
-    border:
-        1px solid rgba(255,255,255,0.07);
+        .hero-button.secondary {
+            background:
+                rgba(255,255,255,0.14);
 
-    bottom: -240px;
+            color: white;
 
-    right: -120px;
-}
+            border:
+                1px solid rgba(255,255,255,0.35);
+        }
 
+        .hero-button:hover {
+            transform: translateY(-3px);
+        }
 
-.hero-container {
 
-    width: 1160px;
+        /* =========================
+           GENERAL
+        ========================== */
 
-    max-width: 90%;
+        .container {
+            max-width: 1200px;
 
-    margin: auto;
+            margin: auto;
 
-    display: flex;
+            padding:
+                0 20px;
+        }
 
-    align-items: center;
+        .section {
+            margin:
+                60px 0;
+        }
 
-    justify-content: space-between;
+        .section-title {
+            text-align: center;
 
-    gap: 55px;
+            margin-bottom: 35px;
+        }
 
-    position: relative;
+        .section-title h2 {
+            font-size: 30px;
 
-    z-index: 3;
-}
+            color: #17324d;
 
+            margin-bottom: 8px;
+        }
 
-/* =====================================================
-   النص
-===================================================== */
+        .section-title p {
+            color: #718294;
+        }
 
-.hero-text {
 
-    max-width: 680px;
+        /* =========================
+           SERVICES
+        ========================== */
 
-    color: white;
-}
+        .services {
+            display: grid;
 
+            grid-template-columns:
+                repeat(4, 1fr);
 
-.welcome {
+            gap: 20px;
+        }
 
-    display: inline-flex;
+        .service-card {
+            background: white;
 
-    align-items: center;
+            padding: 28px 20px;
 
-    background:
-        rgba(255,255,255,0.12);
+            border-radius: 20px;
 
-    border:
-        1px solid rgba(255,255,255,0.20);
+            text-align: center;
 
-    padding:
-        9px 19px;
+            border:
+                1px solid #e4edf3;
 
-    border-radius: 30px;
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.05);
 
-    font-size: 14px;
+            transition: 0.3s;
+        }
 
-    margin-bottom: 20px;
-}
+        .service-card:hover {
+            transform:
+                translateY(-6px);
 
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.09);
+        }
 
-.hero-title {
+        .service-icon {
+            width: 65px;
+            height: 65px;
 
-    font-size: 46px;
+            margin:
+                0 auto 15px;
 
-    line-height: 1.35;
+            display: flex;
 
-    margin-bottom: 8px;
+            align-items: center;
 
-    font-weight: 850;
+            justify-content: center;
 
-    letter-spacing: -1px;
+            background: #eef7fb;
 
-    text-shadow:
-        0 4px 18px rgba(0,0,0,0.12);
-}
+            border-radius: 18px;
 
+            font-size: 30px;
+        }
 
-.hero-institution {
+        .service-card h3 {
+            margin-bottom: 8px;
 
-    font-size: 23px;
+            color: #075985;
+        }
 
-    color: #d7f7f5;
+        .service-card p {
+            color: #718294;
 
-    font-weight: 700;
+            font-size: 14px;
+        }
 
-    margin-bottom: 3px;
-}
 
+        /* =========================
+           INSTITUTION
+        ========================== */
 
-.hero-state {
+        .institution {
+            display: grid;
 
-    font-size: 18px;
+            grid-template-columns:
+                1fr 1fr;
 
-    color: #b8e9e6;
+            gap: 25px;
+        }
 
-    font-weight: 600;
+        .info-card {
+            background: white;
 
-    margin-bottom: 20px;
-}
+            border-radius: 22px;
 
+            padding: 30px;
 
-.hero-office {
+            border:
+                1px solid #e4edf3;
 
-    display: inline-block;
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.05);
+        }
 
-    background:
-        rgba(255,255,255,0.10);
+        .info-card h3 {
+            color: #075985;
 
-    border:
-        1px solid rgba(255,255,255,0.18);
+            margin-bottom: 15px;
+        }
 
-    padding:
-        8px 17px;
+        .info-card p {
+            color: #5f7182;
 
-    border-radius: 20px;
+            margin-bottom: 10px;
+        }
 
-    color: #e4f8f7;
 
-    font-size: 14px;
+        /* =========================
+           CONTACT
+        ========================== */
 
-    font-weight: 700;
+        .contact-box {
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #f1f9fc
+                );
 
-    margin-bottom: 20px;
-}
+            border:
+                1px solid #dfeaf1;
 
+            border-radius: 22px;
 
-.hero-description {
+            padding: 30px;
 
-    font-size: 16px;
+            text-align: center;
 
-    line-height: 2.05;
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.05);
+        }
 
-    color: #eaf9fa;
+        .contact-box h2 {
+            color: #075985;
 
-    max-width: 630px;
-}
+            margin-bottom: 12px;
+        }
 
+        .contact-box p {
+            color: #5f7182;
 
-/* =====================================================
-   زر الدخول
-===================================================== */
+            margin: 5px;
+        }
 
-.buttons {
 
-    margin-top: 30px;
+        /* =========================
+           FOOTER
+        ========================== */
 
-    display: flex;
+        footer {
+            margin-top: 70px;
 
-    gap: 14px;
+            background: #17324d;
 
-    flex-wrap: wrap;
-}
+            color: white;
 
+            padding:
+                35px 20px;
 
-.login-button {
+            text-align: center;
+        }
 
-    display: inline-flex;
+        footer p {
+            margin: 5px;
 
-    align-items: center;
+            opacity: 0.9;
+        }
 
-    justify-content: center;
+        .footer-small {
+            font-size: 13px;
 
-    gap: 10px;
+            opacity: 0.7;
+        }
 
-    padding:
-        16px 34px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff,
-            #edfafa
-        );
+        /* =========================
+           زر تثبيت التطبيق
+        ========================== */
 
-    color: #075985;
+        #installApp {
+            display: none;
 
-    text-decoration: none;
+            position: fixed;
 
-    border-radius: 15px;
+            bottom: 20px;
 
-    font-size: 17px;
+            left: 20px;
 
-    font-weight: 800;
+            z-index: 2000;
 
-    transition: .3s;
+            border: none;
 
-    box-shadow:
-        0 12px 30px rgba(0,0,0,0.18);
-}
+            background:
+                linear-gradient(
+                    135deg,
+                    #075985,
+                    #087f8c
+                );
 
+            color: white;
 
-.login-button:hover {
+            padding:
+                13px 18px;
 
-    transform:
-        translateY(-5px);
+            border-radius: 14px;
 
-    box-shadow:
-        0 18px 38px rgba(0,0,0,0.25);
-}
+            font-size: 15px;
 
+            font-weight: bold;
 
-/* =====================================================
-   الشعار الرئيسي
-===================================================== */
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.20);
 
-.hero-logo-wrapper {
+            cursor: pointer;
+        }
 
-    width: 350px;
+        #installApp:hover {
+            transform: translateY(-2px);
+        }
 
-    height: 350px;
 
-    min-width: 350px;
+        /* =========================
+           تحسين الهاتف
+        ========================== */
 
-    display: flex;
+        @media (max-width: 900px) {
 
-    align-items: center;
+            .services {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
 
-    justify-content: center;
+            .institution {
+                grid-template-columns: 1fr;
+            }
 
-    position: relative;
-}
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
 
 
-.hero-logo-glow {
+        @media (max-width: 700px) {
 
-    position: absolute;
+            nav {
+                position: relative;
+            }
 
-    width: 320px;
+            .nav-container {
+                flex-direction: column;
 
-    height: 320px;
+                padding:
+                    12px 15px;
 
-    border-radius: 50%;
+                gap: 10px;
+            }
 
-    background:
-        rgba(255,255,255,0.10);
+            .logo-area {
+                width: 100%;
 
-    box-shadow:
-        0 0 80px rgba(255,255,255,0.08);
+                justify-content: center;
+            }
 
-    animation:
-        pulse 4s ease-in-out infinite;
-}
+            .nav-links {
+                width: 100%;
 
+                justify-content: center;
 
-@keyframes pulse {
+                flex-wrap: wrap;
+            }
 
-    0%,100% {
-        transform: scale(1);
-    }
+            .nav-links a {
+                font-size: 13px;
 
-    50% {
-        transform: scale(1.04);
-    }
-}
+                padding:
+                    7px 10px;
+            }
 
+            .hero {
+                margin:
+                    20px 12px;
 
-.hero-logo {
+                padding:
+                    35px 22px;
 
-    position: relative;
+                border-radius: 22px;
 
-    width: 285px;
+                text-align: center;
+            }
 
-    height: 285px;
+            .hero h1 {
+                font-size: 27px;
+            }
 
-    object-fit: contain;
+            .hero p {
+                font-size: 16px;
+            }
 
-    border-radius: 50%;
+            .hero-buttons {
+                justify-content: center;
+            }
 
-    border:
-        8px solid rgba(255,255,255,0.92);
+            .hero-button {
+                width: 100%;
 
-    background: white;
+                text-align: center;
+            }
 
-    padding: 4px;
+            .container {
+                padding:
+                    0 12px;
+            }
 
-    box-shadow:
-        0 25px 60px rgba(0,0,0,0.27),
-        0 0 0 12px rgba(255,255,255,0.06);
+            .section {
+                margin:
+                    45px 0;
+            }
 
-    transition: .4s;
-}
+            .section-title h2 {
+                font-size: 25px;
+            }
 
+            .services {
+                grid-template-columns: 1fr;
+            }
 
-.hero-logo:hover {
+            .info-card {
+                padding: 22px;
+            }
 
-    transform:
-        scale(1.035)
-        rotate(1deg);
-}
+            #installApp {
+                left: 12px;
+                right: 12px;
 
+                bottom: 12px;
 
-/* =====================================================
-   الخدمات
-===================================================== */
+                width: calc(100% - 24px);
+            }
+        }
 
-.services {
 
-    max-width: 1120px;
+        @media (max-width: 380px) {
 
-    margin: 78px auto;
+            .logo-title {
+                font-size: 17px;
+            }
 
-    padding: 0 20px;
-}
+            .logo-subtitle {
+                font-size: 10px;
+            }
 
+            .hero h1 {
+                font-size: 24px;
+            }
 
-.section-header {
+            .hero p {
+                font-size: 14px;
+            }
 
-    text-align: center;
+            .service-card {
+                padding: 22px 15px;
+            }
+        }
 
-    margin-bottom: 42px;
-}
-
-
-.section-header h2 {
-
-    color: #075985;
-
-    font-size: 31px;
-
-    margin-bottom: 8px;
-
-    font-weight: 800;
-}
-
-
-.section-header h2::after {
-
-    content: "";
-
-    display: block;
-
-    width: 55px;
-
-    height: 4px;
-
-    margin:
-        10px auto 0;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #075985,
-            #00a88f
-        );
-}
-
-
-.section-header p {
-
-    color: #708090;
-
-    font-size: 15px;
-
-    margin-top: 10px;
-}
-
-
-.cards {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap: 22px;
-}
-
-
-.card {
-
-    position: relative;
-
-    background:
-        rgba(255,255,255,0.95);
-
-    border-radius: 23px;
-
-    padding: 32px 21px;
-
-    text-align: center;
-
-    border:
-        1px solid #e3edf2;
-
-    box-shadow:
-        0 10px 30px rgba(15,55,75,0.06);
-
-    transition: .35s;
-
-    overflow: hidden;
-}
-
-
-.card::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-
-    right: 0;
-
-    width: 100%;
-
-    height: 4px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #075985,
-            #00a88f
-        );
-
-    transform:
-        scaleX(0);
-
-    transform-origin: right;
-
-    transition: .35s;
-}
-
-
-.card:hover::before {
-
-    transform:
-        scaleX(1);
-}
-
-
-.card:hover {
-
-    transform:
-        translateY(-9px);
-
-    box-shadow:
-        0 20px 45px rgba(15,55,75,0.12);
-}
-
-
-.card-icon {
-
-    width: 72px;
-
-    height: 72px;
-
-    margin:
-        0 auto 20px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #e4f6f5,
-            #e9f3fb
-        );
-
-    border-radius: 20px;
-
-    font-size: 34px;
-}
-
-
-.card h3 {
-
-    color: #075985;
-
-    font-size: 19px;
-
-    margin-bottom: 11px;
-
-    font-weight: 750;
-}
-
-
-.card p {
-
-    color: #6b7d8c;
-
-    font-size: 14px;
-
-    line-height: 1.9;
-}
-
-
-/* =====================================================
-   معلومات المؤسسة
-===================================================== */
-
-.info-section {
-
-    max-width: 1120px;
-
-    margin:
-        0 auto 70px;
-
-    padding: 0 20px;
-}
-
-
-.info-box {
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff,
-            #f8fcfd
-        );
-
-    border-radius: 25px;
-
-    padding: 40px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 30px;
-
-    border:
-        1px solid #dfebf0;
-
-    box-shadow:
-        0 12px 35px rgba(15,55,75,0.07);
-}
-
-
-.info-icon {
-
-    min-width: 82px;
-
-    width: 82px;
-
-    height: 82px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #e1f4f1,
-            #e4f0fb
-        );
-
-    border-radius: 22px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 38px;
-}
-
-
-.info-box h2 {
-
-    color: #075985;
-
-    margin-bottom: 10px;
-
-    font-size: 24px;
-
-    font-weight: 800;
-}
-
-
-.info-box p {
-
-    color: #687b89;
-
-    line-height: 2;
-
-    font-size: 15px;
-}
-
-
-/* =====================================================
-   بطاقة المسؤول
-===================================================== */
-
-.manager-section {
-
-    max-width: 1120px;
-
-    margin:
-        0 auto 70px;
-
-    padding: 0 20px;
-}
-
-
-.manager-card {
-
-    background:
-        linear-gradient(
-            135deg,
-            #eef8fb,
-            #f8fcfd
-        );
-
-    border:
-        1px solid #d8e9ef;
-
-    border-radius: 25px;
-
-    padding: 30px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 25px;
-
-    box-shadow:
-        0 10px 30px rgba(15,55,75,0.06);
-}
-
-
-.manager-title {
-
-    color: #075985;
-
-    font-size: 22px;
-
-    font-weight: 800;
-
-    margin-bottom: 8px;
-}
-
-
-.manager-role {
-
-    color: #5e7180;
-
-    font-size: 15px;
-
-    margin-bottom: 5px;
-}
-
-
-.manager-name {
-
-    color: #075985;
-
-    font-weight: 800;
-
-    font-size: 17px;
-}
-
-
-.phone {
-
-    background:
-        #075985;
-
-    color: white;
-
-    padding:
-        12px 20px;
-
-    border-radius: 30px;
-
-    font-size: 15px;
-
-    font-weight: 700;
-
-    white-space: nowrap;
-}
-
-
-/* =====================================================
-   بطاقة المشروع
-===================================================== */
-
-.project-section {
-
-    max-width: 1120px;
-
-    margin:
-        0 auto 75px;
-
-    padding: 0 20px;
-}
-
-
-.project-card {
-
-    position: relative;
-
-    overflow: hidden;
-
-    background:
-
-        radial-gradient(
-            circle at 10% 20%,
-            rgba(255,255,255,0.10),
-            transparent 23%
-        ),
-
-        linear-gradient(
-            135deg,
-            #064c6e,
-            #075985 48%,
-            #00695c
-        );
-
-    color: white;
-
-    border-radius: 27px;
-
-    padding: 45px 30px;
-
-    text-align: center;
-
-    box-shadow:
-        0 18px 45px rgba(0,70,90,0.16);
-}
-
-
-.project-content {
-
-    position: relative;
-
-    z-index: 2;
-}
-
-
-.project-symbol {
-
-    font-size: 40px;
-
-    margin-bottom: 10px;
-}
-
-
-.project-card h2 {
-
-    font-size: 26px;
-
-    margin-bottom: 14px;
-
-    font-weight: 800;
-}
-
-
-.project-card p {
-
-    max-width: 760px;
-
-    margin: auto;
-
-    color: #e1f5f5;
-
-    font-size: 15px;
-
-    line-height: 2;
-}
-
-
-/* =====================================================
-   التذييل
-===================================================== */
-
-footer {
-
-    background:
-        linear-gradient(
-            135deg,
-            #032b40,
-            #043c56
-        );
-
-    color: #cbdce3;
-
-    text-align: center;
-
-    padding: 40px 15px;
-
-    line-height: 1.9;
-
-    border-top:
-        4px solid #087f72;
-}
-
-
-footer strong {
-
-    color: white;
-
-    font-size: 20px;
-
-    font-weight: 800;
-}
-
-
-.footer-institution {
-
-    color: #e5f5f6;
-
-    font-size: 15px;
-
-    font-weight: 700;
-
-    margin-top: 5px;
-}
-
-
-.footer-office {
-
-    color: #b8d1d9;
-
-    font-size: 14px;
-
-    margin-top: 3px;
-}
-
-
-.footer-manager {
-
-    margin-top: 12px;
-
-    color: #d9edef;
-
-    font-size: 14px;
-}
-
-
-.footer-phone {
-
-    display: inline-block;
-
-    margin-top: 8px;
-
-    background:
-        rgba(255,255,255,0.10);
-
-    padding:
-        7px 18px;
-
-    border-radius: 20px;
-
-    color: white;
-
-    font-size: 13px;
-}
-
-
-.footer-copy {
-
-    margin-top: 18px;
-
-    padding-top: 15px;
-
-    border-top:
-        1px solid rgba(255,255,255,0.10);
-
-    font-size: 12px;
-
-    color: #9eb4be;
-}
-
-
-/* =====================================================
-   الأجهزة اللوحية
-===================================================== */
-
-@media (max-width:1000px) {
-
-    .hero-container {
-        gap: 30px;
-    }
-
-    .hero-title {
-        font-size: 40px;
-    }
-
-    .hero-logo-wrapper {
-        width: 280px;
-        height: 280px;
-        min-width: 280px;
-    }
-
-    .hero-logo-glow {
-        width: 260px;
-        height: 260px;
-    }
-
-    .hero-logo {
-        width: 235px;
-        height: 235px;
-    }
-
-    .cards {
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-}
-
-
-/* =====================================================
-   الهاتف
-===================================================== */
-
-@media (max-width:700px) {
-
-    .navbar {
-
-        min-height: 75px;
-
-        padding:
-            9px 15px;
-    }
-
-    .small-logo {
-
-        width: 47px;
-
-        height: 47px;
-    }
-
-    .brand-text {
-
-        font-size: 15px;
-    }
-
-    .brand-institution {
-
-        font-size: 10px;
-    }
-
-    .brand-office {
-
-        font-size: 9px;
-    }
-
-    .nav-status {
-
-        display: none;
-    }
-
-    .hero {
-
-        min-height: 650px;
-
-        padding:
-            55px 0;
-    }
-
-    .hero-container {
-
-        text-align: center;
-
-        justify-content: center;
-    }
-
-    .hero-logo-wrapper {
-
-        display: none;
-    }
-
-    .hero-text {
-
-        max-width: 100%;
-    }
-
-    .welcome {
-
-        font-size: 12px;
-
-        padding:
-            8px 15px;
-    }
-
-    .hero-title {
-
-        font-size: 31px;
-
-        letter-spacing: 0;
-    }
-
-    .hero-institution {
-
-        font-size: 19px;
-    }
-
-    .hero-state {
-
-        font-size: 16px;
-    }
-
-    .hero-office {
-
-        font-size: 12px;
-    }
-
-    .hero-description {
-
-        font-size: 14px;
-
-        line-height: 2;
-    }
-
-    .buttons {
-
-        justify-content: center;
-
-        flex-direction: column;
-    }
-
-    .login-button {
-
-        width: 100%;
-    }
-
-    .cards {
-
-        grid-template-columns: 1fr;
-    }
-
-    .info-box {
-
-        flex-direction: column;
-
-        text-align: center;
-
-        padding:
-            30px 20px;
-    }
-
-    .manager-card {
-
-        flex-direction: column;
-
-        text-align: center;
-
-        padding:
-            28px 20px;
-    }
-
-    .phone {
-
-        width: 100%;
-    }
-
-    .project-card {
-
-        padding:
-            35px 20px;
-    }
-}
-
-
-/* =====================================================
-   شاشات صغيرة جدًا
-===================================================== */
-
-@media (max-width:380px) {
-
-    .hero-title {
-
-        font-size: 28px;
-    }
-
-    .hero-institution {
-
-        font-size: 17px;
-    }
-
-}
-
-</style>
+    </style>
 
 </head>
 
+
 <body>
 
-<!-- =====================================================
-     الشريط العلوي
-===================================================== -->
 
-<nav class="navbar">
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
-```
-<div class="logo-area">
+    <nav>
 
-    <img
-        src="logo.png"
-        class="small-logo"
-        alt="شعار المؤسسة">
+        <div class="nav-container">
 
-    <div>
+            <a href="index.html"
+               class="logo-area">
 
-        <div class="brand-text">
-            منصة التكوين المتواصل
-        </div>
+                <img src="logo.png"
+                     alt="شعار المؤسسة">
 
-        <div class="brand-institution">
-            المؤسسة العمومية الإستشفائية بأولف
-        </div>
+                <div class="logo-text">
 
-        <div class="brand-office">
-            ولاية أدرار — مكتب التكوين المتواصل
-        </div>
+                    <div class="logo-title">
+                        منصة التكوين
+                    </div>
 
-    </div>
+                    <div class="logo-subtitle">
+                        المؤسسة العمومية الإستشفائية بأولف
+                    </div>
 
-</div>
-
-
-<div class="nav-status">
-    ● المنصة الإلكترونية
-</div>
-```
-
-</nav>
-
-<!-- =====================================================
-     الواجهة الرئيسية
-===================================================== -->
-
-<section class="hero">
-
-```
-<div class="hero-container">
-
-
-    <div class="hero-text">
-
-
-        <span class="welcome">
-            👋 مرحبًا بكم في منصة التكوين المتواصل
-        </span>
-
-
-        <h1 class="hero-title">
-            منصة التكوين المتواصل
-        </h1>
-
-
-        <div class="hero-institution">
-            المؤسسة العمومية الإستشفائية بأولف
-        </div>
-
-
-        <div class="hero-state">
-            ولاية أدرار
-        </div>
-
-
-        <div class="hero-office">
-            🏥 مكتب التكوين المتواصل
-        </div>
-
-
-        <p class="hero-description">
-
-            منصة رقمية حديثة تهدف إلى تنظيم
-            وإدارة ومتابعة برامج التكوين المتواصل،
-            وتوفير الدورات والدروس والمواد التعليمية
-            والشهادات ضمن بيئة إلكترونية سهلة ومنظمة.
-
-        </p>
-
-
-        <div class="buttons">
-
-            <a
-                href="login.html"
-                class="login-button">
-
-                🔐 تسجيل الدخول
+                </div>
 
             </a>
 
+
+            <ul class="nav-links">
+
+                <li>
+                    <a href="#services">
+                        الخدمات
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#institution">
+                        المؤسسة
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#contact">
+                        اتصل بنا
+                    </a>
+                </li>
+
+                <li>
+                    <a href="login.html"
+                       class="login-button">
+                        🔐 الدخول
+                    </a>
+                </li>
+
+            </ul>
+
         </div>
 
-
-    </div>
-
+    </nav>
 
 
-    <!-- الشعار -->
 
-    <div class="hero-logo-wrapper">
+    <!-- =========================
+         HERO
+    ========================== -->
 
-        <div class="hero-logo-glow"></div>
+    <section class="hero">
 
-        <img
-            src="logo.png"
-            class="hero-logo"
-            alt="شعار المؤسسة العمومية الإستشفائية بأولف">
+        <div class="hero-content">
 
-    </div>
+            <h1>
+                منصة التكوين المتواصل
+            </h1>
 
+            <p>
+                منصة رقمية حديثة لمتابعة التكوين المستمر،
+                الدورات، الدروس، الشهادات والتكوينات الخارجية
+                لفائدة مستخدمي المؤسسة العمومية الإستشفائية بأولف.
+            </p>
 
-</div>
-```
+            <div class="hero-buttons">
 
-</section>
+                <a href="login.html"
+                   class="hero-button primary">
+                    الدخول إلى المنصة
+                </a>
 
-<!-- =====================================================
-     الخدمات
-===================================================== -->
+                <a href="register.html"
+                   class="hero-button secondary">
+                    📝 تسجيل متربص جديد
+                </a>
 
-<section class="services">
+            </div>
 
-```
-<div class="section-header">
-
-    <h2>
-        خدمات المنصة
-    </h2>
-
-    <p>
-        جميع أدوات التكوين في مكان واحد
-    </p>
-
-</div>
-
-
-<div class="cards">
-
-
-    <div class="card">
-
-        <div class="card-icon">
-            📚
         </div>
 
-        <h3>
-            الدورات التكوينية
-        </h3>
+    </section>
+
+
+
+    <!-- =========================
+         SERVICES
+    ========================== -->
+
+    <main class="container">
+
+        <section class="section"
+                 id="services">
+
+            <div class="section-title">
+
+                <h2>
+                    خدمات المنصة
+                </h2>
+
+                <p>
+                    كل ما يحتاجه المتربص في مكان واحد
+                </p>
+
+            </div>
+
+
+            <div class="services">
+
+
+                <div class="service-card">
+
+                    <div class="service-icon">
+                        📚
+                    </div>
+
+                    <h3>
+                        الدورات التكوينية
+                    </h3>
+
+                    <p>
+                        الاطلاع على الدورات المتاحة
+                        والتسجيل فيها ومتابعة محتواها.
+                    </p>
+
+                </div>
+
+
+                <div class="service-card">
+
+                    <div class="service-icon">
+                        📖
+                    </div>
+
+                    <h3>
+                        الدروس
+                    </h3>
+
+                    <p>
+                        متابعة الدروس والمواد التكوينية
+                        الخاصة بكل دورة.
+                    </p>
+
+                </div>
+
+
+                <div class="service-card">
+
+                    <div class="service-icon">
+                        🏆
+                    </div>
+
+                    <h3>
+                        الشهادات
+                    </h3>
+
+                    <p>
+                        الحصول على شهادة إتمام التكوين
+                        بعد استكمال متطلبات الدورة.
+                    </p>
+
+                </div>
+
+
+                <div class="service-card">
+
+                    <div class="service-icon">
+                        🌐
+                    </div>
+
+                    <h3>
+                        التكوينات الخارجية
+                    </h3>
+
+                    <p>
+                        متابعة الدورات المنظمة عبر
+                        Zoom وGoogle Meet وTeams وغيرها.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             INSTITUTION
+        ========================== -->
+
+        <section class="section"
+                 id="institution">
+
+            <div class="section-title">
+
+                <h2>
+                    المؤسسة
+                </h2>
+
+                <p>
+                    معلومات عن المنصة والمؤسسة
+                </p>
+
+            </div>
+
+
+            <div class="institution">
+
+
+                <div class="info-card">
+
+                    <h3>
+                        🏥 المؤسسة العمومية الإستشفائية بأولف
+                    </h3>
+
+                    <p>
+                        <strong>
+                            الولاية:
+                        </strong>
+                        أدرار
+                    </p>
+
+                    <p>
+                        تهدف المنصة إلى تطوير ومتابعة
+                        التكوين المستمر لمستخدمي المؤسسة،
+                        وتسهيل الوصول إلى البرامج والدروس
+                        والشهادات بطريقة رقمية.
+                    </p>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <h3>
+                        👨‍💼 مكتب التكوين المتواصل
+                    </h3>
+
+                    <p>
+                        <strong>
+                            المسؤول:
+                        </strong>
+                        بن صغير منير
+                    </p>
+
+                    <p>
+                        <strong>
+                            الهاتف:
+                        </strong>
+                        0660.48.43.73
+                    </p>
+
+                    <p>
+                        يتولى مكتب التكوين المتواصل
+                        متابعة وتنظيم مختلف العمليات
+                        والبرامج التكوينية.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             IDEA
+        ========================== -->
+
+        <section class="section">
+
+            <div class="contact-box">
+
+                <h2>
+                    💡 فكرة المنصة
+                </h2>
+
+                <p>
+                    الانتقال من المتابعة الورقية التقليدية
+                    إلى منظومة رقمية تساعد على تنظيم
+                    التكوين ومتابعة المتربصين والدورات
+                    والشهادات بطريقة أكثر سرعة وفعالية.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             CONTACT
+        ========================== -->
+
+        <section class="section"
+                 id="contact">
+
+            <div class="contact-box">
+
+                <h2>
+                    📞 اتصل بمكتب التكوين المتواصل
+                </h2>
+
+                <p>
+                    المؤسسة العمومية الإستشفائية بأولف
+                    - ولاية أدرار
+                </p>
+
+                <p>
+                    رئيس مكتب التكوين المتواصل:
+                    <strong>
+                        بن صغير منير
+                    </strong>
+                </p>
+
+                <p>
+                    الهاتف:
+                    <strong>
+                        0660.48.43.73
+                    </strong>
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
 
         <p>
-            متابعة الدورات وبرامج التكوين
-            المتواصل بطريقة سهلة ومنظمة.
+            منصة التكوين المتواصل
         </p>
-
-    </div>
-
-
-    <div class="card">
-
-        <div class="card-icon">
-            📖
-        </div>
-
-        <h3>
-            الدروس والمواد
-        </h3>
 
         <p>
-            الوصول إلى الدروس والوثائق
-            والمواد التعليمية في أي وقت.
+            المؤسسة العمومية الإستشفائية بأولف
+            - ولاية أدرار
         </p>
 
-    </div>
-
-
-    <div class="card">
-
-        <div class="card-icon">
-            🎓
-        </div>
-
-        <h3>
-            الشهادات
-        </h3>
-
-        <p>
-            متابعة شهادات التكوين
-            والحصول عليها إلكترونيًا.
+        <p class="footer-small">
+            جميع الحقوق محفوظة ©
+            <span id="year"></span>
         </p>
 
-    </div>
+    </footer>
 
 
-    <div class="card">
 
-        <div class="card-icon">
-            📊
-        </div>
+    <!-- =========================
+         زر تثبيت التطبيق
+    ========================== -->
 
-        <h3>
-            متابعة التكوين
-        </h3>
+    <button id="installApp">
+        📱 تثبيت التطبيق
+    </button>
 
-        <p>
-            متابعة تقدم المتربصين
-            والبرامج التكوينية بشكل منظم.
-        </p>
 
-    </div>
 
+    <!-- =========================
+         السنة الحالية
+    ========================== -->
 
-</div>
-```
+    <script>
 
-</section>
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
 
-<!-- =====================================================
-     معلومات عن المنصة
-===================================================== -->
+    </script>
 
-<section class="info-section">
 
-```
-<div class="info-box">
 
-    <div class="info-icon">
-        💻
-    </div>
+    <!-- =========================
+         تسجيل Service Worker
+    ========================== -->
 
+    <script>
 
-    <div>
+        if ("serviceWorker" in navigator) {
 
-        <h2>
-            التكوين الإلكتروني الحديث
-        </h2>
+            window.addEventListener("load", () => {
 
+                navigator.serviceWorker
+                    .register("./service-worker.js")
+                    .then(() => {
 
-        <p>
+                        console.log(
+                            "تم تشغيل خدمة التطبيق بنجاح"
+                        );
 
-            تهدف هذه المنصة إلى تسهيل عملية
-            التكوين المتواصل، وتحسين متابعة
-            المتربصين، وتنظيم الدروس والموارد
-            التعليمية والشهادات ضمن فضاء رقمي
-            حديث وسهل الاستخدام.
+                    })
+                    .catch(error => {
 
-        </p>
+                        console.error(
+                            "تعذر تشغيل Service Worker:",
+                            error
+                        );
 
-    </div>
-
-</div>
-```
-
-</section>
-
-<!-- =====================================================
-     مسؤول مكتب التكوين
-===================================================== -->
-
-<section class="manager-section">
-
-```
-<div class="manager-card">
-
-
-    <div>
-
-        <div class="manager-title">
-            🏥 مكتب التكوين المتواصل
-        </div>
-
-
-        <div class="manager-role">
-            رئيس مكتب التكوين المتواصل
-        </div>
-
-
-        <div class="manager-name">
-            بن صغير منير
-        </div>
-
-    </div>
-
-
-    <div class="phone">
-        📞 0660.48.43.73
-    </div>
-
-
-</div>
-```
-
-</section>
-
-<!-- =====================================================
-     فكرة المنصة
-===================================================== -->
-
-<section class="project-section">
-
-```
-<div class="project-card">
-
-    <div class="project-content">
-
-        <div class="project-symbol">
-            ✨
-        </div>
-
-
-        <h2>
-            من فكرة إلى منصة رقمية
-        </h2>
-
-
-        <p>
-
-            هذه المنصة ثمرة جهد متواصل وفكرة
-            تهدف إلى تطوير أساليب التكوين،
-            وتسهيل الوصول إلى المعرفة،
-            والمساهمة في بناء بيئة رقمية
-            تخدم الموظفين والمتربصين
-            وتدعم التطوير المهني.
-
-        </p>
-
-    </div>
-
-</div>
-```
-
-</section>
-
-<!-- =====================================================
-     التذييل
-===================================================== -->
-
-<footer>
-
-```
-<strong>
-    منصة التكوين المتواصل
-</strong>
-
-
-<div class="footer-institution">
-
-    المؤسسة العمومية الإستشفائية بأولف – ولاية أدرار
-
-</div>
-
-
-<div class="footer-office">
-
-    مكتب التكوين المتواصل
-
-</div>
-
-
-<div class="footer-manager">
-
-    رئيس مكتب التكوين المتواصل:
-    <strong>
-        بن صغير منير
-    </strong>
-
-</div>
-
-
-<div class="footer-phone">
-
-    📞 0660.48.43.73
-
-</div>
-
-
-<div class="footer-copy">
-
-    © 2026 منصة التكوين المتواصل — جميع الحقوق محفوظة
-
-</div>
-```
-
-</footer>
-
-<!-- =====================================================
-     تشغيل تطبيق الهاتف
-===================================================== -->
-
-<script>
-
-if ("serviceWorker" in navigator) {
-
-    window.addEventListener("load", () => {
-
-        navigator.serviceWorker
-            .register("service-worker.js")
-
-            .then(() => {
-
-                console.log(
-                    "تم تشغيل خدمة التطبيق بنجاح"
-                );
-
-            })
-
-            .catch(error => {
-
-                console.error(
-                    "تعذر تشغيل Service Worker:",
-                    error
-                );
+                    });
 
             });
 
-    });
+        }
 
-}
+    </script>
 
-</script>
+
+
+    <!-- =========================
+         زر تثبيت التطبيق
+    ========================== -->
+
+    <script>
+
+        let deferredPrompt = null;
+
+        const installButton =
+            document.getElementById("installApp");
+
+
+        window.addEventListener(
+            "beforeinstallprompt",
+            event => {
+
+                event.preventDefault();
+
+                deferredPrompt = event;
+
+                installButton.style.display =
+                    "block";
+
+            }
+        );
+
+
+        installButton.addEventListener(
+            "click",
+            async () => {
+
+                if (!deferredPrompt) {
+                    return;
+                }
+
+                deferredPrompt.prompt();
+
+                const { outcome } =
+                    await deferredPrompt.userChoice;
+
+                console.log(
+                    "نتيجة التثبيت:",
+                    outcome
+                );
+
+                deferredPrompt = null;
+
+                installButton.style.display =
+                    "none";
+
+            }
+        );
+
+
+        window.addEventListener(
+            "appinstalled",
+            () => {
+
+                console.log(
+                    "تم تثبيت التطبيق بنجاح"
+                );
+
+                installButton.style.display =
+                    "none";
+
+                deferredPrompt = null;
+
+            }
+        );
+
+    </script>
+
 
 </body>
 
 </html>
+```
