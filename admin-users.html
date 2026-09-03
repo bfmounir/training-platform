@@ -407,6 +407,13 @@ tr:hover {
             🔄 تحديث
         </button>
 
+        <button
+            class="btn"
+            style="background:#2563eb;color:white;"
+            onclick="openAddUserModal()">
+            ➕ إضافة مستخدم
+        </button>
+
     </div>
 
 
@@ -553,6 +560,73 @@ tr:hover {
     </section>
 
 </main>
+
+
+<!-- نافذة إضافة مستخدم جديد -->
+
+<div
+    id="addUserModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <h2>➕ إضافة مستخدم جديد</h2>
+
+        <div class="form-group">
+            <label>الاسم</label>
+            <input
+                id="newUserName"
+                type="text"
+                placeholder="اسم المستخدم">
+        </div>
+
+        <div class="form-group">
+            <label>البريد الإلكتروني</label>
+            <input
+                id="newUserEmail"
+                type="email"
+                placeholder="example@email.com"
+                autocomplete="off">
+        </div>
+
+        <div class="form-group">
+            <label>كلمة المرور المؤقتة</label>
+            <input
+                id="newUserPassword"
+                type="password"
+                placeholder="كلمة مرور مؤقتة"
+                autocomplete="new-password">
+            <small style="display:block;margin-top:6px;color:#64748b;">
+                يجب أن تكون كلمة المرور قوية، ثم يمكن للمستخدم تغييرها لاحقًا.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label>الدور</label>
+            <select id="newUserRole">
+                <option value="trainee">متربص</option>
+                <option value="trainer">مدرب</option>
+                <option value="admin">مسؤول</option>
+            </select>
+        </div>
+
+        <div class="modal-actions">
+            <button
+                class="btn save-btn"
+                onclick="createUser()">
+                💾 إنشاء الحساب
+            </button>
+
+            <button
+                class="btn cancel-btn"
+                onclick="closeAddUserModal()">
+                إلغاء
+            </button>
+        </div>
+
+    </div>
+
+</div>
 
 
 <!-- نافذة تعديل الصلاحية -->
@@ -1124,12 +1198,186 @@ function filterUsers() {
                 .toLowerCase()
                 .includes(search)
 
+                ||
+
+                getRoleName(user.role)
+                    .toLowerCase()
+                    .includes(search)
+
             );
 
         });
 
 
     renderUsers(filtered);
+
+}
+
+
+/* ================================
+   إضافة مستخدم جديد
+================================ */
+
+function openAddUserModal() {
+
+    document.getElementById("newUserName").value = "";
+    document.getElementById("newUserEmail").value = "";
+    document.getElementById("newUserPassword").value = "";
+    document.getElementById("newUserRole").value = "trainee";
+
+    document
+        .getElementById("addUserModal")
+        .classList.add("show");
+}
+
+
+function closeAddUserModal() {
+
+    document
+        .getElementById("addUserModal")
+        .classList.remove("show");
+
+}
+
+
+async function createUser() {
+
+    const name =
+        document.getElementById("newUserName")
+            .value
+            .trim();
+
+    const email =
+        document.getElementById("newUserEmail")
+            .value
+            .trim();
+
+    const password =
+        document.getElementById("newUserPassword")
+            .value;
+
+    const role =
+        document.getElementById("newUserRole")
+            .value;
+
+    if (!email || !password) {
+
+        alert("يرجى إدخال البريد الإلكتروني وكلمة المرور.");
+        return;
+
+    }
+
+    if (password.length < 6) {
+
+        alert("كلمة المرور يجب أن تكون 6 أحرف على الأقل.");
+        return;
+
+    }
+
+    if (!["trainee", "trainer", "admin"].includes(role)) {
+
+        alert("الدور غير صحيح.");
+        return;
+
+    }
+
+    /*
+     * مهم:
+     * لا يمكن إنشاء مستخدم Auth إداريًا من المتصفح
+     * باستخدام مفتاح service_role.
+     *
+     * لذلك نستخدم Edge Function آمنة في Supabase.
+     * يجب إنشاء الدالة باسم create-user-admin
+     * لتقوم بإنشاء الحساب وإضافة user_roles.
+     */
+
+    try {
+
+        showMessage(
+            "⏳ جاري إنشاء الحساب...",
+            "info"
+        );
+
+        const {
+            data: sessionData
+        } = await supabaseClient.auth.getSession();
+
+        if (
+            !sessionData ||
+            !sessionData.session
+        ) {
+
+            showMessage(
+                "❌ انتهت جلسة المسؤول. يرجى تسجيل الدخول من جديد.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        const {
+            data,
+            error
+        } = await supabaseClient.functions.invoke(
+            "create-user-admin",
+            {
+                body: {
+                    name: name,
+                    email: email,
+                    password: password,
+                    role: role
+                }
+            }
+        );
+
+        if (error) {
+
+            console.error(error);
+
+            showMessage(
+                "❌ تعذر إنشاء الحساب: " +
+                error.message,
+                "error"
+            );
+
+            return;
+
+        }
+
+        if (
+            data &&
+            data.error
+        ) {
+
+            showMessage(
+                "❌ " + data.error,
+                "error"
+            );
+
+            return;
+
+        }
+
+        closeAddUserModal();
+
+        showMessage(
+            "✅ تم إنشاء الحساب وتحديد دوره بنجاح.",
+            "success"
+        );
+
+        await loadUsers();
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            "❌ حدث خطأ أثناء إنشاء الحساب.",
+            "error"
+        );
+
+    }
 
 }
 
