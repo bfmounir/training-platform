@@ -94,7 +94,7 @@ body {
 
 .stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 18px;
     margin-bottom: 25px;
 }
@@ -459,6 +459,21 @@ tr:hover {
 
         </div>
 
+
+        <div class="stat">
+
+            <div
+                id="trainerUsers"
+                class="number">
+                0
+            </div>
+
+            <div class="label">
+                المدربون
+            </div>
+
+        </div>
+
     </section>
 
 
@@ -467,7 +482,7 @@ tr:hover {
         <input
             type="search"
             id="searchInput"
-            placeholder="🔎 ابحث عن مستخدم أو البريد الإلكتروني أو الصلاحية..."
+            placeholder="🔎 ابحث عن المستخدم أو المعرف أو الدور..."
             oninput="filterUsers()">
 
     </section>
@@ -476,6 +491,11 @@ tr:hover {
     <section class="card">
 
         <div class="card-header">
+
+            <p style="margin:8px 0 0;color:#64748b;line-height:1.7;">
+                من هنا يتحكم المسؤول في دور كل حساب: متربص أو مدرب أو مسؤول.
+                بعد الحفظ تتحدث الإحصائيات تلقائيًا.
+            </p>
 
             <h2>
                 قائمة المستخدمين
@@ -500,7 +520,7 @@ tr:hover {
 
                         <th>الاسم</th>
 
-                        <th>الصلاحية</th>
+                        <th>الدور</th>
 
                         <th>تاريخ الإضافة</th>
 
@@ -574,7 +594,7 @@ tr:hover {
                 </option>
 
                 <option value="trainer">
-                    مكوّن
+                    مدرب
                 </option>
 
                 <option value="admin">
@@ -879,6 +899,11 @@ function updateStats() {
             u => u.role === "trainee"
         ).length;
 
+    const trainers =
+        allUsers.filter(
+            u => u.role === "trainer"
+        ).length;
+
 
     document.getElementById(
         "totalUsers"
@@ -893,6 +918,10 @@ function updateStats() {
     document.getElementById(
         "traineeUsers"
     ).textContent = trainees;
+
+    document.getElementById(
+        "trainerUsers"
+    ).textContent = trainers;
 
 }
 
@@ -1030,7 +1059,7 @@ function getRoleName(role) {
         return "متربص";
 
     if (role === "trainer")
-        return "مكوّن";
+        return "مدرب";
 
     return role || "غير محدد";
 
@@ -1179,6 +1208,19 @@ async function saveRole() {
 
     }
 
+    const {
+        data: currentUserData
+    } = await supabaseClient.auth.getUser();
+
+    if (
+        currentUserData &&
+        currentUserData.user &&
+        currentUserData.user.id === currentEditUserId
+    ) {
+        alert("لا يمكنك تغيير دور حسابك الحالي من هذه الصفحة.");
+        return;
+    }
+
 
     const newRole =
         document.getElementById(
@@ -1303,7 +1345,7 @@ async function deleteRole(
     const confirmed =
         confirm(
             "هل أنت متأكد من حذف صلاحية هذا المستخدم؟\n\n" +
-            "سيتم حذف السجل من user_roles فقط، " +
+            "سيتم حذف سجل الدور من user_roles فقط، " +
             "ولن يتم حذف حساب Supabase Auth."
         );
 
