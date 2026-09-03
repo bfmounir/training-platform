@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 
 <head>
@@ -7,7 +6,7 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-   content="width=device-width, initial-scale=1.0">
+      content="width=device-width, initial-scale=1.0">
 
 <title>إدارة المستخدمين - منصة التكوين</title>
 
@@ -84,6 +83,11 @@ body {
 
 .btn-refresh {
     background: #0f766e;
+    color: white;
+}
+
+.btn-add {
+    background: #2563eb;
     color: white;
 }
 
@@ -356,280 +360,411 @@ tr:hover {
 
 <header class="header">
 
-```
-<div class="header-content">
+    <div class="header-content">
 
-    <h1>👥 إدارة المستخدمين</h1>
+        <h1>👥 إدارة المستخدمين</h1>
 
-    <p>
-        منصة التكوين المتواصل -
-        المؤسسة العمومية الإستشفائية بأولف ولاية أدرار
-    </p>
-
-</div>
-```
-
-</header>
-
-<main class="container">
-
-```
-<div class="buttons">
-
-    <button
-        class="btn btn-back"
-        onclick="window.location.href='admin.html'">
-        ← العودة إلى لوحة التحكم
-    </button>
-
-    <button
-        class="btn btn-refresh"
-        onclick="loadUsers()">
-        🔄 تحديث
-    </button>
-
-    <button
-        class="btn"
-        style="background:#2563eb;color:white;"
-        onclick="openAddUserModal()">
-        ➕ إضافة مستخدم
-    </button>
-
-</div>
-
-<div id="message" class="message"></div>
-
-<section class="stats">
-
-    <div class="stat">
-        <div id="totalUsers" class="number">0</div>
-        <div class="label">إجمالي الحسابات</div>
-    </div>
-
-    <div class="stat">
-        <div id="adminUsers" class="number">0</div>
-        <div class="label">المسؤولون</div>
-    </div>
-
-    <div class="stat">
-        <div id="traineeUsers" class="number">0</div>
-        <div class="label">المتربصون</div>
-    </div>
-
-    <div class="stat">
-        <div id="trainerUsers" class="number">0</div>
-        <div class="label">المدربون</div>
-    </div>
-
-</section>
-
-<section class="search-box">
-
-    <input
-        type="search"
-        id="searchInput"
-        placeholder="🔎 ابحث عن المستخدم أو البريد أو المعرف أو الدور..."
-        oninput="filterUsers()">
-
-</section>
-
-<section class="card">
-
-    <div class="card-header">
-
-        <h2>قائمة المستخدمين</h2>
-
-        <p style="margin:8px 0 0;color:#64748b;line-height:1.7;">
-            من هنا يتحكم المسؤول في دور كل حساب:
-            متربص أو مدرب أو مسؤول.
-            بعد الحفظ تتحدث الإحصائيات تلقائيًا.
+        <p>
+            منصة التكوين المتواصل -
+            المؤسسة العمومية الإستشفائية بأولف ولاية أدرار
         </p>
 
     </div>
 
-    <div class="table-container">
+</header>
 
-        <table>
 
-            <thead>
+<main class="container">
 
-                <tr>
-                    <th>#</th>
-                    <th>معرف المستخدم</th>
-                    <th>البريد الإلكتروني</th>
-                    <th>الاسم</th>
-                    <th>الدور</th>
-                    <th>تاريخ الإضافة</th>
-                    <th>الإجراءات</th>
-                </tr>
+    <div class="buttons">
 
-            </thead>
+        <button
+            class="btn btn-back"
+            onclick="window.location.href='admin.html'">
+            ← العودة إلى لوحة التحكم
+        </button>
 
-            <tbody id="usersTableBody">
+        <button
+            class="btn btn-refresh"
+            onclick="loadUsers()">
+            🔄 تحديث
+        </button>
 
-                <tr>
-                    <td colspan="7" class="empty">
-                        جاري تحميل المستخدمين...
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
+        <button
+            class="btn btn-add"
+            onclick="openAddUserModal()">
+            ➕ إضافة مستخدم
+        </button>
 
     </div>
 
-</section>
-```
+
+    <div id="message" class="message"></div>
+
+
+    <section class="stats">
+
+        <div class="stat">
+
+            <div id="totalUsers" class="number">
+                0
+            </div>
+
+            <div class="label">
+                إجمالي الحسابات
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div id="adminUsers" class="number">
+                0
+            </div>
+
+            <div class="label">
+                المسؤولون
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div id="traineeUsers" class="number">
+                0
+            </div>
+
+            <div class="label">
+                المتربصون
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div id="trainerUsers" class="number">
+                0
+            </div>
+
+            <div class="label">
+                المدربون
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="search-box">
+
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="🔎 ابحث عن المستخدم أو البريد أو المعرف أو الدور..."
+            oninput="filterUsers()">
+
+    </section>
+
+
+    <section class="card">
+
+        <div class="card-header">
+
+            <h2>
+                قائمة المستخدمين
+            </h2>
+
+            <p style="margin:8px 0 0;color:#64748b;line-height:1.7;">
+
+                من هنا يتحكم المسؤول في دور كل حساب:
+                متربص أو مدرب أو مسؤول.
+
+            </p>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>
+                            معرف المستخدم
+                        </th>
+
+                        <th>
+                            البريد الإلكتروني
+                        </th>
+
+                        <th>
+                            الاسم
+                        </th>
+
+                        <th>
+                            الدور
+                        </th>
+
+                        <th>
+                            تاريخ الإضافة
+                        </th>
+
+                        <th>
+                            الإجراءات
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="usersTableBody">
+
+                    <tr>
+
+                        <td
+                            colspan="7"
+                            class="empty">
+
+                            جاري تحميل المستخدمين...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
 
 </main>
 
+
+<!-- ================================
+     نافذة إضافة مستخدم
+================================ -->
+
 <div id="addUserModal" class="modal">
 
-```
-<div class="modal-box">
+    <div class="modal-box">
 
-    <h2>➕ إضافة مستخدم جديد</h2>
+        <h2>
+            ➕ إضافة مستخدم جديد
+        </h2>
 
-    <div class="form-group">
 
-        <label>الاسم</label>
+        <div class="form-group">
 
-        <input
-            id="newUserName"
-            type="text"
-            placeholder="اسم المستخدم">
+            <label>
+                الاسم
+            </label>
 
-    </div>
+            <input
+                id="newUserName"
+                type="text"
+                placeholder="اسم المستخدم">
 
-    <div class="form-group">
+        </div>
 
-        <label>البريد الإلكتروني</label>
 
-        <input
-            id="newUserEmail"
-            type="email"
-            placeholder="example@email.com"
-            autocomplete="off">
+        <div class="form-group">
 
-    </div>
+            <label>
+                البريد الإلكتروني
+            </label>
 
-    <div class="form-group">
+            <input
+                id="newUserEmail"
+                type="email"
+                placeholder="example@email.com"
+                autocomplete="off">
 
-        <label>كلمة المرور المؤقتة</label>
+        </div>
 
-        <input
-            id="newUserPassword"
-            type="password"
-            placeholder="كلمة مرور مؤقتة"
-            autocomplete="new-password">
 
-        <small style="display:block;margin-top:6px;color:#64748b;">
-            يجب أن تكون كلمة المرور 6 أحرف على الأقل.
-        </small>
+        <div class="form-group">
 
-    </div>
+            <label>
+                كلمة المرور المؤقتة
+            </label>
 
-    <div class="form-group">
+            <input
+                id="newUserPassword"
+                type="password"
+                placeholder="كلمة مرور مؤقتة"
+                autocomplete="new-password">
 
-        <label>الدور</label>
+            <small
+                style="display:block;margin-top:6px;color:#64748b;">
 
-        <select id="newUserRole">
+                يجب أن تكون كلمة المرور 6 أحرف على الأقل.
 
-            <option value="trainee">متربص</option>
-            <option value="trainer">مدرب</option>
-            <option value="admin">مسؤول</option>
+            </small>
 
-        </select>
+        </div>
 
-    </div>
 
-    <div class="modal-actions">
+        <div class="form-group">
 
-        <button
-            class="btn save-btn"
-            onclick="createUser()">
-            💾 إنشاء الحساب
-        </button>
+            <label>
+                الدور
+            </label>
 
-        <button
-            class="btn cancel-btn"
-            onclick="closeAddUserModal()">
-            إلغاء
-        </button>
+            <select id="newUserRole">
+
+                <option value="trainee">
+                    متربص
+                </option>
+
+                <option value="trainer">
+                    مدرب
+                </option>
+
+                <option value="admin">
+                    مسؤول
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="btn save-btn"
+                onclick="createUser()">
+
+                💾 إنشاء الحساب
+
+            </button>
+
+
+            <button
+                class="btn cancel-btn"
+                onclick="closeAddUserModal()">
+
+                إلغاء
+
+            </button>
+
+        </div>
 
     </div>
 
 </div>
-```
 
-</div>
+
+<!-- ================================
+     نافذة تعديل الصلاحية
+================================ -->
 
 <div id="editModal" class="modal">
 
-```
-<div class="modal-box">
+    <div class="modal-box">
 
-    <h2>تعديل صلاحية المستخدم</h2>
+        <h2>
+            ✏️ تعديل صلاحية المستخدم
+        </h2>
 
-    <div class="form-group">
 
-        <label>المستخدم</label>
+        <div class="form-group">
 
-        <input
-            id="editUserName"
-            type="text"
-            readonly>
+            <label>
+                المستخدم
+            </label>
 
-    </div>
+            <input
+                id="editUserName"
+                type="text"
+                readonly>
 
-    <div class="form-group">
+        </div>
 
-        <label>الصلاحية</label>
 
-        <select id="editRole">
+        <div class="form-group">
 
-            <option value="trainee">متربص</option>
-            <option value="trainer">مدرب</option>
-            <option value="admin">مسؤول</option>
+            <label>
+                الصلاحية
+            </label>
 
-        </select>
+            <select id="editRole">
 
-    </div>
+                <option value="trainee">
+                    متربص
+                </option>
 
-    <div class="modal-actions">
+                <option value="trainer">
+                    مدرب
+                </option>
 
-        <button
-            class="btn save-btn"
-            onclick="saveRole()">
-            💾 حفظ
-        </button>
+                <option value="admin">
+                    مسؤول
+                </option>
 
-        <button
-            class="btn cancel-btn"
-            onclick="closeModal()">
-            إلغاء
-        </button>
+            </select>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="btn save-btn"
+                onclick="saveRole()">
+
+                💾 حفظ
+
+            </button>
+
+
+            <button
+                class="btn cancel-btn"
+                onclick="closeModal()">
+
+                إلغاء
+
+            </button>
+
+        </div>
 
     </div>
 
 </div>
-```
 
-</div>
 
 <script>
 
 /* ==================================================
-   الإعدادات
+   إعدادات الدالة
 ================================================== */
 
-const ADMIN_FUNCTION = "create-user-admin";
+/*
+   الدالة الصحيحة الموجودة في Supabase
+*/
+
+const ADMIN_FUNCTION = "dynamic-processor";
+
 
 const SUPABASE_FUNCTION_URL =
-    SUPABASE_URL + "/functions/v1/" + ADMIN_FUNCTION;
+    SUPABASE_URL +
+    "/functions/v1/" +
+    ADMIN_FUNCTION;
+
 
 let allUsers = [];
+
 let currentEditUserId = null;
 
 
@@ -647,6 +782,7 @@ function showMessage(text, type = "info") {
     box.className =
         "message " + type;
 }
+
 
 function hideMessage() {
 
@@ -671,7 +807,12 @@ async function checkAdmin() {
         } =
             await supabaseClient.auth.getUser();
 
-        if (error || !data.user) {
+
+        if (
+            error ||
+            !data ||
+            !data.user
+        ) {
 
             window.location.href =
                 "login.html";
@@ -679,7 +820,10 @@ async function checkAdmin() {
             return null;
         }
 
-        const user = data.user;
+
+        const user =
+            data.user;
+
 
         const {
             data: roleData,
@@ -688,8 +832,12 @@ async function checkAdmin() {
             await supabaseClient
                 .from("user_roles")
                 .select("role")
-                .eq("user_id", user.id)
+                .eq(
+                    "user_id",
+                    user.id
+                )
                 .maybeSingle();
+
 
         if (roleError) {
 
@@ -702,6 +850,7 @@ async function checkAdmin() {
             return null;
         }
 
+
         if (
             !roleData ||
             roleData.role !== "admin"
@@ -712,15 +861,21 @@ async function checkAdmin() {
                 "error"
             );
 
-            setTimeout(() => {
 
-                window.location.href =
-                    "login.html";
+            setTimeout(
+                () => {
 
-            }, 2000);
+                    window.location.href =
+                        "login.html";
+
+                },
+                2000
+            );
+
 
             return null;
         }
+
 
         return user;
 
@@ -731,10 +886,13 @@ async function checkAdmin() {
             error
         );
 
+
         showMessage(
-            "حدث خطأ أثناء التحقق من الحساب.",
+            "حدث خطأ أثناء التحقق من الحساب: " +
+            error.message,
             "error"
         );
+
 
         return null;
     }
@@ -743,7 +901,6 @@ async function checkAdmin() {
 
 /* ==================================================
    استدعاء Edge Function
-   باستخدام Access Token مباشرة
 ================================================== */
 
 async function callAdminFunction(body) {
@@ -753,6 +910,7 @@ async function callAdminFunction(body) {
         error: sessionError
     } =
         await supabaseClient.auth.getSession();
+
 
     if (
         sessionError ||
@@ -765,8 +923,24 @@ async function callAdminFunction(body) {
         );
     }
 
+
     const accessToken =
         sessionData.session.access_token;
+
+
+    if (!accessToken) {
+
+        throw new Error(
+            "لم يتم العثور على رمز جلسة تسجيل الدخول."
+        );
+    }
+
+
+    console.log(
+        "استدعاء Edge Function:",
+        SUPABASE_FUNCTION_URL
+    );
+
 
     const response =
         await fetch(
@@ -780,7 +954,8 @@ async function callAdminFunction(body) {
                         "application/json",
 
                     "Authorization":
-                        "Bearer " + accessToken,
+                        "Bearer " +
+                        accessToken,
 
                     "apikey":
                         SUPABASE_KEY
@@ -792,18 +967,24 @@ async function callAdminFunction(body) {
             }
         );
 
+
     let result = null;
+
 
     try {
 
         result =
             await response.json();
 
-    } catch {
+    } catch (jsonError) {
 
-        result = null;
+        console.error(
+            "JSON error:",
+            jsonError
+        );
 
     }
+
 
     if (!response.ok) {
 
@@ -815,8 +996,10 @@ async function callAdminFunction(body) {
                 response.status
             );
 
+
         throw new Error(message);
     }
+
 
     return result;
 }
@@ -830,30 +1013,46 @@ async function loadUsers() {
 
     hideMessage();
 
+
     const tbody =
         document.getElementById(
             "usersTableBody"
         );
 
+
     tbody.innerHTML = `
         <tr>
             <td colspan="7" class="empty">
-                ⏳ جاري تحميل المستخدمين...
+                ⏳ جاري الاتصال بخادم المستخدمين...
             </td>
         </tr>
     `;
 
+
     const adminUser =
         await checkAdmin();
 
-    if (!adminUser) return;
+
+    if (!adminUser)
+        return;
+
 
     try {
 
         const result =
             await callAdminFunction({
-                action: "list-users"
+
+                action:
+                    "list-users"
+
             });
+
+
+        console.log(
+            "نتيجة Edge Function:",
+            result
+        );
+
 
         if (
             !result ||
@@ -862,26 +1061,37 @@ async function loadUsers() {
 
             throw new Error(
                 result?.error ||
-                "لم تصل بيانات المستخدمين."
+                "لم تصل بيانات المستخدمين من الخادم."
             );
         }
 
+
         allUsers =
-            Array.isArray(result.users)
+            Array.isArray(
+                result.users
+            )
                 ? result.users
                 : [];
 
+
         updateStats();
 
-        renderUsers(allUsers);
 
-        if (!allUsers.length) {
+        renderUsers(
+            allUsers
+        );
+
+
+        if (
+            !allUsers.length
+        ) {
 
             showMessage(
                 "تم الاتصال بنجاح، ولكن لم يتم العثور على مستخدمين.",
                 "info"
             );
         }
+
 
     } catch (error) {
 
@@ -890,19 +1100,27 @@ async function loadUsers() {
             error
         );
 
+
         allUsers = [];
 
+
         updateStats();
+
 
         tbody.innerHTML = `
             <tr>
                 <td colspan="7" class="empty">
+
                     ❌ تعذر تحميل قائمة المستخدمين
+
                     <br><br>
+
                     ${escapeHtml(error.message)}
+
                 </td>
             </tr>
         `;
+
 
         showMessage(
             "تعذر تحميل قائمة المستخدمين: " +
@@ -922,11 +1140,13 @@ function updateStats() {
     const total =
         allUsers.length;
 
+
     const admins =
         allUsers.filter(
             user =>
                 user.role === "admin"
         ).length;
+
 
     const trainees =
         allUsers.filter(
@@ -934,27 +1154,36 @@ function updateStats() {
                 user.role === "trainee"
         ).length;
 
+
     const trainers =
         allUsers.filter(
             user =>
                 user.role === "trainer"
         ).length;
 
+
     document.getElementById(
         "totalUsers"
-    ).textContent = total;
+    ).textContent =
+        total;
+
 
     document.getElementById(
         "adminUsers"
-    ).textContent = admins;
+    ).textContent =
+        admins;
+
 
     document.getElementById(
         "traineeUsers"
-    ).textContent = trainees;
+    ).textContent =
+        trainees;
+
 
     document.getElementById(
         "trainerUsers"
-    ).textContent = trainers;
+    ).textContent =
+        trainers;
 }
 
 
@@ -969,12 +1198,17 @@ function renderUsers(users) {
             "usersTableBody"
         );
 
+
     if (!users.length) {
 
         tbody.innerHTML = `
             <tr>
-                <td colspan="7" class="empty">
+                <td
+                    colspan="7"
+                    class="empty">
+
                     👤 لا يوجد مستخدمون.
+
                 </td>
             </tr>
         `;
@@ -982,102 +1216,141 @@ function renderUsers(users) {
         return;
     }
 
+
     tbody.innerHTML =
-        users.map(
-            (user, index) => {
+        users
+            .map(
+                (user, index) => {
 
-                const userId =
-                    String(
-                        user.user_id || ""
-                    );
+                    const userId =
+                        String(
+                            user.user_id || ""
+                        );
 
-                const email =
-                    user.email || "—";
 
-                const fullName =
-                    user.full_name || "—";
+                    const email =
+                        user.email ||
+                        "—";
 
-                const roleName =
-                    getRoleName(
-                        user.role
-                    );
 
-                const roleClass =
-                    getRoleClass(
-                        user.role
-                    );
+                    const fullName =
+                        user.full_name ||
+                        "—";
 
-                const createdDate =
-                    user.created_at
-                        ? new Date(
-                            user.created_at
-                        ).toLocaleDateString(
-                            "ar-DZ"
-                        )
-                        : "-";
 
-                const shortUserId =
-                    userId.length > 8
-                        ? userId.substring(
-                            0,
-                            8
-                        ) + "..."
-                        : userId;
+                    const roleName =
+                        getRoleName(
+                            user.role
+                        );
 
-                return `
-                    <tr>
 
-                        <td>
-                            ${index + 1}
-                        </td>
+                    const roleClass =
+                        getRoleClass(
+                            user.role
+                        );
 
-                        <td
-                            title="${escapeHtml(userId)}">
-                            ${escapeHtml(shortUserId)}
-                        </td>
 
-                        <td
-                            title="${escapeHtml(email)}">
-                            ${escapeHtml(email)}
-                        </td>
+                    const createdDate =
+                        user.created_at
+                            ? new Date(
+                                user.created_at
+                            ).toLocaleDateString(
+                                "ar-DZ"
+                            )
+                            : "-";
 
-                        <td>
-                            ${escapeHtml(fullName)}
-                        </td>
 
-                        <td>
+                    const shortUserId =
+                        userId.length > 8
+                            ? userId.substring(
+                                0,
+                                8
+                            ) + "..."
+                            : userId;
 
-                            <span
-                                class="role ${roleClass}">
-                                ${roleName}
-                            </span>
 
-                        </td>
+                    return `
+                        <tr>
 
-                        <td>
-                            ${createdDate}
-                        </td>
+                            <td>
+                                ${index + 1}
+                            </td>
 
-                        <td>
 
-                            <button
-                                class="action-btn edit-btn"
-                                onclick="editUser('${escapeJs(userId)}')">
-                                ✏️ تعديل
-                            </button>
+                            <td
+                                title="${escapeHtml(userId)}">
 
-                            <button
-                                class="action-btn delete-btn"
-                                onclick="deleteRole('${escapeJs(userId)}','${escapeJs(user.role)}')">
-                                🗑️ حذف الصلاحية
-                            </button>
+                                ${escapeHtml(
+                                    shortUserId
+                                )}
 
-                        </td>
+                            </td>
 
-                    </tr>
-                `;
-            }
-        ).join("");
+
+                            <td
+                                title="${escapeHtml(email)}">
+
+                                ${escapeHtml(
+                                    email
+                                )}
+
+                            </td>
+
+
+                            <td>
+
+                                ${escapeHtml(
+                                    fullName
+                                )}
+
+                            </td>
+
+
+                            <td>
+
+                                <span
+                                    class="role ${roleClass}">
+
+                                    ${roleName}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                ${createdDate}
+
+                            </td>
+
+
+                            <td>
+
+                                <button
+                                    class="action-btn edit-btn"
+                                    onclick="editUser('${escapeJs(userId)}')">
+
+                                    ✏️ تعديل
+
+                                </button>
+
+
+                                <button
+                                    class="action-btn delete-btn"
+                                    onclick="deleteRole('${escapeJs(userId)}','${escapeJs(user.role)}')">
+
+                                    🗑️ حذف الصلاحية
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+                    `;
+                }
+            )
+            .join("");
 }
 
 
@@ -1087,16 +1360,26 @@ function renderUsers(users) {
 
 function getRoleName(role) {
 
-    if (role === "admin")
+    if (
+        role === "admin"
+    )
         return "مسؤول";
 
-    if (role === "trainee")
+
+    if (
+        role === "trainee"
+    )
         return "متربص";
 
-    if (role === "trainer")
+
+    if (
+        role === "trainer"
+    )
         return "مدرب";
 
-    return role || "غير محدد";
+
+    return role ||
+        "غير محدد";
 }
 
 
@@ -1106,14 +1389,23 @@ function getRoleName(role) {
 
 function getRoleClass(role) {
 
-    if (role === "admin")
+    if (
+        role === "admin"
+    )
         return "role-admin";
 
-    if (role === "trainee")
+
+    if (
+        role === "trainee"
+    )
         return "role-trainee";
 
-    if (role === "trainer")
+
+    if (
+        role === "trainer"
+    )
         return "role-trainer";
+
 
     return "role-other";
 }
@@ -1133,6 +1425,7 @@ function filterUsers() {
         .trim()
         .toLowerCase();
 
+
     if (!search) {
 
         renderUsers(
@@ -1141,6 +1434,7 @@ function filterUsers() {
 
         return;
     }
+
 
     const filtered =
         allUsers.filter(
@@ -1154,7 +1448,9 @@ function filterUsers() {
                     .toLowerCase()
                     .includes(search)
 
+
                     ||
+
 
                     String(
                         user.email || ""
@@ -1162,7 +1458,9 @@ function filterUsers() {
                     .toLowerCase()
                     .includes(search)
 
+
                     ||
+
 
                     String(
                         user.full_name || ""
@@ -1170,7 +1468,9 @@ function filterUsers() {
                     .toLowerCase()
                     .includes(search)
 
+
                     ||
+
 
                     String(
                         user.role || ""
@@ -1178,16 +1478,20 @@ function filterUsers() {
                     .toLowerCase()
                     .includes(search)
 
+
                     ||
+
 
                     getRoleName(
                         user.role
                     )
                     .toLowerCase()
                     .includes(search)
+
                 );
             }
         );
+
 
     renderUsers(
         filtered
@@ -1205,28 +1509,38 @@ function openAddUserModal() {
         "newUserName"
     ).value = "";
 
+
     document.getElementById(
         "newUserEmail"
     ).value = "";
+
 
     document.getElementById(
         "newUserPassword"
     ).value = "";
 
+
     document.getElementById(
         "newUserRole"
-    ).value = "trainee";
+    ).value =
+        "trainee";
+
 
     document.getElementById(
         "addUserModal"
-    ).classList.add("show");
+    )
+    .classList
+    .add("show");
 }
+
 
 function closeAddUserModal() {
 
     document.getElementById(
         "addUserModal"
-    ).classList.remove("show");
+    )
+    .classList
+    .remove("show");
 }
 
 
@@ -1243,6 +1557,7 @@ async function createUser() {
         .value
         .trim();
 
+
     const email =
         document.getElementById(
             "newUserEmail"
@@ -1251,18 +1566,23 @@ async function createUser() {
         .trim()
         .toLowerCase();
 
+
     const password =
         document.getElementById(
             "newUserPassword"
-        )
-        .value;
+        ).value;
+
 
     const role =
         document.getElementById(
             "newUserRole"
         ).value;
 
-    if (!email || !password) {
+
+    if (
+        !email ||
+        !password
+    ) {
 
         alert(
             "يرجى إدخال البريد الإلكتروني وكلمة المرور."
@@ -1271,7 +1591,10 @@ async function createUser() {
         return;
     }
 
-    if (password.length < 6) {
+
+    if (
+        password.length < 6
+    ) {
 
         alert(
             "كلمة المرور يجب أن تكون 6 أحرف على الأقل."
@@ -1279,6 +1602,7 @@ async function createUser() {
 
         return;
     }
+
 
     if (
         ![
@@ -1295,6 +1619,7 @@ async function createUser() {
         return;
     }
 
+
     try {
 
         showMessage(
@@ -1302,13 +1627,17 @@ async function createUser() {
             "info"
         );
 
+
         const result =
             await callAdminFunction({
+
                 name,
                 email,
                 password,
                 role
+
             });
+
 
         if (
             !result ||
@@ -1321,14 +1650,18 @@ async function createUser() {
             );
         }
 
+
         closeAddUserModal();
+
 
         showMessage(
             "✅ تم إنشاء الحساب وتحديد دوره بنجاح.",
             "success"
         );
 
+
         await loadUsers();
+
 
     } catch (error) {
 
@@ -1336,6 +1669,7 @@ async function createUser() {
             "createUser:",
             error
         );
+
 
         showMessage(
             "❌ تعذر إنشاء الحساب: " +
@@ -1355,8 +1689,10 @@ function editUser(userId) {
     const user =
         allUsers.find(
             item =>
-                item.user_id === userId
+                item.user_id ===
+                userId
         );
+
 
     if (!user) {
 
@@ -1368,8 +1704,10 @@ function editUser(userId) {
         return;
     }
 
+
     currentEditUserId =
         userId;
+
 
     document.getElementById(
         "editUserName"
@@ -1378,14 +1716,18 @@ function editUser(userId) {
         user.email ||
         userId;
 
+
     document.getElementById(
         "editRole"
     ).value =
         user.role;
 
+
     document.getElementById(
         "editModal"
-    ).classList.add("show");
+    )
+    .classList
+    .add("show");
 }
 
 
@@ -1394,9 +1736,12 @@ function closeModal() {
     currentEditUserId =
         null;
 
+
     document.getElementById(
         "editModal"
-    ).classList.remove("show");
+    )
+    .classList
+    .remove("show");
 }
 
 
@@ -1409,10 +1754,12 @@ async function saveRole() {
     if (!currentEditUserId)
         return;
 
+
     const {
         data
     } =
         await supabaseClient.auth.getUser();
+
 
     if (
         data &&
@@ -1428,10 +1775,12 @@ async function saveRole() {
         return;
     }
 
+
     const newRole =
         document.getElementById(
             "editRole"
         ).value;
+
 
     if (
         ![
@@ -1448,12 +1797,14 @@ async function saveRole() {
         return;
     }
 
+
     try {
 
         showMessage(
             "⏳ جاري حفظ الصلاحية...",
             "info"
         );
+
 
         const {
             data: updated,
@@ -1462,7 +1813,8 @@ async function saveRole() {
             await supabaseClient
                 .from("user_roles")
                 .update({
-                    role: newRole
+                    role:
+                        newRole
                 })
                 .eq(
                     "user_id",
@@ -1470,8 +1822,10 @@ async function saveRole() {
                 )
                 .select();
 
+
         if (error)
             throw error;
+
 
         if (
             !updated ||
@@ -1483,14 +1837,18 @@ async function saveRole() {
             );
         }
 
+
         closeModal();
+
 
         showMessage(
             "✅ تم تعديل صلاحية المستخدم بنجاح.",
             "success"
         );
 
+
         await loadUsers();
+
 
     } catch (error) {
 
@@ -1498,6 +1856,7 @@ async function saveRole() {
             "saveRole:",
             error
         );
+
 
         showMessage(
             "❌ تعذر تعديل الصلاحية: " +
@@ -1522,10 +1881,12 @@ async function deleteRole(
     } =
         await supabaseClient.auth.getUser();
 
+
     if (
         data &&
         data.user &&
-        data.user.id === userId
+        data.user.id ===
+        userId
     ) {
 
         alert(
@@ -1534,6 +1895,7 @@ async function deleteRole(
 
         return;
     }
+
 
     const confirmed =
         confirm(
@@ -1544,8 +1906,10 @@ async function deleteRole(
             "سيتم حذف سجل الدور فقط ولن يتم حذف حساب Auth."
         );
 
+
     if (!confirmed)
         return;
+
 
     try {
 
@@ -1553,6 +1917,7 @@ async function deleteRole(
             "⏳ جاري حذف الصلاحية...",
             "info"
         );
+
 
         const {
             data: deleted,
@@ -1565,10 +1930,14 @@ async function deleteRole(
                     "user_id",
                     userId
                 )
-                .select("user_id");
+                .select(
+                    "user_id"
+                );
+
 
         if (error)
             throw error;
+
 
         if (
             !deleted ||
@@ -1580,12 +1949,15 @@ async function deleteRole(
             );
         }
 
+
         showMessage(
             "✅ تم حذف الصلاحية بنجاح.",
             "success"
         );
 
+
         await loadUsers();
+
 
     } catch (error) {
 
@@ -1593,6 +1965,7 @@ async function deleteRole(
             "deleteRole:",
             error
         );
+
 
         showMessage(
             "❌ تعذر حذف الصلاحية: " +
@@ -1668,7 +2041,7 @@ function escapeJs(value) {
 
 
 /* ==================================================
-   إغلاق النوافذ
+   إغلاق النوافذ عند الضغط خارجها
 ================================================== */
 
 document
@@ -1684,7 +2057,9 @@ document
             ) {
 
                 closeAddUserModal();
+
             }
+
         }
     );
 
@@ -1702,7 +2077,9 @@ document
             ) {
 
                 closeModal();
+
             }
+
         }
     );
 
