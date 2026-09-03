@@ -13,41 +13,48 @@ const APP_FILES = [
 "./admin-lessons.html",
 "./admin-certificates.html",
 "./admin-statistics.html",
-"./external-training.html",
 "./admin-announcements.html",
 "./admin-trainee-requests.html",
+"./external-training.html",
 "./supabase-config.js",
 "./manifest.json",
 "./logo.png"
 ];
 
 self.addEventListener("install", event => {
-event.waitUntil(
-caches.open(CACHE_NAME)
-.then(cache => cache.addAll(APP_FILES))
-.catch(error => {
-console.error("خطأ في تخزين ملفات التطبيق:", error);
-})
-);
 
 ```
+event.waitUntil(
+
+    caches.open(CACHE_NAME)
+        .then(cache => cache.addAll(APP_FILES))
+
+);
+
 self.skipWaiting();
 ```
 
 });
 
 self.addEventListener("activate", event => {
-event.waitUntil(
-caches.keys().then(keys => {
-return Promise.all(
-keys
-.filter(key => key !== CACHE_NAME)
-.map(key => caches.delete(key))
-);
-})
-);
 
 ```
+event.waitUntil(
+
+    caches.keys().then(keys =>
+
+        Promise.all(
+
+            keys
+                .filter(key => key !== CACHE_NAME)
+                .map(key => caches.delete(key))
+
+        )
+
+    )
+
+);
+
 self.clients.claim();
 ```
 
@@ -61,6 +68,7 @@ if (event.request.method !== "GET") {
 }
 
 event.respondWith(
+
     caches.match(event.request)
         .then(cachedResponse => {
 
@@ -79,22 +87,32 @@ event.respondWith(
                         return networkResponse;
                     }
 
-                    const responseClone = networkResponse.clone();
+                    const responseClone =
+                        networkResponse.clone();
 
                     caches.open(CACHE_NAME)
                         .then(cache => {
+
                             cache.put(
                                 event.request,
                                 responseClone
                             );
+
                         });
 
                     return networkResponse;
+
                 })
                 .catch(() => {
-                    return caches.match("./index.html");
+
+                    return caches.match(
+                        "./index.html"
+                    );
+
                 });
+
         })
+
 );
 ```
 
