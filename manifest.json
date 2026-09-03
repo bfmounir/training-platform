@@ -1,10 +1,10 @@
 {
 "name": "منصة التكوين المتواصل - المؤسسة العمومية الإستشفائية بأولف",
 "short_name": "منصة التكوين",
-"description": "منصة التكوين المتواصل للمؤسسة العمومية الإستشفائية بأولف - ولاية أدرار",
+"description": "منصة رقمية للتكوين المتواصل ومتابعة الدورات والدروس والشهادات للمؤسسة العمومية الإستشفائية بأولف - ولاية أدرار",
 "lang": "ar-DZ",
 "dir": "rtl",
-"start_url": "index.html",
+"start_url": "./index.html",
 "scope": "./",
 "display": "standalone",
 "orientation": "portrait",
@@ -12,16 +12,16 @@
 "theme_color": "#075985",
 "icons": [
 {
-"src": "logo.png",
+"src": "./logo.png",
 "sizes": "192x192",
 "type": "image/png",
-"purpose": "any"
+"purpose": "any maskable"
 },
 {
-"src": "logo.png",
+"src": "./logo.png",
 "sizes": "512x512",
 "type": "image/png",
-"purpose": "any"
+"purpose": "any maskable"
 }
 ]
 }
