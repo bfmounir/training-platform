@@ -406,7 +406,7 @@ button:disabled {
             id="registerButton"
             type="submit">
 
-            إنشاء حساب
+            إرسال طلب التسجيل
 
         </button>
 
@@ -541,7 +541,7 @@ registerForm.addEventListener(
         registerButton.disabled = true;
 
         registerButton.textContent =
-            "جارٍ إنشاء الحساب...";
+            "جارٍ إرسال الطلب...";
 
         message.style.display = "none";
 
@@ -549,12 +549,9 @@ registerForm.addEventListener(
         try {
 
 
-            /*
-             * إنشاء الحساب في Supabase Auth.
-             *
-             * لا نعطي المستخدم صلاحية trainee هنا.
-             * الموافقة والصلاحية ستتم لاحقًا من طرف المسؤول.
-             */
+            /* =====================================
+               1 - إنشاء الحساب في Supabase Auth
+            ===================================== */
 
             const { data, error } =
                 await supabaseClient.auth.signUp({
@@ -598,10 +595,9 @@ registerForm.addEventListener(
             }
 
 
-            /*
-             * في بعض إعدادات Supabase يكون
-             * تأكيد البريد الإلكتروني مفعلاً.
-             */
+            /* =====================================
+               2 - التحقق من البريد المسجل مسبقًا
+            ===================================== */
 
             if (
                 data.user.identities &&
@@ -614,11 +610,54 @@ registerForm.addEventListener(
             }
 
 
+            /* =====================================
+               3 - إنشاء طلب تسجيل المتربص
+            ===================================== */
+
+            const { error: requestError } =
+                await supabaseClient
+                    .from("trainee_requests")
+                    .insert({
+
+                        user_id: data.user.id,
+
+                        full_name: fullName,
+
+                        email: email,
+
+                        phone: phone,
+
+                        position: position,
+
+                        department: department,
+
+                        status: "pending"
+
+                    });
+
+
+            if (requestError) {
+
+                console.error(
+                    "Trainee request error:",
+                    requestError
+                );
+
+                throw new Error(
+                    "تم إنشاء الحساب، لكن تعذر إرسال طلب التسجيل للمسؤول. يرجى التواصل مع المسؤول."
+                );
+            }
+
+
+            /* =====================================
+               4 - إنهاء العملية بنجاح
+            ===================================== */
+
             showMessage(
 
-                "تم إرسال طلب إنشاء الحساب بنجاح. " +
-                "يرجى انتظار مراجعة وموافقة المسؤول " +
-                "قبل استعمال المنصة.",
+                "تم إرسال طلب التسجيل بنجاح. " +
+                "طلبك الآن قيد المراجعة من طرف المسؤول. " +
+                "بعد الموافقة ستتمكن من الدخول إلى المنصة.",
 
                 "success"
 
@@ -643,14 +682,13 @@ registerForm.addEventListener(
                 "حدث خطأ أثناء إنشاء الحساب.";
 
 
-            /*
-             * رسائل مبسطة للمستخدم
-             */
+            const lowerMessage =
+                errorMessage.toLowerCase();
+
 
             if (
-                errorMessage
-                    .toLowerCase()
-                    .includes("already registered")
+                lowerMessage.includes("already registered") ||
+                lowerMessage.includes("already exists")
             ) {
 
                 errorMessage =
@@ -668,7 +706,7 @@ registerForm.addEventListener(
             registerButton.disabled = false;
 
             registerButton.textContent =
-                "إنشاء حساب";
+                "إرسال طلب التسجيل";
 
         }
 
