@@ -1,5 +1,5 @@
+```html
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -7,15 +7,37 @@
 
 <title>إدارة الشهادات - منصة التكوين</title>
 
+<!-- Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<!-- jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+<!-- QR Code -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- خط عربي -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
 <script src="supabase-config.js"></script>
 
 <style>
+:root{
+    --primary:#087f5b;
+    --primary-dark:#056044;
+    --primary-light:#e8f7f1;
+    --gold:#c89b3c;
+    --danger:#c0392b;
+    --text:#263238;
+    --muted:#6b7280;
+    --border:#e5e7eb;
+    --bg:#f5f7f9;
+    --white:#fff;
+    --shadow:0 8px 25px rgba(0,0,0,.07);
+}
+
 *{
     box-sizing:border-box;
 }
@@ -23,145 +45,143 @@
 body{
     margin:0;
     font-family:"Tahoma","Arial",sans-serif;
-    background:#f4f7f7;
-    color:#1f2937;
+    background:var(--bg);
+    color:var(--text);
 }
 
-button,
-select{
-    font-family:inherit;
+header{
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+    color:#fff;
+    padding:18px 25px;
+    box-shadow:0 3px 12px rgba(0,0,0,.12);
 }
 
-.topbar{
-    background:linear-gradient(135deg,#0f766e,#115e59);
-    color:white;
-    padding:18px 28px;
+.header-inner{
+    max-width:1250px;
+    margin:auto;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:20px;
-    box-shadow:0 3px 15px rgba(0,0,0,.12);
-}
-
-.topbar-title{
-    display:flex;
-    align-items:center;
     gap:15px;
 }
 
-.topbar-title img{
-    width:55px;
-    height:55px;
-    object-fit:contain;
-    background:white;
-    border-radius:12px;
-    padding:4px;
+.header-title{
+    display:flex;
+    align-items:center;
+    gap:14px;
 }
 
-.topbar h1{
+.header-icon{
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    background:rgba(255,255,255,.14);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+}
+
+.header-title h1{
     margin:0;
-    font-size:21px;
+    font-size:22px;
 }
 
-.topbar small{
-    opacity:.9;
+.header-title small{
+    opacity:.85;
     display:block;
-    margin-top:5px;
+    margin-top:4px;
 }
 
 .back-btn{
-    border:none;
-    background:rgba(255,255,255,.15);
-    color:white;
-    padding:11px 17px;
+    color:#fff;
+    text-decoration:none;
+    border:1px solid rgba(255,255,255,.35);
+    padding:10px 16px;
     border-radius:10px;
-    cursor:pointer;
-    font-size:14px;
     transition:.2s;
 }
 
 .back-btn:hover{
-    background:rgba(255,255,255,.25);
+    background:rgba(255,255,255,.12);
 }
 
 .container{
-    max-width:1250px;
-    margin:30px auto;
-    padding:0 20px;
-}
-
-.page-title{
-    margin-bottom:25px;
-}
-
-.page-title h2{
-    margin:0 0 7px;
-    color:#115e59;
-    font-size:25px;
-}
-
-.page-title p{
-    margin:0;
-    color:#6b7280;
+    width:min(1250px,94%);
+    margin:25px auto 50px;
 }
 
 .grid{
     display:grid;
-    grid-template-columns:380px 1fr;
-    gap:25px;
-    align-items:start;
+    grid-template-columns:390px 1fr;
+    gap:22px;
 }
 
 .card{
-    background:white;
-    border-radius:16px;
-    padding:24px;
-    box-shadow:0 4px 18px rgba(15,118,110,.08);
-    border:1px solid #e5eeee;
+    background:#fff;
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    border:1px solid var(--border);
+    overflow:hidden;
 }
 
-.card h3{
-    margin:0 0 20px;
-    color:#115e59;
-    font-size:19px;
+.card-header{
+    padding:18px 20px;
+    border-bottom:1px solid var(--border);
+    background:#fcfdfd;
+}
+
+.card-header h2{
+    margin:0;
+    font-size:18px;
+}
+
+.card-header p{
+    margin:6px 0 0;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.card-body{
+    padding:20px;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    font-size:14px;
+    margin-bottom:7px;
 }
 
 .form-group{
     margin-bottom:17px;
 }
 
-.form-group label{
-    display:block;
-    margin-bottom:8px;
-    font-weight:bold;
-    font-size:14px;
-    color:#374151;
-}
-
-.form-group select{
+select{
     width:100%;
-    padding:13px 14px;
-    border:1px solid #d1d5db;
+    padding:12px 13px;
+    border:1px solid #d5dadd;
     border-radius:10px;
-    background:white;
+    background:#fff;
+    font-family:inherit;
     font-size:14px;
     outline:none;
-    transition:.2s;
 }
 
-.form-group select:focus{
-    border-color:#0f766e;
-    box-shadow:0 0 0 3px rgba(15,118,110,.1);
+select:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(8,127,91,.1);
 }
 
 .primary-btn{
     width:100%;
-    border:none;
-    background:linear-gradient(135deg,#0f766e,#115e59);
-    color:white;
-    padding:14px;
+    border:0;
+    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    color:#fff;
+    padding:13px 18px;
     border-radius:11px;
     cursor:pointer;
+    font-family:inherit;
     font-size:15px;
     font-weight:bold;
     transition:.2s;
@@ -169,585 +189,525 @@ select{
 
 .primary-btn:hover{
     transform:translateY(-1px);
-    box-shadow:0 6px 15px rgba(15,118,110,.2);
+    box-shadow:0 5px 15px rgba(8,127,91,.22);
 }
 
 .primary-btn:disabled{
     opacity:.55;
     cursor:not-allowed;
     transform:none;
-    box-shadow:none;
 }
 
-.info-box{
-    margin-top:18px;
-    background:#f0fdfa;
-    border:1px solid #ccfbf1;
-    color:#115e59;
-    padding:14px;
-    border-radius:10px;
-    font-size:13px;
-    line-height:1.8;
-}
-
-.status{
+.message{
     display:none;
-    margin-top:15px;
     padding:12px 14px;
     border-radius:10px;
+    margin-bottom:15px;
     font-size:14px;
     line-height:1.7;
 }
 
-.status.success{
+.message.show{
     display:block;
-    background:#ecfdf5;
-    color:#047857;
-    border:1px solid #a7f3d0;
 }
 
-.status.error{
-    display:block;
-    background:#fef2f2;
-    color:#b91c1c;
-    border:1px solid #fecaca;
+.message.success{
+    background:#eaf8f1;
+    color:#12633f;
+    border:1px solid #bce5d2;
 }
 
-.status.loading{
-    display:block;
-    background:#eff6ff;
-    color:#1d4ed8;
-    border:1px solid #bfdbfe;
+.message.error{
+    background:#fff0ef;
+    color:#8b2d26;
+    border:1px solid #efc2be;
 }
 
-.table-wrapper{
+.message.info{
+    background:#eef6ff;
+    color:#245a8d;
+    border:1px solid #c8def5;
+}
+
+.loading{
+    text-align:center;
+    padding:30px;
+    color:var(--muted);
+}
+
+.table-wrap{
     overflow-x:auto;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:700px;
 }
 
-thead{
-    background:#f0fdfa;
-}
-
-th,
-td{
+th,td{
     padding:13px 12px;
-    border-bottom:1px solid #e5e7eb;
+    border-bottom:1px solid var(--border);
     text-align:right;
     font-size:13px;
+    white-space:nowrap;
 }
 
 th{
-    color:#115e59;
+    background:#f8fafb;
+    color:#475569;
     font-weight:bold;
 }
 
-td{
-    color:#374151;
-}
-
-.empty{
-    text-align:center;
-    padding:45px 20px;
-    color:#9ca3af;
+tr:hover td{
+    background:#fbfdfc;
 }
 
 .badge{
     display:inline-block;
     padding:5px 9px;
     border-radius:20px;
-    background:#ecfdf5;
-    color:#047857;
-    font-size:12px;
-    font-weight:bold;
+    font-size:11px;
+    background:var(--primary-light);
+    color:var(--primary-dark);
 }
 
 .action-btn{
-    border:none;
-    padding:8px 11px;
+    border:0;
+    background:#edf7f3;
+    color:var(--primary-dark);
+    padding:7px 10px;
     border-radius:8px;
     cursor:pointer;
-    margin-left:4px;
+    font-family:inherit;
     font-size:12px;
 }
 
-.open-btn{
-    background:#e0f2fe;
-    color:#0369a1;
+.action-btn:hover{
+    background:#d9eee6;
 }
 
-.open-btn:hover{
-    background:#bae6fd;
-}
-
-.refresh-btn{
-    background:#f3f4f6;
-    color:#374151;
-}
-
-.refresh-btn:hover{
-    background:#e5e7eb;
-}
-
-.section-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-    margin-bottom:20px;
-}
-
-.section-header h3{
-    margin:0;
-}
-
-.loading-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(255,255,255,.82);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:9999;
-    backdrop-filter:blur(3px);
-}
-
-.loading-overlay.show{
-    display:flex;
-}
-
-.loading-box{
-    background:white;
-    border-radius:16px;
-    padding:30px 40px;
+.empty{
     text-align:center;
-    box-shadow:0 10px 40px rgba(0,0,0,.15);
-    min-width:260px;
+    color:var(--muted);
+    padding:40px 15px;
 }
 
-.spinner{
-    width:42px;
-    height:42px;
-    border:4px solid #d1fae5;
-    border-top-color:#0f766e;
-    border-radius:50%;
-    animation:spin .8s linear infinite;
-    margin:0 auto 15px;
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-bottom:18px;
 }
 
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-.loading-box p{
-    margin:0;
-    color:#374151;
-    font-size:14px;
-}
-
-.preview-box{
-    margin-top:20px;
-    display:none;
-    background:#f9fafb;
-    border:1px solid #e5e7eb;
-    border-radius:12px;
+.stat{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:13px;
     padding:15px;
 }
 
-.preview-box.show{
+.stat strong{
     display:block;
+    font-size:24px;
+    color:var(--primary);
 }
 
-.preview-title{
-    font-weight:bold;
-    color:#115e59;
-    margin-bottom:10px;
+.stat span{
+    color:var(--muted);
+    font-size:12px;
 }
 
-.preview-row{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    padding:6px 0;
-    border-bottom:1px dashed #e5e7eb;
-    font-size:13px;
-}
-
-.preview-row:last-child{
-    border-bottom:none;
-}
-
-.preview-label{
-    color:#6b7280;
-}
-
-.preview-value{
-    font-weight:bold;
-    color:#374151;
-    text-align:left;
+.template-info{
+    margin-top:15px;
+    padding:12px;
+    background:#f8fafb;
+    border-radius:10px;
+    color:#59636b;
+    font-size:12px;
+    line-height:1.8;
 }
 
 @media(max-width:900px){
     .grid{
         grid-template-columns:1fr;
     }
-
-    .container{
-        margin-top:20px;
-    }
 }
 
 @media(max-width:600px){
-    .topbar{
-        padding:14px;
+    .header-inner{
         flex-direction:column;
         align-items:stretch;
     }
 
-    .topbar-title img{
-        width:48px;
-        height:48px;
-    }
-
-    .topbar h1{
-        font-size:17px;
-    }
-
     .back-btn{
-        width:100%;
+        text-align:center;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
     }
 
     .container{
-        padding:0 12px;
-    }
-
-    .card{
-        padding:18px;
-    }
-
-    .page-title h2{
-        font-size:21px;
+        width:96%;
     }
 }
 </style>
-
 </head>
 
 <body>
 
-<div class="loading-overlay" id="loadingOverlay">
-    <div class="loading-box">
-        <div class="spinner"></div>
-        <p id="loadingText">جاري المعالجة...</p>
+<header>
+    <div class="header-inner">
+        <div class="header-title">
+            <div class="header-icon">📜</div>
+            <div>
+                <h1>إدارة الشهادات</h1>
+                <small>إصدار ومتابعة شهادات التكوين</small>
+            </div>
+        </div>
+
+        <a class="back-btn" href="admin.html">العودة إلى لوحة التحكم</a>
     </div>
-</div>
-
-<header class="topbar">
-
-```
-<div class="topbar-title">
-    <img src="logo.png" alt="شعار المؤسسة">
-    <div>
-        <h1>المؤسسة العمومية الإستشفائية بأولف</h1>
-        <small>منصة التكوين المتواصل — إدارة الشهادات</small>
-    </div>
-</div>
-
-<button class="back-btn" onclick="goBack()">
-    ← العودة إلى لوحة التحكم
-</button>
-```
-
 </header>
 
-<main class="container">
+<div class="container">
 
-```
-<div class="page-title">
-    <h2>إدارة الشهادات</h2>
-    <p>إصدار شهادات التكوين والتحقق منها إلكترونيًا</p>
+    <div id="message" class="message"></div>
+
+    <div class="stats">
+        <div class="stat">
+            <strong id="statCertificates">0</strong>
+            <span>إجمالي الشهادات</span>
+        </div>
+
+        <div class="stat">
+            <strong id="statTrainees">0</strong>
+            <span>عدد المتربصين</span>
+        </div>
+
+        <div class="stat">
+            <strong id="statCourses">0</strong>
+            <span>عدد الدورات</span>
+        </div>
+    </div>
+
+    <div class="grid">
+
+        <!-- إصدار شهادة -->
+        <section class="card">
+
+            <div class="card-header">
+                <h2>إصدار شهادة جديدة</h2>
+                <p>اختر المتربص والدورة ثم أنشئ الشهادة بصيغة PDF.</p>
+            </div>
+
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label for="traineeSelect">المتربص</label>
+
+                    <select id="traineeSelect">
+                        <option value="">-- اختر المتربص --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="courseSelect">الدورة التكوينية</label>
+
+                    <select id="courseSelect">
+                        <option value="">-- اختر الدورة --</option>
+                    </select>
+                </div>
+
+                <button
+                    id="generateBtn"
+                    class="primary-btn"
+                    onclick="generateCertificate()"
+                    disabled>
+                    إصدار الشهادة PDF
+                </button>
+
+                <div class="template-info">
+                    <strong>القالب المعتمد:</strong><br>
+                    certificate-template.png<br>
+                    <br>
+                    يتم إدراج اسم المتربص واسم الدورة ورقم الشهادة وتاريخ الإصدار ورمز QR والتوقيع تلقائياً.
+                </div>
+
+            </div>
+        </section>
+
+        <!-- الشهادات -->
+        <section class="card">
+
+            <div class="card-header">
+                <h2>الشهادات الصادرة</h2>
+                <p>قائمة الشهادات المسجلة في المنصة.</p>
+            </div>
+
+            <div class="card-body">
+
+                <div id="certificatesContainer">
+                    <div class="loading">جارٍ تحميل الشهادات...</div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
 </div>
 
-<div class="grid">
-
-    <!-- إصدار شهادة -->
-    <section class="card">
-
-        <h3>إصدار شهادة جديدة</h3>
-
-        <div class="form-group">
-            <label for="traineeSelect">المتربص</label>
-
-            <select id="traineeSelect">
-                <option value="">جاري تحميل المتربصين...</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="courseSelect">الدورة التكوينية</label>
-
-            <select id="courseSelect">
-                <option value="">جاري تحميل الدورات...</option>
-            </select>
-        </div>
-
-        <button
-            class="primary-btn"
-            id="generateBtn"
-            onclick="generateCertificate()"
-        >
-            إصدار الشهادة
-        </button>
-
-        <div id="status" class="status"></div>
-
-        <div id="previewBox" class="preview-box">
-
-            <div class="preview-title">
-                بيانات الشهادة
-            </div>
-
-            <div class="preview-row">
-                <span class="preview-label">المتربص</span>
-                <span class="preview-value" id="previewTrainee">—</span>
-            </div>
-
-            <div class="preview-row">
-                <span class="preview-label">الدورة</span>
-                <span class="preview-value" id="previewCourse">—</span>
-            </div>
-
-            <div class="preview-row">
-                <span class="preview-label">رقم الشهادة</span>
-                <span class="preview-value" id="previewNumber">—</span>
-            </div>
-
-            <div class="preview-row">
-                <span class="preview-label">تاريخ الإصدار</span>
-                <span class="preview-value" id="previewDate">—</span>
-            </div>
-
-        </div>
-
-        <div class="info-box">
-            <strong>تنبيه:</strong>
-            سيتم إنشاء ملف PDF باستخدام قالب الشهادة الموجود في
-            <strong>certificate-template.png</strong>، مع إضافة بيانات المتربص ورقم الشهادة ورمز QR للتحقق الإلكتروني.
-        </div>
-
-    </section>
-
-
-    <!-- الشهادات السابقة -->
-    <section class="card">
-
-        <div class="section-header">
-
-            <h3>الشهادات الصادرة</h3>
-
-            <button
-                class="action-btn refresh-btn"
-                onclick="loadCertificates()"
-            >
-                ↻ تحديث
-            </button>
-
-        </div>
-
-        <div class="table-wrapper">
-
-            <table>
-
-                <thead>
-                    <tr>
-                        <th>رقم الشهادة</th>
-                        <th>المتربص</th>
-                        <th>الدورة</th>
-                        <th>تاريخ الإصدار</th>
-                        <th>الحالة</th>
-                        <th>الإجراء</th>
-                    </tr>
-                </thead>
-
-                <tbody id="certificatesBody">
-
-                    <tr>
-                        <td colspan="6" class="empty">
-                            جاري تحميل الشهادات...
-                        </td>
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section>
-
+<!-- منطقة QR مخفية -->
+<div id="qrHidden"
+     style="position:absolute;left:-10000px;top:-10000px;width:300px;height:300px;">
 </div>
-```
 
-</main>
 
 <script>
-
-/* =========================================================
-   التحقق من Supabase
-========================================================= */
-
-if(typeof supabaseClient === "undefined"){
-    document.body.innerHTML = `
-        <div style="
-            padding:40px;
-            text-align:center;
-            font-family:Arial;
-            direction:rtl;
-        ">
-            <h2 style="color:#b91c1c;">خطأ في الاتصال</h2>
-            <p>
-                لم يتم العثور على supabaseClient.
-                يرجى التأكد من ملف supabase-config.js.
-            </p>
-        </div>
-    `;
-    throw new Error("supabaseClient غير موجود");
-}
-
-
-/* =========================================================
-   المتغيرات
-========================================================= */
+/* ============================================================
+   الإعدادات العامة
+============================================================ */
 
 let trainees = [];
 let courses = [];
 let certificates = [];
 
+/*
+    قالب الشهادة الموجود في جذر المشروع.
+*/
+const TEMPLATE_URL =
+    "certificate-template.png?version=20260915";
 
-/* =========================================================
-   عند تحميل الصفحة
-========================================================= */
 
-document.addEventListener("DOMContentLoaded", async () => {
+/*
+    إعدادات التصميم.
 
-    try{
+    القيم x و y بالنسبة المئوية من مساحة صفحة PDF.
 
-        await checkAdmin();
+    إذا احتجنا لاحقاً لتحريك عنصر:
+        x = الاتجاه الأفقي
+        y = الاتجاه العمودي
 
-        await Promise.all([
-            loadTrainees(),
-            loadCourses(),
-            loadCertificates()
-        ]);
+    50 = منتصف الصفحة.
 
-    }catch(error){
+    جميع القيم مجمعة هنا لتسهيل المعايرة.
+*/
+const CERT_LAYOUT = {
 
-        console.error(error);
+    trainee: {
+        x: 50,
+        y: 46,
+        maxWidth: 72,
+        fontSize: 27,
+        minFontSize: 18,
+        weight: 700
+    },
 
-        showStatus(
-            "تعذر تحميل بيانات الصفحة: " + getErrorMessage(error),
-            "error"
-        );
+    course: {
+        x: 50,
+        y: 57,
+        maxWidth: 70,
+        fontSize: 17,
+        minFontSize: 11,
+        weight: 700
+    },
+
+    date: {
+        x: 50,
+        y: 65,
+        fontSize: 10,
+        weight: 400
+    },
+
+    number: {
+        x: 50,
+        y: 71,
+        fontSize: 9,
+        weight: 400
+    },
+
+    qr: {
+        x: 8,
+        y: 76,
+        size: 14
+    },
+
+    signature: {
+        x: 83,
+        y: 85,
+        fontSize: 11,
+        weight: 700
+    }
+};
+
+
+/* ============================================================
+   التحقق من Supabase
+============================================================ */
+
+function getDB(){
+
+    if(typeof supabaseClient !== "undefined"){
+        return supabaseClient;
     }
 
-});
+    if(typeof db !== "undefined"){
+        return db;
+    }
+
+    throw new Error(
+        "لم يتم العثور على اتصال Supabase. تحقق من ملف supabase-config.js."
+    );
+}
 
 
-/* =========================================================
+/* ============================================================
+   رسائل النظام
+============================================================ */
+
+function showMessage(text, type="info"){
+
+    const box = document.getElementById("message");
+
+    box.className = "message show " + type;
+    box.textContent = text;
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+function hideMessage(){
+
+    const box = document.getElementById("message");
+
+    box.className = "message";
+    box.textContent = "";
+}
+
+
+/* ============================================================
    التحقق من المسؤول
-========================================================= */
+============================================================ */
 
 async function checkAdmin(){
+
+    const db = getDB();
 
     const {
         data:{
             user
         },
-        error:userError
-    } = await supabaseClient.auth.getUser();
+        error
+    } = await db.auth.getUser();
 
-    if(userError){
-        throw userError;
-    }
+    if(error || !user){
 
-    if(!user){
         window.location.href = "login.html";
-        return;
+        return false;
     }
 
     const {
         data:roleData,
         error:roleError
-    } = await supabaseClient
+    } = await db
         .from("user_roles")
         .select("role")
         .eq("user_id", user.id)
         .maybeSingle();
 
     if(roleError){
-        throw roleError;
+
+        console.error(roleError);
+
+        showMessage(
+            "تعذر التحقق من صلاحيات المسؤول.",
+            "error"
+        );
+
+        return false;
     }
 
     if(!roleData || roleData.role !== "admin"){
 
-        alert("ليس لديك صلاحية الدخول إلى إدارة الشهادات.");
+        showMessage(
+            "ليس لديك صلاحية الوصول إلى إدارة الشهادات.",
+            "error"
+        );
 
-        window.location.href = "index.html";
+        setTimeout(()=>{
+            window.location.href = "index.html";
+        },1800);
 
-        return;
+        return false;
+    }
+
+    return true;
+}
+
+
+/* ============================================================
+   تحميل البيانات
+============================================================ */
+
+async function loadAll(){
+
+    try{
+
+        const db = getDB();
+
+        await loadTrainees();
+        await loadCourses();
+        await loadCertificates();
+
+        document.getElementById("statTrainees").textContent =
+            trainees.length;
+
+        document.getElementById("statCourses").textContent =
+            courses.length;
+
+    }catch(error){
+
+        console.error(error);
+
+        showMessage(
+            "حدث خطأ أثناء تحميل بيانات الشهادات: " +
+            (error.message || error),
+            "error"
+        );
     }
 }
 
 
-/* =========================================================
-   تحميل المتربصين
-========================================================= */
+/* ============================================================
+   المتربصون
+============================================================ */
 
 async function loadTrainees(){
 
-    const select = document.getElementById("traineeSelect");
-
-    select.innerHTML = `
-        <option value="">جاري تحميل المتربصين...</option>
-    `;
+    const db = getDB();
 
     const {
         data,
         error
-    } = await supabaseClient
+    } = await db
         .from("trainees")
-        .select("id, full_name, email")
-        .order("full_name", {
-            ascending:true
-        });
+        .select("id,full_name,email,created_at")
+        .order("full_name",{ascending:true});
 
-    if(error){
-        throw error;
-    }
+    if(error) throw error;
 
     trainees = Array.isArray(data) ? data : [];
 
-    select.innerHTML = `
-        <option value="">اختر المتربص</option>
-    `;
+    const select = document.getElementById("traineeSelect");
 
-    if(trainees.length === 0){
+    select.innerHTML =
+        '<option value="">-- اختر المتربص --</option>';
 
-        select.innerHTML = `
-            <option value="">لا يوجد متربصون</option>
-        `;
-
-        return;
-    }
-
-    trainees.forEach(trainee => {
+    trainees.forEach(trainee=>{
 
         const option = document.createElement("option");
 
@@ -758,93 +718,70 @@ async function loadTrainees(){
             (trainee.email ? " — " + trainee.email : "");
 
         select.appendChild(option);
-
     });
+
+    updateGenerateButton();
 }
 
 
-/* =========================================================
-   تحميل الدورات
-========================================================= */
+/* ============================================================
+   الدورات
+============================================================ */
 
 async function loadCourses(){
 
-    const select = document.getElementById("courseSelect");
-
-    select.innerHTML = `
-        <option value="">جاري تحميل الدورات...</option>
-    `;
+    const db = getDB();
 
     const {
         data,
         error
-    } = await supabaseClient
+    } = await db
         .from("courses")
-        .select("id, name, course_date, description")
-        .order("course_date", {
-            ascending:false,
-            nullsFirst:false
-        });
+        .select("id,name,description,course_date,target_audience,trainer_id")
+        .order("course_date",{ascending:false});
 
-    if(error){
-        throw error;
-    }
+    if(error) throw error;
 
     courses = Array.isArray(data) ? data : [];
 
-    select.innerHTML = `
-        <option value="">اختر الدورة التكوينية</option>
-    `;
+    const select = document.getElementById("courseSelect");
 
-    if(courses.length === 0){
+    select.innerHTML =
+        '<option value="">-- اختر الدورة --</option>';
 
-        select.innerHTML = `
-            <option value="">لا توجد دورات</option>
-        `;
-
-        return;
-    }
-
-    courses.forEach(course => {
+    courses.forEach(course=>{
 
         const option = document.createElement("option");
 
         option.value = course.id;
 
-        let text = course.name || "دورة بدون اسم";
+        let label = course.name || "دورة بدون اسم";
 
         if(course.course_date){
-            text += " — " + formatDate(course.course_date);
+            label += " — " + formatDate(course.course_date);
         }
 
-        option.textContent = text;
+        option.textContent = label;
 
         select.appendChild(option);
-
     });
+
+    updateGenerateButton();
 }
 
 
-/* =========================================================
-   تحميل الشهادات
-========================================================= */
+/* ============================================================
+   الشهادات
+============================================================ */
 
 async function loadCertificates(){
 
-    const body = document.getElementById("certificatesBody");
-
-    body.innerHTML = `
-        <tr>
-            <td colspan="6" class="empty">
-                جاري تحميل الشهادات...
-            </td>
-        </tr>
-    `;
+    const db = getDB();
 
     const {
         data,
         error
-    } = await supabaseClient
+    } = await db
         .from("certificates")
         .select(`
             id,
@@ -855,104 +792,157 @@ async function loadCertificates(){
             pdf_url,
             trainee_id
         `)
-        .order("issue_date", {
-            ascending:false
-        });
+        .order("id",{ascending:false});
 
-    if(error){
-        throw error;
-    }
+    if(error) throw error;
 
     certificates = Array.isArray(data) ? data : [];
 
-    await renderCertificates();
+    document.getElementById("statCertificates").textContent =
+        certificates.length;
 
+    renderCertificates();
 }
 
 
-/* =========================================================
+/* ============================================================
    عرض الشهادات
-========================================================= */
+============================================================ */
 
-async function renderCertificates(){
+function renderCertificates(){
 
-    const body = document.getElementById("certificatesBody");
+    const container =
+        document.getElementById("certificatesContainer");
 
-    body.innerHTML = "";
+    if(!certificates.length){
 
-    if(certificates.length === 0){
-
-        body.innerHTML = `
-            <tr>
-                <td colspan="6" class="empty">
-                    لا توجد شهادات صادرة حتى الآن.
-                </td>
-            </tr>
+        container.innerHTML = `
+            <div class="empty">
+                لا توجد شهادات صادرة حتى الآن.
+            </div>
         `;
 
         return;
     }
 
-    certificates.forEach(cert => {
+    let html = `
+        <div class="table-wrap">
+        <table>
+
+            <thead>
+                <tr>
+                    <th>رقم الشهادة</th>
+                    <th>المتربص</th>
+                    <th>الدورة</th>
+                    <th>تاريخ الإصدار</th>
+                    <th>الإجراء</th>
+                </tr>
+            </thead>
+
+            <tbody>
+    `;
+
+    certificates.forEach(cert=>{
 
         const trainee =
-            trainees.find(t => t.id === cert.trainee_id);
+            trainees.find(
+                t => String(t.id) === String(cert.trainee_id)
+            );
 
         const course =
-            courses.find(c => String(c.id) === String(cert.course_id));
+            courses.find(
+                c => String(c.id) === String(cert.course_id)
+            );
 
-        const row = document.createElement("tr");
+        html += `
+            <tr>
 
-        const traineeName =
-            trainee?.full_name ||
-            "غير معروف";
+                <td>
+                    <span class="badge">
+                        ${escapeHtml(cert.certificate_number || "-")}
+                    </span>
+                </td>
 
-        const courseName =
-            course?.name ||
-            "غير معروف";
+                <td>
+                    ${escapeHtml(
+                        trainee?.full_name || "غير معروف"
+                    )}
+                </td>
 
-        row.innerHTML = `
-            <td>
-                <strong>${escapeHtml(cert.certificate_number || "—")}</strong>
-            </td>
+                <td>
+                    ${escapeHtml(
+                        course?.name || "غير معروف"
+                    )}
+                </td>
 
-            <td>
-                ${escapeHtml(traineeName)}
-            </td>
+                <td>
+                    ${formatDate(cert.issue_date)}
+                </td>
 
-            <td>
-                ${escapeHtml(courseName)}
-            </td>
+                <td>
+                    ${
+                        cert.pdf_url
+                        ?
+                        `<button
+                            class="action-btn"
+                            onclick="openCertificate('${escapeJs(cert.pdf_url)}')">
+                            فتح PDF
+                         </button>`
+                        :
+                        "لا يوجد ملف"
+                    }
+                </td>
 
-            <td>
-                ${formatDate(cert.issue_date)}
-            </td>
-
-            <td>
-                <span class="badge">صادرة</span>
-            </td>
-
-            <td>
-                <button
-                    class="action-btn open-btn"
-                    onclick="openCertificate('${cert.id}')"
-                >
-                    فتح الشهادة
-                </button>
-            </td>
+            </tr>
         `;
-
-        body.appendChild(row);
-
     });
+
+    html += `
+            </tbody>
+        </table>
+        </div>
+    `;
+
+    container.innerHTML = html;
 }
 
 
-/* =========================================================
+/* ============================================================
+   التحكم في زر الإصدار
+============================================================ */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    document
+        .getElementById("traineeSelect")
+        .addEventListener("change",updateGenerateButton);
+
+    document
+        .getElementById("courseSelect")
+        .addEventListener("change",updateGenerateButton);
+});
+
+
+function updateGenerateButton(){
+
+    const trainee =
+        document.getElementById("traineeSelect").value;
+
+    const course =
+        document.getElementById("courseSelect").value;
+
+    document.getElementById("generateBtn").disabled =
+        !(trainee && course);
+}
+
+
+/* ============================================================
    إصدار شهادة
-========================================================= */
+============================================================ */
 
 async function generateCertificate(){
+
+    hideMessage();
 
     const traineeId =
         document.getElementById("traineeSelect").value;
@@ -960,37 +950,29 @@ async function generateCertificate(){
     const courseId =
         document.getElementById("courseSelect").value;
 
-    if(!traineeId){
+    if(!traineeId || !courseId){
 
-        showStatus(
-            "يرجى اختيار المتربص أولًا.",
+        showMessage(
+            "يرجى اختيار المتربص والدورة أولاً.",
             "error"
         );
 
         return;
     }
-
-    if(!courseId){
-
-        showStatus(
-            "يرجى اختيار الدورة التكوينية أولًا.",
-            "error"
-        );
-
-        return;
-    }
-
 
     const trainee =
-        trainees.find(t => t.id === traineeId);
+        trainees.find(
+            t => String(t.id) === String(traineeId)
+        );
 
     const course =
-        courses.find(c => String(c.id) === String(courseId));
-
+        courses.find(
+            c => String(c.id) === String(courseId)
+        );
 
     if(!trainee || !course){
 
-        showStatus(
+        showMessage(
             "تعذر العثور على بيانات المتربص أو الدورة.",
             "error"
         );
@@ -998,68 +980,44 @@ async function generateCertificate(){
         return;
     }
 
+    /*
+        منع إصدار شهادة مكررة
+    */
 
-    /* -----------------------------------------
-       منع إصدار شهادة مكررة
-    ----------------------------------------- */
+    const duplicate =
+        certificates.find(cert =>
+            String(cert.trainee_id) === String(traineeId) &&
+            String(cert.course_id) === String(courseId)
+        );
 
-    showLoading("جاري التحقق من وجود شهادة سابقة...");
+    if(duplicate){
+
+        showMessage(
+            "توجد بالفعل شهادة صادرة لهذا المتربص في هذه الدورة: " +
+            duplicate.certificate_number,
+            "error"
+        );
+
+        return;
+    }
+
+    const btn =
+        document.getElementById("generateBtn");
+
+    btn.disabled = true;
+    btn.textContent = "جارٍ إنشاء الشهادة...";
 
     try{
-
-        const {
-            data:existing,
-            error:existingError
-        } = await supabaseClient
-            .from("certificates")
-            .select("id, certificate_number, pdf_url")
-            .eq("trainee_id", traineeId)
-            .eq("course_id", courseId)
-            .limit(1);
-
-        if(existingError){
-            throw existingError;
-        }
-
-        if(existing && existing.length > 0){
-
-            hideLoading();
-
-            showStatus(
-                "توجد شهادة صادرة مسبقًا لهذا المتربص في هذه الدورة: " +
-                (existing[0].certificate_number || ""),
-                "error"
-            );
-
-            return;
-        }
-
-
-        /* -----------------------------------------
-           رقم الشهادة
-        ----------------------------------------- */
 
         const certificateNumber =
             await generateCertificateNumber();
 
-
         const issueDate =
             new Date().toISOString().slice(0,10);
 
-
-        updatePreview(
-            trainee,
-            course,
-            certificateNumber,
-            issueDate
-        );
-
-
-        /* -----------------------------------------
-           إنشاء PDF
-        ----------------------------------------- */
-
-        showLoading("جاري إنشاء الشهادة بصيغة PDF...");
+        /*
+            إنشاء PDF
+        */
 
         const pdfBlob =
             await createCertificatePDF({
@@ -1069,37 +1027,62 @@ async function generateCertificate(){
                 issueDate
             });
 
+        /*
+            مسار التخزين
+        */
 
-        /* -----------------------------------------
-           رفع PDF
-        ----------------------------------------- */
+        const year =
+            new Date().getFullYear();
 
-        showLoading("جاري رفع الشهادة إلى التخزين...");
+        const storagePath =
+            year +
+            "/" +
+            certificateNumber +
+            ".pdf";
 
-        const filePath =
-            await uploadCertificatePDF(
+        const db = getDB();
+
+        /*
+            رفع PDF
+        */
+
+        const {
+            error:uploadError
+        } = await db
+            .storage
+            .from("certificates")
+            .upload(
+                storagePath,
                 pdfBlob,
-                certificateNumber
+                {
+                    contentType:"application/pdf",
+                    upsert:false
+                }
             );
 
+        if(uploadError){
 
-        /* -----------------------------------------
-           تسجيل الشهادة في قاعدة البيانات
-        ----------------------------------------- */
+            throw new Error(
+                "فشل رفع ملف PDF: " +
+                uploadError.message
+            );
+        }
 
-        showLoading("جاري تسجيل الشهادة في قاعدة البيانات...");
+        /*
+            تسجيل الشهادة في قاعدة البيانات
+        */
 
         const {
             data:inserted,
             error:insertError
-        } = await supabaseClient
+        } = await db
             .from("certificates")
             .insert({
-                trainee_id: traineeId,
-                course_id: courseId,
-                certificate_number: certificateNumber,
-                issue_date: issueDate,
-                pdf_url: filePath
+                trainee_id:trainee.id,
+                course_id:course.id,
+                certificate_number:certificateNumber,
+                issue_date:issueDate,
+                pdf_url:storagePath
             })
             .select()
             .single();
@@ -1107,134 +1090,108 @@ async function generateCertificate(){
         if(insertError){
 
             /*
-             * إذا فشل تسجيل الشهادة بعد رفع الملف،
-             * نحاول حذف الملف حتى لا يبقى ملف يتيم.
-             */
-            try{
-                await supabaseClient
-                    .storage
-                    .from("certificates")
-                    .remove([filePath]);
-            }catch(cleanError){
-                console.warn(
-                    "تعذر حذف الملف بعد فشل التسجيل:",
-                    cleanError
-                );
-            }
+                إذا فشل التسجيل نحاول حذف الملف
+            */
 
-            throw insertError;
+            await db
+                .storage
+                .from("certificates")
+                .remove([storagePath]);
+
+            throw new Error(
+                "تم رفع الملف لكن تعذر تسجيل الشهادة في قاعدة البيانات: " +
+                insertError.message
+            );
         }
 
+        /*
+            تحديث القائمة
+        */
 
-        hideLoading();
+        certificates.unshift(inserted);
 
-        showStatus(
-            "تم إصدار الشهادة بنجاح. رقم الشهادة: " +
-            certificateNumber,
+        document.getElementById("statCertificates").textContent =
+            certificates.length;
+
+        renderCertificates();
+
+        showMessage(
+            "تم إصدار الشهادة " +
+            certificateNumber +
+            " بنجاح.",
             "success"
         );
 
+        /*
+            فتح PDF مباشرة
+        */
 
-        /* فتح الشهادة مباشرة */
-
-        if(inserted && inserted.id){
-
-            setTimeout(() => {
-                openCertificate(inserted.id);
-            }, 500);
-
-        }
-
-
-        /* إعادة تحميل القائمة */
-
-        await loadCertificates();
-
+        await openCertificate(storagePath);
 
     }catch(error){
 
-        hideLoading();
+        console.error(error);
 
-        console.error(
-            "خطأ في إصدار الشهادة:",
-            error
-        );
-
-        showStatus(
-            "فشل إصدار الشهادة: " +
-            getErrorMessage(error),
+        showMessage(
+            error.message || "حدث خطأ غير متوقع أثناء إصدار الشهادة.",
             "error"
         );
 
-    }
+    }finally{
 
+        btn.disabled = false;
+        btn.textContent = "إصدار الشهادة PDF";
+
+        updateGenerateButton();
+    }
 }
 
 
-/* =========================================================
+/* ============================================================
    توليد رقم الشهادة
-========================================================= */
+============================================================ */
 
 async function generateCertificateNumber(){
 
     const year =
         new Date().getFullYear();
 
+    const prefix =
+        "CERT-" + year + "-";
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("certificates")
-        .select("certificate_number");
+    const numbers =
+        certificates
+            .map(c => c.certificate_number || "")
+            .filter(n => n.startsWith(prefix))
+            .map(n => {
 
-    if(error){
-        throw error;
-    }
+                const part =
+                    n.replace(prefix,"");
 
+                const number =
+                    parseInt(part,10);
 
-    let maxNumber = 0;
+                return Number.isFinite(number)
+                    ? number
+                    : 0;
+            });
 
+    const max =
+        numbers.length
+            ? Math.max(...numbers)
+            : 0;
 
-    (data || []).forEach(item => {
+    const next =
+        max + 1;
 
-        const value =
-            item.certificate_number || "";
-
-        const match =
-            value.match(
-                /^CERT-\d{4}-(\d+)$/
-            );
-
-        if(match){
-
-            const number =
-                parseInt(match[1],10);
-
-            if(!isNaN(number) && number > maxNumber){
-                maxNumber = number;
-            }
-
-        }
-
-    });
-
-
-    const nextNumber =
-        maxNumber + 1;
-
-
-    const formatted =
-        String(nextNumber).padStart(6,"0");
-
-
-    return `CERT-${year}-${formatted}`;
+    return prefix +
+        String(next).padStart(6,"0");
 }
 
 
-/* =========================================================
+/* ============================================================
    إنشاء PDF
-========================================================= */
+============================================================ */
 
 async function createCertificatePDF({
     trainee,
@@ -1243,19 +1200,18 @@ async function createCertificatePDF({
     issueDate
 }){
 
-    const {
-        jsPDF
-    } = window.jspdf;
+    /*
+        التأكد من تحميل الخط العربي
+    */
 
+    await waitForArabicFont();
 
     /*
-     * تحميل قالب الشهادة.
-     * الأبعاد يتم اكتشافها تلقائيًا.
-     */
+        تحميل قالب الشهادة
+    */
 
     const template =
-        await loadImage("certificate-template.png");
-
+        await loadImage(TEMPLATE_URL);
 
     const imageWidth =
         template.naturalWidth;
@@ -1263,37 +1219,35 @@ async function createCertificatePDF({
     const imageHeight =
         template.naturalHeight;
 
-
     if(!imageWidth || !imageHeight){
 
         throw new Error(
-            "تعذر قراءة أبعاد certificate-template.png"
+            "تعذر قراءة أبعاد قالب الشهادة."
         );
     }
 
+    /*
+        تحديد اتجاه الصفحة
+    */
+
+    const landscape =
+        imageWidth >= imageHeight;
+
+    const {
+        jsPDF
+    } = window.jspdf;
 
     /*
-     * تحديد الاتجاه تلقائيًا.
-     */
-
-    const orientation =
-        imageWidth >= imageHeight
-            ? "landscape"
-            : "portrait";
-
-
-    /*
-     * A4 مع الحفاظ على اتجاه القالب.
-     */
+        استخدام A4 مع الاتجاه المناسب
+    */
 
     const pdf =
         new jsPDF({
-            orientation:orientation,
+            orientation:landscape ? "landscape" : "portrait",
             unit:"mm",
             format:"a4",
             compress:true
         });
-
 
     const pageWidth =
         pdf.internal.pageSize.getWidth();
@@ -1301,659 +1255,657 @@ async function createCertificatePDF({
     const pageHeight =
         pdf.internal.pageSize.getHeight();
 
+    /*
+        حساب أبعاد القالب مع الحفاظ على النسبة
+    */
+
+    const templateRatio =
+        imageWidth / imageHeight;
+
+    const pageRatio =
+        pageWidth / pageHeight;
+
+    let drawWidth;
+    let drawHeight;
+    let offsetX;
+    let offsetY;
+
+    if(templateRatio > pageRatio){
+
+        drawWidth = pageWidth;
+        drawHeight = pageWidth / templateRatio;
+
+        offsetX = 0;
+        offsetY = (pageHeight - drawHeight) / 2;
+
+    }else{
+
+        drawHeight = pageHeight;
+        drawWidth = pageHeight * templateRatio;
+
+        offsetY = 0;
+        offsetX = (pageWidth - drawWidth) / 2;
+    }
 
     /*
-     * وضع الصورة على كامل الصفحة.
-     */
+        إضافة قالب الشهادة
+    */
 
     pdf.addImage(
         template,
         "PNG",
-        0,
-        0,
-        pageWidth,
-        pageHeight,
+        offsetX,
+        offsetY,
+        drawWidth,
+        drawHeight,
+        undefined,
+        "FAST"
+    );
+
+
+    /* --------------------------------------------------------
+       اسم المتربص
+    -------------------------------------------------------- */
+
+    await addArabicTextToPDF(
+        pdf,
+        trainee.full_name || "",
+        CERT_LAYOUT.trainee,
+        {
+            pageX:offsetX,
+            pageY:offsetY,
+            pageWidth:drawWidth,
+            pageHeight:drawHeight
+        }
+    );
+
+
+    /* --------------------------------------------------------
+       اسم الدورة
+    -------------------------------------------------------- */
+
+    await addArabicTextToPDF(
+        pdf,
+        course.name || "",
+        CERT_LAYOUT.course,
+        {
+            pageX:offsetX,
+            pageY:offsetY,
+            pageWidth:drawWidth,
+            pageHeight:drawHeight
+        }
+    );
+
+
+    /* --------------------------------------------------------
+       التاريخ
+    -------------------------------------------------------- */
+
+    await addArabicTextToPDF(
+        pdf,
+        "تاريخ الإصدار: " + formatDate(issueDate),
+        CERT_LAYOUT.date,
+        {
+            pageX:offsetX,
+            pageY:offsetY,
+            pageWidth:drawWidth,
+            pageHeight:drawHeight
+        }
+    );
+
+
+    /* --------------------------------------------------------
+       رقم الشهادة
+    -------------------------------------------------------- */
+
+    await addArabicTextToPDF(
+        pdf,
+        certificateNumber,
+        CERT_LAYOUT.number,
+        {
+            pageX:offsetX,
+            pageY:offsetY,
+            pageWidth:drawWidth,
+            pageHeight:drawHeight
+        }
+    );
+
+
+    /* --------------------------------------------------------
+       التوقيع
+    -------------------------------------------------------- */
+
+    await addArabicTextToPDF(
+        pdf,
+        "رئيس مكتب التكوين",
+        CERT_LAYOUT.signature,
+        {
+            pageX:offsetX,
+            pageY:offsetY,
+            pageWidth:drawWidth,
+            pageHeight:drawHeight
+        }
+    );
+
+
+    /* --------------------------------------------------------
+       QR Code
+    -------------------------------------------------------- */
+
+    const qrCanvas =
+        await createQRCode(
+            certificateNumber
+        );
+
+    const qrX =
+        offsetX +
+        drawWidth *
+        (CERT_LAYOUT.qr.x / 100);
+
+    const qrY =
+        offsetY +
+        drawHeight *
+        (CERT_LAYOUT.qr.y / 100);
+
+    const qrSize =
+        drawWidth *
+        (CERT_LAYOUT.qr.size / 100);
+
+    pdf.addImage(
+        qrCanvas.toDataURL("image/png"),
+        "PNG",
+        qrX,
+        qrY,
+        qrSize,
+        qrSize,
         undefined,
         "FAST"
     );
 
 
     /*
-     * حساب مقياس مناسب اعتمادًا على حجم القالب.
-     */
-
-    const scaleX =
-        pageWidth / imageWidth;
-
-    const scaleY =
-        pageHeight / imageHeight;
-
-
-    /*
-     * مركز الصفحة.
-     */
-
-    const centerX =
-        pageWidth / 2;
-
-
-    /*
-     * =====================================================
-     * بيانات الشهادة
-     *
-     * هذه المواضع مصممة لتكون قابلة للتعديل بسهولة.
-     * =====================================================
-     */
-
-
-    /*
-     * اسم المتربص
-     */
-
-    pdf.setFont("helvetica","bold");
-
-    pdf.setFontSize(22);
-
-    pdf.setTextColor(31,41,55);
-
-    pdf.text(
-        safePdfText(trainee.full_name),
-        centerX,
-        pageHeight * 0.46,
-        {
-            align:"center"
-        }
-    );
-
-
-    /*
-     * اسم الدورة
-     */
-
-    pdf.setFontSize(15);
-
-    pdf.setTextColor(55,65,81);
-
-    pdf.text(
-        safePdfText(course.name),
-        centerX,
-        pageHeight * 0.55,
-        {
-            align:"center"
-        }
-    );
-
-
-    /*
-     * تاريخ الإصدار
-     */
-
-    pdf.setFontSize(11);
-
-    pdf.setTextColor(75,85,99);
-
-    pdf.text(
-        "تاريخ الإصدار: " + formatDate(issueDate),
-        centerX,
-        pageHeight * 0.63,
-        {
-            align:"center"
-        }
-    );
-
-
-    /*
-     * رقم الشهادة
-     */
-
-    pdf.setFontSize(10);
-
-    pdf.text(
-        certificateNumber,
-        centerX,
-        pageHeight * 0.69,
-        {
-            align:"center"
-        }
-    );
-
-
-    /*
-     * =====================================================
-     * إنشاء QR
-     * =====================================================
-     */
-
-    const verifyUrl =
-        buildVerificationUrl(
-            certificateNumber
-        );
-
-
-    const qrDataUrl =
-        await createQRCode(verifyUrl);
-
-
-    /*
-     * حجم QR
-     */
-
-    const qrSize = 27;
-
-
-    /*
-     * وضع QR في أسفل يسار الصفحة
-     */
-
-    const qrX = 18;
-
-    const qrY =
-        pageHeight - qrSize - 17;
-
-
-    pdf.addImage(
-        qrDataUrl,
-        "PNG",
-        qrX,
-        qrY,
-        qrSize,
-        qrSize
-    );
-
-
-    /*
-     * عبارة التوقيع
-     */
-
-    pdf.setFontSize(11);
-
-    pdf.setFont("helvetica","bold");
-
-    pdf.setTextColor(31,41,55);
-
-    pdf.text(
-        safePdfText("رئيس مكتب التكوين"),
-        pageWidth - 38,
-        pageHeight - 27,
-        {
-            align:"center"
-        }
-    );
-
-
-    /*
-     * نص صغير تحت QR
-     */
-
-    pdf.setFontSize(7);
-
-    pdf.setFont("helvetica","normal");
-
-    pdf.setTextColor(107,114,128);
-
-    pdf.text(
-        safePdfText("تحقق من صحة الشهادة"),
-        qrX + qrSize / 2,
-        qrY + qrSize + 5,
-        {
-            align:"center"
-        }
-    );
-
-
-    /*
-     * تحويل PDF إلى Blob
-     */
+        إخراج PDF كـ Blob
+    */
 
     return pdf.output("blob");
 }
 
 
-/* =========================================================
-   تحميل صورة
-========================================================= */
+/* ============================================================
+   إضافة نص عربي إلى PDF بواسطة Canvas
+============================================================ */
 
-function loadImage(src){
-
-    return new Promise((resolve,reject) => {
-
-        const image =
-            new Image();
-
-        image.onload = () => resolve(image);
-
-        image.onerror = () => {
-
-            reject(
-                new Error(
-                    "تعذر تحميل قالب الشهادة: " + src
-                )
-            );
-
-        };
-
-        image.src =
-            src + "?v=" + Date.now();
-
-    });
-
-}
-
-
-/* =========================================================
-   إنشاء QR
-========================================================= */
-
-function createQRCode(text){
-
-    return new Promise((resolve,reject) => {
-
-        try{
-
-            const container =
-                document.createElement("div");
-
-            container.style.position =
-                "fixed";
-
-            container.style.left =
-                "-10000px";
-
-            container.style.top =
-                "-10000px";
-
-            container.style.width =
-                "200px";
-
-            container.style.height =
-                "200px";
-
-            document.body.appendChild(
-                container
-            );
-
-
-            new QRCode(container,{
-                text:text,
-                width:200,
-                height:200,
-                correctLevel:QRCode.CorrectLevel.M
-            });
-
-
-            setTimeout(() => {
-
-                const canvas =
-                    container.querySelector("canvas");
-
-                const image =
-                    container.querySelector("img");
-
-
-                if(canvas){
-
-                    const data =
-                        canvas.toDataURL(
-                            "image/png"
-                        );
-
-                    container.remove();
-
-                    resolve(data);
-
-                    return;
-                }
-
-
-                if(image && image.src){
-
-                    const src =
-                        image.src;
-
-                    container.remove();
-
-                    resolve(src);
-
-                    return;
-                }
-
-
-                container.remove();
-
-                reject(
-                    new Error(
-                        "تعذر إنشاء رمز QR."
-                    )
-                );
-
-            },300);
-
-        }catch(error){
-
-            reject(error);
-
-        }
-
-    });
-
-}
-
-
-/* =========================================================
-   رابط التحقق
-========================================================= */
-
-function buildVerificationUrl(
-    certificateNumber
+async function addArabicTextToPDF(
+    pdf,
+    text,
+    layout,
+    page
 ){
 
+    if(!text) return;
+
+    const pageX =
+        page.pageX;
+
+    const pageY =
+        page.pageY;
+
+    const pageWidth =
+        page.pageWidth;
+
+    const pageHeight =
+        page.pageHeight;
+
     /*
-     * Verify.html موجود في نفس المشروع.
-     */
+        تحويل النسب إلى mm
+    */
 
-    const base =
-        window.location.origin +
-        window.location.pathname
-            .substring(
-                0,
-                window.location.pathname.lastIndexOf("/") + 1
-            );
+    const centerX =
+        pageX +
+        pageWidth *
+        (layout.x / 100);
+
+    const centerY =
+        pageY +
+        pageHeight *
+        (layout.y / 100);
 
 
-    return (
-        base +
-        "Verify.html?certificate=" +
-        encodeURIComponent(
-            certificateNumber
-        )
+    /*
+        عرض النص المسموح
+    */
+
+    const maxWidth =
+        pageWidth *
+        (layout.maxWidth || 90) /
+        100;
+
+
+    /*
+        إنشاء Canvas شفاف للنص
+    */
+
+    const canvas =
+        document.createElement("canvas");
+
+    const ctx =
+        canvas.getContext("2d");
+
+
+    /*
+        دقة عالية
+    */
+
+    const scale = 3;
+
+    const fontSize =
+        layout.fontSize;
+
+    const minFontSize =
+        layout.minFontSize ||
+        Math.max(8,fontSize * .55);
+
+
+    /*
+        حساب حجم الخط المناسب
+    */
+
+    let currentFont =
+        fontSize;
+
+    let measuredWidth = 0;
+
+    while(currentFont >= minFontSize){
+
+        ctx.font =
+            `${layout.weight || 400} ${currentFont * 4}px "Amiri", serif`;
+
+        measuredWidth =
+            ctx.measureText(text).width / 4;
+
+        if(measuredWidth <= maxWidth * 3){
+
+            break;
+        }
+
+        currentFont -= .5;
+    }
+
+
+    /*
+        إعداد أبعاد Canvas
+    */
+
+    ctx.font =
+        `${layout.weight || 400} ${currentFont * scale}px "Amiri", serif`;
+
+    const metrics =
+        ctx.measureText(text);
+
+    const textWidth =
+        Math.max(
+            metrics.width + 30 * scale,
+            80 * scale
+        );
+
+    const textHeight =
+        currentFont * 1.8 * scale;
+
+
+    canvas.width =
+        Math.ceil(textWidth);
+
+    canvas.height =
+        Math.ceil(textHeight);
+
+
+    /*
+        إعادة إعداد الخط بعد تغيير حجم Canvas
+    */
+
+    ctx.font =
+        `${layout.weight || 400} ${currentFont * scale}px "Amiri", serif`;
+
+    ctx.fillStyle =
+        "#000000";
+
+    ctx.textAlign =
+        "center";
+
+    ctx.textBaseline =
+        "middle";
+
+    /*
+        دعم اتجاه العربية
+    */
+
+    ctx.direction =
+        "rtl";
+
+    /*
+        الرسم
+    */
+
+    ctx.fillText(
+        text,
+        canvas.width / 2,
+        canvas.height / 2
+    );
+
+
+    /*
+        تحويل أبعاد Canvas إلى mm
+    */
+
+    const widthMm =
+        (canvas.width / (96 * scale)) * 25.4;
+
+    const heightMm =
+        (canvas.height / (96 * scale)) * 25.4;
+
+
+    /*
+        وضع النص بحيث يكون مركزه في الإحداثيات المحددة
+    */
+
+    const drawX =
+        centerX - widthMm / 2;
+
+    const drawY =
+        centerY - heightMm / 2;
+
+
+    pdf.addImage(
+        canvas.toDataURL("image/png"),
+        "PNG",
+        drawX,
+        drawY,
+        widthMm,
+        heightMm,
+        undefined,
+        "FAST"
     );
 }
 
 
-/* =========================================================
-   رفع PDF إلى Storage
-========================================================= */
+/* ============================================================
+   إنشاء QR Code
+============================================================ */
 
-async function uploadCertificatePDF(
-    blob,
-    certificateNumber
-){
+function createQRCode(certificateNumber){
 
-    const year =
-        new Date().getFullYear();
+    return new Promise((resolve,reject)=>{
+
+        const container =
+            document.getElementById("qrHidden");
+
+        container.innerHTML = "";
+
+        /*
+            رابط التحقق.
+
+            encodeURIComponent يحافظ على رقم الشهادة
+            بشكل آمن داخل الرابط.
+        */
+
+        const verifyUrl =
+            new URL(
+                "Verify.html",
+                window.location.href
+            ).href +
+            "?certificate=" +
+            encodeURIComponent(certificateNumber);
 
 
-    const filePath =
-        `${year}/${certificateNumber}.pdf`;
+        try{
+
+            new QRCode(container,{
+
+                text:verifyUrl,
+
+                width:600,
+                height:600,
+
+                correctLevel:
+                    QRCode.CorrectLevel.H
+
+            });
+
+        }catch(error){
+
+            reject(error);
+            return;
+        }
 
 
-    const {
-        error
-    } = await supabaseClient
-        .storage
-        .from("certificates")
-        .upload(
-            filePath,
-            blob,
-            {
-                contentType:"application/pdf",
-                upsert:false
+        setTimeout(()=>{
+
+            const canvas =
+                container.querySelector("canvas");
+
+            if(canvas){
+
+                resolve(canvas);
+                return;
             }
-        );
 
+            const image =
+                container.querySelector("img");
 
-    if(error){
+            if(image){
 
-        throw error;
+                const canvas2 =
+                    document.createElement("canvas");
 
-    }
+                canvas2.width = 600;
+                canvas2.height = 600;
 
+                const ctx =
+                    canvas2.getContext("2d");
 
-    return filePath;
+                image.onload = ()=>{
+
+                    ctx.drawImage(
+                        image,
+                        0,
+                        0,
+                        600,
+                        600
+                    );
+
+                    resolve(canvas2);
+                };
+
+                /*
+                    إذا كان img محملاً مسبقاً
+                */
+
+                if(image.complete){
+
+                    ctx.drawImage(
+                        image,
+                        0,
+                        0,
+                        600,
+                        600
+                    );
+
+                    resolve(canvas2);
+                }
+
+                return;
+            }
+
+            reject(
+                new Error(
+                    "تعذر إنشاء QR Code."
+                )
+            );
+
+        },300);
+    });
 }
 
 
-/* =========================================================
-   فتح الشهادة
-========================================================= */
+/* ============================================================
+   فتح شهادة PDF
+============================================================ */
 
-async function openCertificate(
-    certificateId
-){
+async function openCertificate(storagePath){
+
+    if(!storagePath){
+
+        showMessage(
+            "لا يوجد مسار PDF لهذه الشهادة.",
+            "error"
+        );
+
+        return;
+    }
 
     try{
 
-        showLoading(
-            "جاري تجهيز رابط الشهادة..."
-        );
-
+        const db = getDB();
 
         const {
             data,
             error
-        } = await supabaseClient
-            .from("certificates")
-            .select(
-                "id, certificate_number, pdf_url"
-            )
-            .eq("id", certificateId)
-            .single();
-
-
-        if(error){
-            throw error;
-        }
-
-
-        if(!data.pdf_url){
-
-            throw new Error(
-                "لا يوجد ملف PDF مرتبط بهذه الشهادة."
-            );
-        }
-
-
-        /*
-         * لأن Bucket certificates خاص،
-         * ننشئ Signed URL عند الطلب.
-         */
-
-        const {
-            data:signedData,
-            error:signedError
-        } = await supabaseClient
+        } = await db
             .storage
             .from("certificates")
             .createSignedUrl(
-                data.pdf_url,
+                storagePath,
                 60 * 10
             );
 
+        if(error) throw error;
 
-        if(signedError){
-            throw signedError;
-        }
-
-
-        if(!signedData?.signedUrl){
+        if(!data?.signedUrl){
 
             throw new Error(
-                "تعذر إنشاء رابط آمن للشهادة."
+                "تعذر إنشاء رابط مؤقت للشهادة."
             );
         }
 
-
-        hideLoading();
-
-
         window.open(
-            signedData.signedUrl,
+            data.signedUrl,
             "_blank",
-            "noopener,noreferrer"
+            "noopener"
         );
-
 
     }catch(error){
 
-        hideLoading();
+        console.error(error);
 
-        console.error(
-            "خطأ في فتح الشهادة:",
-            error
-        );
-
-        showStatus(
-            "تعذر فتح الشهادة: " +
-            getErrorMessage(error),
+        showMessage(
+            "تعذر فتح ملف الشهادة: " +
+            error.message,
             "error"
         );
-
     }
-
 }
 
 
-/* =========================================================
-   تحديث المعاينة
-========================================================= */
+/* ============================================================
+   تحميل الصورة
+============================================================ */
 
-function updatePreview(
-    trainee,
-    course,
-    certificateNumber,
-    issueDate
-){
+function loadImage(src){
 
-    document.getElementById(
-        "previewTrainee"
-    ).textContent =
-        trainee.full_name || "—";
+    return new Promise((resolve,reject)=>{
 
+        const image =
+            new Image();
 
-    document.getElementById(
-        "previewCourse"
-    ).textContent =
-        course.name || "—";
+        image.crossOrigin =
+            "anonymous";
 
+        image.onload = ()=>{
+            resolve(image);
+        };
 
-    document.getElementById(
-        "previewNumber"
-    ).textContent =
-        certificateNumber;
+        image.onerror = ()=>{
 
+            reject(
+                new Error(
+                    "تعذر تحميل قالب الشهادة: " +
+                    src
+                )
+            );
+        };
 
-    document.getElementById(
-        "previewDate"
-    ).textContent =
-        formatDate(issueDate);
-
-
-    document.getElementById(
-        "previewBox"
-    ).classList.add("show");
+        image.src = src;
+    });
 }
 
 
-/* =========================================================
-   رسالة الحالة
-========================================================= */
+/* ============================================================
+   انتظار الخط العربي
+============================================================ */
 
-function showStatus(
-    message,
-    type
-){
+async function waitForArabicFont(){
 
-    const status =
-        document.getElementById("status");
+    try{
 
+        if(document.fonts){
 
-    status.className =
-        "status " + type;
+            await document.fonts.load(
+                '700 40px "Amiri"'
+            );
 
+            await document.fonts.load(
+                '400 40px "Amiri"'
+            );
 
-    status.textContent =
-        message;
+            await document.fonts.ready;
+        }
 
-}
+    }catch(error){
 
-
-/* =========================================================
-   شاشة التحميل
-========================================================= */
-
-function showLoading(
-    text
-){
-
-    document.getElementById(
-        "loadingText"
-    ).textContent =
-        text || "جاري المعالجة...";
-
-
-    document.getElementById(
-        "loadingOverlay"
-    ).classList.add("show");
-
-}
-
-
-function hideLoading(){
-
-    document.getElementById(
-        "loadingOverlay"
-    ).classList.remove("show");
-
-}
-
-
-/* =========================================================
-   تنسيق التاريخ
-========================================================= */
-
-function formatDate(
-    date
-){
-
-    if(!date){
-        return "—";
-    }
-
-
-    const parts =
-        String(date).split("-");
-
-
-    if(parts.length === 3){
-
-        return (
-            parts[2] +
-            "/" +
-            parts[1] +
-            "/" +
-            parts[0]
+        console.warn(
+            "تعذر تحميل خط Amiri، سيتم استخدام الخط الاحتياطي.",
+            error
         );
-
     }
-
-
-    return String(date);
 }
 
 
-/* =========================================================
-   حماية HTML
-========================================================= */
+/* ============================================================
+   تنسيق التاريخ
+============================================================ */
 
-function escapeHtml(
-    value
-){
+function formatDate(value){
 
-    if(value === null || value === undefined){
-        return "";
+    if(!value) return "-";
+
+    const date =
+        new Date(value + "T00:00:00");
+
+    if(Number.isNaN(date.getTime())){
+
+        return value;
     }
 
-    return String(value)
+    const day =
+        String(date.getDate()).padStart(2,"0");
+
+    const month =
+        String(date.getMonth()+1).padStart(2,"0");
+
+    const year =
+        date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+}
+
+
+/* ============================================================
+   حماية HTML
+============================================================ */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
@@ -1962,71 +1914,48 @@ function escapeHtml(
 }
 
 
-/* =========================================================
-   النصوص العربية داخل PDF
-========================================================= */
+function escapeJs(value){
 
-function safePdfText(
-    text
-){
-
-    /*
-     * jsPDF بدون خط عربي مدمج لا يقوم دائمًا
-     * بعرض العربية بشكل صحيح.
-     *
-     * النصوص الرئيسية تبقى قابلة للإظهار حسب
-     * محرك PDF، بينما بيانات الاسم والدورة
-     * يتم تمريرها كما هي.
-     */
-
-    return String(text || "");
+    return String(value ?? "")
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'")
+        .replace(/"/g,"&quot;")
+        .replace(/\n/g,"\\n")
+        .replace(/\r/g,"\\r");
 }
 
 
-/* =========================================================
-   رسائل أخطاء Supabase
-========================================================= */
+/* ============================================================
+   بدء الصفحة
+============================================================ */
 
-function getErrorMessage(
-    error
-){
-
-    if(!error){
-        return "خطأ غير معروف.";
-    }
-
-
-    if(error.message){
-        return error.message;
-    }
-
-
-    if(error.error_description){
-        return error.error_description;
-    }
-
+(async function(){
 
     try{
-        return JSON.stringify(error);
-    }catch(e){
-        return "حدث خطأ غير معروف.";
+
+        const isAdmin =
+            await checkAdmin();
+
+        if(!isAdmin) return;
+
+        await waitForArabicFont();
+
+        await loadAll();
+
+    }catch(error){
+
+        console.error(error);
+
+        showMessage(
+            "تعذر تشغيل صفحة إدارة الشهادات: " +
+            (error.message || error),
+            "error"
+        );
     }
 
-}
-
-
-/* =========================================================
-   العودة
-========================================================= */
-
-function goBack(){
-
-    window.location.href =
-        "admin.html";
-
-}
-
+})();
 </script>
 
 </body>
 </html>
+```
