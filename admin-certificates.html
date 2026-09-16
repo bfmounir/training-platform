@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
@@ -180,6 +181,8 @@ header{
     font-size:14px;
 
     line-height:1.8;
+
+    white-space:pre-line;
 }
 
 .message.show{
@@ -771,6 +774,12 @@ tr:hover td{
     background:#a93226;
 }
 
+.modal-confirm:disabled{
+    opacity:.6;
+
+    cursor:not-allowed;
+}
+
 
 /* =========================
    MOBILE
@@ -1185,6 +1194,8 @@ let trainees = [];
 let courses = [];
 
 let certificates = [];
+
+let pendingDeleteCertificateId = null;
 
 
 /* ============================================================
@@ -1966,34 +1977,52 @@ document.addEventListener(
     "DOMContentLoaded",
     ()=>{
 
-        document
-            .getElementById(
+        const traineeSelect =
+            document.getElementById(
                 "traineeSelect"
-            )
-            .addEventListener(
-                "change",
-                updateGenerateButton
             );
 
 
-        document
-            .getElementById(
+        const courseSelect =
+            document.getElementById(
                 "courseSelect"
-            )
-            .addEventListener(
+            );
+
+
+        const deleteBtn =
+            document.getElementById(
+                "confirmDeleteBtn"
+            );
+
+
+        if(traineeSelect){
+
+            traineeSelect.addEventListener(
                 "change",
                 updateGenerateButton
             );
 
+        }
 
-        document
-            .getElementById(
-                "confirmDeleteBtn"
-            )
-            .addEventListener(
+
+        if(courseSelect){
+
+            courseSelect.addEventListener(
+                "change",
+                updateGenerateButton
+            );
+
+        }
+
+
+        if(deleteBtn){
+
+            deleteBtn.addEventListener(
                 "click",
                 executeDeleteCertificate
             );
+
+        }
 
     }
 );
@@ -2004,22 +2033,30 @@ function updateGenerateButton(){
     const trainee =
         document.getElementById(
             "traineeSelect"
-        ).value;
+        )?.value;
 
 
     const course =
         document.getElementById(
             "courseSelect"
-        ).value;
+        )?.value;
 
 
-    document.getElementById(
-        "generateBtn"
-    ).disabled =
-        !(
-            trainee &&
-            course
+    const button =
+        document.getElementById(
+            "generateBtn"
         );
+
+
+    if(button){
+
+        button.disabled =
+            !(
+                trainee &&
+                course
+            );
+
+    }
 
 }
 
@@ -2092,6 +2129,26 @@ async function generateCertificateNumber(
         "CERT-" +
         year +
         "-";
+
+
+    /*
+        نعيد تحميل الشهادات قبل توليد الرقم
+        لتقليل احتمال التعارض مع شهادة أنشأها
+        مسؤول آخر.
+    */
+
+    try{
+
+        await loadCertificates();
+
+    }catch(error){
+
+        console.warn(
+            "تعذر تحديث قائمة الشهادات قبل توليد الرقم:",
+            error
+        );
+
+    }
 
 
     const numbers =
@@ -2169,22 +2226,6 @@ function createUniqueStoragePath(
     year,
     certificateNumber
 ){
-
-    /*
-        لا نستخدم رقم الشهادة وحده كاسم الملف.
-
-        مثال:
-
-        CERT-2026-000002
-
-        يصبح:
-
-        2026/CERT-2026-000002-a1b2c3d4.pdf
-
-        وبذلك لا يمكن لملف قديم في Storage
-        أن يمنع رفع شهادة جديدة.
-    */
-
 
     let uniquePart;
 
@@ -2314,11 +2355,13 @@ async function generateCertificate(){
         "جارٍ إنشاء الشهادة...";
 
 
+    let storagePath = null;
+
+
     try{
 
         /*
-            فحص قاعدة البيانات مباشرة،
-            وليس الاعتماد على الذاكرة فقط.
+            فحص مباشر من قاعدة البيانات.
         */
 
         const existing =
@@ -2329,12 +2372,6 @@ async function generateCertificate(){
 
 
         if(existing){
-
-            /*
-                تحديث الذاكرة في حال كانت الشهادة
-                موجودة في قاعدة البيانات ولكن لم تكن
-                موجودة في القائمة المحلية.
-            */
 
             const alreadyLoaded =
                 certificates.some(
@@ -2366,10 +2403,6 @@ async function generateCertificate(){
         }
 
 
-        /*
-            الحصول على رقم جديد.
-        */
-
         const certificateNumber =
             await generateCertificateNumber();
 
@@ -2400,11 +2433,7 @@ async function generateCertificate(){
             new Date().getFullYear();
 
 
-        /*
-            المسار الجديد والفريد.
-        */
-
-        const storagePath =
+        storagePath =
             createUniqueStoragePath(
                 year,
                 certificateNumber
@@ -2448,7 +2477,7 @@ async function generateCertificate(){
 
 
         /*
-            تسجيل الشهادة في قاعدة البيانات.
+            تسجيل الشهادة.
         */
 
         const {
@@ -2482,16 +2511,15 @@ async function generateCertificate(){
         if(insertError){
 
             /*
-                إذا فشل التسجيل،
-                نحذف الملف الذي رفعناه للتو.
+                تنظيف الملف الذي رفعناه.
             */
 
-            await db
-                .storage
-                .from("certificates")
-                .remove([
-                    storagePath
-                ]);
+            await removeStorageFile(
+                storagePath
+            );
+
+            storagePath =
+                null;
 
 
             throw new Error(
@@ -2529,13 +2557,60 @@ async function generateCertificate(){
         */
 
         await openCertificate(
-            storagePath
+            inserted.pdf_url
         );
 
 
     }catch(error){
 
         console.error(error);
+
+
+        /*
+            إذا كان الملف قد رُفع لكن العملية
+            فشلت قبل تسجيله، ننظفه.
+        */
+
+        if(storagePath){
+
+            try{
+
+                const db =
+                    getDB();
+
+
+                const {
+                    data:record
+                } =
+                    await db
+                        .from("certificates")
+                        .select("id")
+                        .eq(
+                            "pdf_url",
+                            storagePath
+                        )
+                        .limit(1)
+                        .maybeSingle();
+
+
+                if(!record){
+
+                    await removeStorageFile(
+                        storagePath
+                    );
+
+                }
+
+            }catch(cleanupError){
+
+                console.warn(
+                    "تعذر تنظيف ملف PDF المؤقت:",
+                    cleanupError
+                );
+
+            }
+
+        }
 
 
         showMessage(
@@ -2686,6 +2761,10 @@ async function reissueCertificate(
         null;
 
 
+    let newRecord =
+        null;
+
+
     try{
 
         showMessage(
@@ -2709,7 +2788,7 @@ async function reissueCertificate(
 
 
         /*
-            2. إنشاء PDF الجديد.
+            2. إنشاء PDF.
         */
 
         const pdfBlob =
@@ -2732,7 +2811,7 @@ async function reissueCertificate(
 
 
         /*
-            3. إنشاء مسار فريد.
+            3. إنشاء مسار جديد.
         */
 
         newStoragePath =
@@ -2747,7 +2826,7 @@ async function reissueCertificate(
 
 
         /*
-            4. رفع الشهادة الجديدة أولاً.
+            4. رفع الشهادة الجديدة.
         */
 
         const {
@@ -2812,16 +2891,9 @@ async function reissueCertificate(
 
         if(insertError){
 
-            /*
-                حذف الملف الجديد إذا فشل التسجيل.
-            */
-
-            await db
-                .storage
-                .from("certificates")
-                .remove([
-                    newStoragePath
-                ]);
+            await removeStorageFile(
+                newStoragePath
+            );
 
 
             newStoragePath =
@@ -2836,37 +2908,12 @@ async function reissueCertificate(
         }
 
 
-        /*
-            6. الآن فقط نحذف ملف الشهادة القديمة.
-        */
-
-        if(certificate.pdf_url){
-
-            const {
-                error:oldStorageError
-            } =
-                await db
-                    .storage
-                    .from("certificates")
-                    .remove([
-                        certificate.pdf_url
-                    ]);
-
-
-            if(oldStorageError){
-
-                console.warn(
-                    "تعذر حذف ملف الشهادة القديمة:",
-                    oldStorageError
-                );
-
-            }
-
-        }
+        newRecord =
+            inserted;
 
 
         /*
-            7. حذف سجل الشهادة القديمة.
+            6. حذف سجل الشهادة القديمة أولاً.
         */
 
         const {
@@ -2884,20 +2931,66 @@ async function reissueCertificate(
         if(oldDeleteError){
 
             /*
-                الشهادة الجديدة أصبحت موجودة بالفعل.
-                لذلك لا نحذفها بسبب فشل حذف السجل القديم.
+                بما أن الجديدة سُجلت بالفعل،
+                نحاول حذفها حتى لا يصبح لدى المتربص
+                شهادتان لنفس الدورة.
             */
 
-            console.warn(
-                "تم إنشاء الشهادة الجديدة، لكن تعذر حذف السجل القديم:",
-                oldDeleteError
+            await db
+                .from("certificates")
+                .delete()
+                .eq(
+                    "id",
+                    inserted.id
+                );
+
+
+            await removeStorageFile(
+                newStoragePath
             );
 
 
-            showMessage(
-                "تم إنشاء الشهادة الجديدة بنجاح، لكن تعذر حذف سجل الشهادة القديمة تلقائيًا. يرجى مراجعة القائمة.",
-                "info"
+            newStoragePath =
+                null;
+
+
+            throw new Error(
+                "تعذر حذف سجل الشهادة القديمة، لذلك تم إلغاء إعادة الإصدار للحفاظ على سلامة البيانات: " +
+                oldDeleteError.message
             );
+
+        }
+
+
+        /*
+            7. حذف ملف الشهادة القديمة.
+        */
+
+        let oldFileWarning = "";
+
+
+        if(certificate.pdf_url){
+
+            const {
+                error:oldStorageError
+            } =
+                await removeStorageFile(
+                    certificate.pdf_url,
+                    true
+                );
+
+
+            if(oldStorageError){
+
+                console.warn(
+                    "تعذر حذف ملف الشهادة القديمة:",
+                    oldStorageError
+                );
+
+
+                oldFileWarning =
+                    " تم تحديث سجل الشهادة، لكن تعذر حذف ملف PDF القديم من التخزين.";
+            }
 
         }
 
@@ -2915,7 +3008,7 @@ async function reissueCertificate(
 
 
         certificates.unshift(
-            inserted
+            newRecord
         );
 
 
@@ -2932,9 +3025,12 @@ async function reissueCertificate(
 
             "تمت إعادة إصدار الشهادة بنجاح.\n" +
             "رقم الشهادة الجديد: " +
-            newNumber,
+            newNumber +
+            oldFileWarning,
 
-            "success"
+            oldFileWarning
+                ? "info"
+                : "success"
 
         );
 
@@ -2944,7 +3040,7 @@ async function reissueCertificate(
         */
 
         await openCertificate(
-            newStoragePath
+            newRecord.pdf_url
         );
 
 
@@ -2954,8 +3050,8 @@ async function reissueCertificate(
 
 
         /*
-            إذا تم رفع ملف جديد ولم يتم تسجيله،
-            نحاول تنظيفه.
+            تنظيف الشهادة الجديدة إذا بقيت
+            دون اكتمال العملية.
         */
 
         if(newStoragePath){
@@ -2965,11 +3061,6 @@ async function reissueCertificate(
                 const db =
                     getDB();
 
-
-                /*
-                    لا نحذف الملف هنا إلا إذا لم يعد
-                    هناك سجل مرتبط به.
-                */
 
                 const {
                     data:checkRecord
@@ -2987,19 +3078,16 @@ async function reissueCertificate(
 
                 if(!checkRecord){
 
-                    await db
-                        .storage
-                        .from("certificates")
-                        .remove([
-                            newStoragePath
-                        ]);
+                    await removeStorageFile(
+                        newStoragePath
+                    );
 
                 }
 
             }catch(cleanupError){
 
                 console.warn(
-                    "تعذر تنظيف الملف المؤقت:",
+                    "تعذر تنظيف الملف الجديد:",
                     cleanupError
                 );
 
@@ -3009,8 +3097,7 @@ async function reissueCertificate(
 
 
         /*
-            إعادة تحميل البيانات من قاعدة البيانات
-            لضمان تطابق الشاشة مع الحالة الحقيقية.
+            إعادة تحميل البيانات من قاعدة البيانات.
         */
 
         try{
@@ -3047,10 +3134,6 @@ async function reissueCertificate(
 /* ============================================================
    تأكيد الحذف
 ============================================================ */
-
-let pendingDeleteCertificateId =
-    null;
-
 
 function confirmDeleteCertificate(
     certificateId
@@ -3141,7 +3224,7 @@ function confirmDeleteCertificate(
 
         <br><br>
 
-        سيتم أيضاً حذف ملف PDF من التخزين،
+        سيتم حذف سجل الشهادة وملف PDF المرتبط بها،
         وبالتالي لن تعود هذه الشهادة قابلة للتحقق إلكترونياً.
 
     `;
@@ -3156,17 +3239,29 @@ function confirmDeleteCertificate(
 }
 
 
+/* ============================================================
+   إغلاق نافذة التأكيد
+============================================================ */
+
 function closeConfirmModal(){
 
     pendingDeleteCertificateId =
         null;
 
 
-    document.getElementById(
-        "confirmModal"
-    )
-    .classList
-    .remove("show");
+    const modal =
+        document.getElementById(
+            "confirmModal"
+        );
+
+
+    if(modal){
+
+        modal
+            .classList
+            .remove("show");
+
+    }
 
 }
 
@@ -3226,10 +3321,75 @@ async function executeDeleteCertificate(){
 
     try{
 
-        await deleteCertificateData(
-            certificate
-        );
+        /*
+            حذف سجل قاعدة البيانات أولاً.
+            هذا يمنع بقاء سجل شهادة صالح يشير
+            إلى ملف تم حذفه.
+        */
 
+        const db =
+            getDB();
+
+
+        const {
+            error:deleteError
+        } =
+            await db
+                .from("certificates")
+                .delete()
+                .eq(
+                    "id",
+                    certificate.id
+                );
+
+
+        if(deleteError){
+
+            throw new Error(
+                "تعذر حذف سجل الشهادة من قاعدة البيانات: " +
+                deleteError.message
+            );
+
+        }
+
+
+        /*
+            بعد نجاح حذف السجل،
+            نحذف ملف PDF من Storage.
+        */
+
+        let storageWarning = "";
+
+
+        if(certificate.pdf_url){
+
+            const {
+                error:storageError
+            } =
+                await removeStorageFile(
+                    certificate.pdf_url,
+                    true
+                );
+
+
+            if(storageError){
+
+                console.warn(
+                    "تم حذف سجل الشهادة، لكن تعذر حذف ملف PDF:",
+                    storageError
+                );
+
+
+                storageWarning =
+                    " تم حذف سجل الشهادة بنجاح، لكن بقي ملف PDF في التخزين ويحتاج إلى حذف يدوي.";
+            }
+
+        }
+
+
+        /*
+            تحديث القائمة المحلية.
+        */
 
         certificates =
             certificates.filter(
@@ -3260,10 +3420,12 @@ async function executeDeleteCertificate(){
                 certificate.certificate_number ||
                 ""
             ) +
-            " نهائياً. " +
-            "ولن تعود قابلة للتحقق إلكترونياً.",
+            " نهائياً." +
+            storageWarning,
 
-            "success"
+            storageWarning
+                ? "info"
+                : "success"
 
         );
 
@@ -3294,68 +3456,75 @@ async function executeDeleteCertificate(){
 
 
 /* ============================================================
-   حذف بيانات الشهادة
+   حذف ملف من Storage
 ============================================================ */
 
-async function deleteCertificateData(
-    certificate
+async function removeStorageFile(
+    storagePath,
+    returnError = false
 ){
 
-    const db =
-        getDB();
+    if(!storagePath){
+
+        return {
+            error:null
+        };
+
+    }
 
 
-    /*
-        حذف ملف PDF من Storage.
-    */
+    try{
 
-    if(certificate.pdf_url){
+        const db =
+            getDB();
+
 
         const {
-            error:storageError
+            error
         } =
             await db
                 .storage
                 .from("certificates")
                 .remove([
-                    certificate.pdf_url
+                    storagePath
                 ]);
 
 
-        if(storageError){
+        if(error){
+
+            if(returnError){
+
+                return {
+                    error
+                };
+
+            }
+
 
             throw new Error(
                 "تعذر حذف ملف PDF من التخزين: " +
-                storageError.message
+                error.message
             );
 
         }
 
-    }
+
+        return {
+            error:null
+        };
+
+    }catch(error){
+
+        if(returnError){
+
+            return {
+                error
+            };
+
+        }
 
 
-    /*
-        حذف سجل قاعدة البيانات.
-    */
-
-    const {
-        error:deleteError
-    } =
-        await db
-            .from("certificates")
-            .delete()
-            .eq(
-                "id",
-                certificate.id
-            );
-
-
-    if(deleteError){
-
-        throw new Error(
-            "تم التعامل مع ملف PDF لكن تعذر حذف سجل الشهادة من قاعدة البيانات: " +
-            deleteError.message
-        );
+        throw error;
 
     }
 
@@ -4612,3 +4781,4 @@ document.addEventListener(
 </body>
 
 </html>
+```
