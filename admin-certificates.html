@@ -1797,7 +1797,9 @@ async function initializeSupabase(){
 function setDefaultDate(){
 
     const input =
-        document.getElementById("issueDate");
+        document.getElementById(
+            "issueDate"
+        );
 
     const now =
         new Date();
@@ -1853,11 +1855,6 @@ async function checkAdmin(){
     }
 
 
-    /*
-       نستخدم دالة is_admin الموجودة
-       في قاعدة البيانات.
-    */
-
     const {
         data: isAdmin,
         error: adminError
@@ -1874,10 +1871,6 @@ async function checkAdmin(){
             adminError
         );
 
-        /*
-           كخطة احتياطية نتحقق مباشرة
-           من user_roles.
-        */
 
         const {
             data: role,
@@ -2711,6 +2704,9 @@ async function issueCertificate(){
         "⏳ جاري إنشاء الشهادة...";
 
 
+    let uploadedStoragePath = null;
+
+
     try{
 
         const trainee =
@@ -2743,98 +2739,194 @@ async function issueCertificate(){
         }
 
 
-        const certificateNumber =
-            await generateCertificateNumber();
+        /*
+           نحاول إصدار الشهادة.
+           إذا كان الملف موجودًا بالفعل،
+           نولد رقمًا جديدًا ونحاول مرة أخرى.
+        */
+
+        let success = false;
+
+        let finalData = null;
+
+        let finalCertificateNumber = null;
+
+        let lastError = null;
 
 
-        const pdfBlob =
-            await createCertificatePDF({
+        for(
+            let attempt = 0;
+            attempt < 5;
+            attempt++
+        ){
 
-                certificateNumber,
-                trainee,
-                course,
-                issueDate
-
-            });
-
-
-        const storagePath =
-            `certificates/${certificateNumber}.pdf`;
-
-
-        const {
-            error: uploadError
-        } =
-            await db
-                .storage
-                .from("certificates")
-                .upload(
-                    storagePath,
-                    pdfBlob,
-                    {
-                        contentType:
-                            "application/pdf",
-                        upsert:false
-                    }
+            const certificateNumber =
+                await generateCertificateNumber(
+                    attempt
                 );
 
 
-        if(uploadError){
+            finalCertificateNumber =
+                certificateNumber;
 
-            throw uploadError;
+
+            const pdfBlob =
+                await createCertificatePDF({
+
+                    certificateNumber,
+                    trainee,
+                    course,
+                    issueDate
+
+                });
+
+
+            /*
+               مهم:
+               المسار هنا داخل bucket فقط.
+               لا نضع certificates/ في البداية.
+            */
+
+            const storagePath =
+                `${certificateNumber}.pdf`;
+
+
+            const {
+                error: uploadError
+            } =
+                await db
+                    .storage
+                    .from("certificates")
+                    .upload(
+                        storagePath,
+                        pdfBlob,
+                        {
+                            contentType:
+                                "application/pdf",
+
+                            upsert:false
+                        }
+                    );
+
+
+            if(uploadError){
+
+                lastError =
+                    uploadError;
+
+
+                /*
+                   إذا كان الملف موجودًا بالفعل،
+                   نولد رقمًا آخر.
+                */
+
+                const message =
+                    String(
+                        uploadError.message ||
+                        ""
+                    ).toLowerCase();
+
+
+                if(
+                    message.includes(
+                        "already exists"
+                    ) ||
+                    message.includes(
+                        "resource already exists"
+                    ) ||
+                    uploadError.statusCode === "409" ||
+                    uploadError.status === 409
+                ){
+
+                    continue;
+
+                }
+
+
+                throw uploadError;
+
+            }
+
+
+            uploadedStoragePath =
+                storagePath;
+
+
+            const {
+                data,
+                error
+            } =
+                await db
+                    .from("certificates")
+                    .insert({
+
+                        trainee_id:
+                            traineeId,
+
+                        course_id:
+                            courseId,
+
+                        certificate_number:
+                            certificateNumber,
+
+                        issue_date:
+                            issueDate,
+
+                        pdf_url:
+                            storagePath
+
+                    })
+                    .select()
+                    .single();
+
+
+            if(error){
+
+                /*
+                   إذا فشل حفظ السجل،
+                   نحذف الملف الذي تم رفعه.
+                */
+
+                await db
+                    .storage
+                    .from("certificates")
+                    .remove([
+                        storagePath
+                    ]);
+
+
+                throw error;
+
+            }
+
+
+            finalData =
+                data;
+
+
+            success =
+                true;
+
+
+            break;
 
         }
 
 
-        const {
-            data,
-            error
-        } =
-            await db
-                .from("certificates")
-                .insert({
+        if(!success){
 
-                    trainee_id:
-                        traineeId,
-
-                    course_id:
-                        courseId,
-
-                    certificate_number:
-                        certificateNumber,
-
-                    issue_date:
-                        issueDate,
-
-                    pdf_url:
-                        storagePath
-
-                })
-                .select()
-                .single();
-
-
-        if(error){
-
-            /*
-              إذا فشل حفظ السجل،
-              نحاول حذف الملف الذي تم رفعه.
-            */
-
-            await db
-                .storage
-                .from("certificates")
-                .remove([
-                    storagePath
-                ]);
-
-            throw error;
+            throw (
+                lastError ||
+                new Error(
+                    "تعذر إنشاء رقم شهادة متاح بعد عدة محاولات."
+                )
+            );
 
         }
 
 
         certificates.unshift(
-            data
+            finalData
         );
 
 
@@ -2844,7 +2936,7 @@ async function issueCertificate(){
 
 
         showAlert(
-            `تم إصدار الشهادة بنجاح: ${certificateNumber}`,
+            `تم إصدار الشهادة بنجاح: ${finalCertificateNumber}`,
             "success"
         );
 
@@ -2852,6 +2944,7 @@ async function issueCertificate(){
         document.getElementById(
             "traineeSelect"
         ).value = "";
+
 
         document.getElementById(
             "courseSelect"
@@ -2865,6 +2958,35 @@ async function issueCertificate(){
             "Issue certificate error:",
             error
         );
+
+
+        /*
+           تنظيف احتياطي للملف إذا حدث خطأ.
+        */
+
+        if(uploadedStoragePath){
+
+            try{
+
+                await db
+                    .storage
+                    .from("certificates")
+                    .remove([
+                        uploadedStoragePath
+                    ]);
+
+            }
+            catch(cleanError){
+
+                console.warn(
+                    "تعذر تنظيف الملف بعد الخطأ:",
+                    cleanError
+                );
+
+            }
+
+        }
+
 
         showAlert(
             error.message ||
@@ -2890,17 +3012,14 @@ async function issueCertificate(){
    GENERATE CERTIFICATE NUMBER
 ========================================================= */
 
-async function generateCertificateNumber(){
+async function generateCertificateNumber(
+    attempt = 0
+){
 
     const year =
         new Date()
             .getFullYear();
 
-
-    /*
-       نحصل على شهادات السنة الحالية
-       وننشئ الرقم التسلسلي التالي.
-    */
 
     const {
         data,
@@ -2964,8 +3083,13 @@ async function generateCertificateNumber(){
     );
 
 
+    /*
+       في حالة إعادة المحاولة بسبب
+       وجود ملف بنفس الاسم، نزيد الرقم.
+    */
+
     const next =
-        max + 1;
+        max + 1 + attempt;
 
 
     return (
@@ -3831,6 +3955,65 @@ async function previewCertificate(
 
 
 /* =========================================================
+   NORMALIZE STORAGE PATH
+========================================================= */
+
+function normalizeStoragePath(
+    path
+){
+
+    if(!path){
+
+        return "";
+
+    }
+
+
+    let cleanPath =
+        String(path).trim();
+
+
+    /*
+       إذا كان URL كاملًا
+       نستخرج مسار Storage.
+    */
+
+    if(
+        cleanPath.startsWith(
+            "http://"
+        ) ||
+        cleanPath.startsWith(
+            "https://"
+        )
+    ){
+
+        return getStoragePathFromUrl(
+            cleanPath
+        );
+
+    }
+
+
+    /*
+       إزالة bucket من المسار
+       إذا كانت الشهادة القديمة
+       محفوظة بصيغة:
+       certificates/CERT-....pdf
+    */
+
+    cleanPath =
+        cleanPath.replace(
+            /^certificates\//,
+            ""
+        );
+
+
+    return cleanPath;
+
+}
+
+
+/* =========================================================
    GET CERTIFICATE URL
 ========================================================= */
 
@@ -3844,65 +4027,50 @@ async function getCertificateUrl(
 
 
     /*
-       إذا كانت القيمة مسار Storage
-    */
-
-    if(
-        path &&
-        !path.startsWith("http://") &&
-        !path.startsWith("https://")
-    ){
-
-        /*
-           إزالة اسم bucket إذا كان موجودًا
-        */
-
-        path =
-            path.replace(
-                /^certificates\//,
-                ""
-            );
-
-
-        const {
-            data,
-            error
-        } =
-            await db
-                .storage
-                .from("certificates")
-                .createSignedUrl(
-                    path,
-                    3600
-                );
-
-
-        if(error){
-
-            throw error;
-
-        }
-
-
-        return data.signedUrl;
-
-    }
-
-
-    /*
-       إذا كان URL محفوظًا مسبقًا
+       إذا كان هناك مسار محفوظ
     */
 
     if(path){
 
-        return path;
+        const normalizedPath =
+            normalizeStoragePath(
+                path
+            );
+
+
+        if(normalizedPath){
+
+            const {
+                data,
+                error
+            } =
+                await db
+                    .storage
+                    .from("certificates")
+                    .createSignedUrl(
+                        normalizedPath,
+                        3600
+                    );
+
+
+            if(
+                !error &&
+                data &&
+                data.signedUrl
+            ){
+
+                return data.signedUrl;
+
+            }
+
+        }
 
     }
 
 
     /*
-       محاولة العثور على الملف
-       اعتمادًا على رقم الشهادة.
+       محاولة احتياطية اعتمادًا
+       على رقم الشهادة.
     */
 
     if(
@@ -3928,7 +4096,8 @@ async function getCertificateUrl(
 
         if(
             !error &&
-            data
+            data &&
+            data.signedUrl
         ){
 
             return data.signedUrl;
@@ -4003,7 +4172,7 @@ function confirmReissue(
     document.getElementById(
         "confirmMessage"
     ).textContent =
-        "سيتم إنشاء نسخة جديدة من ملف PDF للشهادة بنفس رقم الشهادة والبيانات الحالية. هل تريد المتابعة؟";
+        "سيتم إنشاء نسخة جديدة من ملف PDF للشهادة بنفس رقم الشهادة والبيانات الحالية واستبدال الملف القديم. هل تريد المتابعة؟";
 
 
     document.getElementById(
@@ -4112,13 +4281,20 @@ async function reissueCertificate(
             });
 
 
+        /*
+           المسار الصحيح داخل Bucket.
+        */
+
         const storagePath =
-            `certificates/${certificate.certificate_number}.pdf`;
+            `${certificate.certificate_number}.pdf`;
 
 
-        const {
-            error: uploadError
-        } =
+        /*
+           أول محاولة:
+           استبدال الملف مباشرة باستخدام upsert.
+        */
+
+        let uploadResult =
             await db
                 .storage
                 .from("certificates")
@@ -4134,12 +4310,85 @@ async function reissueCertificate(
                 );
 
 
-        if(uploadError){
+        /*
+           إذا رفض Storage الاستبدال بسبب
+           وجود المورد، نحذف الملف القديم
+           ثم نعيد رفع النسخة الجديدة.
+        */
 
-            throw uploadError;
+        if(uploadResult.error){
+
+            const message =
+                String(
+                    uploadResult.error.message ||
+                    ""
+                ).toLowerCase();
+
+
+            const alreadyExists =
+                message.includes(
+                    "already exists"
+                ) ||
+                message.includes(
+                    "resource already exists"
+                ) ||
+                uploadResult.error.statusCode === "409" ||
+                uploadResult.error.status === 409;
+
+
+            if(alreadyExists){
+
+                const {
+                    error: removeError
+                } =
+                    await db
+                        .storage
+                        .from("certificates")
+                        .remove([
+                            storagePath
+                        ]);
+
+
+                if(removeError){
+
+                    throw new Error(
+                        "الملف موجود مسبقًا ولم نتمكن من استبداله. تحقق من صلاحيات حذف/تعديل ملفات Storage."
+                    );
+
+                }
+
+
+                uploadResult =
+                    await db
+                        .storage
+                        .from("certificates")
+                        .upload(
+                            storagePath,
+                            pdfBlob,
+                            {
+                                contentType:
+                                    "application/pdf",
+
+                                upsert:false
+                            }
+                        );
+
+            }
 
         }
 
+
+        if(uploadResult.error){
+
+            throw uploadResult.error;
+
+        }
+
+
+        /*
+           تحديث مسار الملف في قاعدة البيانات.
+           نستخدم المسار الجديد الصحيح فقط.
+        */
 
         const {
             error
@@ -4173,7 +4422,7 @@ async function reissueCertificate(
 
 
         showAlert(
-            "تمت إعادة إصدار الشهادة بنجاح.",
+            "تمت إعادة إصدار الشهادة بنجاح واستبدال ملف PDF القديم.",
             "success"
         );
 
@@ -4290,35 +4539,20 @@ async function deleteCertificate(
 
         /*
            تحديد مسار الملف
+           مع دعم الملفات القديمة
         */
 
         let storagePath =
-            certificate.pdf_url ||
-            "";
+            normalizeStoragePath(
+                certificate.pdf_url ||
+                ""
+            );
 
 
-        if(
-            storagePath.startsWith(
-                "http://"
-            ) ||
-            storagePath.startsWith(
-                "https://"
-            )
-        ){
+        if(!storagePath){
 
             storagePath =
-                getStoragePathFromUrl(
-                    storagePath
-                );
-
-        }
-        else{
-
-            storagePath =
-                storagePath.replace(
-                    /^certificates\//,
-                    ""
-                );
+                `${certificate.certificate_number}.pdf`;
 
         }
 
@@ -4350,32 +4584,28 @@ async function deleteCertificate(
            حذف الملف من Storage
         */
 
-        if(!storagePath){
+        if(storagePath){
 
-            storagePath =
-                `${certificate.certificate_number}.pdf`;
-
-        }
-
-
-        const {
-            error:
-                storageError
-        } =
-            await db
-                .storage
-                .from("certificates")
-                .remove([
-                    storagePath
-                ]);
+            const {
+                error:
+                    storageError
+            } =
+                await db
+                    .storage
+                    .from("certificates")
+                    .remove([
+                        storagePath
+                    ]);
 
 
-        if(storageError){
+            if(storageError){
 
-            console.warn(
-                "تعذر حذف ملف PDF:",
-                storageError
-            );
+                console.warn(
+                    "تعذر حذف ملف PDF:",
+                    storageError
+                );
+
+            }
 
         }
 
@@ -4433,13 +4663,6 @@ function getStoragePathFromUrl(
     }
 
 
-    /*
-       محاولة استخراج المسار من:
-       /storage/v1/object/public/certificates/
-       أو
-       /storage/v1/object/sign/certificates/
-    */
-
     const markers = [
         "/storage/v1/object/public/certificates/",
         "/storage/v1/object/sign/certificates/",
@@ -4471,6 +4694,7 @@ function getStoragePathFromUrl(
 
 
     return "";
+
 }
 
 
