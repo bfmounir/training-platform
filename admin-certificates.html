@@ -1254,10 +1254,6 @@ tbody tr:last-child td{
 <main class="container">
 
 
-    <!-- =====================================================
-         TITLE
-    ====================================================== -->
-
     <section class="page-title">
 
         <h2>
@@ -1265,16 +1261,12 @@ tbody tr:last-child td{
         </h2>
 
         <p>
-            إصدار شهادات إتمام التكوين، معاينتها، إعادة إصدارها أو حذفها.
+            إصدار شهادات حضور وإتمام التكوين، معاينتها، إعادة إصدارها أو حذفها.
         </p>
 
     </section>
 
 
-
-    <!-- =====================================================
-         STATISTICS
-    ====================================================== -->
 
     <section class="stats">
 
@@ -1367,16 +1359,8 @@ tbody tr:last-child td{
 
 
 
-    <!-- =====================================================
-         MAIN GRID
-    ====================================================== -->
-
     <section class="main-grid">
 
-
-        <!-- =================================================
-             ISSUE CARD
-        ================================================== -->
 
         <div class="card">
 
@@ -1457,8 +1441,8 @@ tbody tr:last-child td{
                     ملاحظة:
                 </strong>
 
-                سيتم إنشاء الشهادة بصيغة PDF،
-                وإضافة رمز QR للتحقق من صحتها،
+                سيتم إنشاء شهادة PDF بتصميم مؤسساتي حديث،
+                وإضافة رمز QR للتحقق الإلكتروني،
                 ثم حفظها في المنصة.
 
             </div>
@@ -1466,10 +1450,6 @@ tbody tr:last-child td{
         </div>
 
 
-
-        <!-- =================================================
-             CERTIFICATES TABLE
-        ================================================== -->
 
         <div class="card table-card">
 
@@ -1510,40 +1490,25 @@ tbody tr:last-child td{
 
                         <tr>
 
-                            <th>
-                                #
-                            </th>
+                            <th>#</th>
 
-                            <th>
-                                رقم الشهادة
-                            </th>
+                            <th>رقم الشهادة</th>
 
-                            <th>
-                                المتربص
-                            </th>
+                            <th>المتربص</th>
 
-                            <th>
-                                الدورة
-                            </th>
+                            <th>الدورة</th>
 
-                            <th>
-                                تاريخ الإصدار
-                            </th>
+                            <th>تاريخ الإصدار</th>
 
-                            <th>
-                                الحالة
-                            </th>
+                            <th>الحالة</th>
 
-                            <th>
-                                الإجراءات
-                            </th>
+                            <th>الإجراءات</th>
 
                         </tr>
 
                     </thead>
 
-                    <tbody id="certificatesBody">
-                    </tbody>
+                    <tbody id="certificatesBody"></tbody>
 
                 </table>
 
@@ -1575,17 +1540,9 @@ tbody tr:last-child td{
 
 
 
-<!-- =========================================================
-     QR CONTAINER
-========================================================= -->
-
 <div id="qrContainer"></div>
 
 
-
-<!-- =========================================================
-     CONFIRM MODAL
-========================================================= -->
 
 <div
     id="confirmModal"
@@ -1644,10 +1601,6 @@ tbody tr:last-child td{
 </div>
 
 
-
-<!-- =========================================================
-     PREVIEW MODAL
-========================================================= -->
 
 <div
     id="previewModal"
@@ -1876,18 +1829,18 @@ async function checkAdmin(){
             data: role,
             error: roleError
         } =
-            await db
-                .from("user_roles")
-                .select("role")
-                .eq(
-                    "user_id",
-                    session.user.id
-                )
-                .eq(
-                    "role",
-                    "admin"
-                )
-                .maybeSingle();
+        await db
+            .from("user_roles")
+            .select("role")
+            .eq(
+                "user_id",
+                session.user.id
+            )
+            .eq(
+                "role",
+                "admin"
+            )
+            .maybeSingle();
 
 
         if(
@@ -2739,12 +2692,6 @@ async function issueCertificate(){
         }
 
 
-        /*
-           نحاول إصدار الشهادة.
-           إذا كان الملف موجودًا بالفعل،
-           نولد رقمًا جديدًا ونحاول مرة أخرى.
-        */
-
         let success = false;
 
         let finalData = null;
@@ -2756,7 +2703,7 @@ async function issueCertificate(){
 
         for(
             let attempt = 0;
-            attempt < 5;
+            attempt < 8;
             attempt++
         ){
 
@@ -2781,61 +2728,28 @@ async function issueCertificate(){
                 });
 
 
-            /*
-               مهم:
-               المسار هنا داخل bucket فقط.
-               لا نضع certificates/ في البداية.
-            */
-
             const storagePath =
                 `${certificateNumber}.pdf`;
 
 
-            const {
-                error: uploadError
-            } =
-                await db
-                    .storage
-                    .from("certificates")
-                    .upload(
-                        storagePath,
-                        pdfBlob,
-                        {
-                            contentType:
-                                "application/pdf",
-
-                            upsert:false
-                        }
-                    );
+            const uploadResult =
+                await uploadCertificateFile(
+                    storagePath,
+                    pdfBlob,
+                    false
+                );
 
 
-            if(uploadError){
+            if(uploadResult.error){
 
                 lastError =
-                    uploadError;
-
-
-                /*
-                   إذا كان الملف موجودًا بالفعل،
-                   نولد رقمًا آخر.
-                */
-
-                const message =
-                    String(
-                        uploadError.message ||
-                        ""
-                    ).toLowerCase();
+                    uploadResult.error;
 
 
                 if(
-                    message.includes(
-                        "already exists"
-                    ) ||
-                    message.includes(
-                        "resource already exists"
-                    ) ||
-                    uploadError.statusCode === "409" ||
-                    uploadError.status === 409
+                    isAlreadyExistsError(
+                        uploadResult.error
+                    )
                 ){
 
                     continue;
@@ -2843,7 +2757,7 @@ async function issueCertificate(){
                 }
 
 
-                throw uploadError;
+                throw uploadResult.error;
 
             }
 
@@ -2882,18 +2796,12 @@ async function issueCertificate(){
 
             if(error){
 
-                /*
-                   إذا فشل حفظ السجل،
-                   نحذف الملف الذي تم رفعه.
-                */
+                await safeRemoveStorageFile(
+                    storagePath
+                );
 
-                await db
-                    .storage
-                    .from("certificates")
-                    .remove([
-                        storagePath
-                    ]);
-
+                uploadedStoragePath =
+                    null;
 
                 throw error;
 
@@ -2960,30 +2868,11 @@ async function issueCertificate(){
         );
 
 
-        /*
-           تنظيف احتياطي للملف إذا حدث خطأ.
-        */
-
         if(uploadedStoragePath){
 
-            try{
-
-                await db
-                    .storage
-                    .from("certificates")
-                    .remove([
-                        uploadedStoragePath
-                    ]);
-
-            }
-            catch(cleanError){
-
-                console.warn(
-                    "تعذر تنظيف الملف بعد الخطأ:",
-                    cleanError
-                );
-
-            }
+            await safeRemoveStorageFile(
+                uploadedStoragePath
+            );
 
         }
 
@@ -3083,13 +2972,14 @@ async function generateCertificateNumber(
     );
 
 
-    /*
-       في حالة إعادة المحاولة بسبب
-       وجود ملف بنفس الاسم، نزيد الرقم.
-    */
+    const randomOffset =
+        attempt > 0
+            ? attempt
+            : 0;
+
 
     const next =
-        max + 1 + attempt;
+        max + 1 + randomOffset;
 
 
     return (
@@ -3103,6 +2993,7 @@ async function generateCertificateNumber(
 
 /* =========================================================
    CREATE CERTIFICATE PDF
+   التصميم الجديد
 ========================================================= */
 
 async function createCertificatePDF(
@@ -3141,7 +3032,9 @@ async function createCertificatePDF(
 
 
     /*
-       خلفية بيضاء
+       ======================================================
+       الخلفية
+       ======================================================
     */
 
     ctx.fillStyle =
@@ -3156,69 +3049,184 @@ async function createCertificatePDF(
 
 
     /*
+       ======================================================
+       خلفية زخرفية خفيفة
+       ======================================================
+    */
+
+    ctx.fillStyle =
+        "#f7fbff";
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        0,
+        0
+    );
+
+    ctx.lineTo(
+        480,
+        0
+    );
+
+    ctx.lineTo(
+        0,
+        360
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+
+    ctx.fillStyle =
+        "#eef7fb";
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        width,
+        height
+    );
+
+    ctx.lineTo(
+        width - 480,
+        height
+    );
+
+    ctx.lineTo(
+        width,
+        height - 360
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+
+    /*
+       ======================================================
        الإطار الخارجي
+       ======================================================
     */
 
     ctx.strokeStyle =
         "#075985";
 
     ctx.lineWidth =
-        18;
+        12;
 
     ctx.strokeRect(
-        35,
-        35,
-        width - 70,
-        height - 70
+        28,
+        28,
+        width - 56,
+        height - 56
     );
 
 
     /*
-       إطار داخلي
+       الإطار الداخلي
+       ======================================================
     */
 
     ctx.strokeStyle =
         "#087f8c";
 
     ctx.lineWidth =
-        3;
+        2;
 
     ctx.strokeRect(
-        58,
-        58,
-        width - 116,
-        height - 116
+        48,
+        48,
+        width - 96,
+        height - 96
     );
 
 
     /*
-       شريط علوي
+       ======================================================
+       شريط علوي وسفلي
+       ======================================================
     */
 
     ctx.fillStyle =
         "#075985";
 
     ctx.fillRect(
-        60,
-        60,
-        width - 120,
-        14
+        48,
+        48,
+        width - 96,
+        12
     );
 
-
-    /*
-       شريط سفلي
-    */
 
     ctx.fillStyle =
         "#087f8c";
 
     ctx.fillRect(
-        60,
-        height - 74,
-        width - 120,
-        14
+        48,
+        height - 60,
+        width - 96,
+        12
     );
+
+
+    /*
+       ======================================================
+       منطقة الشعار - الجهة اليسرى
+       ======================================================
+    */
+
+    ctx.fillStyle =
+        "#f7fbff";
+
+    roundRect(
+        ctx,
+        90,
+        105,
+        270,
+        265,
+        22
+    );
+
+    ctx.fill();
+
+
+    ctx.strokeStyle =
+        "#d5e8f0";
+
+    ctx.lineWidth =
+        2;
+
+    roundRect(
+        ctx,
+        90,
+        105,
+        270,
+        265,
+        22
+    );
+
+    ctx.stroke();
+
+
+    /*
+       خط فيروزي صغير أعلى بطاقة الشعار
+    */
+
+    ctx.fillStyle =
+        "#087f8c";
+
+    roundRect(
+        ctx,
+        90,
+        105,
+        270,
+        9,
+        22
+    );
+
+    ctx.fill();
 
 
     /*
@@ -3233,12 +3241,13 @@ async function createCertificatePDF(
             );
 
 
-        ctx.drawImage(
+        drawContainImage(
+            ctx,
             logo,
-            width / 2 - 75,
-            95,
-            150,
-            150
+            125,
+            135,
+            200,
+            175
         );
 
     }
@@ -3253,55 +3262,43 @@ async function createCertificatePDF(
 
 
     /*
-       اسم المؤسسة
+       ======================================================
+       معلومات المؤسسة - أعلى اليمين
+       ======================================================
     */
 
-    drawCenteredText(
+    drawRightAlignedText(
         ctx,
         "الجمهورية الجزائرية الديمقراطية الشعبية",
-        width / 2,
-        275,
-        "bold 27px Arial",
+        width - 95,
+        135,
+        "bold 25px Arial",
         "#17324d"
     );
 
 
-    drawCenteredText(
+    drawRightAlignedText(
         ctx,
         "المؤسسة العمومية الإستشفائية بأولف",
-        width / 2,
-        315,
+        width - 95,
+        178,
         "bold 34px Arial",
         "#075985"
     );
 
 
-    drawCenteredText(
+    drawRightAlignedText(
         ctx,
         "ولاية أدرار",
-        width / 2,
-        350,
+        width - 95,
+        215,
         "24px Arial",
-        "#17324d"
+        "#365268"
     );
 
 
     /*
-       عنوان الشهادة
-    */
-
-    drawCenteredText(
-        ctx,
-        "شهادة إتمام التكوين",
-        width / 2,
-        425,
-        "bold 50px Arial",
-        "#075985"
-    );
-
-
-    /*
-       خط زخرفي
+       خط المؤسسة
     */
 
     ctx.strokeStyle =
@@ -3313,137 +3310,234 @@ async function createCertificatePDF(
     ctx.beginPath();
 
     ctx.moveTo(
-        width / 2 - 180,
-        450
+        410,
+        250
     );
 
     ctx.lineTo(
-        width / 2 + 180,
-        450
+        width - 95,
+        250
     );
 
     ctx.stroke();
 
 
     /*
-       النص الأساسي
+       ======================================================
+       العنوان الرئيسي
+       ======================================================
+    */
+
+    drawCenteredText(
+        ctx,
+        "شهادة حضور وإتمام دورة تكوينية",
+        width / 2,
+        345,
+        "bold 49px Arial",
+        "#075985"
+    );
+
+
+    /*
+       زخرفة أسفل العنوان
+    */
+
+    drawCertificateDivider(
+        ctx,
+        width / 2,
+        382
+    );
+
+
+    /*
+       ======================================================
+       النص التمهيدي
+       ======================================================
     */
 
     drawCenteredText(
         ctx,
         "تشهد المؤسسة العمومية الإستشفائية بأولف أن المتربص:",
         width / 2,
-        515,
-        "27px Arial",
+        445,
+        "26px Arial",
         "#000000"
     );
 
 
     /*
+       ======================================================
        اسم المتربص
+       ======================================================
     */
+
+    const traineeName =
+        getTraineeName(
+            trainee
+        );
+
+
+    ctx.fillStyle =
+        "#f7fbff";
+
+    roundRect(
+        ctx,
+        390,
+        475,
+        820,
+        92,
+        18
+    );
+
+    ctx.fill();
+
+
+    ctx.strokeStyle =
+        "#d5e8f0";
+
+    ctx.lineWidth =
+        2;
+
+    roundRect(
+        ctx,
+        390,
+        475,
+        820,
+        92,
+        18
+    );
+
+    ctx.stroke();
+
 
     drawFittedArabicText(
         ctx,
-        getTraineeName(
-            trainee
-        ),
+        traineeName,
         width / 2,
-        585,
-        1100,
-        46,
+        521,
+        750,
+        47,
         28,
         "#075985"
     );
 
 
     /*
-       العبارة الثانية
+       ======================================================
+       العبارة
+       ======================================================
     */
 
     drawCenteredText(
         ctx,
-        "قد أتم بنجاح متطلبات الدورة التكوينية المبرمجة تحت عنوان:",
+        "قد حضر وأتم متطلبات الدورة التكوينية المبرمجة تحت عنوان:",
         width / 2,
-        665,
-        "27px Arial",
+        620,
+        "25px Arial",
         "#000000"
     );
 
 
     /*
-       اسم الدورة
+       ======================================================
+       عنوان الدورة
+       ======================================================
     */
+
+    const courseName =
+        getCourseName(
+            course
+        );
+
+
+    ctx.fillStyle =
+        "#075985";
+
+    roundRect(
+        ctx,
+        300,
+        650,
+        1000,
+        100,
+        20
+    );
+
+    ctx.fill();
+
+
+    /*
+       شريط زخرفي داخلي
+    */
+
+    ctx.strokeStyle =
+        "#ffffff";
+
+    ctx.globalAlpha =
+        .28;
+
+    ctx.lineWidth =
+        2;
+
+    roundRect(
+        ctx,
+        315,
+        665,
+        970,
+        70,
+        15
+    );
+
+    ctx.stroke();
+
+    ctx.globalAlpha =
+        1;
+
 
     drawFittedArabicText(
         ctx,
-        getCourseName(
-            course
-        ),
+        courseName,
         width / 2,
-        735,
-        1150,
-        42,
-        24,
-        "#075985"
+        700,
+        900,
+        38,
+        22,
+        "#ffffff"
     );
 
 
     /*
+       ======================================================
        التاريخ
+       ======================================================
     */
 
     drawCenteredText(
         ctx,
         `حررت بتاريخ: ${formatDate(issueDate)}`,
         width / 2,
-        805,
-        "23px Arial",
+        790,
+        "22px Arial",
         "#000000"
     );
 
 
     /*
-       التوقيع
+       ======================================================
+       خط زخرفي سفلي
+       ======================================================
     */
 
-    drawCenteredText(
+    drawCertificateDivider(
         ctx,
-        "رئيس مكتب التكوين",
-        width - 300,
-        895,
-        "bold 25px Arial",
-        "#000000"
+        width / 2,
+        825
     );
 
 
     /*
-       خط التوقيع
-    */
-
-    ctx.strokeStyle =
-        "#17324d";
-
-    ctx.lineWidth =
-        2;
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        width - 470,
-        925
-    );
-
-    ctx.lineTo(
-        width - 130,
-        925
-    );
-
-    ctx.stroke();
-
-
-    /*
-       QR Code
+       ======================================================
+       QR CODE في الجهة اليسرى السفلية
+       ======================================================
     */
 
     const verifyUrl =
@@ -3458,10 +3552,47 @@ async function createCertificatePDF(
         );
 
 
+    /*
+       بطاقة QR
+    */
+
+    ctx.fillStyle =
+        "#ffffff";
+
+    roundRect(
+        ctx,
+        105,
+        845,
+        205,
+        205,
+        18
+    );
+
+    ctx.fill();
+
+
+    ctx.strokeStyle =
+        "#d5e8f0";
+
+    ctx.lineWidth =
+        2;
+
+    roundRect(
+        ctx,
+        105,
+        845,
+        205,
+        205,
+        18
+    );
+
+    ctx.stroke();
+
+
     ctx.drawImage(
         qrCanvas,
-        130,
-        825,
+        132,
+        865,
         150,
         150
     );
@@ -3469,44 +3600,107 @@ async function createCertificatePDF(
 
     drawCenteredText(
         ctx,
-        "التحقق من الشهادة",
-        205,
-        1000,
-        "18px Arial",
+        "تحقق إلكترونيًا",
+        207,
+        1035,
+        "17px Arial",
         "#075985"
     );
 
 
     /*
+       ======================================================
        رقم الشهادة
+       ======================================================
     */
 
     drawCenteredText(
         ctx,
         `رقم الشهادة: ${certificateNumber}`,
         width / 2,
-        1030,
-        "bold 22px Arial",
+        895,
+        "bold 21px Arial",
         "#17324d"
     );
 
-
-    /*
-       ملاحظة التحقق
-    */
 
     drawCenteredText(
         ctx,
         "يمكن التحقق من صحة الشهادة بواسطة رمز QR",
         width / 2,
-        1070,
+        928,
         "17px Arial",
-        "#6b7c8d"
+        "#718294"
     );
 
 
     /*
+       ======================================================
+       التوقيع - الجهة اليمنى
+       ======================================================
+    */
+
+    drawCenteredText(
+        ctx,
+        "رئيس مكتب التكوين",
+        width - 300,
+        905,
+        "bold 24px Arial",
+        "#17324d"
+    );
+
+
+    ctx.strokeStyle =
+        "#17324d";
+
+    ctx.lineWidth =
+        2;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        width - 470,
+        940
+    );
+
+    ctx.lineTo(
+        width - 130,
+        940
+    );
+
+    ctx.stroke();
+
+
+    drawCenteredText(
+        ctx,
+        "التوقيع والختم",
+        width - 300,
+        970,
+        "16px Arial",
+        "#718294"
+    );
+
+
+    /*
+       ======================================================
+       رقم الشهادة بشكل صغير في أسفل اليمين
+       ======================================================
+    */
+
+    drawRightAlignedText(
+        ctx,
+        certificateNumber,
+        width - 95,
+        1040,
+        "bold 17px Arial",
+        "#075985"
+    );
+
+
+    /*
+       ======================================================
        إنشاء PDF
+       ======================================================
     */
 
     const {
@@ -3532,7 +3726,7 @@ async function createCertificatePDF(
     const image =
         canvas.toDataURL(
             "image/jpeg",
-            .96
+            .97
         );
 
 
@@ -3576,6 +3770,43 @@ function drawCenteredText(
 
     ctx.textAlign =
         "center";
+
+    ctx.textBaseline =
+        "middle";
+
+    ctx.direction =
+        "rtl";
+
+    ctx.fillText(
+        String(text || ""),
+        x,
+        y
+    );
+
+}
+
+
+/* =========================================================
+   DRAW RIGHT ALIGNED TEXT
+========================================================= */
+
+function drawRightAlignedText(
+    ctx,
+    text,
+    x,
+    y,
+    font,
+    color
+){
+
+    ctx.font =
+        font;
+
+    ctx.fillStyle =
+        color;
+
+    ctx.textAlign =
+        "right";
 
     ctx.textBaseline =
         "middle";
@@ -3654,6 +3885,184 @@ function drawFittedArabicText(
 
 
 /* =========================================================
+   ROUNDED RECTANGLE
+========================================================= */
+
+function roundRect(
+    ctx,
+    x,
+    y,
+    width,
+    height,
+    radius
+){
+
+    const r =
+        Math.min(
+            radius,
+            width / 2,
+            height / 2
+        );
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x + r,
+        y
+    );
+
+    ctx.arcTo(
+        x + width,
+        y,
+        x + width,
+        y + height,
+        r
+    );
+
+    ctx.arcTo(
+        x + width,
+        y + height,
+        x,
+        y + height,
+        r
+    );
+
+    ctx.arcTo(
+        x,
+        y + height,
+        x,
+        y,
+        r
+    );
+
+    ctx.arcTo(
+        x,
+        y,
+        x + width,
+        y,
+        r
+    );
+
+    ctx.closePath();
+
+}
+
+
+/* =========================================================
+   DRAW CONTAIN IMAGE
+========================================================= */
+
+function drawContainImage(
+    ctx,
+    image,
+    x,
+    y,
+    maxWidth,
+    maxHeight
+){
+
+    const ratio =
+        Math.min(
+            maxWidth / image.width,
+            maxHeight / image.height
+        );
+
+
+    const width =
+        image.width * ratio;
+
+
+    const height =
+        image.height * ratio;
+
+
+    const drawX =
+        x +
+        (maxWidth - width) / 2;
+
+
+    const drawY =
+        y +
+        (maxHeight - height) / 2;
+
+
+    ctx.drawImage(
+        image,
+        drawX,
+        drawY,
+        width,
+        height
+    );
+
+}
+
+
+/* =========================================================
+   CERTIFICATE DIVIDER
+========================================================= */
+
+function drawCertificateDivider(
+    ctx,
+    centerX,
+    y
+){
+
+    ctx.strokeStyle =
+        "#087f8c";
+
+    ctx.lineWidth =
+        3;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        centerX - 170,
+        y
+    );
+
+    ctx.lineTo(
+        centerX - 25,
+        y
+    );
+
+    ctx.stroke();
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        centerX + 25,
+        y
+    );
+
+    ctx.lineTo(
+        centerX + 170,
+        y
+    );
+
+    ctx.stroke();
+
+
+    ctx.fillStyle =
+        "#087f8c";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        centerX,
+        y,
+        6,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+}
+
+
+/* =========================================================
    LOAD IMAGE
 ========================================================= */
 
@@ -3667,10 +4076,12 @@ function loadImage(
             const image =
                 new Image();
 
+
             image.onload =
                 () => resolve(
                     image
                 );
+
 
             image.onerror =
                 () => reject(
@@ -3678,6 +4089,7 @@ function loadImage(
                         `تعذر تحميل الصورة: ${src}`
                     )
                 );
+
 
             image.src =
                 src;
@@ -3714,6 +4126,7 @@ function createQRCode(
                 new QRCode(
                     container,
                     {
+
                         text:text,
 
                         width:250,
@@ -3726,6 +4139,7 @@ function createQRCode(
 
                         correctLevel:
                             QRCode.CorrectLevel.H
+
                     }
                 );
 
@@ -3803,6 +4217,7 @@ function createQRCode(
 
                             }
 
+
                             return;
 
                         }
@@ -3813,6 +4228,7 @@ function createQRCode(
                                 "تعذر إنشاء QR Code."
                             )
                         );
+
 
                     },
                     300
@@ -3973,11 +4389,6 @@ function normalizeStoragePath(
         String(path).trim();
 
 
-    /*
-       إذا كان URL كاملًا
-       نستخرج مسار Storage.
-    */
-
     if(
         cleanPath.startsWith(
             "http://"
@@ -3987,28 +4398,220 @@ function normalizeStoragePath(
         )
     ){
 
-        return getStoragePathFromUrl(
-            cleanPath
-        );
+        const extracted =
+            getStoragePathFromUrl(
+                cleanPath
+            );
+
+
+        if(extracted){
+
+            cleanPath =
+                extracted;
+
+        }
 
     }
 
 
     /*
-       إزالة bucket من المسار
-       إذا كانت الشهادة القديمة
-       محفوظة بصيغة:
+       دعم الملفات القديمة:
        certificates/CERT-....pdf
     */
 
     cleanPath =
         cleanPath.replace(
-            /^certificates\//,
+            /^\/+/,
+            ""
+        );
+
+
+    cleanPath =
+        cleanPath.replace(
+            /^certificates\//i,
             ""
         );
 
 
     return cleanPath;
+
+}
+
+
+/* =========================================================
+   IS ALREADY EXISTS ERROR
+========================================================= */
+
+function isAlreadyExistsError(
+    error
+){
+
+    if(!error){
+
+        return false;
+
+    }
+
+
+    const message =
+        String(
+            error.message ||
+            error.error ||
+            ""
+        ).toLowerCase();
+
+
+    return (
+        message.includes(
+            "already exists"
+        ) ||
+        message.includes(
+            "resource already exists"
+        ) ||
+        message.includes(
+            "duplicate"
+        ) ||
+        error.statusCode === "409" ||
+        error.status === 409
+    );
+
+}
+
+
+/* =========================================================
+   UPLOAD CERTIFICATE FILE
+========================================================= */
+
+async function uploadCertificateFile(
+    storagePath,
+    blob,
+    replace = false
+){
+
+    const storage =
+        db.storage.from(
+            "certificates"
+        );
+
+
+    /*
+       محاولة أولى
+    */
+
+    let result =
+        await storage.upload(
+            storagePath,
+            blob,
+            {
+                contentType:
+                    "application/pdf",
+
+                upsert:
+                    replace
+            }
+        );
+
+
+    /*
+       إذا كان الملف موجودًا،
+       نحاول حذفه ثم إعادة رفعه.
+    */
+
+    if(
+        result.error &&
+        replace &&
+        isAlreadyExistsError(
+            result.error
+        )
+    ){
+
+        const removeResult =
+            await storage.remove([
+                storagePath
+            ]);
+
+
+        if(
+            removeResult.error
+        ){
+
+            return {
+                data:null,
+
+                error:new Error(
+                    "الملف موجود مسبقًا ولم نتمكن من استبداله. تحقق من صلاحيات Storage."
+                )
+            };
+
+        }
+
+
+        result =
+            await storage.upload(
+                storagePath,
+                blob,
+                {
+                    contentType:
+                        "application/pdf",
+
+                    upsert:false
+                }
+            );
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   SAFE REMOVE STORAGE FILE
+========================================================= */
+
+async function safeRemoveStorageFile(
+    storagePath
+){
+
+    if(!storagePath){
+
+        return;
+
+    }
+
+
+    try{
+
+        const {
+            error
+        } =
+            await db
+                .storage
+                .from("certificates")
+                .remove([
+                    storagePath
+                ]);
+
+
+        if(error){
+
+            console.warn(
+                "تعذر حذف الملف:",
+                error
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.warn(
+            "خطأ أثناء تنظيف Storage:",
+            error
+        );
+
+    }
 
 }
 
@@ -4021,47 +4624,29 @@ async function getCertificateUrl(
     certificate
 ){
 
-    let path =
-        certificate.pdf_url ||
-        "";
+    const possiblePaths = [];
 
 
     /*
-       إذا كان هناك مسار محفوظ
+       المسار الموجود في قاعدة البيانات
     */
 
-    if(path){
+    if(
+        certificate &&
+        certificate.pdf_url
+    ){
 
-        const normalizedPath =
+        const normalized =
             normalizeStoragePath(
-                path
+                certificate.pdf_url
             );
 
 
-        if(normalizedPath){
+        if(normalized){
 
-            const {
-                data,
-                error
-            } =
-                await db
-                    .storage
-                    .from("certificates")
-                    .createSignedUrl(
-                        normalizedPath,
-                        3600
-                    );
-
-
-            if(
-                !error &&
-                data &&
-                data.signedUrl
-            ){
-
-                return data.signedUrl;
-
-            }
+            possiblePaths.push(
+                normalized
+            );
 
         }
 
@@ -4069,17 +4654,62 @@ async function getCertificateUrl(
 
 
     /*
-       محاولة احتياطية اعتمادًا
-       على رقم الشهادة.
+       المسار الجديد
     */
 
     if(
+        certificate &&
         certificate.certificate_number
     ){
 
-        const fallbackPath =
+        const newPath =
             `${certificate.certificate_number}.pdf`;
 
+
+        if(
+            !possiblePaths.includes(
+                newPath
+            )
+        ){
+
+            possiblePaths.push(
+                newPath
+            );
+
+        }
+
+
+        /*
+           المسار القديم
+           للتوافق مع الشهادات السابقة
+        */
+
+        const oldPath =
+            `certificates/${certificate.certificate_number}.pdf`;
+
+
+        if(
+            !possiblePaths.includes(
+                oldPath
+            )
+        ){
+
+            possiblePaths.push(
+                oldPath
+            );
+
+        }
+
+    }
+
+
+    /*
+       نجرب المسارات واحدًا تلو الآخر
+    */
+
+    for(
+        const path of possiblePaths
+    ){
 
         const {
             data,
@@ -4089,7 +4719,7 @@ async function getCertificateUrl(
                 .storage
                 .from("certificates")
                 .createSignedUrl(
-                    fallbackPath,
+                    path,
                     3600
                 );
 
@@ -4282,100 +4912,20 @@ async function reissueCertificate(
 
 
         /*
-           المسار الصحيح داخل Bucket.
+           المسار الجديد الصحيح:
+           داخل bucket مباشرة
         */
 
         const storagePath =
             `${certificate.certificate_number}.pdf`;
 
 
-        /*
-           أول محاولة:
-           استبدال الملف مباشرة باستخدام upsert.
-        */
-
-        let uploadResult =
-            await db
-                .storage
-                .from("certificates")
-                .upload(
-                    storagePath,
-                    pdfBlob,
-                    {
-                        contentType:
-                            "application/pdf",
-
-                        upsert:true
-                    }
-                );
-
-
-        /*
-           إذا رفض Storage الاستبدال بسبب
-           وجود المورد، نحذف الملف القديم
-           ثم نعيد رفع النسخة الجديدة.
-        */
-
-        if(uploadResult.error){
-
-            const message =
-                String(
-                    uploadResult.error.message ||
-                    ""
-                ).toLowerCase();
-
-
-            const alreadyExists =
-                message.includes(
-                    "already exists"
-                ) ||
-                message.includes(
-                    "resource already exists"
-                ) ||
-                uploadResult.error.statusCode === "409" ||
-                uploadResult.error.status === 409;
-
-
-            if(alreadyExists){
-
-                const {
-                    error: removeError
-                } =
-                    await db
-                        .storage
-                        .from("certificates")
-                        .remove([
-                            storagePath
-                        ]);
-
-
-                if(removeError){
-
-                    throw new Error(
-                        "الملف موجود مسبقًا ولم نتمكن من استبداله. تحقق من صلاحيات حذف/تعديل ملفات Storage."
-                    );
-
-                }
-
-
-                uploadResult =
-                    await db
-                        .storage
-                        .from("certificates")
-                        .upload(
-                            storagePath,
-                            pdfBlob,
-                            {
-                                contentType:
-                                    "application/pdf",
-
-                                upsert:false
-                            }
-                        );
-
-            }
-
-        }
+        const uploadResult =
+            await uploadCertificateFile(
+                storagePath,
+                pdfBlob,
+                true
+            );
 
 
         if(uploadResult.error){
@@ -4386,8 +4936,7 @@ async function reissueCertificate(
 
 
         /*
-           تحديث مسار الملف في قاعدة البيانات.
-           نستخدم المسار الجديد الصحيح فقط.
+           تحديث قاعدة البيانات
         */
 
         const {
@@ -4538,27 +5087,76 @@ async function deleteCertificate(
     try{
 
         /*
-           تحديد مسار الملف
-           مع دعم الملفات القديمة
+           نحضر جميع المسارات المحتملة
+           للملفات القديمة والجديدة.
         */
 
-        let storagePath =
-            normalizeStoragePath(
-                certificate.pdf_url ||
-                ""
-            );
+        const paths = [];
 
 
-        if(!storagePath){
+        if(
+            certificate.pdf_url
+        ){
 
-            storagePath =
+            const normalized =
+                normalizeStoragePath(
+                    certificate.pdf_url
+                );
+
+
+            if(normalized){
+
+                paths.push(
+                    normalized
+                );
+
+            }
+
+        }
+
+
+        if(
+            certificate.certificate_number
+        ){
+
+            const newPath =
                 `${certificate.certificate_number}.pdf`;
+
+
+            const oldPath =
+                `certificates/${certificate.certificate_number}.pdf`;
+
+
+            if(
+                !paths.includes(
+                    newPath
+                )
+            ){
+
+                paths.push(
+                    newPath
+                );
+
+            }
+
+
+            if(
+                !paths.includes(
+                    oldPath
+                )
+            ){
+
+                paths.push(
+                    oldPath
+                );
+
+            }
 
         }
 
 
         /*
-           حذف سجل قاعدة البيانات أولًا
+           حذف سجل قاعدة البيانات
         */
 
         const {
@@ -4581,27 +5179,42 @@ async function deleteCertificate(
 
 
         /*
-           حذف الملف من Storage
+           حذف جميع المسارات المحتملة.
+           إذا كان أحدها غير موجود فهذا لا يوقف العملية.
         */
 
-        if(storagePath){
+        for(
+            const path of paths
+        ){
 
-            const {
-                error:
-                    storageError
-            } =
-                await db
-                    .storage
-                    .from("certificates")
-                    .remove([
-                        storagePath
-                    ]);
+            try{
+
+                const {
+                    error:
+                        storageError
+                } =
+                    await db
+                        .storage
+                        .from("certificates")
+                        .remove([
+                            path
+                        ]);
 
 
-            if(storageError){
+                if(storageError){
+
+                    console.warn(
+                        `تعذر حذف الملف ${path}:`,
+                        storageError
+                    );
+
+                }
+
+            }
+            catch(storageError){
 
                 console.warn(
-                    "تعذر حذف ملف PDF:",
+                    "خطأ أثناء حذف ملف Storage:",
                     storageError
                 );
 
@@ -4664,9 +5277,13 @@ function getStoragePathFromUrl(
 
 
     const markers = [
+
         "/storage/v1/object/public/certificates/",
+
         "/storage/v1/object/sign/certificates/",
+
         "/storage/v1/object/authenticated/certificates/"
+
     ];
 
 
@@ -4832,6 +5449,7 @@ function showAlert(
 
             alert.style.transform =
                 "translateY(-8px)";
+
 
             setTimeout(
                 () => {
