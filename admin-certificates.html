@@ -1,9 +1,37 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>إدارة الشهادات - منصة التكوين</title><!-- Supabase --><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><!-- jsPDF --><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script><!-- QR Code --><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><!-- الخط العربي --><link rel="preconnect" href="https://fonts.googleapis.com">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>إدارة الشهادات - منصة التكوين</title>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- QR Code -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- الخط العربي -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet"><script src="supabase-config.js"></script><style>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap"
+    rel="stylesheet"
+>
+
+<script src="supabase-config.js"></script>
+
+
+<style>
+
 :root{
     --primary:#087f5b;
     --primary-dark:#056044;
@@ -42,23 +70,33 @@ body{
     color:var(--text);
 }
 
+
 /* =========================
    HEADER
 ========================= */
 
 header{
-    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+    background:linear-gradient(
+        135deg,
+        var(--primary-dark),
+        var(--primary)
+    );
+
     color:#fff;
     padding:18px 25px;
-    box-shadow:0 3px 12px rgba(0,0,0,.12);
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.12);
 }
 
 .header-inner{
     max-width:1250px;
     margin:auto;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:15px;
 }
 
@@ -71,12 +109,17 @@ header{
 .header-icon{
     width:48px;
     height:48px;
+
     border-radius:14px;
+
     background:rgba(255,255,255,.14);
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:25px;
+
     flex-shrink:0;
 }
 
@@ -94,16 +137,22 @@ header{
 .back-btn{
     color:#fff;
     text-decoration:none;
+
     border:1px solid rgba(255,255,255,.35);
+
     padding:10px 16px;
+
     border-radius:10px;
+
     transition:.2s;
+
     white-space:nowrap;
 }
 
 .back-btn:hover{
     background:rgba(255,255,255,.12);
 }
+
 
 /* =========================
    CONTAINER
@@ -114,16 +163,22 @@ header{
     margin:25px auto 50px;
 }
 
+
 /* =========================
    MESSAGE
 ========================= */
 
 .message{
     display:none;
+
     padding:13px 15px;
+
     border-radius:11px;
+
     margin-bottom:18px;
+
     font-size:14px;
+
     line-height:1.8;
 }
 
@@ -149,29 +204,42 @@ header{
     border:1px solid #c8def5;
 }
 
+
 /* =========================
    STATS
 ========================= */
 
 .stats{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:14px;
+
     margin-bottom:20px;
 }
 
 .stat{
     background:#fff;
+
     border:1px solid var(--border);
+
     border-radius:15px;
+
     padding:17px;
-    box-shadow:0 4px 15px rgba(0,0,0,.035);
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,.035);
 }
 
 .stat strong{
     display:block;
+
     font-size:25px;
+
     color:var(--primary);
+
     margin-bottom:4px;
 }
 
@@ -180,39 +248,53 @@ header{
     font-size:12px;
 }
 
+
 /* =========================
    GRID
 ========================= */
 
 .grid{
     display:grid;
-    grid-template-columns:390px 1fr;
+
+    grid-template-columns:
+        390px 1fr;
+
     gap:22px;
 }
 
 .card{
     background:#fff;
+
     border-radius:18px;
+
     box-shadow:var(--shadow);
+
     border:1px solid var(--border);
+
     overflow:hidden;
 }
 
 .card-header{
     padding:18px 20px;
+
     border-bottom:1px solid var(--border);
+
     background:#fcfdfd;
 }
 
 .card-header h2{
     margin:0;
+
     font-size:18px;
 }
 
 .card-header p{
     margin:6px 0 0;
+
     color:var(--muted);
+
     font-size:13px;
+
     line-height:1.7;
 }
 
@@ -220,14 +302,18 @@ header{
     padding:20px;
 }
 
+
 /* =========================
    FORM
 ========================= */
 
 label{
     display:block;
+
     font-weight:bold;
+
     font-size:14px;
+
     margin-bottom:7px;
 }
 
@@ -237,54 +323,90 @@ label{
 
 select{
     width:100%;
+
     padding:12px 13px;
+
     border:1px solid #d5dadd;
+
     border-radius:10px;
+
     background:#fff;
+
     font-family:inherit;
+
     font-size:14px;
+
     outline:none;
 }
 
 select:focus{
     border-color:var(--primary);
-    box-shadow:0 0 0 3px rgba(8,127,91,.1);
+
+    box-shadow:
+        0 0 0 3px rgba(8,127,91,.1);
 }
 
 .primary-btn{
     width:100%;
+
     border:0;
-    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary-dark)
+        );
+
     color:#fff;
+
     padding:13px 18px;
+
     border-radius:11px;
+
     cursor:pointer;
+
     font-family:inherit;
+
     font-size:15px;
+
     font-weight:bold;
+
     transition:.2s;
 }
 
 .primary-btn:hover{
     transform:translateY(-1px);
-    box-shadow:0 5px 15px rgba(8,127,91,.22);
+
+    box-shadow:
+        0 5px 15px rgba(8,127,91,.22);
 }
 
 .primary-btn:disabled{
     opacity:.55;
+
     cursor:not-allowed;
+
     transform:none;
+
     box-shadow:none;
 }
 
 .template-info{
     margin-top:15px;
+
     padding:13px;
+
     background:#f8fafb;
+
     border-radius:10px;
+
     color:#59636b;
+
     font-size:12px;
+
     line-height:1.9;
+
     border:1px solid #edf0f2;
 }
 
@@ -292,34 +414,45 @@ select:focus{
     color:var(--text);
 }
 
+
 /* =========================
    TABLE
 ========================= */
 
 .table-wrap{
     overflow-x:auto;
+
     border:1px solid var(--border);
+
     border-radius:12px;
 }
 
 table{
     width:100%;
+
     border-collapse:collapse;
+
     min-width:760px;
 }
 
 th,
 td{
     padding:13px 12px;
+
     border-bottom:1px solid var(--border);
+
     text-align:right;
+
     font-size:13px;
+
     white-space:nowrap;
 }
 
 th{
     background:#f8fafb;
+
     color:#475569;
+
     font-weight:bold;
 }
 
@@ -331,37 +464,54 @@ tr:hover td{
     background:#fbfdfc;
 }
 
+
 /* =========================
    BADGES
 ========================= */
 
 .badge{
     display:inline-block;
+
     padding:5px 9px;
+
     border-radius:20px;
+
     font-size:11px;
+
     background:var(--primary-light);
+
     color:var(--primary-dark);
+
     font-weight:bold;
 }
 
 .status-badge{
     display:inline-flex;
+
     align-items:center;
+
     gap:5px;
+
     padding:5px 9px;
+
     border-radius:20px;
+
     font-size:11px;
+
     background:#eaf8f1;
+
     color:#12633f;
 }
 
 .status-dot{
     width:6px;
     height:6px;
+
     border-radius:50%;
+
     background:#15966c;
 }
+
 
 /* =========================
    ACTIONS
@@ -369,19 +519,29 @@ tr:hover td{
 
 .actions{
     display:flex;
+
     align-items:center;
+
     gap:6px;
+
     flex-wrap:wrap;
 }
 
 .action-btn{
     border:0;
+
     padding:7px 10px;
+
     border-radius:8px;
+
     cursor:pointer;
+
     font-family:inherit;
+
     font-size:12px;
+
     transition:.2s;
+
     white-space:nowrap;
 }
 
@@ -391,6 +551,7 @@ tr:hover td{
 
 .action-open{
     background:#edf7f3;
+
     color:var(--primary-dark);
 }
 
@@ -400,6 +561,7 @@ tr:hover td{
 
 .action-reissue{
     background:var(--gold-light);
+
     color:#87661f;
 }
 
@@ -409,6 +571,7 @@ tr:hover td{
 
 .action-delete{
     background:var(--danger-light);
+
     color:var(--danger);
 }
 
@@ -418,9 +581,12 @@ tr:hover td{
 
 .action-btn:disabled{
     opacity:.55;
+
     cursor:not-allowed;
+
     transform:none;
 }
+
 
 /* =========================
    EMPTY / LOADING
@@ -428,21 +594,28 @@ tr:hover td{
 
 .loading{
     text-align:center;
+
     padding:30px;
+
     color:var(--muted);
 }
 
 .empty{
     text-align:center;
+
     color:var(--muted);
+
     padding:40px 15px;
 }
 
 .empty-icon{
     font-size:34px;
+
     margin-bottom:10px;
+
     opacity:.7;
 }
+
 
 /* =========================
    CONFIRM MODAL
@@ -450,13 +623,21 @@ tr:hover td{
 
 .modal{
     position:fixed;
+
     inset:0;
+
     background:rgba(15,23,42,.55);
+
     display:none;
+
     align-items:center;
+
     justify-content:center;
+
     padding:20px;
+
     z-index:9999;
+
     backdrop-filter:blur(3px);
 }
 
@@ -466,53 +647,81 @@ tr:hover td{
 
 .modal-box{
     width:min(470px,100%);
+
     background:#fff;
+
     border-radius:18px;
-    box-shadow:0 20px 60px rgba(0,0,0,.22);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.22);
+
     overflow:hidden;
+
     animation:modalIn .18s ease;
 }
 
 @keyframes modalIn{
+
     from{
         opacity:0;
-        transform:translateY(10px) scale(.98);
+
+        transform:
+            translateY(10px)
+            scale(.98);
     }
+
     to{
         opacity:1;
+
         transform:none;
     }
+
 }
 
 .modal-header{
     padding:18px 20px;
+
     border-bottom:1px solid var(--border);
+
     display:flex;
+
     align-items:center;
+
     gap:10px;
 }
 
 .modal-header .icon{
     width:40px;
     height:40px;
+
     border-radius:11px;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     background:var(--danger-light);
+
     color:var(--danger);
+
     font-size:20px;
 }
 
 .modal-header h3{
     margin:0;
+
     font-size:17px;
 }
 
 .modal-body{
     padding:20px;
+
     color:#4b5563;
+
     font-size:14px;
+
     line-height:1.9;
 }
 
@@ -522,34 +731,46 @@ tr:hover td{
 
 .modal-footer{
     padding:15px 20px;
+
     border-top:1px solid var(--border);
+
     display:flex;
+
     justify-content:flex-start;
+
     gap:9px;
 }
 
 .modal-btn{
     border:0;
+
     padding:10px 17px;
+
     border-radius:9px;
+
     font-family:inherit;
+
     cursor:pointer;
+
     font-weight:bold;
 }
 
 .modal-cancel{
     background:#f1f3f5;
+
     color:#475569;
 }
 
 .modal-confirm{
     background:var(--danger);
+
     color:#fff;
 }
 
 .modal-confirm:hover{
     background:#a93226;
 }
+
 
 /* =========================
    MOBILE
@@ -562,8 +783,10 @@ tr:hover td{
     }
 
     .stats{
-        grid-template-columns:repeat(3,1fr);
+        grid-template-columns:
+            repeat(3,1fr);
     }
+
 }
 
 @media(max-width:600px){
@@ -574,6 +797,7 @@ tr:hover td{
 
     .header-inner{
         flex-direction:column;
+
         align-items:stretch;
     }
 
@@ -591,6 +815,7 @@ tr:hover td{
 
     .container{
         width:96%;
+
         margin-top:18px;
     }
 
@@ -604,6 +829,7 @@ tr:hover td{
 
     .actions{
         flex-direction:column;
+
         align-items:stretch;
     }
 
@@ -618,187 +844,267 @@ tr:hover td{
     .modal-btn{
         width:100%;
     }
+
 }
-</style></head><body><header>
-    <div class="header-inner">    <div class="header-title">
 
-        <div class="header-icon">📜</div>
+</style>
 
-        <div>
-            <h1>إدارة الشهادات</h1>
-            <small>إصدار ومتابعة وإعادة إصدار شهادات التكوين</small>
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="header-inner">
+
+        <div class="header-title">
+
+            <div class="header-icon">
+                📜
+            </div>
+
+            <div>
+
+                <h1>
+                    إدارة الشهادات
+                </h1>
+
+                <small>
+                    إصدار ومتابعة وإعادة إصدار شهادات التكوين
+                </small>
+
+            </div>
+
         </div>
 
+
+        <a
+            class="back-btn"
+            href="admin.html"
+        >
+            العودة إلى لوحة التحكم
+        </a>
+
     </div>
 
-    <a class="back-btn" href="admin.html">
-        العودة إلى لوحة التحكم
-    </a>
-
-</div>
-
-</header><div class="container"><div id="message" class="message"></div>
+</header>
 
 
-<!-- الإحصائيات -->
-
-<div class="stats">
-
-    <div class="stat">
-        <strong id="statCertificates">0</strong>
-        <span>إجمالي الشهادات</span>
-    </div>
-
-    <div class="stat">
-        <strong id="statTrainees">0</strong>
-        <span>عدد المتربصين</span>
-    </div>
-
-    <div class="stat">
-        <strong id="statCourses">0</strong>
-        <span>عدد الدورات</span>
-    </div>
-
-</div>
+<div class="container">
 
 
-<div class="grid">
+    <div
+        id="message"
+        class="message"
+    ></div>
 
 
     <!-- =========================
-         إصدار شهادة
+         الإحصائيات
     ========================== -->
 
-    <section class="card">
+    <div class="stats">
 
-        <div class="card-header">
+        <div class="stat">
 
-            <h2>إصدار شهادة جديدة</h2>
+            <strong id="statCertificates">
+                0
+            </strong>
 
-            <p>
-                اختر المتربص والدورة ثم أنشئ الشهادة بصيغة PDF.
-            </p>
-
-        </div>
-
-
-        <div class="card-body">
-
-            <div class="form-group">
-
-                <label for="traineeSelect">
-                    المتربص
-                </label>
-
-                <select id="traineeSelect">
-
-                    <option value="">
-                        -- اختر المتربص --
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="courseSelect">
-                    الدورة التكوينية
-                </label>
-
-                <select id="courseSelect">
-
-                    <option value="">
-                        -- اختر الدورة --
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <button
-                id="generateBtn"
-                class="primary-btn"
-                onclick="generateCertificate()"
-                disabled>
-
-                إصدار الشهادة PDF
-
-            </button>
-
-
-            <div class="template-info">
-
-                <strong>القالب المعتمد:</strong>
-
-                <br>
-
-                certificate-template.png
-
-                <br><br>
-
-                يتم إدراج:
-
-                <br>
-
-                • اسم المتربص
-                <br>
-                • اسم الدورة
-                <br>
-                • تاريخ الإصدار
-                <br>
-                • رقم الشهادة
-                <br>
-                • رمز QR للتحقق الإلكتروني
-                <br>
-                • رئيس مكتب التكوين
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         الشهادات الصادرة
-    ========================== -->
-
-    <section class="card">
-
-        <div class="card-header">
-
-            <h2>الشهادات الصادرة</h2>
-
-            <p>
-                يمكنك فتح الشهادة أو إعادة إصدارها أو حذفها عند وجود خطأ.
-            </p>
+            <span>
+                إجمالي الشهادات
+            </span>
 
         </div>
 
 
-        <div class="card-body">
+        <div class="stat">
 
-            <div id="certificatesContainer">
+            <strong id="statTrainees">
+                0
+            </strong>
 
-                <div class="loading">
-                    جارٍ تحميل الشهادات...
+            <span>
+                عدد المتربصين
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <strong id="statCourses">
+                0
+            </strong>
+
+            <span>
+                عدد الدورات
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="grid">
+
+
+        <!-- =========================
+             إصدار شهادة
+        ========================== -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    إصدار شهادة جديدة
+                </h2>
+
+                <p>
+                    اختر المتربص والدورة ثم أنشئ الشهادة بصيغة PDF.
+                </p>
+
+            </div>
+
+
+            <div class="card-body">
+
+
+                <div class="form-group">
+
+                    <label for="traineeSelect">
+                        المتربص
+                    </label>
+
+                    <select id="traineeSelect">
+
+                        <option value="">
+                            -- اختر المتربص --
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="courseSelect">
+                        الدورة التكوينية
+                    </label>
+
+                    <select id="courseSelect">
+
+                        <option value="">
+                            -- اختر الدورة --
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    id="generateBtn"
+                    class="primary-btn"
+                    onclick="generateCertificate()"
+                    disabled
+                >
+                    إصدار الشهادة PDF
+                </button>
+
+
+                <div class="template-info">
+
+                    <strong>
+                        القالب المعتمد:
+                    </strong>
+
+                    <br>
+
+                    certificate-template.png
+
+                    <br><br>
+
+                    يتم إدراج:
+
+                    <br>
+
+                    • اسم المتربص
+
+                    <br>
+
+                    • اسم الدورة
+
+                    <br>
+
+                    • تاريخ الإصدار
+
+                    <br>
+
+                    • رقم الشهادة
+
+                    <br>
+
+                    • رمز QR للتحقق الإلكتروني
+
+                    <br>
+
+                    • رئيس مكتب التكوين
+
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
-    </section>
+
+        <!-- =========================
+             الشهادات الصادرة
+        ========================== -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    الشهادات الصادرة
+                </h2>
+
+                <p>
+                    يمكنك فتح الشهادة أو إعادة إصدارها أو حذفها عند وجود خطأ.
+                </p>
+
+            </div>
+
+
+            <div class="card-body">
+
+                <div id="certificatesContainer">
+
+                    <div class="loading">
+                        جارٍ تحميل الشهادات...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
 
 </div>
 
-</div><!-- =========================
+
+<!-- =========================
      منطقة QR مخفية
-========================== --><div
+========================== -->
+
+<div
     id="qrHidden"
     style="
         position:absolute;
@@ -806,64 +1112,78 @@ tr:hover td{
         top:-10000px;
         width:300px;
         height:300px;
-    ">
-</div><!-- =========================
+    "
+></div>
+
+
+<!-- =========================
      نافذة تأكيد الحذف
-========================== --><div id="confirmModal" class="modal"><div class="modal-box">
+========================== -->
 
-    <div class="modal-header">
+<div
+    id="confirmModal"
+    class="modal"
+>
 
-        <div class="icon">
-            ⚠️
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <div class="icon">
+                ⚠️
+            </div>
+
+            <h3>
+                تأكيد حذف الشهادة
+            </h3>
+
         </div>
 
-        <h3>
-            تأكيد حذف الشهادة
-        </h3>
 
-    </div>
+        <div class="modal-body">
 
+            <div id="confirmText">
+                هل أنت متأكد من حذف هذه الشهادة؟
+            </div>
 
-    <div class="modal-body">
-
-        <div id="confirmText">
-            هل أنت متأكد من حذف هذه الشهادة؟
         </div>
 
-    </div>
+
+        <div class="modal-footer">
+
+            <button
+                class="modal-btn modal-cancel"
+                onclick="closeConfirmModal()"
+            >
+                إلغاء
+            </button>
 
 
-    <div class="modal-footer">
+            <button
+                id="confirmDeleteBtn"
+                class="modal-btn modal-confirm"
+            >
+                نعم، حذف الشهادة
+            </button>
 
-        <button
-            class="modal-btn modal-cancel"
-            onclick="closeConfirmModal()">
-
-            إلغاء
-
-        </button>
-
-
-        <button
-            id="confirmDeleteBtn"
-            class="modal-btn modal-confirm">
-
-            نعم، حذف الشهادة
-
-        </button>
+        </div>
 
     </div>
 
 </div>
 
-</div><script>
+
+<script>
+
 
 /* ============================================================
    البيانات العامة
 ============================================================ */
 
 let trainees = [];
+
 let courses = [];
+
 let certificates = [];
 
 
@@ -930,18 +1250,30 @@ const CERT_LAYOUT = {
 
 
 /* ============================================================
-   اتصال قاعدة البيانات
+   الاتصال بقاعدة البيانات
 ============================================================ */
 
 function getDB(){
 
-    if(typeof supabaseClient !== "undefined"){
+    if(
+        typeof supabaseClient !==
+        "undefined"
+    ){
+
         return supabaseClient;
+
     }
 
-    if(typeof db !== "undefined"){
+
+    if(
+        typeof db !==
+        "undefined"
+    ){
+
         return db;
+
     }
+
 
     throw new Error(
         "لم يتم العثور على اتصال Supabase. تحقق من ملف supabase-config.js."
@@ -954,16 +1286,25 @@ function getDB(){
    الرسائل
 ============================================================ */
 
-function showMessage(text,type="info"){
+function showMessage(
+    text,
+    type="info"
+){
 
     const box =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
+
 
     box.className =
-        "message show " + type;
+        "message show " +
+        type;
+
 
     box.textContent =
         text;
+
 
     window.scrollTo({
         top:0,
@@ -976,10 +1317,14 @@ function showMessage(text,type="info"){
 function hideMessage(){
 
     const box =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
+
 
     box.className =
         "message";
+
 
     box.textContent =
         "";
@@ -1006,7 +1351,10 @@ async function checkAdmin(){
         await db.auth.getUser();
 
 
-    if(error || !user){
+    if(
+        error ||
+        !user
+    ){
 
         window.location.href =
             "login.html";
@@ -1023,7 +1371,10 @@ async function checkAdmin(){
         await db
             .from("user_roles")
             .select("role")
-            .eq("user_id",user.id)
+            .eq(
+                "user_id",
+                user.id
+            )
             .maybeSingle();
 
 
@@ -1031,10 +1382,12 @@ async function checkAdmin(){
 
         console.error(roleError);
 
+
         showMessage(
             "تعذر التحقق من صلاحيات المسؤول.",
             "error"
         );
+
 
         return false;
 
@@ -1043,7 +1396,8 @@ async function checkAdmin(){
 
     if(
         !roleData ||
-        roleData.role !== "admin"
+        roleData.role !==
+        "admin"
     ){
 
         showMessage(
@@ -1051,12 +1405,15 @@ async function checkAdmin(){
             "error"
         );
 
-        setTimeout(()=>{
 
-            window.location.href =
-                "index.html";
+        setTimeout(
+            ()=>{
+                window.location.href =
+                    "index.html";
+            },
+            1800
+        );
 
-        },1800);
 
         return false;
 
@@ -1099,9 +1456,13 @@ async function loadAll(){
 
         console.error(error);
 
+
         showMessage(
             "حدث خطأ أثناء تحميل بيانات الشهادات: " +
-            (error.message || error),
+            (
+                error.message ||
+                error
+            ),
             "error"
         );
 
@@ -1131,12 +1492,16 @@ async function loadTrainees(){
             )
             .order(
                 "full_name",
-                {ascending:true}
+                {
+                    ascending:true
+                }
             );
 
 
     if(error){
+
         throw error;
+
     }
 
 
@@ -1156,28 +1521,35 @@ async function loadTrainees(){
         '<option value="">-- اختر المتربص --</option>';
 
 
-    trainees.forEach(trainee=>{
+    trainees.forEach(
+        trainee=>{
 
-        const option =
-            document.createElement("option");
+            const option =
+                document.createElement(
+                    "option"
+                );
 
 
-        option.value =
-            trainee.id;
+            option.value =
+                trainee.id;
 
 
-        option.textContent =
-            trainee.full_name +
-            (
-                trainee.email
-                    ? " — " + trainee.email
-                    : ""
+            option.textContent =
+                trainee.full_name +
+                (
+                    trainee.email
+                        ? " — " +
+                          trainee.email
+                        : ""
+                );
+
+
+            select.appendChild(
+                option
             );
 
-
-        select.appendChild(option);
-
-    });
+        }
+    );
 
 
     updateGenerateButton();
@@ -1206,12 +1578,16 @@ async function loadCourses(){
             )
             .order(
                 "course_date",
-                {ascending:false}
+                {
+                    ascending:false
+                }
             );
 
 
     if(error){
+
         throw error;
+
     }
 
 
@@ -1231,39 +1607,45 @@ async function loadCourses(){
         '<option value="">-- اختر الدورة --</option>';
 
 
-    courses.forEach(course=>{
+    courses.forEach(
+        course=>{
 
-        const option =
-            document.createElement("option");
-
-
-        option.value =
-            course.id;
-
-
-        let label =
-            course.name ||
-            "دورة بدون اسم";
-
-
-        if(course.course_date){
-
-            label +=
-                " — " +
-                formatDate(
-                    course.course_date
+            const option =
+                document.createElement(
+                    "option"
                 );
 
+
+            option.value =
+                course.id;
+
+
+            let label =
+                course.name ||
+                "دورة بدون اسم";
+
+
+            if(course.course_date){
+
+                label +=
+                    " — " +
+                    formatDate(
+                        course.course_date
+                    );
+
+            }
+
+
+            option.textContent =
+                label;
+
+
+            select.appendChild(
+                option
+            );
+
         }
-
-
-        option.textContent =
-            label;
-
-
-        select.appendChild(option);
-
-    });
+    );
 
 
     updateGenerateButton();
@@ -1298,12 +1680,16 @@ async function loadCertificates(){
             `)
             .order(
                 "id",
-                {ascending:false}
+                {
+                    ascending:false
+                }
             );
 
 
     if(error){
+
         throw error;
+
     }
 
 
@@ -1336,7 +1722,9 @@ function renderCertificates(){
         );
 
 
-    if(!certificates.length){
+    if(
+        !certificates.length
+    ){
 
         container.innerHTML = `
 
@@ -1351,6 +1739,7 @@ function renderCertificates(){
             </div>
 
         `;
+
 
         return;
 
@@ -1367,17 +1756,29 @@ function renderCertificates(){
 
                     <tr>
 
-                        <th>رقم الشهادة</th>
+                        <th>
+                            رقم الشهادة
+                        </th>
 
-                        <th>المتربص</th>
+                        <th>
+                            المتربص
+                        </th>
 
-                        <th>الدورة</th>
+                        <th>
+                            الدورة
+                        </th>
 
-                        <th>تاريخ الإصدار</th>
+                        <th>
+                            تاريخ الإصدار
+                        </th>
 
-                        <th>الحالة</th>
+                        <th>
+                            الحالة
+                        </th>
 
-                        <th>الإجراءات</th>
+                        <th>
+                            الإجراءات
+                        </th>
 
                     </tr>
 
@@ -1388,140 +1789,156 @@ function renderCertificates(){
     `;
 
 
-    certificates.forEach(cert=>{
+    certificates.forEach(
+        cert=>{
+
+            const trainee =
+                trainees.find(
+                    t =>
+                        String(t.id) ===
+                        String(
+                            cert.trainee_id
+                        )
+                );
 
 
-        const trainee =
-            trainees.find(
-                t =>
-                    String(t.id) ===
-                    String(cert.trainee_id)
-            );
+            const course =
+                courses.find(
+                    c =>
+                        String(c.id) ===
+                        String(
+                            cert.course_id
+                        )
+                );
 
 
-        const course =
-            courses.find(
-                c =>
-                    String(c.id) ===
-                    String(cert.course_id)
-            );
+            const certNumber =
+                cert.certificate_number ||
+                "-";
 
 
-        const certNumber =
-            cert.certificate_number || "-";
+            html += `
+
+                <tr>
+
+                    <td>
+
+                        <span class="badge">
+
+                            ${escapeHtml(
+                                certNumber
+                            )}
+
+                        </span>
+
+                    </td>
 
 
-        html += `
+                    <td>
 
-            <tr>
+                        ${escapeHtml(
+                            trainee?.full_name ||
+                            "غير معروف"
+                        )}
 
-                <td>
-
-                    <span class="badge">
-
-                        ${escapeHtml(certNumber)}
-
-                    </span>
-
-                </td>
+                    </td>
 
 
-                <td>
+                    <td>
 
-                    ${escapeHtml(
-                        trainee?.full_name ||
-                        "غير معروف"
-                    )}
+                        ${escapeHtml(
+                            course?.name ||
+                            "غير معروف"
+                        )}
 
-                </td>
-
-
-                <td>
-
-                    ${escapeHtml(
-                        course?.name ||
-                        "غير معروف"
-                    )}
-
-                </td>
+                    </td>
 
 
-                <td>
+                    <td>
 
-                    ${formatDate(
-                        cert.issue_date
-                    )}
+                        ${formatDate(
+                            cert.issue_date
+                        )}
 
-                </td>
-
-
-                <td>
-
-                    <span class="status-badge">
-
-                        <span class="status-dot"></span>
-
-                        صالحة
-
-                    </span>
-
-                </td>
+                    </td>
 
 
-                <td>
+                    <td>
 
-                    <div class="actions">
+                        <span class="status-badge">
 
-                        ${
-                            cert.pdf_url
-                            ?
+                            <span class="status-dot"></span>
 
-                            `
+                            صالحة
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <div class="actions">
+
+                            ${
+                                cert.pdf_url
+                                ?
+
+                                `
+                                <button
+                                    class="action-btn action-open"
+                                    onclick="openCertificate('${escapeJs(
+                                        cert.pdf_url
+                                    )}')"
+                                >
+                                    📄 فتح PDF
+                                </button>
+                                `
+
+                                :
+
+                                `
+                                <span
+                                    style="
+                                        color:#9ca3af;
+                                        font-size:12px;
+                                    "
+                                >
+                                    لا يوجد ملف
+                                </span>
+                                `
+                            }
+
+
                             <button
-                                class="action-btn action-open"
-                                onclick="openCertificate('${escapeJs(cert.pdf_url)}')">
-
-                                📄 فتح PDF
-
+                                class="action-btn action-reissue"
+                                onclick="reissueCertificate('${escapeJs(
+                                    cert.id
+                                )}')"
+                            >
+                                🔄 إعادة إصدار
                             </button>
-                            `
-
-                            :
-
-                            `
-                            <span style="color:#9ca3af;font-size:12px;">
-                                لا يوجد ملف
-                            </span>
-                            `
-                        }
 
 
-                        <button
-                            class="action-btn action-reissue"
-                            onclick="reissueCertificate('${escapeJs(cert.id)}')">
+                            <button
+                                class="action-btn action-delete"
+                                onclick="confirmDeleteCertificate('${escapeJs(
+                                    cert.id
+                                )}')"
+                            >
+                                🗑 حذف
+                            </button>
 
-                            🔄 إعادة إصدار
+                        </div>
 
-                        </button>
+                    </td>
 
+                </tr>
 
-                        <button
-                            class="action-btn action-delete"
-                            onclick="confirmDeleteCertificate('${escapeJs(cert.id)}')">
+            `;
 
-                            🗑 حذف
-
-                        </button>
-
-                    </div>
-
-                </td>
-
-            </tr>
-
-        `;
-
-    });
+        }
+    );
 
 
     html += `
@@ -1599,7 +2016,219 @@ function updateGenerateButton(){
     document.getElementById(
         "generateBtn"
     ).disabled =
-        !(trainee && course);
+        !(
+            trainee &&
+            course
+        );
+
+}
+
+
+/* ============================================================
+   التحقق من وجود شهادة للمتربص والدورة
+============================================================ */
+
+async function findExistingCertificate(
+    traineeId,
+    courseId
+){
+
+    const db =
+        getDB();
+
+
+    const {
+        data,
+        error
+    } =
+        await db
+            .from("certificates")
+            .select(`
+                id,
+                participant_id,
+                course_id,
+                certificate_number,
+                issue_date,
+                pdf_url,
+                trainee_id
+            `)
+            .eq(
+                "trainee_id",
+                traineeId
+            )
+            .eq(
+                "course_id",
+                courseId
+            )
+            .limit(1)
+            .maybeSingle();
+
+
+    if(error){
+
+        throw error;
+
+    }
+
+
+    return data || null;
+
+}
+
+
+/* ============================================================
+   توليد رقم شهادة جديد
+============================================================ */
+
+async function generateCertificateNumber(
+    minimumNumber = 0
+){
+
+    const year =
+        new Date().getFullYear();
+
+
+    const prefix =
+        "CERT-" +
+        year +
+        "-";
+
+
+    const numbers =
+        certificates
+
+            .map(
+                c =>
+                    c.certificate_number ||
+                    ""
+            )
+
+            .filter(
+                n =>
+                    String(n).startsWith(
+                        prefix
+                    )
+            )
+
+            .map(
+                n=>{
+
+                    const part =
+                        String(n).replace(
+                            prefix,
+                            ""
+                        );
+
+
+                    const number =
+                        parseInt(
+                            part,
+                            10
+                        );
+
+
+                    return Number.isFinite(
+                        number
+                    )
+                        ? number
+                        : 0;
+
+                }
+            );
+
+
+    const max =
+        numbers.length
+            ? Math.max(...numbers)
+            : 0;
+
+
+    const next =
+        Math.max(
+            max + 1,
+            minimumNumber + 1
+        );
+
+
+    return (
+        prefix +
+        String(next).padStart(
+            6,
+            "0"
+        )
+    );
+
+}
+
+
+/* ============================================================
+   إنشاء مسار Storage فريد
+============================================================ */
+
+function createUniqueStoragePath(
+    year,
+    certificateNumber
+){
+
+    /*
+        لا نستخدم رقم الشهادة وحده كاسم الملف.
+
+        مثال:
+
+        CERT-2026-000002
+
+        يصبح:
+
+        2026/CERT-2026-000002-a1b2c3d4.pdf
+
+        وبذلك لا يمكن لملف قديم في Storage
+        أن يمنع رفع شهادة جديدة.
+    */
+
+
+    let uniquePart;
+
+
+    if(
+        window.crypto &&
+        typeof window.crypto.randomUUID ===
+        "function"
+    ){
+
+        uniquePart =
+            window.crypto
+                .randomUUID()
+                .replace(
+                    /-/g,
+                    ""
+                )
+                .substring(
+                    0,
+                    12
+                );
+
+    }else{
+
+        uniquePart =
+            Date.now().toString(36) +
+            Math.random()
+                .toString(36)
+                .substring(
+                    2,
+                    10
+                );
+
+    }
+
+
+    return (
+        String(year) +
+        "/" +
+        String(certificateNumber) +
+        "-" +
+        uniquePart +
+        ".pdf"
+    );
 
 }
 
@@ -1625,7 +2254,10 @@ async function generateCertificate(){
         ).value;
 
 
-    if(!traineeId || !courseId){
+    if(
+        !traineeId ||
+        !courseId
+    ){
 
         showMessage(
             "يرجى اختيار المتربص والدورة أولاً.",
@@ -1653,34 +2285,13 @@ async function generateCertificate(){
         );
 
 
-    if(!trainee || !course){
+    if(
+        !trainee ||
+        !course
+    ){
 
         showMessage(
             "تعذر العثور على بيانات المتربص أو الدورة.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    const duplicate =
-        certificates.find(
-            cert =>
-                String(cert.trainee_id) ===
-                    String(traineeId) &&
-
-                String(cert.course_id) ===
-                    String(courseId)
-        );
-
-
-    if(duplicate){
-
-        showMessage(
-            "توجد بالفعل شهادة صادرة لهذا المتربص في هذه الدورة: " +
-            duplicate.certificate_number,
             "error"
         );
 
@@ -1705,6 +2316,60 @@ async function generateCertificate(){
 
     try{
 
+        /*
+            فحص قاعدة البيانات مباشرة،
+            وليس الاعتماد على الذاكرة فقط.
+        */
+
+        const existing =
+            await findExistingCertificate(
+                traineeId,
+                courseId
+            );
+
+
+        if(existing){
+
+            /*
+                تحديث الذاكرة في حال كانت الشهادة
+                موجودة في قاعدة البيانات ولكن لم تكن
+                موجودة في القائمة المحلية.
+            */
+
+            const alreadyLoaded =
+                certificates.some(
+                    c =>
+                        String(c.id) ===
+                        String(existing.id)
+                );
+
+
+            if(!alreadyLoaded){
+
+                certificates.unshift(
+                    existing
+                );
+
+                renderCertificates();
+
+            }
+
+
+            throw new Error(
+                "توجد بالفعل شهادة صادرة لهذا المتربص في هذه الدورة: " +
+                (
+                    existing.certificate_number ||
+                    "بدون رقم"
+                )
+            );
+
+        }
+
+
+        /*
+            الحصول على رقم جديد.
+        */
+
         const certificateNumber =
             await generateCertificateNumber();
 
@@ -1712,6 +2377,10 @@ async function generateCertificate(){
         const issueDate =
             getTodayDate();
 
+
+        /*
+            إنشاء PDF.
+        */
 
         const pdfBlob =
             await createCertificatePDF({
@@ -1731,16 +2400,24 @@ async function generateCertificate(){
             new Date().getFullYear();
 
 
+        /*
+            المسار الجديد والفريد.
+        */
+
         const storagePath =
-            year +
-            "/" +
-            certificateNumber +
-            ".pdf";
+            createUniqueStoragePath(
+                year,
+                certificateNumber
+            );
 
 
         const db =
             getDB();
 
+
+        /*
+            رفع PDF.
+        */
 
         const {
             error:uploadError
@@ -1752,7 +2429,9 @@ async function generateCertificate(){
                     storagePath,
                     pdfBlob,
                     {
-                        contentType:"application/pdf",
+                        contentType:
+                            "application/pdf",
+
                         upsert:false
                     }
                 );
@@ -1768,6 +2447,10 @@ async function generateCertificate(){
         }
 
 
+        /*
+            تسجيل الشهادة في قاعدة البيانات.
+        */
+
         const {
             data:inserted,
             error:insertError
@@ -1776,9 +2459,11 @@ async function generateCertificate(){
                 .from("certificates")
                 .insert({
 
-                    trainee_id:trainee.id,
+                    trainee_id:
+                        trainee.id,
 
-                    course_id:course.id,
+                    course_id:
+                        course.id,
 
                     certificate_number:
                         certificateNumber,
@@ -1795,6 +2480,11 @@ async function generateCertificate(){
 
 
         if(insertError){
+
+            /*
+                إذا فشل التسجيل،
+                نحذف الملف الذي رفعناه للتو.
+            */
 
             await db
                 .storage
@@ -1834,6 +2524,10 @@ async function generateCertificate(){
         );
 
 
+        /*
+            فتح الشهادة مباشرة.
+        */
+
         await openCertificate(
             storagePath
         );
@@ -1842,6 +2536,7 @@ async function generateCertificate(){
     }catch(error){
 
         console.error(error);
+
 
         showMessage(
             error.message ||
@@ -1854,105 +2549,14 @@ async function generateCertificate(){
         btn.disabled =
             false;
 
+
         btn.textContent =
             "إصدار الشهادة PDF";
+
 
         updateGenerateButton();
 
     }
-
-}
-
-
-/* ============================================================
-   توليد رقم شهادة جديد
-============================================================ */
-
-async function generateCertificateNumber(
-    minimumNumber = 0
-){
-
-    const year =
-        new Date().getFullYear();
-
-
-    const prefix =
-        "CERT-" +
-        year +
-        "-";
-
-
-    const numbers =
-        certificates
-
-            .map(
-                c =>
-                    c.certificate_number ||
-                    ""
-            )
-
-            .filter(
-                n =>
-                    n.startsWith(prefix)
-            )
-
-            .map(
-                n=>{
-
-                    const part =
-                        n.replace(
-                            prefix,
-                            ""
-                        );
-
-
-                    const number =
-                        parseInt(
-                            part,
-                            10
-                        );
-
-
-                    return Number.isFinite(
-                        number
-                    )
-                        ? number
-                        : 0;
-
-                }
-            );
-
-
-    const max =
-        numbers.length
-            ? Math.max(...numbers)
-            : 0;
-
-
-    /*
-        minimumNumber مهم جداً في حالة إعادة الإصدار.
-
-        إذا كانت الشهادة القديمة مثلاً:
-        CERT-2026-000015
-
-        وتم حذفها ثم إعادة إصدارها،
-        فلن نعيد استعمال 000015.
-    */
-
-    const next =
-        Math.max(
-            max + 1,
-            minimumNumber + 1
-        );
-
-
-    return (
-        prefix +
-        String(next).padStart(
-            6,
-            "0"
-        )
-    );
 
 }
 
@@ -1992,7 +2596,9 @@ async function reissueCertificate(
         trainees.find(
             t =>
                 String(t.id) ===
-                String(certificate.trainee_id)
+                String(
+                    certificate.trainee_id
+                )
         );
 
 
@@ -2000,11 +2606,16 @@ async function reissueCertificate(
         courses.find(
             c =>
                 String(c.id) ===
-                String(certificate.course_id)
+                String(
+                    certificate.course_id
+                )
         );
 
 
-    if(!trainee || !course){
+    if(
+        !trainee ||
+        !course
+    ){
 
         showMessage(
             "تعذر العثور على بيانات المتربص أو الدورة.",
@@ -2023,7 +2634,9 @@ async function reissueCertificate(
 
     const oldNumericPart =
         parseInt(
-            oldNumber.split("-").pop(),
+            oldNumber
+                .split("-")
+                .pop(),
             10
         );
 
@@ -2039,7 +2652,7 @@ async function reissueCertificate(
     const confirmed =
         window.confirm(
 
-            "سيتم حذف الشهادة الحالية وإصدار شهادة جديدة برقم جديد.\n\n" +
+            "سيتم إنشاء شهادة جديدة برقم جديد، ثم حذف الشهادة الحالية بعد نجاح العملية.\n\n" +
 
             "رقم الشهادة الحالية: " +
             oldNumber +
@@ -2051,7 +2664,9 @@ async function reissueCertificate(
 
 
     if(!confirmed){
+
         return;
+
     }
 
 
@@ -2067,42 +2682,20 @@ async function reissueCertificate(
     );
 
 
+    let newStoragePath =
+        null;
+
+
     try{
 
         showMessage(
-            "جارٍ حذف الشهادة القديمة وتجهيز الشهادة الجديدة...",
+            "جارٍ إنشاء الشهادة الجديدة، ولن يتم حذف القديمة إلا بعد نجاح العملية...",
             "info"
         );
 
 
         /*
-            حذف الشهادة القديمة أولاً.
-
-            بعد نجاح الحذف فقط ننتقل إلى الإصدار الجديد.
-        */
-
-        await deleteCertificateData(
-            certificate
-        );
-
-
-        /*
-            إزالة الشهادة القديمة من الذاكرة.
-        */
-
-        certificates =
-            certificates.filter(
-                c =>
-                    String(c.id) !==
-                    String(certificate.id)
-            );
-
-
-        /*
-            توليد رقم جديد.
-
-            minimumNumber يمنع إعادة استخدام
-            رقم الشهادة القديمة.
+            1. توليد رقم جديد.
         */
 
         const newNumber =
@@ -2114,6 +2707,10 @@ async function reissueCertificate(
         const issueDate =
             getTodayDate();
 
+
+        /*
+            2. إنشاء PDF الجديد.
+        */
 
         const pdfBlob =
             await createCertificatePDF({
@@ -2134,16 +2731,24 @@ async function reissueCertificate(
             new Date().getFullYear();
 
 
-        const storagePath =
-            year +
-            "/" +
-            newNumber +
-            ".pdf";
+        /*
+            3. إنشاء مسار فريد.
+        */
+
+        newStoragePath =
+            createUniqueStoragePath(
+                year,
+                newNumber
+            );
 
 
         const db =
             getDB();
 
+
+        /*
+            4. رفع الشهادة الجديدة أولاً.
+        */
 
         const {
             error:uploadError
@@ -2152,10 +2757,12 @@ async function reissueCertificate(
                 .storage
                 .from("certificates")
                 .upload(
-                    storagePath,
+                    newStoragePath,
                     pdfBlob,
                     {
-                        contentType:"application/pdf",
+                        contentType:
+                            "application/pdf",
+
                         upsert:false
                     }
                 );
@@ -2164,12 +2771,16 @@ async function reissueCertificate(
         if(uploadError){
 
             throw new Error(
-                "تم حذف الشهادة القديمة، لكن فشل رفع الشهادة الجديدة: " +
+                "فشل رفع الشهادة الجديدة: " +
                 uploadError.message
             );
 
         }
 
+
+        /*
+            5. تسجيل الشهادة الجديدة.
+        */
 
         const {
             data:inserted,
@@ -2192,7 +2803,7 @@ async function reissueCertificate(
                         issueDate,
 
                     pdf_url:
-                        storagePath
+                        newStoragePath
 
                 })
                 .select()
@@ -2201,20 +2812,106 @@ async function reissueCertificate(
 
         if(insertError){
 
+            /*
+                حذف الملف الجديد إذا فشل التسجيل.
+            */
+
             await db
                 .storage
                 .from("certificates")
                 .remove([
-                    storagePath
+                    newStoragePath
                 ]);
 
 
+            newStoragePath =
+                null;
+
+
             throw new Error(
-                "تم إنشاء PDF الجديد لكن تعذر تسجيل الشهادة الجديدة: " +
+                "تم إنشاء ملف الشهادة الجديدة لكن تعذر تسجيلها في قاعدة البيانات: " +
                 insertError.message
             );
 
         }
+
+
+        /*
+            6. الآن فقط نحذف ملف الشهادة القديمة.
+        */
+
+        if(certificate.pdf_url){
+
+            const {
+                error:oldStorageError
+            } =
+                await db
+                    .storage
+                    .from("certificates")
+                    .remove([
+                        certificate.pdf_url
+                    ]);
+
+
+            if(oldStorageError){
+
+                console.warn(
+                    "تعذر حذف ملف الشهادة القديمة:",
+                    oldStorageError
+                );
+
+            }
+
+        }
+
+
+        /*
+            7. حذف سجل الشهادة القديمة.
+        */
+
+        const {
+            error:oldDeleteError
+        } =
+            await db
+                .from("certificates")
+                .delete()
+                .eq(
+                    "id",
+                    certificate.id
+                );
+
+
+        if(oldDeleteError){
+
+            /*
+                الشهادة الجديدة أصبحت موجودة بالفعل.
+                لذلك لا نحذفها بسبب فشل حذف السجل القديم.
+            */
+
+            console.warn(
+                "تم إنشاء الشهادة الجديدة، لكن تعذر حذف السجل القديم:",
+                oldDeleteError
+            );
+
+
+            showMessage(
+                "تم إنشاء الشهادة الجديدة بنجاح، لكن تعذر حذف سجل الشهادة القديمة تلقائيًا. يرجى مراجعة القائمة.",
+                "info"
+            );
+
+        }
+
+
+        /*
+            8. تحديث القائمة المحلية.
+        */
+
+        certificates =
+            certificates.filter(
+                c =>
+                    String(c.id) !==
+                    String(certificate.id)
+            );
 
 
         certificates.unshift(
@@ -2242,8 +2939,12 @@ async function reissueCertificate(
         );
 
 
+        /*
+            9. فتح الشهادة الجديدة.
+        */
+
         await openCertificate(
-            storagePath
+            newStoragePath
         );
 
 
@@ -2251,16 +2952,77 @@ async function reissueCertificate(
 
         console.error(error);
 
+
         /*
-            في حال فشل إعادة الإصدار بعد حذف القديمة،
-            نعيد تحميل القائمة من قاعدة البيانات
-            للتأكد من أن الواجهة مطابقة للحالة الفعلية.
+            إذا تم رفع ملف جديد ولم يتم تسجيله،
+            نحاول تنظيفه.
+        */
+
+        if(newStoragePath){
+
+            try{
+
+                const db =
+                    getDB();
+
+
+                /*
+                    لا نحذف الملف هنا إلا إذا لم يعد
+                    هناك سجل مرتبط به.
+                */
+
+                const {
+                    data:checkRecord
+                } =
+                    await db
+                        .from("certificates")
+                        .select("id")
+                        .eq(
+                            "pdf_url",
+                            newStoragePath
+                        )
+                        .limit(1)
+                        .maybeSingle();
+
+
+                if(!checkRecord){
+
+                    await db
+                        .storage
+                        .from("certificates")
+                        .remove([
+                            newStoragePath
+                        ]);
+
+                }
+
+            }catch(cleanupError){
+
+                console.warn(
+                    "تعذر تنظيف الملف المؤقت:",
+                    cleanupError
+                );
+
+            }
+
+        }
+
+
+        /*
+            إعادة تحميل البيانات من قاعدة البيانات
+            لضمان تطابق الشاشة مع الحالة الحقيقية.
         */
 
         try{
+
             await loadCertificates();
+
         }catch(refreshError){
-            console.error(refreshError);
+
+            console.error(
+                refreshError
+            );
+
         }
 
 
@@ -2322,7 +3084,9 @@ function confirmDeleteCertificate(
         trainees.find(
             t =>
                 String(t.id) ===
-                String(certificate.trainee_id)
+                String(
+                    certificate.trainee_id
+                )
         );
 
 
@@ -2330,7 +3094,9 @@ function confirmDeleteCertificate(
         courses.find(
             c =>
                 String(c.id) ===
-                String(certificate.course_id)
+                String(
+                    certificate.course_id
+                )
         );
 
 
@@ -2347,7 +3113,8 @@ function confirmDeleteCertificate(
         </strong>
 
         ${escapeHtml(
-            certificate.certificate_number || "-"
+            certificate.certificate_number ||
+            "-"
         )}
 
         <br>
@@ -2382,7 +3149,9 @@ function confirmDeleteCertificate(
 
     document.getElementById(
         "confirmModal"
-    ).classList.add("show");
+    )
+    .classList
+    .add("show");
 
 }
 
@@ -2395,7 +3164,9 @@ function closeConfirmModal(){
 
     document.getElementById(
         "confirmModal"
-    ).classList.remove("show");
+    )
+    .classList
+    .remove("show");
 
 }
 
@@ -2407,7 +3178,9 @@ function closeConfirmModal(){
 async function executeDeleteCertificate(){
 
     if(!pendingDeleteCertificateId){
+
         return;
+
     }
 
 
@@ -2415,7 +3188,9 @@ async function executeDeleteCertificate(){
         certificates.find(
             c =>
                 String(c.id) ===
-                String(pendingDeleteCertificateId)
+                String(
+                    pendingDeleteCertificateId
+                )
         );
 
 
@@ -2423,10 +3198,12 @@ async function executeDeleteCertificate(){
 
         closeConfirmModal();
 
+
         showMessage(
             "تعذر العثور على الشهادة.",
             "error"
         );
+
 
         return;
 
@@ -2458,7 +3235,9 @@ async function executeDeleteCertificate(){
             certificates.filter(
                 c =>
                     String(c.id) !==
-                    String(certificate.id)
+                    String(
+                        certificate.id
+                    )
             );
 
 
@@ -2493,6 +3272,7 @@ async function executeDeleteCertificate(){
 
         console.error(error);
 
+
         showMessage(
             error.message ||
             "حدث خطأ أثناء حذف الشهادة.",
@@ -2504,6 +3284,7 @@ async function executeDeleteCertificate(){
         btn.disabled =
             false;
 
+
         btn.textContent =
             "نعم، حذف الشهادة";
 
@@ -2513,7 +3294,7 @@ async function executeDeleteCertificate(){
 
 
 /* ============================================================
-   حذف بيانات الشهادة من DB + Storage
+   حذف بيانات الشهادة
 ============================================================ */
 
 async function deleteCertificateData(
@@ -2525,7 +3306,7 @@ async function deleteCertificateData(
 
 
     /*
-        1. حذف ملف PDF من Storage
+        حذف ملف PDF من Storage.
     */
 
     if(certificate.pdf_url){
@@ -2554,7 +3335,7 @@ async function deleteCertificateData(
 
 
     /*
-        2. حذف سجل الشهادة من قاعدة البيانات
+        حذف سجل قاعدة البيانات.
     */
 
     const {
@@ -2571,12 +3352,6 @@ async function deleteCertificateData(
 
     if(deleteError){
 
-        /*
-            محاولة إعادة الملف إذا فشل حذف السجل.
-            لا نملك نسخة Blob هنا، لذلك لا يمكن
-            إعادة رفع الملف القديم تلقائياً.
-        */
-
         throw new Error(
             "تم التعامل مع ملف PDF لكن تعذر حذف سجل الشهادة من قاعدة البيانات: " +
             deleteError.message
@@ -2588,7 +3363,7 @@ async function deleteCertificateData(
 
 
 /* ============================================================
-   فتح PDF بواسطة Signed URL
+   فتح PDF
 ============================================================ */
 
 async function openCertificate(
@@ -2627,11 +3402,16 @@ async function openCertificate(
 
 
         if(error){
+
             throw error;
+
         }
 
 
-        if(!data?.signedUrl){
+        if(
+            !data ||
+            !data.signedUrl
+        ){
 
             throw new Error(
                 "تعذر إنشاء رابط مؤقت للشهادة."
@@ -2650,6 +3430,7 @@ async function openCertificate(
     }catch(error){
 
         console.error(error);
+
 
         showMessage(
             "تعذر فتح ملف الشهادة: " +
@@ -2692,7 +3473,10 @@ async function createCertificatePDF({
         template.naturalHeight;
 
 
-    if(!imageWidth || !imageHeight){
+    if(
+        !imageWidth ||
+        !imageHeight
+    ){
 
         throw new Error(
             "تعذر قراءة أبعاد قالب الشهادة."
@@ -2747,8 +3531,11 @@ async function createCertificatePDF({
 
 
     let drawWidth;
+
     let drawHeight;
+
     let offsetX;
+
     let offsetY;
 
 
@@ -2801,7 +3588,7 @@ async function createCertificatePDF({
 
 
     /*
-        إضافة الخلفية
+        الخلفية
     */
 
     pdf.addImage(
@@ -2839,13 +3626,17 @@ async function createCertificatePDF({
 
         {
 
-            pageX:offsetX,
+            pageX:
+                offsetX,
 
-            pageY:offsetY,
+            pageY:
+                offsetY,
 
-            pageWidth:drawWidth,
+            pageWidth:
+                drawWidth,
 
-            pageHeight:drawHeight
+            pageHeight:
+                drawHeight
 
         }
 
@@ -2866,13 +3657,17 @@ async function createCertificatePDF({
 
         {
 
-            pageX:offsetX,
+            pageX:
+                offsetX,
 
-            pageY:offsetY,
+            pageY:
+                offsetY,
 
-            pageWidth:drawWidth,
+            pageWidth:
+                drawWidth,
 
-            pageHeight:drawHeight
+            pageHeight:
+                drawHeight
 
         }
 
@@ -2888,19 +3683,25 @@ async function createCertificatePDF({
         pdf,
 
         "تاريخ الإصدار: " +
-        formatDate(issueDate),
+        formatDate(
+            issueDate
+        ),
 
         CERT_LAYOUT.date,
 
         {
 
-            pageX:offsetX,
+            pageX:
+                offsetX,
 
-            pageY:offsetY,
+            pageY:
+                offsetY,
 
-            pageWidth:drawWidth,
+            pageWidth:
+                drawWidth,
 
-            pageHeight:drawHeight
+            pageHeight:
+                drawHeight
 
         }
 
@@ -2921,13 +3722,17 @@ async function createCertificatePDF({
 
         {
 
-            pageX:offsetX,
+            pageX:
+                offsetX,
 
-            pageY:offsetY,
+            pageY:
+                offsetY,
 
-            pageWidth:drawWidth,
+            pageWidth:
+                drawWidth,
 
-            pageHeight:drawHeight
+            pageHeight:
+                drawHeight
 
         }
 
@@ -2948,13 +3753,17 @@ async function createCertificatePDF({
 
         {
 
-            pageX:offsetX,
+            pageX:
+                offsetX,
 
-            pageY:offsetY,
+            pageY:
+                offsetY,
 
-            pageWidth:drawWidth,
+            pageWidth:
+                drawWidth,
 
-            pageHeight:drawHeight
+            pageHeight:
+                drawHeight
 
         }
 
@@ -3041,7 +3850,9 @@ async function addArabicTextToPDF(
 ){
 
     if(!text){
+
         return;
+
     }
 
 
@@ -3120,7 +3931,8 @@ async function addArabicTextToPDF(
         measuredWidth =
             ctx.measureText(
                 text
-            ).width / 4;
+            ).width /
+            4;
 
 
         if(
@@ -3545,7 +4357,8 @@ function getTodayDate(){
     const month =
         String(
             now.getMonth() + 1
-        ).padStart(
+        )
+        .padStart(
             2,
             "0"
         );
@@ -3554,7 +4367,8 @@ function getTodayDate(){
     const day =
         String(
             now.getDate()
-        ).padStart(
+        )
+        .padStart(
             2,
             "0"
         );
@@ -3578,7 +4392,9 @@ function getTodayDate(){
 function formatDate(value){
 
     if(!value){
+
         return "-";
+
     }
 
 
@@ -3603,7 +4419,8 @@ function formatDate(value){
     const day =
         String(
             date.getDate()
-        ).padStart(
+        )
+        .padStart(
             2,
             "0"
         );
@@ -3612,7 +4429,8 @@ function formatDate(value){
     const month =
         String(
             date.getMonth() + 1
-        ).padStart(
+        )
+        .padStart(
             2,
             "0"
         );
@@ -3682,10 +4500,6 @@ function escapeJs(value){
     .replace(
         /'/g,
         "\\'"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
     )
     .replace(
         /\n/g,
@@ -3760,7 +4574,9 @@ document.addEventListener(
 
 
         if(!isAdmin){
+
             return;
+
         }
 
 
@@ -3773,6 +4589,7 @@ document.addEventListener(
     }catch(error){
 
         console.error(error);
+
 
         showMessage(
 
@@ -3790,5 +4607,8 @@ document.addEventListener(
 
 })();
 
-</script></body>
+</script>
+
+</body>
+
 </html>
