@@ -16,9 +16,10 @@
     <!-- QRCode -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-    <!-- Amiri -->
+    <!-- Arabic Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap"
         rel="stylesheet"
@@ -52,16 +53,26 @@
         }
 
         /* =========================
-           Header
+           HEADER
         ========================= */
 
         .page-header {
-            background: linear-gradient(135deg, #6f4b9b, #8b6bb1);
+            background: linear-gradient(
+                135deg,
+                #604080,
+                #8661a7
+            );
+
             color: white;
+
             border-radius: 20px;
+
             padding: 25px;
+
             margin-bottom: 25px;
-            box-shadow: 0 12px 35px rgba(111, 75, 155, 0.18);
+
+            box-shadow:
+                0 12px 35px rgba(96, 64, 128, .18);
         }
 
         .header-inner {
@@ -86,10 +97,15 @@
         .back-btn {
             text-decoration: none;
             color: #fff;
+
             background: rgba(255,255,255,.16);
+
             border: 1px solid rgba(255,255,255,.3);
+
             padding: 10px 18px;
+
             border-radius: 12px;
+
             transition: .2s;
         }
 
@@ -98,15 +114,20 @@
         }
 
         /* =========================
-           Messages
+           MESSAGE
         ========================= */
 
         #messageBox {
             display: none;
+
             padding: 14px 18px;
+
             border-radius: 12px;
+
             margin-bottom: 20px;
+
             font-size: 16px;
+
             font-weight: 700;
         }
 
@@ -132,21 +153,30 @@
         }
 
         /* =========================
-           Stats
+           STATS
         ========================= */
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 18px;
+
             margin-bottom: 25px;
         }
 
         .stat-card {
             background: white;
+
             border-radius: 18px;
+
             padding: 22px;
-            box-shadow: 0 5px 20px rgba(54, 40, 80, .07);
+
+            box-shadow:
+                0 5px 20px rgba(54, 40, 80, .07);
+
             border: 1px solid #eee7f7;
         }
 
@@ -163,33 +193,45 @@
         }
 
         /* =========================
-           Main Grid
+           MAIN
         ========================= */
 
         .main-grid {
             display: grid;
-            grid-template-columns: 390px 1fr;
+
+            grid-template-columns:
+                390px 1fr;
+
             gap: 25px;
+
             align-items: start;
         }
 
         .card {
             background: #fff;
+
             border-radius: 20px;
+
             padding: 25px;
-            box-shadow: 0 5px 22px rgba(54, 40, 80, .07);
+
+            box-shadow:
+                0 5px 22px rgba(54, 40, 80, .07);
+
             border: 1px solid #eee7f7;
         }
 
         .card-title {
             margin: 0 0 20px;
+
             font-size: 22px;
+
             color: #5d3b88;
+
             font-weight: 700;
         }
 
         /* =========================
-           Form
+           FORM
         ========================= */
 
         .form-group {
@@ -198,50 +240,74 @@
 
         .form-group label {
             display: block;
+
             margin-bottom: 7px;
+
             font-weight: 700;
+
             color: #4c4258;
         }
 
         select,
         input {
             width: 100%;
+
             border: 1px solid #d9cfe7;
+
             border-radius: 11px;
+
             padding: 12px 13px;
+
             background: #fff;
+
             color: #33283d;
+
             font-family: inherit;
+
             font-size: 15px;
+
             outline: none;
+
             transition: .2s;
         }
 
         select:focus,
         input:focus {
             border-color: #8662ae;
-            box-shadow: 0 0 0 3px rgba(134,98,174,.12);
+
+            box-shadow:
+                0 0 0 3px rgba(134,98,174,.12);
         }
 
         .btn {
             border: none;
+
             border-radius: 12px;
+
             padding: 12px 18px;
+
             font-family: inherit;
+
             font-size: 16px;
+
             font-weight: 700;
+
             cursor: pointer;
+
             transition: .2s;
         }
 
         .btn:disabled {
             opacity: .55;
+
             cursor: not-allowed;
         }
 
         .btn-primary {
             width: 100%;
+
             background: #70509a;
+
             color: white;
         }
 
@@ -269,7 +335,7 @@
         }
 
         /* =========================
-           Table
+           TABLE
         ========================= */
 
         .table-wrapper {
@@ -278,21 +344,29 @@
 
         table {
             width: 100%;
+
             border-collapse: collapse;
+
             min-width: 800px;
         }
 
         th,
         td {
             padding: 13px 10px;
-            border-bottom: 1px solid #eee8f4;
+
+            border-bottom:
+                1px solid #eee8f4;
+
             text-align: right;
+
             vertical-align: middle;
         }
 
         th {
             background: #faf8fc;
+
             color: #5e4c70;
+
             font-weight: 700;
         }
 
@@ -302,44 +376,64 @@
 
         .badge {
             display: inline-block;
+
             padding: 5px 10px;
+
             border-radius: 20px;
+
             background: #eee7f7;
+
             color: #604182;
+
             font-size: 13px;
+
             font-weight: 700;
         }
 
         .actions {
             display: flex;
+
             flex-wrap: wrap;
+
             gap: 7px;
         }
 
         .empty {
             text-align: center;
+
             padding: 40px 15px;
+
             color: #857a91;
         }
 
         .loading {
             text-align: center;
+
             padding: 30px;
+
             color: #74677f;
         }
 
         /* =========================
-           Modal
+           MODAL
         ========================= */
 
         .modal-overlay {
             display: none;
+
             position: fixed;
+
             inset: 0;
-            background: rgba(30, 22, 39, .58);
+
+            background:
+                rgba(30, 22, 39, .58);
+
             z-index: 9999;
+
             align-items: center;
+
             justify-content: center;
+
             padding: 20px;
         }
 
@@ -349,48 +443,61 @@
 
         .modal {
             background: white;
+
             width: 100%;
+
             max-width: 480px;
+
             border-radius: 20px;
+
             padding: 25px;
-            box-shadow: 0 25px 70px rgba(0,0,0,.2);
+
+            box-shadow:
+                0 25px 70px rgba(0,0,0,.2);
         }
 
         .modal h3 {
             margin: 0 0 12px;
+
             color: #5d3b88;
+
             font-size: 23px;
         }
 
         .modal p {
             margin: 0 0 22px;
+
             color: #62586d;
+
             line-height: 1.8;
         }
 
         .modal-actions {
             display: flex;
+
             gap: 10px;
+
             justify-content: flex-start;
         }
 
-        /* =========================
-           Preview
-        ========================= */
-
         #pdfPreview {
             width: 100%;
+
             height: 70vh;
+
             border: 0;
+
             border-radius: 12px;
+
             background: #eee;
         }
 
         /* =========================
-           Mobile
+           MOBILE
         ========================= */
 
         @media (max-width: 1000px) {
+
             body {
                 padding: 14px;
             }
@@ -405,6 +512,7 @@
 
             .header-inner {
                 flex-direction: column;
+
                 align-items: stretch;
             }
 
@@ -414,8 +522,10 @@
         }
 
         @media (max-width: 600px) {
+
             .page-header {
                 padding: 18px;
+
                 border-radius: 16px;
             }
 
@@ -425,6 +535,7 @@
 
             .card {
                 padding: 18px;
+
                 border-radius: 16px;
             }
 
@@ -443,80 +554,166 @@
 
 <div class="container">
 
-    <!-- Header -->
+    <!-- HEADER -->
+
     <header class="page-header">
+
         <div class="header-inner">
+
             <div>
-                <h1 class="header-title">إدارة الشهادات</h1>
+
+                <h1 class="header-title">
+                    إدارة الشهادات
+                </h1>
+
                 <p class="header-subtitle">
                     إصدار ومتابعة وإعادة إصدار وحذف شهادات التكوين
                 </p>
+
             </div>
 
-            <a href="admin.html" class="back-btn">
+            <a
+                href="admin.html"
+                class="back-btn"
+            >
                 العودة إلى لوحة التحكم
             </a>
+
         </div>
+
     </header>
 
-    <!-- Messages -->
+
+    <!-- MESSAGE -->
+
     <div id="messageBox"></div>
 
-    <!-- Statistics -->
+
+    <!-- STATISTICS -->
+
     <section class="stats">
 
         <div class="stat-card">
-            <div class="stat-label">إجمالي الشهادات</div>
-            <div class="stat-value" id="totalCertificates">0</div>
+
+            <div class="stat-label">
+                إجمالي الشهادات
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalCertificates"
+            >
+                0
+            </div>
+
         </div>
 
-        <div class="stat-card">
-            <div class="stat-label">عدد المتربصين</div>
-            <div class="stat-value" id="totalTrainees">0</div>
-        </div>
 
         <div class="stat-card">
-            <div class="stat-label">عدد الدورات</div>
-            <div class="stat-value" id="totalCourses">0</div>
+
+            <div class="stat-label">
+                عدد المتربصين
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalTrainees"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                عدد الدورات
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalCourses"
+            >
+                0
+            </div>
+
         </div>
 
     </section>
 
-    <!-- Main -->
+
+    <!-- MAIN -->
+
     <section class="main-grid">
 
-        <!-- Generate -->
+
+        <!-- GENERATE -->
+
         <div class="card">
 
-            <h2 class="card-title">إصدار شهادة جديدة</h2>
+            <h2 class="card-title">
+                إصدار شهادة جديدة
+            </h2>
+
 
             <form id="certificateForm">
 
-                <div class="form-group">
-                    <label for="traineeSelect">المتربص</label>
 
-                    <select id="traineeSelect" required>
-                        <option value="">اختر المتربص</option>
+                <div class="form-group">
+
+                    <label for="traineeSelect">
+                        المتربص
+                    </label>
+
+                    <select
+                        id="traineeSelect"
+                        required
+                    >
+
+                        <option value="">
+                            اختر المتربص
+                        </option>
+
                     </select>
+
                 </div>
 
-                <div class="form-group">
-                    <label for="courseSelect">الدورة التكوينية</label>
 
-                    <select id="courseSelect" required>
-                        <option value="">اختر الدورة</option>
+                <div class="form-group">
+
+                    <label for="courseSelect">
+                        الدورة التكوينية
+                    </label>
+
+                    <select
+                        id="courseSelect"
+                        required
+                    >
+
+                        <option value="">
+                            اختر الدورة
+                        </option>
+
                     </select>
+
                 </div>
 
+
                 <div class="form-group">
-                    <label for="issueDate">تاريخ الإصدار</label>
+
+                    <label for="issueDate">
+                        تاريخ الإصدار
+                    </label>
 
                     <input
                         type="date"
                         id="issueDate"
                         required
                     >
+
                 </div>
+
 
                 <button
                     type="submit"
@@ -530,31 +727,62 @@
 
         </div>
 
-        <!-- Certificates -->
+
+        <!-- CERTIFICATES -->
+
         <div class="card">
 
-            <h2 class="card-title">الشهادات الصادرة</h2>
+            <h2 class="card-title">
+                الشهادات الصادرة
+            </h2>
+
 
             <div class="table-wrapper">
 
                 <table>
 
                     <thead>
+
                         <tr>
-                            <th>رقم الشهادة</th>
-                            <th>المتربص</th>
-                            <th>الدورة</th>
-                            <th>تاريخ الإصدار</th>
-                            <th>الإجراءات</th>
+
+                            <th>
+                                رقم الشهادة
+                            </th>
+
+                            <th>
+                                المتربص
+                            </th>
+
+                            <th>
+                                الدورة
+                            </th>
+
+                            <th>
+                                تاريخ الإصدار
+                            </th>
+
+                            <th>
+                                الإجراءات
+                            </th>
+
                         </tr>
+
                     </thead>
 
+
                     <tbody id="certificatesTableBody">
+
                         <tr>
-                            <td colspan="5" class="loading">
+
+                            <td
+                                colspan="5"
+                                class="loading"
+                            >
                                 جاري تحميل الشهادات...
                             </td>
+
                         </tr>
+
                     </tbody>
 
                 </table>
@@ -568,16 +796,23 @@
 </div>
 
 
-<!-- Delete Modal -->
-<div class="modal-overlay" id="deleteModal">
+<!-- DELETE MODAL -->
+
+<div
+    class="modal-overlay"
+    id="deleteModal"
+>
 
     <div class="modal">
 
-        <h3>تأكيد حذف الشهادة</h3>
+        <h3>
+            تأكيد حذف الشهادة
+        </h3>
 
         <p id="deleteMessage">
             هل أنت متأكد من حذف هذه الشهادة؟
         </p>
+
 
         <div class="modal-actions">
 
@@ -588,6 +823,7 @@
             >
                 نعم، حذف الشهادة
             </button>
+
 
             <button
                 type="button"
@@ -604,16 +840,32 @@
 </div>
 
 
-<!-- PDF Preview -->
-<div class="modal-overlay" id="previewModal">
+<!-- PREVIEW MODAL -->
 
-    <div class="modal" style="max-width:1100px;">
+<div
+    class="modal-overlay"
+    id="previewModal"
+>
 
-        <h3>معاينة الشهادة</h3>
+    <div
+        class="modal"
+        style="max-width:1100px;"
+    >
 
-        <iframe id="pdfPreview"></iframe>
+        <h3>
+            معاينة الشهادة
+        </h3>
 
-        <div class="modal-actions" style="margin-top:15px;">
+
+        <iframe
+            id="pdfPreview"
+        ></iframe>
+
+
+        <div
+            class="modal-actions"
+            style="margin-top:15px;"
+        >
 
             <button
                 type="button"
@@ -634,6 +886,7 @@
 
 "use strict";
 
+
 /* =========================================================
    GLOBALS
 ========================================================= */
@@ -641,7 +894,9 @@
 let db = null;
 
 let trainees = [];
+
 let courses = [];
+
 let certificates = [];
 
 let certificateToDelete = null;
@@ -651,32 +906,38 @@ let certificateToDelete = null;
    INITIALIZATION
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
 
-    try {
+        try {
 
-        setDefaultDate();
+            setDefaultDate();
 
-        initializeSupabase();
+            initializeSupabase();
 
-        await checkAdmin();
+            await checkAdmin();
 
-        await loadAllData();
+            await loadAllData();
 
-        bindEvents();
+            bindEvents();
 
-    } catch (error) {
+        } catch (error) {
 
-        console.error("Initialization error:", error);
+            console.error(
+                "Initialization error:",
+                error
+            );
 
-        showMessage(
-            "تعذر تشغيل صفحة إدارة الشهادات: " +
-            getErrorMessage(error),
-            "error"
-        );
+            showMessage(
+                "تعذر تشغيل صفحة إدارة الشهادات: " +
+                getErrorMessage(error),
+                "error"
+            );
+        }
+
     }
-
-});
+);
 
 
 /* =========================================================
@@ -685,57 +946,58 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 function initializeSupabase() {
 
-    if (typeof window.supabase === "undefined") {
-        throw new Error("مكتبة Supabase غير محملة.");
-    }
-
-    /*
-       supabase-config.js يجب أن يحتوي على:
-       SUPABASE_URL
-       SUPABASE_ANON_KEY
-
-       أو على كائن db جاهز.
-    */
-
     if (
-        typeof window.SUPABASE_URL !== "undefined" &&
-        typeof window.SUPABASE_ANON_KEY !== "undefined"
+        typeof window.supabase ===
+        "undefined"
     ) {
 
-        db = window.supabase.createClient(
-            window.SUPABASE_URL,
-            window.SUPABASE_ANON_KEY
+        throw new Error(
+            "مكتبة Supabase غير محملة."
         );
+    }
+
+
+    if (
+        typeof window.SUPABASE_URL !==
+            "undefined" &&
+        typeof window.SUPABASE_ANON_KEY !==
+            "undefined"
+    ) {
+
+        db =
+            window.supabase.createClient(
+                window.SUPABASE_URL,
+                window.SUPABASE_ANON_KEY
+            );
 
         return;
     }
 
-    /*
-       توافق مع بعض النسخ السابقة التي كان فيها
-       supabaseUrl / supabaseAnonKey.
-    */
 
     if (
-        typeof window.supabaseUrl !== "undefined" &&
-        typeof window.supabaseAnonKey !== "undefined"
+        typeof window.supabaseUrl !==
+            "undefined" &&
+        typeof window.supabaseAnonKey !==
+            "undefined"
     ) {
 
-        db = window.supabase.createClient(
-            window.supabaseUrl,
-            window.supabaseAnonKey
-        );
+        db =
+            window.supabase.createClient(
+                window.supabaseUrl,
+                window.supabaseAnonKey
+            );
 
         return;
     }
 
-    /*
-       إذا كان supabase-config.js أنشأ db مسبقًا.
-    */
 
     if (window.db) {
+
         db = window.db;
+
         return;
     }
+
 
     throw new Error(
         "تعذر العثور على إعدادات Supabase في supabase-config.js."
@@ -752,36 +1014,54 @@ async function checkAdmin() {
     const {
         data: { user },
         error: sessionError
-    } = await db.auth.getUser();
+    } =
+        await db.auth.getUser();
+
 
     if (sessionError) {
         throw sessionError;
     }
 
+
     if (!user) {
 
-        window.location.href = "login.html";
+        window.location.href =
+            "login.html";
+
         return;
     }
+
 
     const {
         data: roleData,
         error: roleError
-    } = await db
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id)
-        .maybeSingle();
+    } =
+        await db
+            .from("user_roles")
+            .select("role")
+            .eq(
+                "user_id",
+                user.id
+            )
+            .maybeSingle();
+
 
     if (roleError) {
         throw roleError;
     }
 
-    if (!roleData || roleData.role !== "admin") {
 
-        alert("ليس لديك صلاحية الدخول إلى إدارة الشهادات.");
+    if (
+        !roleData ||
+        roleData.role !== "admin"
+    ) {
 
-        window.location.href = "index.html";
+        alert(
+            "ليس لديك صلاحية الدخول إلى إدارة الشهادات."
+        );
+
+        window.location.href =
+            "index.html";
 
         return;
     }
@@ -795,38 +1075,48 @@ async function checkAdmin() {
 function bindEvents() {
 
     document
-        .getElementById("certificateForm")
+        .getElementById(
+            "certificateForm"
+        )
         .addEventListener(
             "submit",
             handleGenerateCertificate
         );
 
+
     document
-        .getElementById("cancelDeleteBtn")
+        .getElementById(
+            "cancelDeleteBtn"
+        )
         .addEventListener(
             "click",
             closeDeleteModal
         );
 
+
     document
-        .getElementById("confirmDeleteBtn")
+        .getElementById(
+            "confirmDeleteBtn"
+        )
         .addEventListener(
             "click",
             executeDeleteCertificate
         );
 
+
     document
-        .getElementById("closePreviewBtn")
+        .getElementById(
+            "closePreviewBtn"
+        )
         .addEventListener(
             "click",
             closePreview
         );
-
 }
 
 
 /* =========================================================
-   LOAD DATA
+   LOAD ALL DATA
 ========================================================= */
 
 async function loadAllData() {
@@ -836,11 +1126,13 @@ async function loadAllData() {
         "info"
     );
 
+
     await Promise.all([
         loadTrainees(),
         loadCourses(),
         loadCertificates()
     ]);
+
 
     updateStatistics();
 
@@ -858,20 +1150,27 @@ async function loadAllData() {
 
 async function loadTrainees() {
 
-    const result = await db
-        .from("trainees")
-        .select("*")
-        .order("created_at", {
-            ascending: false
-        });
+    const result =
+        await db
+            .from("trainees")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
 
     if (result.error) {
         throw result.error;
     }
 
-    trainees = Array.isArray(result.data)
-        ? result.data
-        : [];
+
+    trainees =
+        Array.isArray(result.data)
+            ? result.data
+            : [];
 }
 
 
@@ -881,20 +1180,27 @@ async function loadTrainees() {
 
 async function loadCourses() {
 
-    const result = await db
-        .from("courses")
-        .select("*")
-        .order("created_at", {
-            ascending: false
-        });
+    const result =
+        await db
+            .from("courses")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
 
     if (result.error) {
         throw result.error;
     }
 
-    courses = Array.isArray(result.data)
-        ? result.data
-        : [];
+
+    courses =
+        Array.isArray(result.data)
+            ? result.data
+            : [];
 }
 
 
@@ -904,21 +1210,27 @@ async function loadCourses() {
 
 async function loadCertificates() {
 
-    const result = await db
-        .from("certificates")
-        .select("*")
-        .order("issue_date", {
-            ascending: false
-        });
+    const result =
+        await db
+            .from("certificates")
+            .select("*")
+            .order(
+                "issue_date",
+                {
+                    ascending: false
+                }
+            );
+
 
     if (result.error) {
         throw result.error;
     }
 
-    certificates = Array.isArray(result.data)
-        ? result.data
-        : [];
 
+    certificates =
+        Array.isArray(result.data)
+            ? result.data
+            : [];
 }
 
 
@@ -929,45 +1241,83 @@ async function loadCertificates() {
 function populateSelects() {
 
     const traineeSelect =
-        document.getElementById("traineeSelect");
+        document.getElementById(
+            "traineeSelect"
+        );
+
 
     const courseSelect =
-        document.getElementById("courseSelect");
+        document.getElementById(
+            "courseSelect"
+        );
 
 
     traineeSelect.innerHTML =
-        '<option value="">اختر المتربص</option>';
+        `
+        <option value="">
+            اختر المتربص
+        </option>
+        `;
 
-    trainees.forEach(trainee => {
 
-        const option =
-            document.createElement("option");
+    trainees.forEach(
+        trainee => {
 
-        option.value = trainee.id;
+            const option =
+                document.createElement(
+                    "option"
+                );
 
-        option.textContent =
-            getTraineeName(trainee);
 
-        traineeSelect.appendChild(option);
-    });
+            option.value =
+                trainee.id;
+
+
+            option.textContent =
+                getTraineeName(
+                    trainee
+                );
+
+
+            traineeSelect.appendChild(
+                option
+            );
+        }
+    );
 
 
     courseSelect.innerHTML =
-        '<option value="">اختر الدورة</option>';
+        `
+        <option value="">
+            اختر الدورة
+        </option>
+        `;
 
-    courses.forEach(course => {
 
-        const option =
-            document.createElement("option");
+    courses.forEach(
+        course => {
 
-        option.value = course.id;
+            const option =
+                document.createElement(
+                    "option"
+                );
 
-        option.textContent =
-            getCourseName(course);
 
-        courseSelect.appendChild(option);
-    });
+            option.value =
+                course.id;
 
+
+            option.textContent =
+                getCourseName(
+                    course
+                );
+
+
+            courseSelect.appendChild(
+                option
+            );
+        }
+    );
 }
 
 
@@ -975,7 +1325,9 @@ function populateSelects() {
    NAME HELPERS
 ========================================================= */
 
-function getTraineeName(trainee) {
+function getTraineeName(
+    trainee
+) {
 
     const fullName =
         firstAvailable(
@@ -987,9 +1339,11 @@ function getTraineeName(trainee) {
             ]
         );
 
+
     if (fullName) {
         return fullName;
     }
+
 
     const first =
         firstAvailable(
@@ -1001,6 +1355,7 @@ function getTraineeName(trainee) {
             ]
         );
 
+
     const last =
         firstAvailable(
             trainee,
@@ -1011,16 +1366,20 @@ function getTraineeName(trainee) {
             ]
         );
 
-    const result =
+
+    return (
         [first, last]
             .filter(Boolean)
-            .join(" ");
-
-    return result || "متربص بدون اسم";
+            .join(" ")
+        ||
+        "متربص بدون اسم"
+    );
 }
 
 
-function getCourseName(course) {
+function getCourseName(
+    course
+) {
 
     return (
         firstAvailable(
@@ -1033,25 +1392,36 @@ function getCourseName(course) {
                 "course_name"
             ]
         )
-        || "دورة تكوينية"
+        ||
+        "دورة تكوينية"
     );
 }
 
 
-function firstAvailable(object, keys) {
+function firstAvailable(
+    object,
+    keys
+) {
 
-    for (const key of keys) {
+    for (
+        const key of keys
+    ) {
 
         if (
             object &&
             object[key] !== null &&
             object[key] !== undefined &&
-            String(object[key]).trim() !== ""
+            String(
+                object[key]
+            ).trim() !== ""
         ) {
 
-            return String(object[key]).trim();
+            return String(
+                object[key]
+            ).trim();
         }
     }
+
 
     return "";
 }
@@ -1065,20 +1435,25 @@ function updateStatistics() {
 
     document.getElementById(
         "totalCertificates"
-    ).textContent = certificates.length;
+    ).textContent =
+        certificates.length;
+
 
     document.getElementById(
         "totalTrainees"
-    ).textContent = trainees.length;
+    ).textContent =
+        trainees.length;
+
 
     document.getElementById(
         "totalCourses"
-    ).textContent = courses.length;
+    ).textContent =
+        courses.length;
 }
 
 
 /* =========================================================
-   RENDER TABLE
+   TABLE
 ========================================================= */
 
 function renderCertificates() {
@@ -1088,15 +1463,20 @@ function renderCertificates() {
             "certificatesTableBody"
         );
 
+
     if (!certificates.length) {
 
-        tbody.innerHTML = `
+        tbody.innerHTML =
+            `
             <tr>
-                <td colspan="5" class="empty">
+                <td
+                    colspan="5"
+                    class="empty"
+                >
                     لا توجد شهادات صادرة حاليًا.
                 </td>
             </tr>
-        `;
+            `;
 
         return;
     }
@@ -1105,106 +1485,124 @@ function renderCertificates() {
     tbody.innerHTML = "";
 
 
-    certificates.forEach(certificate => {
+    certificates.forEach(
+        certificate => {
 
-        const trainee =
-            trainees.find(
-                t =>
-                    String(t.id) ===
-                    String(certificate.trainee_id)
-            );
-
-
-        const course =
-            courses.find(
-                c =>
-                    String(c.id) ===
-                    String(certificate.course_id)
-            );
-
-
-        const traineeName =
-            trainee
-                ? getTraineeName(trainee)
-                : (
-                    certificate.trainee_name ||
-                    "غير معروف"
+            const trainee =
+                trainees.find(
+                    t =>
+                        String(t.id) ===
+                        String(
+                            certificate.trainee_id
+                        )
                 );
 
 
-        const courseName =
-            course
-                ? getCourseName(course)
-                : (
-                    certificate.course_name ||
-                    "غير معروف"
+            const course =
+                courses.find(
+                    c =>
+                        String(c.id) ===
+                        String(
+                            certificate.course_id
+                        )
                 );
 
 
-        const tr =
-            document.createElement("tr");
-
-
-        tr.innerHTML = `
-
-            <td>
-                <span class="badge">
-                    ${escapeHtml(
-                        certificate.certificate_number || "-"
-                    )}
-                </span>
-            </td>
-
-            <td>
-                ${escapeHtml(traineeName)}
-            </td>
-
-            <td>
-                ${escapeHtml(courseName)}
-            </td>
-
-            <td>
-                ${escapeHtml(
-                    formatDate(
-                        certificate.issue_date
+            const traineeName =
+                trainee
+                    ? getTraineeName(
+                        trainee
                     )
-                )}
-            </td>
-
-            <td>
-
-                <div class="actions">
-
-                    <button
-                        class="btn btn-secondary btn-small"
-                        onclick="openCertificate('${escapeJs(certificate.id)}')"
-                    >
-                        فتح
-                    </button>
-
-                    <button
-                        class="btn btn-secondary btn-small"
-                        onclick="reissueCertificate('${escapeJs(certificate.id)}')"
-                    >
-                        إعادة إصدار
-                    </button>
-
-                    <button
-                        class="btn btn-danger btn-small"
-                        onclick="confirmDeleteCertificate('${escapeJs(certificate.id)}')"
-                    >
-                        حذف
-                    </button>
-
-                </div>
-
-            </td>
-        `;
+                    : (
+                        certificate.trainee_name ||
+                        "غير معروف"
+                    );
 
 
-        tbody.appendChild(tr);
-    });
+            const courseName =
+                course
+                    ? getCourseName(
+                        course
+                    )
+                    : (
+                        certificate.course_name ||
+                        "غير معروف"
+                    );
 
+
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+
+            tr.innerHTML =
+                `
+                <td>
+                    <span class="badge">
+                        ${escapeHtml(
+                            certificate.certificate_number ||
+                            "-"
+                        )}
+                    </span>
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        traineeName
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        courseName
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        formatDate(
+                            certificate.issue_date
+                        )
+                    )}
+                </td>
+
+                <td>
+
+                    <div class="actions">
+
+                        <button
+                            class="btn btn-secondary btn-small"
+                            onclick="openCertificate('${escapeJs(certificate.id)}')"
+                        >
+                            فتح
+                        </button>
+
+                        <button
+                            class="btn btn-secondary btn-small"
+                            onclick="reissueCertificate('${escapeJs(certificate.id)}')"
+                        >
+                            إعادة إصدار
+                        </button>
+
+                        <button
+                            class="btn btn-danger btn-small"
+                            onclick="confirmDeleteCertificate('${escapeJs(certificate.id)}')"
+                        >
+                            حذف
+                        </button>
+
+                    </div>
+
+                </td>
+                `;
+
+
+            tbody.appendChild(
+                tr
+            );
+        }
+    );
 }
 
 
@@ -1212,7 +1610,9 @@ function renderCertificates() {
    GENERATE CERTIFICATE
 ========================================================= */
 
-async function handleGenerateCertificate(event) {
+async function handleGenerateCertificate(
+    event
+) {
 
     event.preventDefault();
 
@@ -1235,7 +1635,11 @@ async function handleGenerateCertificate(event) {
         ).value;
 
 
-    if (!traineeId || !courseId || !issueDate) {
+    if (
+        !traineeId ||
+        !courseId ||
+        !issueDate
+    ) {
 
         showMessage(
             "يرجى اختيار المتربص والدورة وتاريخ الإصدار.",
@@ -1276,10 +1680,14 @@ async function handleGenerateCertificate(event) {
     const existing =
         certificates.find(
             certificate =>
-                String(certificate.trainee_id) ===
+                String(
+                    certificate.trainee_id
+                ) ===
                     String(traineeId)
                 &&
-                String(certificate.course_id) ===
+                String(
+                    certificate.course_id
+                ) ===
                     String(courseId)
         );
 
@@ -1304,7 +1712,9 @@ async function handleGenerateCertificate(event) {
     try {
 
         button.disabled = true;
-        button.textContent = "جاري إنشاء الشهادة...";
+
+        button.textContent =
+            "جاري إنشاء الشهادة...";
 
 
         const certificateNumber =
@@ -1313,20 +1723,21 @@ async function handleGenerateCertificate(event) {
 
         const pdfBlob =
             await createCertificatePDF({
+
                 certificateNumber,
+
                 trainee,
+
                 course,
+
                 issueDate
+
             });
 
 
         const storagePath =
             `certificates/${certificateNumber}.pdf`;
 
-
-        /*
-         * رفع ملف PDF
-         */
 
         const uploadResult =
             await db.storage
@@ -1335,7 +1746,9 @@ async function handleGenerateCertificate(event) {
                     `${certificateNumber}.pdf`,
                     pdfBlob,
                     {
-                        contentType: "application/pdf",
+                        contentType:
+                            "application/pdf",
+
                         upsert: false
                     }
                 );
@@ -1346,41 +1759,36 @@ async function handleGenerateCertificate(event) {
         }
 
 
-        /*
-         * بالنسبة للـbucket الخاص:
-         * getPublicUrl ليس رابطًا صالحًا للمشاهدة
-         * في بعض إعدادات Supabase.
-         *
-         * لذلك نخزن رابط المسار الداخلي أيضًا
-         * ويمكن فتحه من خلال signed URL عند الحاجة.
-         */
-
         const pdfUrl =
             `certificates/${certificateNumber}.pdf`;
 
 
-        /*
-         * إدخال السجل في قاعدة البيانات
-         */
-
         const insertData = {
-            trainee_id: trainee.id,
-            course_id: course.id,
-            certificate_number: certificateNumber,
-            issue_date: issueDate,
-            pdf_url: pdfUrl
+
+            trainee_id:
+                trainee.id,
+
+            course_id:
+                course.id,
+
+            certificate_number:
+                certificateNumber,
+
+            issue_date:
+                issueDate,
+
+            pdf_url:
+                pdfUrl
         };
 
 
-        /*
-         * إذا كان participant_id موجودًا في بيانات المتربص
-         * نحاول ربطه، لكن لا نرسل قيمة غير موجودة.
-         */
-
         if (
-            trainee.participant_id !== undefined &&
-            trainee.participant_id !== null
+            trainee.participant_id !==
+                undefined &&
+            trainee.participant_id !==
+                null
         ) {
+
             insertData.participant_id =
                 trainee.participant_id;
         }
@@ -1389,17 +1797,14 @@ async function handleGenerateCertificate(event) {
         const insertResult =
             await db
                 .from("certificates")
-                .insert(insertData)
+                .insert(
+                    insertData
+                )
                 .select()
                 .single();
 
 
         if (insertResult.error) {
-
-            /*
-             * إذا فشل إدخال قاعدة البيانات
-             * نحاول حذف ملف PDF الذي تم رفعه.
-             */
 
             await removeStorageFile(
                 storagePath
@@ -1416,7 +1821,9 @@ async function handleGenerateCertificate(event) {
 
 
         document
-            .getElementById("certificateForm")
+            .getElementById(
+                "certificateForm"
+            )
             .reset();
 
 
@@ -1429,10 +1836,6 @@ async function handleGenerateCertificate(event) {
 
         renderCertificates();
 
-
-        /*
-         * فتح المعاينة مباشرة
-         */
 
         await openCertificateByPath(
             storagePath
@@ -1457,14 +1860,15 @@ async function handleGenerateCertificate(event) {
     } finally {
 
         button.disabled = false;
-        button.textContent = "إصدار الشهادة";
-    }
 
+        button.textContent =
+            "إصدار الشهادة";
+    }
 }
 
 
 /* =========================================================
-   UNIQUE CERTIFICATE NUMBER
+   UNIQUE NUMBER
 ========================================================= */
 
 async function generateUniqueCertificateNumber() {
@@ -1480,7 +1884,9 @@ async function generateUniqueCertificateNumber() {
     const result =
         await db
             .from("certificates")
-            .select("certificate_number")
+            .select(
+                "certificate_number"
+            )
             .like(
                 "certificate_number",
                 `${prefix}%`
@@ -1502,49 +1908,54 @@ async function generateUniqueCertificateNumber() {
     let maxNumber = 0;
 
 
-    (result.data || []).forEach(row => {
+    (
+        result.data || []
+    ).forEach(
+        row => {
 
-        const number =
-            String(
-                row.certificate_number || ""
-            );
-
-
-        const match =
-            number.match(
-                new RegExp(
-                    `^CERT-${year}-(\\d+)$`
-                )
-            );
-
-
-        if (match) {
-
-            const n =
-                parseInt(
-                    match[1],
-                    10
+            const number =
+                String(
+                    row.certificate_number ||
+                    ""
                 );
 
 
-            if (
-                Number.isFinite(n) &&
-                n > maxNumber
-            ) {
-                maxNumber = n;
+            const match =
+                number.match(
+                    new RegExp(
+                        `^CERT-${year}-(\\d+)$`
+                    )
+                );
+
+
+            if (match) {
+
+                const n =
+                    parseInt(
+                        match[1],
+                        10
+                    );
+
+
+                if (
+                    Number.isFinite(n) &&
+                    n > maxNumber
+                ) {
+
+                    maxNumber = n;
+                }
             }
         }
+    );
 
-    });
-
-
-    /*
-     * نضيف هامشًا صغيرًا ونتحقق من عدم وجود الرقم.
-     */
 
     for (
-        let counter = maxNumber + 1;
-        counter < maxNumber + 10000;
+        let counter =
+            maxNumber + 1;
+
+        counter <
+            maxNumber + 10000;
+
         counter++
     ) {
 
@@ -1584,7 +1995,9 @@ async function generateUniqueCertificateNumber() {
    REISSUE
 ========================================================= */
 
-async function reissueCertificate(id) {
+async function reissueCertificate(
+    id
+) {
 
     const certificate =
         certificates.find(
@@ -1609,7 +2022,9 @@ async function reissueCertificate(id) {
         trainees.find(
             t =>
                 String(t.id) ===
-                String(certificate.trainee_id)
+                String(
+                    certificate.trainee_id
+                )
         );
 
 
@@ -1617,7 +2032,9 @@ async function reissueCertificate(id) {
         courses.find(
             c =>
                 String(c.id) ===
-                String(certificate.course_id)
+                String(
+                    certificate.course_id
+                )
         );
 
 
@@ -1642,6 +2059,7 @@ async function reissueCertificate(id) {
 
         const pdfBlob =
             await createCertificatePDF({
+
                 certificateNumber:
                     certificate.certificate_number,
 
@@ -1651,22 +2069,13 @@ async function reissueCertificate(id) {
 
                 issueDate:
                     certificate.issue_date
+
             });
-
-
-        const oldPath =
-            getStoragePath(
-                certificate.pdf_url
-            );
 
 
         const filename =
             `${certificate.certificate_number}.pdf`;
 
-
-        /*
-         * رفع/استبدال الملف
-         */
 
         const upload =
             await db.storage
@@ -1687,10 +2096,6 @@ async function reissueCertificate(id) {
             throw upload.error;
         }
 
-
-        /*
-         * ضمان وجود المسار في قاعدة البيانات
-         */
 
         const update =
             await db
@@ -1742,7 +2147,6 @@ async function reissueCertificate(id) {
             "error"
         );
     }
-
 }
 
 
@@ -1750,7 +2154,9 @@ async function reissueCertificate(id) {
    DELETE CONFIRMATION
 ========================================================= */
 
-function confirmDeleteCertificate(id) {
+function confirmDeleteCertificate(
+    id
+) {
 
     const certificate =
         certificates.find(
@@ -1779,13 +2185,17 @@ function confirmDeleteCertificate(id) {
         trainees.find(
             t =>
                 String(t.id) ===
-                String(certificate.trainee_id)
+                String(
+                    certificate.trainee_id
+                )
         );
 
 
     const traineeName =
         trainee
-            ? getTraineeName(trainee)
+            ? getTraineeName(
+                trainee
+            )
             : "هذا المتربص";
 
 
@@ -1796,13 +2206,15 @@ function confirmDeleteCertificate(id) {
 
 
     document
-        .getElementById("deleteModal")
+        .getElementById(
+            "deleteModal"
+        )
         .classList.add("show");
 }
 
 
 /* =========================================================
-   DELETE CERTIFICATE
+   DELETE
 ========================================================= */
 
 async function executeDeleteCertificate() {
@@ -1825,21 +2237,10 @@ async function executeDeleteCertificate() {
     try {
 
         button.disabled = true;
-        button.textContent = "جاري الحذف...";
 
+        button.textContent =
+            "جاري الحذف...";
 
-        console.log(
-            "Deleting certificate:",
-            certificate
-        );
-
-
-        /*
-         * =====================================================
-         * الخطوة الأولى:
-         * حذف سجل الشهادة من قاعدة البيانات
-         * =====================================================
-         */
 
         const deleteResult =
             await db
@@ -1852,28 +2253,10 @@ async function executeDeleteCertificate() {
                 .select("id");
 
 
-        console.log(
-            "DELETE RESULT:",
-            deleteResult
-        );
-
-
         if (deleteResult.error) {
-
-            console.error(
-                "DELETE CERTIFICATE DATABASE ERROR:",
-                deleteResult.error
-            );
-
             throw deleteResult.error;
         }
 
-
-        /*
-         * مهم جدًا:
-         * إذا لم تُحذف أي صف فهذا يعني أن RLS
-         * أو الشرط منع العملية.
-         */
 
         if (
             !deleteResult.data ||
@@ -1885,13 +2268,6 @@ async function executeDeleteCertificate() {
             );
         }
 
-
-        /*
-         * =====================================================
-         * الخطوة الثانية:
-         * حذف ملف PDF من Storage
-         * =====================================================
-         */
 
         const storagePath =
             getStoragePath(
@@ -1909,11 +2285,6 @@ async function executeDeleteCertificate() {
 
             } catch (storageError) {
 
-                /*
-                 * السجل حُذف بالفعل.
-                 * لذلك لا نعيد العملية.
-                 */
-
                 console.error(
                     "STORAGE DELETE ERROR:",
                     storageError
@@ -1922,7 +2293,9 @@ async function executeDeleteCertificate() {
 
                 showMessage(
                     "تم حذف سجل الشهادة من قاعدة البيانات، لكن تعذر حذف ملف PDF من التخزين: " +
-                    getErrorMessage(storageError),
+                    getErrorMessage(
+                        storageError
+                    ),
                     "info"
                 );
 
@@ -1933,12 +2306,6 @@ async function executeDeleteCertificate() {
             }
         }
 
-
-        /*
-         * =====================================================
-         * النجاح
-         * =====================================================
-         */
 
         showMessage(
             `تم حذف الشهادة ${certificate.certificate_number} بنجاح.`,
@@ -1957,12 +2324,6 @@ async function executeDeleteCertificate() {
         );
 
 
-        /*
-         * هذه الرسالة مهمة جدًا:
-         * ستظهر لنا خطأ Supabase الحقيقي بدل
-         * رسالة عامة.
-         */
-
         showMessage(
             "فشل حذف الشهادة: " +
             getErrorMessage(error),
@@ -1973,15 +2334,17 @@ async function executeDeleteCertificate() {
     } finally {
 
         button.disabled = false;
+
         button.textContent =
             "نعم، حذف الشهادة";
 
 
-        certificateToDelete = null;
+        certificateToDelete =
+            null;
+
 
         closeDeleteModal();
     }
-
 }
 
 
@@ -2003,7 +2366,9 @@ async function afterDeleteRefresh() {
    STORAGE DELETE
 ========================================================= */
 
-async function removeStorageFile(path) {
+async function removeStorageFile(
+    path
+) {
 
     if (!path) {
         return;
@@ -2013,14 +2378,11 @@ async function removeStorageFile(path) {
     let cleanPath =
         String(path)
             .trim()
-            .replace(/^\/+/, "");
+            .replace(
+                /^\/+/,
+                ""
+            );
 
-
-    /*
-     * إذا كان المسار يبدأ باسم bucket
-     * نحذف اسم bucket لأن remove()
-     * يتوقع المسار داخل bucket فقط.
-     */
 
     if (
         cleanPath.startsWith(
@@ -2040,12 +2402,6 @@ async function removeStorageFile(path) {
     }
 
 
-    console.log(
-        "Deleting Storage file:",
-        cleanPath
-    );
-
-
     const result =
         await db.storage
             .from("certificates")
@@ -2055,28 +2411,18 @@ async function removeStorageFile(path) {
 
 
     if (result.error) {
-
-        console.error(
-            "Storage remove error:",
-            result.error
-        );
-
         throw result.error;
     }
-
-
-    console.log(
-        "Storage file deleted:",
-        cleanPath
-    );
 }
 
 
 /* =========================================================
-   STORAGE PATH EXTRACTION
+   STORAGE PATH
 ========================================================= */
 
-function getStoragePath(value) {
+function getStoragePath(
+    value
+) {
 
     if (!value) {
         return "";
@@ -2086,11 +2432,6 @@ function getStoragePath(value) {
     let valueString =
         String(value).trim();
 
-
-    /*
-     * مسار داخلي:
-     * certificates/CERT-....pdf
-     */
 
     if (
         valueString.startsWith(
@@ -2102,20 +2443,14 @@ function getStoragePath(value) {
     }
 
 
-    /*
-     * رابط Supabase Storage:
-     *
-     * /storage/v1/object/public/certificates/file.pdf
-     * /storage/v1/object/sign/certificates/file.pdf
-     * /storage/v1/object/authenticated/certificates/file.pdf
-     */
-
     const marker =
         "/storage/v1/object/";
 
 
     const index =
-        valueString.indexOf(marker);
+        valueString.indexOf(
+            marker
+        );
 
 
     if (index !== -1) {
@@ -2149,21 +2484,23 @@ function getStoragePath(value) {
                 "certificates"
             ) {
 
-                return `certificates/${decodeURIComponent(filePath)}`;
+                return (
+                    `certificates/${decodeURIComponent(filePath)}`
+                );
             }
         }
     }
 
 
-    /*
-     * في حال كان مجرد اسم الملف.
-     */
-
     if (
-        valueString.endsWith(".pdf")
+        valueString.endsWith(
+            ".pdf"
+        )
     ) {
 
-        return `certificates/${valueString}`;
+        return (
+            `certificates/${valueString}`
+        );
     }
 
 
@@ -2175,7 +2512,9 @@ function getStoragePath(value) {
    OPEN CERTIFICATE
 ========================================================= */
 
-async function openCertificate(id) {
+async function openCertificate(
+    id
+) {
 
     const certificate =
         certificates.find(
@@ -2205,6 +2544,7 @@ async function openCertificate(id) {
 
 
         if (!path) {
+
             throw new Error(
                 "مسار ملف الشهادة غير موجود."
             );
@@ -2230,19 +2570,23 @@ async function openCertificate(id) {
             "error"
         );
     }
-
 }
 
 
 /* =========================================================
-   OPEN BY STORAGE PATH
+   OPEN BY PATH
 ========================================================= */
 
-async function openCertificateByPath(path) {
+async function openCertificateByPath(
+    path
+) {
 
     let cleanPath =
         String(path)
-            .replace(/^\/+/, "");
+            .replace(
+                /^\/+/,
+                ""
+            );
 
 
     if (
@@ -2272,25 +2616,27 @@ async function openCertificateByPath(path) {
     }
 
 
-    if (!result.data || !result.data.signedUrl) {
+    if (
+        !result.data ||
+        !result.data.signedUrl
+    ) {
+
         throw new Error(
             "تعذر إنشاء رابط آمن لملف الشهادة."
         );
     }
 
 
-    const preview =
-        document.getElementById(
-            "pdfPreview"
-        );
-
-
-    preview.src =
+    document.getElementById(
+        "pdfPreview"
+    ).src =
         result.data.signedUrl;
 
 
     document
-        .getElementById("previewModal")
+        .getElementById(
+            "previewModal"
+        )
         .classList.add("show");
 }
 
@@ -2302,7 +2648,9 @@ async function openCertificateByPath(path) {
 function closePreview() {
 
     document
-        .getElementById("previewModal")
+        .getElementById(
+            "previewModal"
+        )
         .classList.remove("show");
 
 
@@ -2313,7 +2661,7 @@ function closePreview() {
 
 
 /* =========================================================
-   CREATE CERTIFICATE PDF
+   NEW DIGITAL CERTIFICATE
 ========================================================= */
 
 async function createCertificatePDF({
@@ -2324,18 +2672,11 @@ async function createCertificatePDF({
 }) {
 
     /*
-     * تحميل قالب الشهادة
-     */
-
-    const template =
-        await loadImage(
-            "certificate-template.png?version=20260915"
-        );
-
-
-    /*
-     * إنشاء Canvas بنفس أبعاد القالب
-     * لتفادي اختلاف التحجيم بين Canvas وPDF.
+     * =====================================================
+     * حجم Canvas
+     *
+     * A4 أفقي بنسبة 297 / 210
+     * =====================================================
      */
 
     const canvas =
@@ -2344,33 +2685,82 @@ async function createCertificatePDF({
         );
 
 
-    canvas.width =
-        template.naturalWidth ||
-        template.width ||
-        2480;
+    canvas.width = 3508;
 
-
-    canvas.height =
-        template.naturalHeight ||
-        template.height ||
-        1754;
+    canvas.height = 2480;
 
 
     const ctx =
-        canvas.getContext("2d");
+        canvas.getContext(
+            "2d"
+        );
 
 
-    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingEnabled =
+        true;
 
-    ctx.imageSmoothingQuality = "high";
+
+    ctx.imageSmoothingQuality =
+        "high";
+
+
+    await waitForArabicFont();
 
 
     /*
-     * الخلفية
+     * =====================================================
+     * PALETTE
+     * =====================================================
      */
 
-    ctx.drawImage(
-        template,
+    const colors = {
+
+        background:
+            "#fbfaf8",
+
+        paper:
+            "#ffffff",
+
+        primary:
+            "#57386f",
+
+        primaryLight:
+            "#8c6aa5",
+
+        gold:
+            "#b38a42",
+
+        goldLight:
+            "#d7bb7d",
+
+        text:
+            "#2f2635",
+
+        muted:
+            "#706577",
+
+        border:
+            "#d9cbb2",
+
+        white:
+            "#ffffff",
+
+        soft:
+            "#f5f0f7"
+    };
+
+
+    /*
+     * =====================================================
+     * BACKGROUND
+     * =====================================================
+     */
+
+    ctx.fillStyle =
+        colors.background;
+
+
+    ctx.fillRect(
         0,
         0,
         canvas.width,
@@ -2379,91 +2769,394 @@ async function createCertificatePDF({
 
 
     /*
-     * إعداد الخط العربي
+     * الورقة البيضاء الرئيسية
      */
 
-    await waitForArabicFont();
+    const margin =
+        85;
 
 
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.direction = "rtl";
+    ctx.fillStyle =
+        colors.paper;
+
+
+    roundRect(
+        ctx,
+        margin,
+        margin,
+        canvas.width -
+            margin * 2,
+        canvas.height -
+            margin * 2,
+        35
+    );
+
+
+    ctx.fill();
 
 
     /*
-     * ألوان النصوص
-     *
-     * لا نستخدم لونًا صارخًا حتى ينسجم
-     * مع قالب الشهادة.
+     * الإطار الرئيسي
      */
 
-    const mainTextColor =
-        "#2d2338";
+    ctx.strokeStyle =
+        colors.primary;
+
+
+    ctx.lineWidth = 10;
+
+
+    roundRect(
+        ctx,
+        margin + 18,
+        margin + 18,
+        canvas.width -
+            (margin + 18) * 2,
+        canvas.height -
+            (margin + 18) * 2,
+        28
+    );
+
+
+    ctx.stroke();
 
 
     /*
-     * اسم المتربص
+     * الإطار الذهبي الداخلي
+     */
+
+    ctx.strokeStyle =
+        colors.gold;
+
+
+    ctx.lineWidth = 3;
+
+
+    roundRect(
+        ctx,
+        margin + 42,
+        margin + 42,
+        canvas.width -
+            (margin + 42) * 2,
+        canvas.height -
+            (margin + 42) * 2,
+        22
+    );
+
+
+    ctx.stroke();
+
+
+    /*
+     * =====================================================
+     * زخارف الزوايا
+     * =====================================================
+     */
+
+    drawCornerDecoration(
+        ctx,
+        145,
+        145,
+        1,
+        1,
+        colors.gold
+    );
+
+
+    drawCornerDecoration(
+        ctx,
+        canvas.width - 145,
+        145,
+        -1,
+        1,
+        colors.gold
+    );
+
+
+    drawCornerDecoration(
+        ctx,
+        145,
+        canvas.height - 145,
+        1,
+        -1,
+        colors.gold
+    );
+
+
+    drawCornerDecoration(
+        ctx,
+        canvas.width - 145,
+        canvas.height - 145,
+        -1,
+        -1,
+        colors.gold
+    );
+
+
+    /*
+     * =====================================================
+     * HEADER
+     * =====================================================
+     */
+
+    const centerX =
+        canvas.width / 2;
+
+
+    drawCenteredText(
+        ctx,
+        "الجمهورية الجزائرية الديمقراطية الشعبية",
+        centerX,
+        250,
+        47,
+        700,
+        colors.primary
+    );
+
+
+    drawCenteredText(
+        ctx,
+        "المؤسسة العمومية الاستشفائية بأولف",
+        centerX,
+        315,
+        42,
+        700,
+        colors.text
+    );
+
+
+    drawCenteredText(
+        ctx,
+        "ولاية أدرار",
+        centerX,
+        365,
+        34,
+        400,
+        colors.muted
+    );
+
+
+    /*
+     * خط زخرفي
+     */
+
+    drawDecorativeLine(
+        ctx,
+        centerX,
+        430,
+        650,
+        colors.gold
+    );
+
+
+    /*
+     * =====================================================
+     * TITLE
+     * =====================================================
+     */
+
+    drawCenteredText(
+        ctx,
+        "شهادة إتمام التكوين",
+        centerX,
+        570,
+        76,
+        700,
+        colors.primary
+    );
+
+
+    drawCenteredText(
+        ctx,
+        "التكوين المتواصل",
+        centerX,
+        640,
+        36,
+        400,
+        colors.muted
+    );
+
+
+    /*
+     * =====================================================
+     * INTRODUCTION
+     * =====================================================
+     */
+
+    drawCenteredText(
+        ctx,
+        "تشهد المؤسسة العمومية الاستشفائية بأولف أن",
+        centerX,
+        800,
+        39,
+        400,
+        colors.text
+    );
+
+
+    /*
+     * =====================================================
+     * TRAINEE NAME
+     * =====================================================
      */
 
     const traineeName =
-        getTraineeName(trainee);
+        getTraineeName(
+            trainee
+        );
 
 
-    drawFittedArabicText(
+    drawCenteredTextFitted(
         ctx,
         traineeName,
-        canvas.width * 0.50,
-        canvas.height * 0.455,
-        canvas.width * 0.72,
-        82,
-        48,
+        centerX,
+        940,
+        1250,
+        78,
+        50,
         700,
-        mainTextColor
+        colors.primary
     );
 
 
     /*
-     * اسم الدورة
-     *
-     * يسمح بسطرين إذا كان الاسم طويلاً.
+     * خط أسفل الاسم
      */
+
+    drawDecorativeLine(
+        ctx,
+        centerX,
+        1015,
+        800,
+        colors.gold
+    );
+
+
+    /*
+     * =====================================================
+     * COURSE LABEL
+     * =====================================================
+     */
+
+    drawCenteredText(
+        ctx,
+        "قد أتم بنجاح التكوين الموسوم بـ",
+        centerX,
+        1130,
+        39,
+        400,
+        colors.text
+    );
+
+
+    /*
+     * =====================================================
+     * COURSE BOX
+     * =====================================================
+     */
+
+    const courseBoxX = 500;
+
+    const courseBoxY = 1190;
+
+    const courseBoxWidth =
+        canvas.width - 1000;
+
+    const courseBoxHeight = 300;
+
+
+    ctx.fillStyle =
+        colors.soft;
+
+
+    roundRect(
+        ctx,
+        courseBoxX,
+        courseBoxY,
+        courseBoxWidth,
+        courseBoxHeight,
+        28
+    );
+
+
+    ctx.fill();
+
+
+    ctx.strokeStyle =
+        colors.border;
+
+
+    ctx.lineWidth = 4;
+
+
+    roundRect(
+        ctx,
+        courseBoxX,
+        courseBoxY,
+        courseBoxWidth,
+        courseBoxHeight,
+        28
+    );
+
+
+    ctx.stroke();
+
 
     const courseName =
-        getCourseName(course);
+        getCourseName(
+            course
+        );
 
 
-    drawMultilineFittedArabicText(
+    drawCenteredMultilineFitted(
         ctx,
         courseName,
-        canvas.width * 0.50,
-        canvas.height * 0.565,
-        canvas.width * 0.68,
-        54,
-        31,
+        centerX,
+        courseBoxY +
+            courseBoxHeight / 2,
+        courseBoxWidth - 130,
+        66,
+        38,
         700,
-        mainTextColor,
-        1.18
+        colors.primary,
+        1.15,
+        2
     );
 
 
     /*
-     * التاريخ
+     * =====================================================
+     * INFORMATION AREA
+     * =====================================================
      */
 
-    const formattedDate =
-        formatArabicDate(issueDate);
+    const infoY = 1635;
+
+    const infoGap = 35;
+
+    const infoWidth = 820;
+
+    const infoHeight = 220;
 
 
-    drawFittedArabicText(
+    /*
+     * تاريخ الإصدار
+     */
+
+    drawInfoCard(
         ctx,
-        formattedDate,
-        canvas.width * 0.50,
-        canvas.height * 0.665,
-        canvas.width * 0.35,
-        35,
-        23,
-        400,
-        mainTextColor
+        centerX -
+            infoWidth -
+            infoGap / 2,
+        infoY,
+        infoWidth,
+        infoHeight,
+        "تاريخ الإصدار",
+        formatArabicDate(
+            issueDate
+        ),
+        colors,
+        "date"
     );
 
 
@@ -2471,38 +3164,24 @@ async function createCertificatePDF({
      * رقم الشهادة
      */
 
-    drawFittedArabicText(
+    drawInfoCard(
         ctx,
-        `رقم الشهادة: ${certificateNumber}`,
-        canvas.width * 0.50,
-        canvas.height * 0.715,
-        canvas.width * 0.38,
-        31,
-        19,
-        400,
-        mainTextColor
+        centerX +
+            infoGap / 2,
+        infoY,
+        infoWidth,
+        infoHeight,
+        "رقم الشهادة",
+        certificateNumber,
+        colors,
+        "number"
     );
 
 
     /*
-     * التوقيع
-     */
-
-    drawFittedArabicText(
-        ctx,
-        "رئيس مكتب التكوين",
-        canvas.width * 0.83,
-        canvas.height * 0.855,
-        canvas.width * 0.23,
-        36,
-        23,
-        700,
-        mainTextColor
-    );
-
-
-    /*
-     * QR Code
+     * =====================================================
+     * FOOTER / QR
+     * =====================================================
      */
 
     const qrData =
@@ -2514,37 +3193,58 @@ async function createCertificatePDF({
     const qrCanvas =
         await createQRCodeCanvas(
             qrData,
-            420
+            520
         );
 
 
-    const qrSize =
-        canvas.width * 0.095;
+    const qrSize = 300;
 
 
-    const qrX =
-        canvas.width * 0.075 -
-        qrSize / 2;
-
+    const qrX = 250;
 
     const qrY =
-        canvas.height * 0.785;
+        canvas.height - 520;
 
 
     /*
-     * خلفية بيضاء للـQR
+     * إطار QR
      */
 
     ctx.fillStyle =
-        "#ffffff";
+        colors.white;
 
 
-    ctx.fillRect(
-        qrX - 10,
-        qrY - 10,
-        qrSize + 20,
-        qrSize + 20
+    roundRect(
+        ctx,
+        qrX - 25,
+        qrY - 25,
+        qrSize + 50,
+        qrSize + 50,
+        20
     );
+
+
+    ctx.fill();
+
+
+    ctx.strokeStyle =
+        colors.border;
+
+
+    ctx.lineWidth = 3;
+
+
+    roundRect(
+        ctx,
+        qrX - 25,
+        qrY - 25,
+        qrSize + 50,
+        qrSize + 50,
+        20
+    );
+
+
+    ctx.stroke();
 
 
     ctx.drawImage(
@@ -2556,38 +3256,121 @@ async function createCertificatePDF({
     );
 
 
+    drawCenteredText(
+        ctx,
+        "التحقق الإلكتروني",
+        qrX +
+            qrSize / 2,
+        qrY +
+            qrSize +
+            55,
+        31,
+        700,
+        colors.primary
+    );
+
+
+    drawCenteredText(
+        ctx,
+        "امسح الرمز للتحقق من صحة الشهادة",
+        qrX +
+            qrSize / 2,
+        qrY +
+            qrSize +
+            100,
+        25,
+        400,
+        colors.muted
+    );
+
+
     /*
-     * تحويل Canvas إلى PDF
+     * =====================================================
+     * SIGNATURE
+     * =====================================================
+     */
+
+    const signatureX =
+        canvas.width -
+        650;
+
+
+    const signatureY =
+        canvas.height -
+        430;
+
+
+    drawCenteredText(
+        ctx,
+        "رئيس مكتب التكوين",
+        signatureX,
+        signatureY,
+        39,
+        700,
+        colors.primary
+    );
+
+
+    drawDecorativeLine(
+        ctx,
+        signatureX,
+        signatureY + 60,
+        360,
+        colors.gold
+    );
+
+
+    /*
+     * =====================================================
+     * VERIFICATION URL
+     * =====================================================
+     */
+
+    drawCenteredTextFitted(
+        ctx,
+        qrData,
+        centerX,
+        canvas.height - 145,
+        1550,
+        24,
+        17,
+        400,
+        colors.muted
+    );
+
+
+    /*
+     * =====================================================
+     * EXPORT TO PDF
+     * =====================================================
      */
 
     const imageData =
         canvas.toDataURL(
             "image/jpeg",
-            0.96
+            0.97
         );
 
 
     const {
         jsPDF
-    } = window.jspdf;
-
-
-    /*
-     * نحدد الاتجاه حسب أبعاد القالب.
-     */
-
-    const orientation =
-        canvas.width >= canvas.height
-            ? "landscape"
-            : "portrait";
+    } =
+        window.jspdf;
 
 
     const pdf =
         new jsPDF({
-            orientation,
-            unit: "mm",
-            format: "a4",
-            compress: true
+            orientation:
+                "landscape",
+
+            unit:
+                "mm",
+
+            format:
+                "a4",
+
+            compress:
+                true
         });
 
 
@@ -2618,10 +3401,58 @@ async function createCertificatePDF({
 
 
 /* =========================================================
-   DRAW ARABIC TEXT
+   DRAW CENTERED TEXT
 ========================================================= */
 
-function drawFittedArabicText(
+function drawCenteredText(
+    ctx,
+    text,
+    x,
+    y,
+    size,
+    weight,
+    color
+) {
+
+    ctx.save();
+
+
+    ctx.direction =
+        "rtl";
+
+
+    ctx.textAlign =
+        "center";
+
+
+    ctx.textBaseline =
+        "middle";
+
+
+    ctx.font =
+        `${weight} ${size}px "Amiri", Tahoma, Arial, sans-serif`;
+
+
+    ctx.fillStyle =
+        color;
+
+
+    ctx.fillText(
+        String(text || ""),
+        x,
+        y
+    );
+
+
+    ctx.restore();
+}
+
+
+/* =========================================================
+   FITTED CENTERED TEXT
+========================================================= */
+
+function drawCenteredTextFitted(
     ctx,
     text,
     x,
@@ -2645,13 +3476,12 @@ function drawFittedArabicText(
             `${weight} ${size}px "Amiri", Tahoma, Arial, sans-serif`;
 
 
-        const measured =
-            ctx.measureText(text).width;
-
-
         if (
-            measured <= maxWidth
+            ctx.measureText(
+                String(text || "")
+            ).width <= maxWidth
         ) {
+
             break;
         }
 
@@ -2660,23 +3490,23 @@ function drawFittedArabicText(
     }
 
 
-    ctx.fillStyle =
-        color;
-
-
-    ctx.fillText(
+    drawCenteredText(
+        ctx,
         text,
         x,
-        y
+        y,
+        size,
+        weight,
+        color
     );
 }
 
 
 /* =========================================================
-   MULTILINE ARABIC TEXT
+   MULTILINE FITTED TEXT
 ========================================================= */
 
-function drawMultilineFittedArabicText(
+function drawCenteredMultilineFitted(
     ctx,
     text,
     x,
@@ -2686,17 +3516,20 @@ function drawMultilineFittedArabicText(
     minSize,
     weight,
     color,
-    lineHeight
+    lineHeight,
+    maxLines
 ) {
 
     let size =
         startSize;
 
 
-    let lines;
+    let lines = [];
 
 
-    while (size >= minSize) {
+    while (
+        size >= minSize
+    ) {
 
         ctx.font =
             `${weight} ${size}px "Amiri", Tahoma, Arial, sans-serif`;
@@ -2711,7 +3544,7 @@ function drawMultilineFittedArabicText(
 
 
         if (
-            lines.length <= 2
+            lines.length <= maxLines
         ) {
 
             break;
@@ -2723,69 +3556,81 @@ function drawMultilineFittedArabicText(
 
 
     /*
-     * إذا بقي أكثر من سطرين،
-     * نستعمل أول سطرين فقط مع محاولة
-     * الحفاظ على اسم الدورة كاملًا.
+     * إذا كانت الدورة طويلة جدًا،
+     * نضغطها داخل سطرين بدل السماح
+     * بامتدادها إلى عناصر أخرى.
      */
 
     if (
-        lines.length > 2
+        lines.length > maxLines
     ) {
 
-        const first =
-            lines[0];
-
-
-        const remaining =
-            lines
-                .slice(1)
-                .join(" ");
-
-
-        lines = [
-            first,
-            remaining
-        ];
+        lines =
+            forceTwoLines(
+                ctx,
+                text,
+                maxWidth
+            );
 
 
         while (
-            ctx.measureText(
-                lines[1]
-            ).width > maxWidth &&
+            lines.some(
+                line =>
+                    ctx.measureText(
+                        line
+                    ).width >
+                    maxWidth
+            ) &&
             size > minSize
         ) {
 
             size -= 1;
 
+
             ctx.font =
                 `${weight} ${size}px "Amiri", Tahoma, Arial, sans-serif`;
+
+
+            lines =
+                forceTwoLines(
+                    ctx,
+                    text,
+                    maxWidth
+                );
         }
     }
 
 
-    ctx.fillStyle =
-        color;
-
-
     const actualLineHeight =
-        size * lineHeight;
+        size *
+        lineHeight;
 
 
     const startY =
         y -
-        ((lines.length - 1) *
-            actualLineHeight / 2);
+        (
+            (lines.length - 1) *
+            actualLineHeight /
+            2
+        );
 
 
     lines.forEach(
-        (line, index) => {
+        (
+            line,
+            index
+        ) => {
 
-            ctx.fillText(
+            drawCenteredText(
+                ctx,
                 line,
                 x,
                 startY +
                     index *
-                    actualLineHeight
+                    actualLineHeight,
+                size,
+                weight,
+                color
             );
         }
     );
@@ -2793,7 +3638,7 @@ function drawMultilineFittedArabicText(
 
 
 /* =========================================================
-   WRAP ARABIC TEXT
+   WRAP ARABIC
 ========================================================= */
 
 function wrapArabicText(
@@ -2803,7 +3648,7 @@ function wrapArabicText(
 ) {
 
     const words =
-        String(text)
+        String(text || "")
             .trim()
             .split(/\s+/);
 
@@ -2813,43 +3658,515 @@ function wrapArabicText(
     let current = "";
 
 
-    words.forEach(word => {
+    words.forEach(
+        word => {
 
-        const test =
-            current
-                ? `${current} ${word}`
-                : word;
-
-
-        const width =
-            ctx.measureText(test).width;
-
-
-        if (
-            width <= maxWidth ||
-            !current
-        ) {
-
-            current = test;
-
-        } else {
-
-            lines.push(
+            const test =
                 current
-            );
+                    ? `${current} ${word}`
+                    : word;
 
-            current = word;
+
+            const width =
+                ctx.measureText(
+                    test
+                ).width;
+
+
+            if (
+                width <= maxWidth
+            ) {
+
+                current =
+                    test;
+
+            } else {
+
+                if (current) {
+
+                    lines.push(
+                        current
+                    );
+                }
+
+
+                current =
+                    word;
+            }
         }
-
-    });
+    );
 
 
     if (current) {
-        lines.push(current);
+
+        lines.push(
+            current
+        );
     }
 
 
     return lines;
+}
+
+
+/* =========================================================
+   FORCE TWO LINES
+========================================================= */
+
+function forceTwoLines(
+    ctx,
+    text,
+    maxWidth
+) {
+
+    const words =
+        String(text || "")
+            .trim()
+            .split(/\s+/);
+
+
+    if (
+        words.length <= 1
+    ) {
+
+        return [
+            String(text || "")
+        ];
+    }
+
+
+    let bestIndex = 1;
+
+    let bestDifference =
+        Infinity;
+
+
+    for (
+        let i = 1;
+        i < words.length;
+        i++
+    ) {
+
+        const first =
+            words
+                .slice(0, i)
+                .join(" ");
+
+
+        const second =
+            words
+                .slice(i)
+                .join(" ");
+
+
+        const w1 =
+            ctx.measureText(
+                first
+            ).width;
+
+
+        const w2 =
+            ctx.measureText(
+                second
+            ).width;
+
+
+        const difference =
+            Math.abs(
+                w1 - w2
+            );
+
+
+        if (
+            w1 <= maxWidth &&
+            w2 <= maxWidth &&
+            difference <
+                bestDifference
+        ) {
+
+            bestDifference =
+                difference;
+
+
+            bestIndex =
+                i;
+        }
+    }
+
+
+    return [
+        words
+            .slice(0, bestIndex)
+            .join(" "),
+
+        words
+            .slice(bestIndex)
+            .join(" ")
+    ];
+}
+
+
+/* =========================================================
+   INFO CARD
+========================================================= */
+
+function drawInfoCard(
+    ctx,
+    x,
+    y,
+    width,
+    height,
+    label,
+    value,
+    colors,
+    type
+) {
+
+    ctx.fillStyle =
+        "#ffffff";
+
+
+    roundRect(
+        ctx,
+        x,
+        y,
+        width,
+        height,
+        25
+    );
+
+
+    ctx.fill();
+
+
+    ctx.strokeStyle =
+        colors.border;
+
+
+    ctx.lineWidth = 3;
+
+
+    roundRect(
+        ctx,
+        x,
+        y,
+        width,
+        height,
+        25
+    );
+
+
+    ctx.stroke();
+
+
+    /*
+     * الشريط العلوي
+     */
+
+    ctx.fillStyle =
+        colors.primary;
+
+
+    roundRect(
+        ctx,
+        x,
+        y,
+        width,
+        12,
+        12
+    );
+
+
+    ctx.fill();
+
+
+    drawCenteredText(
+        ctx,
+        label,
+        x +
+            width / 2,
+        y + 65,
+        31,
+        700,
+        colors.muted
+    );
+
+
+    drawCenteredTextFitted(
+        ctx,
+        value,
+        x +
+            width / 2,
+        y + 140,
+        width - 90,
+        type === "number"
+            ? 36
+            : 42,
+        24,
+        700,
+        colors.primary
+    );
+}
+
+
+/* =========================================================
+   DECORATIVE LINE
+========================================================= */
+
+function drawDecorativeLine(
+    ctx,
+    centerX,
+    y,
+    width,
+    color
+) {
+
+    ctx.save();
+
+
+    ctx.strokeStyle =
+        color;
+
+
+    ctx.lineWidth = 4;
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+        centerX -
+            width / 2,
+        y
+    );
+
+
+    ctx.lineTo(
+        centerX -
+            35,
+        y
+    );
+
+
+    ctx.stroke();
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+        centerX +
+            35,
+        y
+    );
+
+
+    ctx.lineTo(
+        centerX +
+            width / 2,
+        y
+    );
+
+
+    ctx.stroke();
+
+
+    ctx.fillStyle =
+        color;
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        centerX,
+        y,
+        9,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    ctx.restore();
+}
+
+
+/* =========================================================
+   CORNER DECORATION
+========================================================= */
+
+function drawCornerDecoration(
+    ctx,
+    x,
+    y,
+    dirX,
+    dirY,
+    color
+) {
+
+    ctx.save();
+
+
+    ctx.strokeStyle =
+        color;
+
+
+    ctx.lineWidth = 5;
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+        x,
+        y
+    );
+
+
+    ctx.lineTo(
+        x +
+            100 *
+            dirX,
+        y
+    );
+
+
+    ctx.moveTo(
+        x,
+        y
+    );
+
+
+    ctx.lineTo(
+        x,
+        y +
+            100 *
+            dirY
+    );
+
+
+    ctx.stroke();
+
+
+    ctx.lineWidth = 2;
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+        x +
+            18 *
+            dirX,
+        y
+    );
+
+
+    ctx.lineTo(
+        x +
+            75 *
+            dirX,
+        y +
+            57 *
+            dirY
+    );
+
+
+    ctx.stroke();
+
+
+    ctx.restore();
+}
+
+
+/* =========================================================
+   ROUND RECT
+========================================================= */
+
+function roundRect(
+    ctx,
+    x,
+    y,
+    width,
+    height,
+    radius
+) {
+
+    const r =
+        Math.min(
+            radius,
+            width / 2,
+            height / 2
+        );
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+        x + r,
+        y
+    );
+
+
+    ctx.lineTo(
+        x + width - r,
+        y
+    );
+
+
+    ctx.quadraticCurveTo(
+        x + width,
+        y,
+        x + width,
+        y + r
+    );
+
+
+    ctx.lineTo(
+        x + width,
+        y + height - r
+    );
+
+
+    ctx.quadraticCurveTo(
+        x + width,
+        y + height,
+        x + width - r,
+        y + height
+    );
+
+
+    ctx.lineTo(
+        x + r,
+        y + height
+    );
+
+
+    ctx.quadraticCurveTo(
+        x,
+        y + height,
+        x,
+        y + height - r
+    );
+
+
+    ctx.lineTo(
+        x,
+        y + r
+    );
+
+
+    ctx.quadraticCurveTo(
+        x,
+        y,
+        x + r,
+        y
+    );
+
+
+    ctx.closePath();
 }
 
 
@@ -2863,7 +4180,10 @@ async function createQRCodeCanvas(
 ) {
 
     return new Promise(
-        (resolve, reject) => {
+        (
+            resolve,
+            reject
+        ) => {
 
             const container =
                 document.createElement(
@@ -2898,93 +4218,58 @@ async function createQRCodeCanvas(
                     container,
                     {
                         text,
-                        width: size,
-                        height: size,
+
+                        width:
+                            size,
+
+                        height:
+                            size,
+
                         correctLevel:
                             QRCode.CorrectLevel.H
                     }
                 );
 
 
-                setTimeout(() => {
+                setTimeout(
+                    () => {
 
-                    const canvas =
-                        container.querySelector(
-                            "canvas"
-                        );
-
-
-                    const image =
-                        container.querySelector(
-                            "img"
-                        );
-
-
-                    if (canvas) {
-
-                        const copy =
-                            document.createElement(
+                        const canvas =
+                            container.querySelector(
                                 "canvas"
                             );
 
 
-                        copy.width =
-                            canvas.width;
-
-                        copy.height =
-                            canvas.height;
-
-
-                        copy
-                            .getContext("2d")
-                            .drawImage(
-                                canvas,
-                                0,
-                                0
+                        const image =
+                            container.querySelector(
+                                "img"
                             );
 
 
-                        document.body.removeChild(
-                            container
-                        );
+                        if (canvas) {
+
+                            const copy =
+                                document.createElement(
+                                    "canvas"
+                                );
 
 
-                        resolve(copy);
+                            copy.width =
+                                canvas.width;
 
-                        return;
-                    }
-
-
-                    if (image) {
-
-                        const copy =
-                            document.createElement(
-                                "canvas"
-                            );
+                            copy.height =
+                                canvas.height;
 
 
-                        copy.width =
-                            size;
-
-                        copy.height =
-                            size;
-
-
-                        const c =
-                            copy.getContext(
-                                "2d"
-                            );
-
-
-                        image.onload = () => {
-
-                            c.drawImage(
-                                image,
-                                0,
-                                0,
-                                size,
-                                size
-                            );
+                            copy
+                                .getContext(
+                                    "2d"
+                                )
+                                .drawImage(
+                                    canvas,
+                                    0,
+                                    0
+                                );
 
 
                             document.body.removeChild(
@@ -2992,29 +4277,80 @@ async function createQRCodeCanvas(
                             );
 
 
-                            resolve(copy);
-                        };
+                            resolve(
+                                copy
+                            );
+
+                            return;
+                        }
 
 
-                        image.onerror =
-                            reject;
+                        if (image) {
 
-                        return;
-                    }
-
-
-                    document.body.removeChild(
-                        container
-                    );
+                            const copy =
+                                document.createElement(
+                                    "canvas"
+                                );
 
 
-                    reject(
-                        new Error(
-                            "تعذر إنشاء QR Code."
-                        )
-                    );
+                            copy.width =
+                                size;
 
-                }, 100);
+                            copy.height =
+                                size;
+
+
+                            const c =
+                                copy.getContext(
+                                    "2d"
+                                );
+
+
+                            image.onload =
+                                () => {
+
+                                    c.drawImage(
+                                        image,
+                                        0,
+                                        0,
+                                        size,
+                                        size
+                                    );
+
+
+                                    document.body.removeChild(
+                                        container
+                                    );
+
+
+                                    resolve(
+                                        copy
+                                    );
+                                };
+
+
+                            image.onerror =
+                                reject;
+
+                            return;
+                        }
+
+
+                        document.body.removeChild(
+                            container
+                        );
+
+
+                        reject(
+                            new Error(
+                                "تعذر إنشاء QR Code."
+                            )
+                        );
+
+                    },
+                    150
+                );
+
 
             } catch (error) {
 
@@ -3022,7 +4358,9 @@ async function createQRCodeCanvas(
                     container
                 );
 
-                reject(error);
+                reject(
+                    error
+                );
             }
         }
     );
@@ -3057,40 +4395,7 @@ function buildVerificationUrl(
 
 
 /* =========================================================
-   LOAD IMAGE
-========================================================= */
-
-function loadImage(src) {
-
-    return new Promise(
-        (resolve, reject) => {
-
-            const img =
-                new Image();
-
-
-            img.onload =
-                () => resolve(img);
-
-
-            img.onerror =
-                () =>
-                    reject(
-                        new Error(
-                            "تعذر تحميل قالب الشهادة: " +
-                            src
-                        )
-                    );
-
-
-            img.src = src;
-        }
-    );
-}
-
-
-/* =========================================================
-   WAIT FOR AMIRI
+   WAIT FOR FONT
 ========================================================= */
 
 async function waitForArabicFont() {
@@ -3103,11 +4408,12 @@ async function waitForArabicFont() {
         ) {
 
             await document.fonts.load(
-                '700 60px "Amiri"'
+                '700 70px "Amiri"'
             );
 
+
             await document.fonts.load(
-                '400 40px "Amiri"'
+                '400 50px "Amiri"'
             );
         }
 
@@ -3146,13 +4452,19 @@ function setDefaultDate() {
         const month =
             String(
                 today.getMonth() + 1
-            ).padStart(2, "0");
+            ).padStart(
+                2,
+                "0"
+            );
 
 
         const day =
             String(
                 today.getDate()
-            ).padStart(2, "0");
+            ).padStart(
+                2,
+                "0"
+            );
 
 
         input.value =
@@ -3161,7 +4473,9 @@ function setDefaultDate() {
 }
 
 
-function formatDate(value) {
+function formatDate(
+    value
+) {
 
     if (!value) {
         return "-";
@@ -3173,9 +4487,14 @@ function formatDate(value) {
         return new Intl.DateTimeFormat(
             "ar-DZ",
             {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit"
+                year:
+                    "numeric",
+
+                month:
+                    "2-digit",
+
+                day:
+                    "2-digit"
             }
         ).format(
             new Date(
@@ -3190,7 +4509,9 @@ function formatDate(value) {
 }
 
 
-function formatArabicDate(value) {
+function formatArabicDate(
+    value
+) {
 
     if (!value) {
         return "";
@@ -3202,9 +4523,14 @@ function formatArabicDate(value) {
         return new Intl.DateTimeFormat(
             "ar-DZ",
             {
-                year: "numeric",
-                month: "long",
-                day: "numeric"
+                year:
+                    "numeric",
+
+                month:
+                    "long",
+
+                day:
+                    "numeric"
             }
         ).format(
             new Date(
@@ -3247,8 +4573,11 @@ function showMessage(
 
 
     box.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest"
+        behavior:
+            "smooth",
+
+        block:
+            "nearest"
     });
 }
 
@@ -3277,16 +4606,22 @@ function hideMessage() {
 function closeDeleteModal() {
 
     document
-        .getElementById("deleteModal")
-        .classList.remove("show");
+        .getElementById(
+            "deleteModal"
+        )
+        .classList.remove(
+            "show"
+        );
 }
 
 
 /* =========================================================
-   ERROR MESSAGE
+   ERROR
 ========================================================= */
 
-function getErrorMessage(error) {
+function getErrorMessage(
+    error
+) {
 
     if (!error) {
         return "خطأ غير معروف.";
@@ -3294,8 +4629,10 @@ function getErrorMessage(error) {
 
 
     if (
-        typeof error === "string"
+        typeof error ===
+        "string"
     ) {
+
         return error;
     }
 
@@ -3314,9 +4651,13 @@ function getErrorMessage(error) {
    ESCAPE HTML
 ========================================================= */
 
-function escapeHtml(value) {
+function escapeHtml(
+    value
+) {
 
-    return String(value ?? "")
+    return String(
+        value ?? ""
+    )
         .replace(
             /&/g,
             "&amp;"
@@ -3344,9 +4685,13 @@ function escapeHtml(value) {
    ESCAPE JS
 ========================================================= */
 
-function escapeJs(value) {
+function escapeJs(
+    value
+) {
 
-    return String(value ?? "")
+    return String(
+        value ?? ""
+    )
         .replace(
             /\\/g,
             "\\\\"
@@ -3373,8 +4718,10 @@ function escapeJs(value) {
 window.openCertificate =
     openCertificate;
 
+
 window.reissueCertificate =
     reissueCertificate;
+
 
 window.confirmDeleteCertificate =
     confirmDeleteCertificate;
